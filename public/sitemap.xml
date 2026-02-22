@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+  <!--
+    COMPLETE SITEMAP WITH REAL ROUTES (NO HASH FRAGMENTS)
+
+    Updated: 2026-01-19
+    All pages are now indexable with proper URL paths
+  -->
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.anatolymook.de/</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.anatolymook.de/bildschirmfoto_2025-12-10_um_20.44.33.png</image:loc>
+      <image:title>Anatoly Mook - Mentor für Klarheit, bewusste Führung und persönliche Meisterschaft</image:title>
+    </image:image>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://www.anatolymook.de/about</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Seminare -->
+  <url>
+    <loc>https://www.anatolymook.de/seminare</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Coaching -->
+  <url>
+    <loc>https://www.anatolymook.de/coaching</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Keynotes -->
+  <url>
+    <loc>https://www.anatolymook.de/keynotes</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Events -->
+  <url>
+    <loc>https://www.anatolymook.de/events</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Corporate -->
+  <url>
+    <loc>https://www.anatolymook.de/corporate</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Transformation -->
+  <url>
+    <loc>https://www.anatolymook.de/transformation</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://www.anatolymook.de/blog</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Produkte / Shop -->
+  <url>
+    <loc>https://www.anatolymook.de/produkte</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Resources -->
+  <url>
+    <loc>https://www.anatolymook.de/resources</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- FAQ -->
+  <url>
+    <loc>https://www.anatolymook.de/faq</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- Kontakt -->
+  <url>
+    <loc>https://www.anatolymook.de/kontakt</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Booking -->
+  <url>
+    <loc>https://www.anatolymook.de/booking</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Quiz -->
+  <url>
+    <loc>https://www.anatolymook.de/quiz</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Impressum -->
+  <url>
+    <loc>https://www.anatolymook.de/impressum</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
+  </url>
+
+  <!-- Datenschutz -->
+  <url>
+    <loc>https://www.anatolymook.de/datenschutz</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
+  </url>
+
+</urlset>

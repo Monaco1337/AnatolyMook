@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultra High-Quality Sun Favicon Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      background: white;
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #1a202c;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #718096;
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+
+    .preview {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 40px;
+      background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+      border-radius: 16px;
+    }
+
+    #previewImage {
+      max-width: 256px;
+      height: auto;
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 18px 32px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .progress {
+      margin-top: 24px;
+      padding: 24px;
+      background: #f7fafc;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .progress.active {
+      display: block;
+    }
+
+    .progress-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .progress-item:last-child {
+      border-bottom: none;
+    }
+
+    .progress-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .progress-icon.pending {
+      color: #cbd5e0;
+    }
+
+    .progress-icon.success {
+      color: #48bb78;
+    }
+
+    .progress-text {
+      flex: 1;
+      font-size: 14px;
+      color: #4a5568;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .icon-item {
+      text-align: center;
+      padding: 16px;
+      background: #f7fafc;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    .icon-item:hover {
+      background: #edf2f7;
+      transform: translateY(-2px);
+    }
+
+    .icon-item img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 8px;
+      border-radius: 8px;
+    }
+
+    .icon-label {
+      font-size: 12px;
+      color: #718096;
+      font-weight: 600;
+    }
+
+    canvas {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>☀️ Ultra High-Quality Sun Favicon Generator</h1>
+    <p class="subtitle">Erstellt pixel-perfekte Favicons in allen benötigten Größen</p>
+
+    <div class="preview">
+      <img id="previewImage" src="favicon.svg" alt="Sun Preview">
+    </div>
+
+    <button class="btn" id="generateBtn" onclick="generateAllFavicons()">
+      ✨ Alle Favicons in Top-Qualität generieren
+    </button>
+
+    <div class="progress" id="progressContainer">
+      <div id="progressItems"></div>
+    </div>
+
+    <div class="grid" id="generatedIcons"></div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const sizes = [
+      { name: 'favicon-16x16.png', size: 16, type: 'standard' },
+      { name: 'favicon-32x32.png', size: 32, type: 'standard' },
+      { name: 'favicon-48x48.png', size: 48, type: 'standard' },
+      { name: 'favicon-64x64.png', size: 64, type: 'standard' },
+      { name: 'apple-touch-icon-57x57.png', size: 57, type: 'apple' },
+      { name: 'apple-touch-icon-60x60.png', size: 60, type: 'apple' },
+      { name: 'apple-touch-icon-72x72.png', size: 72, type: 'apple' },
+      { name: 'apple-touch-icon-76x76.png', size: 76, type: 'apple' },
+      { name: 'apple-touch-icon-114x114.png', size: 114, type: 'apple' },
+      { name: 'apple-touch-icon-120x120.png', size: 120, type: 'apple' },
+      { name: 'apple-touch-icon-144x144.png', size: 144, type: 'apple' },
+      { name: 'apple-touch-icon-152x152.png', size: 152, type: 'apple' },
+      { name: 'apple-touch-icon-180x180.png', size: 180, type: 'apple' },
+      { name: 'android-chrome-192x192.png', size: 192, type: 'android' },
+      { name: 'android-chrome-512x512.png', size: 512, type: 'android' },
+      { name: 'mstile-150x150.png', size: 150, type: 'microsoft' },
+      { name: 'favicon-180x180.png', size: 180, type: 'standard' },
+      { name: 'favicon-512x512.png', size: 512, type: 'standard' }
+    ];
+
+    async function generateAllFavicons() {
+      const btn = document.getElementById('generateBtn');
+      const progressContainer = document.getElementById('progressContainer');
+      const progressItems = document.getElementById('progressItems');
+      const generatedIcons = document.getElementById('generatedIcons');
+
+      btn.disabled = true;
+      btn.textContent = '⚡ Generiere Favicons...';
+      progressContainer.classList.add('active');
+      progressItems.innerHTML = '';
+      generatedIcons.innerHTML = '';
+
+      for (const config of sizes) {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'progress-item';
+        itemDiv.id = `progress-${config.size}`;
+        itemDiv.innerHTML = `
+          <svg class="progress-icon pending" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+          </svg>
+          <span class="progress-text">Erstelle ${config.name} (${config.size}x${config.size}px)</span>
+        `;
+        progressItems.appendChild(itemDiv);
+
+        await generateFavicon(config);
+
+        itemDiv.querySelector('.progress-icon').innerHTML = `
+          <svg class="progress-icon success" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+        `;
+
+        const iconItem = document.createElement('div');
+        iconItem.className = 'icon-item';
+        iconItem.innerHTML = `
+          <img src="${URL.createObjectURL(await fetch(config.name).then(r => r.blob()))}" alt="${config.name}">
+          <div class="icon-label">${config.size}×${config.size}</div>
+        `;
+        generatedIcons.appendChild(iconItem);
+      }
+
+      btn.disabled = false;
+      btn.textContent = '✅ Fertig! Alle Favicons generiert';
+
+      setTimeout(() => {
+        btn.textContent = '✨ Alle Favicons in Top-Qualität generieren';
+      }, 3000);
+    }
+
+    async function generateFavicon(config) {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d', {
+        alpha: true,
+        desynchronized: false,
+        willReadFrequently: false
+      });
+
+      const scale = 4;
+      const renderSize = config.size * scale;
+      canvas.width = renderSize;
+      canvas.height = renderSize;
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+
+      const img = new Image();
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = 'favicon.svg';
+      });
+
+      ctx.drawImage(img, 0, 0, renderSize, renderSize);
+
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = config.size;
+      tempCanvas.height = config.size;
+      const tempCtx = tempCanvas.getContext('2d', {
+        alpha: true,
+        desynchronized: false
+      });
+
+      tempCtx.imageSmoothingEnabled = true;
+      tempCtx.imageSmoothingQuality = 'high';
+      tempCtx.drawImage(canvas, 0, 0, renderSize, renderSize, 0, 0, config.size, config.size);
+
+      const blob = await new Promise(resolve => {
+        tempCanvas.toBlob(resolve, 'image/png', 1.0);
+      });
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = config.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      await new Promise(resolve => setTimeout(resolve, 150));
+    }
+  </script>
+</body>
+</html>

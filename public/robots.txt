@@ -1,0 +1,141 @@
+# robots.txt für anatolymook.de
+# Optimiert für Google, Bing, AI-Crawler (ChatGPT, Perplexity, Claude)
+# Last Updated: 2026-01-22
+# NOTE: Pre-rendered routes with crawlable navigation
+
+# === GLOBAL RULES ===
+User-agent: *
+Allow: /
+Crawl-delay: 0.5
+
+# === SITEMAP (PRIMARY) ===
+Sitemap: https://www.anatolymook.de/sitemap.xml
+
+# === PRIORITY PAGES (Full Access) ===
+# Main URL - All content is dynamically loaded here
+Allow: /$
+Allow: /index.html
+
+# Static assets
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.woff$
+Allow: /*.woff2$
+Allow: /*.ttf$
+
+# === ADMIN & PRIVATE AREAS (Block) ===
+Disallow: /#admin
+Disallow: /admin
+Disallow: /_admin
+Disallow: /api/admin
+Disallow: /.env
+Disallow: /.git
+Disallow: /node_modules
+Disallow: /dist
+
+# === GOOGLE BOT (Optimized) ===
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.svg$
+Allow: /*.webp$
+
+User-agent: Googlebot-Video
+Allow: /
+
+# === BING BOT (Optimized) ===
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: BingPreview
+Allow: /
+
+# === AI SEARCH BOTS (ChatGPT, Perplexity, Claude) ===
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Claude-Web
+Allow: /
+Crawl-delay: 1
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# === SOCIAL MEDIA BOTS ===
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# === OTHER SEARCH ENGINES ===
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+# === BAD BOTS & SCRAPERS (Block) ===
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: archive.org_bot
+Disallow: /
+
+User-agent: HTTrack
+Disallow: /
+
+User-agent: WebCopier
+Disallow: /
+
+User-agent: Offline Explorer
+Disallow: /
+
+# === HOST (Canonical Domain) ===
+Host: https://www.anatolymook.de

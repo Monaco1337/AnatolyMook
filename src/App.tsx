@@ -87,50 +87,63 @@ function AppContent() {
   useEffect(() => {
     checkAuth();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setIsAdminAuthenticated(!!session);
-      if (!session && currentSection === 'admin') {
-        setShowAdminLogin(true);
-        navigate('/');
-      }
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
+    try {
+      const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+        setIsAdminAuthenticated(!!session);
+        if (!session && currentSection === 'admin') {
+          setShowAdminLogin(true);
+          navigate('/');
+        }
+      });
+      return () => {
+        authListener.subscription.unsubscribe();
+      };
+    } catch {
+      return () => {};
+    }
   }, []);
 
   useEffect(() => {
     const checkRoute = async () => {
       const path = location.pathname;
-
       if (path === '/admin') {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-          setIsAdminAuthenticated(true);
-          setShowAdminLogin(false);
-        } else {
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+            setIsAdminAuthenticated(true);
+            setShowAdminLogin(false);
+          } else {
+            setShowAdminLogin(true);
+          }
+        } catch {
           setShowAdminLogin(true);
         }
       } else {
         setShowAdminLogin(false);
       }
     };
-
     checkRoute();
   }, [location]);
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    setIsAdminAuthenticated(!!session);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAdminAuthenticated(!!session);
+    } catch {
+      setIsAdminAuthenticated(false);
+    }
   };
 
   const handleAdminLogin = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
-      setIsAdminAuthenticated(true);
-      setShowAdminLogin(false);
-      navigate('/admin');
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setIsAdminAuthenticated(true);
+        setShowAdminLogin(false);
+        navigate('/admin');
+      }
+    } catch {
+      // Supabase nicht konfiguriert oder Fehler – Login überspringen
     }
   };
 

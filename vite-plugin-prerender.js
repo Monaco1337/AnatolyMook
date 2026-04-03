@@ -1,139 +1,75 @@
 import fs from 'fs';
 import path from 'path';
-import { createClient } from '@supabase/supabase-js';
 
-const routes = [
-  { path: '/', name: 'Home' },
-  { path: '/about', name: 'About' },
-  { path: '/seminare', name: 'Seminare' },
-  { path: '/coaching', name: 'Coaching' },
-  { path: '/keynotes', name: 'Keynotes' },
-  { path: '/events', name: 'Events' },
-  { path: '/corporate', name: 'Corporate' },
-  { path: '/transformation', name: 'Transformation' },
-  { path: '/blog', name: 'Blog' },
-  { path: '/produkte', name: 'Produkte' },
-  { path: '/resources', name: 'Resources' },
-  { path: '/faq', name: 'FAQ' },
-  { path: '/kontakt', name: 'Kontakt' },
-  { path: '/booking', name: 'Booking' },
-  { path: '/quiz', name: 'Quiz' },
-  { path: '/impressum', name: 'Impressum' },
-  { path: '/datenschutz', name: 'Datenschutz' }
+const BASE_URL = 'https://www.anatoly-mook.de';
+
+const mainRoutes = [
+  { path: '/', title: 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft', description: 'Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.' },
+  { path: '/about', title: 'Über Anatoly Mook – Methode & Philosophie', description: 'Erfahren Sie mehr über Anatoly Mooks Ansatz, seine Methode und die Philosophie hinter Klarheit und bewusster Führung.' },
+  { path: '/seminare', title: 'Seminare & Workshops – Anatoly Mook', description: 'Intensive Seminare und Workshops für Bewusstseinsentwicklung, persönliche Meisterschaft und bewusste Führung.' },
+  { path: '/coaching', title: '1:1 Coaching & Mentoring – Anatoly Mook', description: 'Individuelles Coaching und Mentoring für Klarheit, Entscheidungsstärke und nachhaltige Transformation.' },
+  { path: '/keynotes', title: 'Keynote-Vorträge – Anatoly Mook', description: 'Inspirierende Keynote-Vorträge zu Klarheit, Bewusstsein und persönlicher Meisterschaft für Ihr Event.' },
+  { path: '/events', title: 'Events & Veranstaltungen – Anatoly Mook', description: 'Aktuelle Events, Veranstaltungen und Termine von Anatoly Mook.' },
+  { path: '/corporate', title: 'Corporate-Programme – Anatoly Mook', description: 'Führungskräfteentwicklung und Organisationstransformation durch bewusste Führung für Unternehmen.' },
+  { path: '/transformation', title: 'Transformation – Anatoly Mook', description: 'Der Weg zur persönlichen Transformation: Bewusstseinsentwicklung und nachhaltige Veränderung.' },
+  { path: '/blog', title: 'Blog – Insights & Perspektiven von Anatoly Mook', description: 'Artikel, Insights und Perspektiven zu Bewusstsein, Führung und persönlicher Meisterschaft.' },
+  { path: '/produkte', title: 'Shop – Digitale Produkte & Kurse', description: 'Digitale Produkte, Online-Kurse und Materialien für persönliche Meisterschaft und bewusste Führung.' },
+  { path: '/resources', title: 'Ressourcen & Downloads – Anatoly Mook', description: 'Kostenlose Ressourcen, Guides und Downloads für Ihre persönliche Entwicklung.' },
+  { path: '/faq', title: 'Häufige Fragen (FAQ) – Anatoly Mook', description: 'Antworten auf häufig gestellte Fragen zu Coaching, Seminaren, Corporate-Programmen und Buchung.' },
+  { path: '/kontakt', title: 'Kontakt – Anatoly Mook', description: 'Nehmen Sie Kontakt mit Anatoly Mook auf. Anfragen zu Coaching, Seminaren und Keynotes.' },
+  { path: '/booking', title: 'Termin buchen – Anatoly Mook', description: 'Buchen Sie Ihren Termin für Coaching, Seminare oder ein Erstgespräch mit Anatoly Mook.' },
+  { path: '/quiz', title: 'Bewusstseins-Quiz – Anatoly Mook', description: 'Testen Sie Ihr Bewusstseinsniveau mit dem interaktiven Quiz von Anatoly Mook.' },
+  { path: '/impressum', title: 'Impressum – Anatoly Mook', description: 'Impressum und rechtliche Informationen zur Website www.anatoly-mook.de.' },
+  { path: '/datenschutz', title: 'Datenschutz – Anatoly Mook', description: 'Datenschutzerklärung und Informationen zum Umgang mit personenbezogenen Daten.' },
 ];
 
-let supabase = null;
+const enRoutes = mainRoutes
+  .filter(r => !['/impressum', '/datenschutz', '/quiz', '/'].includes(r.path))
+  .map(r => ({
+    path: `/en${r.path}`,
+    title: r.title.replace('Anatoly Mook –', 'Anatoly Mook –'),
+    description: r.description,
+  }));
 
-async function getSEOMetaTags(pagePath) {
-  if (!supabase) return null;
+const ruRoutes = mainRoutes
+  .filter(r => !['/impressum', '/datenschutz', '/quiz', '/'].includes(r.path))
+  .map(r => ({
+    path: `/ru${r.path}`,
+    title: r.title,
+    description: r.description,
+  }));
 
-  try {
-    const { data, error } = await supabase
-      .from('seo_meta_tags')
-      .select('*')
-      .eq('page_path', pagePath)
-      .eq('language', 'de')
-      .eq('is_active', true)
-      .maybeSingle();
-
-    if (error) {
-      console.warn(`No SEO data for ${pagePath}:`, error.message);
-      return null;
-    }
-
-    return data;
-  } catch (err) {
-    console.warn(`Error loading SEO data for ${pagePath}:`, err.message);
-    return null;
-  }
-}
-
-async function getSchemaMarkup(pagePath) {
-  if (!supabase) return null;
-
-  try {
-    const { data, error } = await supabase
-      .from('seo_schema_markup')
-      .select('schema_json')
-      .eq('page_path', pagePath)
-      .eq('is_active', true);
-
-    if (error || !data || data.length === 0) {
-      return null;
-    }
-
-    return data;
-  } catch (err) {
-    console.warn(`Error loading schema for ${pagePath}:`, err.message);
-    return null;
-  }
-}
-
-function generateSEOMetaTags(seoData, route) {
-  if (!seoData) return '';
-
-  const baseUrl = 'https://www.anatolymook.de';
-  const fullUrl = `${baseUrl}${route.path === '/' ? '' : route.path}`;
-  const ogImage = seoData.og_image || `${baseUrl}/anatoly-mok-hero.png`;
+function generateMetaTags(route) {
+  const fullUrl = `${BASE_URL}${route.path === '/' ? '' : route.path}`;
+  const ogImage = `${BASE_URL}/bildschirmfoto_2025-12-10_um_20.44.33.png`;
+  const cleanPath = route.path.replace(/^\/(en|ru)/, '') || '/';
+  const pagePath = cleanPath === '/' ? '' : cleanPath;
 
   return `
-    <!-- SEO Meta Tags (Database-Driven) -->
-    <title>${seoData.title}</title>
-    <meta name="title" content="${seoData.title}" />
-    <meta name="description" content="${seoData.description}" />
-    ${seoData.keywords && seoData.keywords.length > 0 ? `<meta name="keywords" content="${seoData.keywords.join(', ')}" />` : ''}
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <title>${route.title}</title>
+    <meta name="title" content="${route.title}" />
+    <meta name="description" content="${route.description}" />
+    <link rel="canonical" href="${fullUrl}" />
+    <meta property="og:title" content="${route.title}" />
+    <meta property="og:description" content="${route.description}" />
     <meta property="og:url" content="${fullUrl}" />
-    <meta property="og:title" content="${seoData.og_title || seoData.title}" />
-    <meta property="og:description" content="${seoData.og_description || seoData.description}" />
+    <meta property="og:type" content="website" />
     <meta property="og:image" content="${ogImage}" />
-    <meta property="og:image:secure_url" content="${ogImage}" />
     <meta property="og:site_name" content="Anatoly Mook" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="${seoData.twitter_card || 'summary_large_image'}" />
-    <meta name="twitter:url" content="${fullUrl}" />
-    <meta name="twitter:title" content="${seoData.og_title || seoData.title}" />
-    <meta name="twitter:description" content="${seoData.og_description || seoData.description}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${route.title}" />
+    <meta name="twitter:description" content="${route.description}" />
     <meta name="twitter:image" content="${ogImage}" />
-
-    <!-- Canonical -->
-    <link rel="canonical" href="${seoData.canonical_url || fullUrl}" />
-  `;
+    <meta name="twitter:site" content="@anatolymux" />
+    <link rel="alternate" hreflang="x-default" href="${BASE_URL}${pagePath}" />
+    <link rel="alternate" hreflang="de" href="${BASE_URL}${pagePath}" />
+    <link rel="alternate" hreflang="en" href="${BASE_URL}/en${pagePath}" />
+    <link rel="alternate" hreflang="ru" href="${BASE_URL}/ru${pagePath}" />`;
 }
 
-function generateSchemaMarkup(schemas) {
-  if (!schemas || schemas.length === 0) return '';
-
-  const schemaScripts = schemas.map(s => `
-    <script type="application/ld+json">
-    ${JSON.stringify(s.schema_json, null, 2)}
-    </script>
-  `).join('\n');
-
-  return `
-    <!-- Schema.org Structured Data (Database-Driven) -->
-    ${schemaScripts}
-  `;
-}
-
-
-export default function prerenderPlugin(env = {}) {
-  const supabaseUrl = env.VITE_SUPABASE_URL;
-  const supabaseKey = env.VITE_SUPABASE_ANON_KEY;
-
-  if (supabaseUrl && supabaseKey) {
-    supabase = createClient(supabaseUrl, supabaseKey);
-    console.log('✅ Supabase client initialized for SEO pre-rendering');
-  } else {
-    console.warn('⚠️  Supabase credentials missing - SEO data will not be loaded');
-  }
-
+export default function prerenderPlugin() {
   return {
-    name: 'vite-plugin-prerender',
-
+    name: 'vite-plugin-prerender-seo',
     closeBundle: async () => {
       const distPath = path.resolve(process.cwd(), 'dist');
       const indexPath = path.join(distPath, 'index.html');
@@ -143,54 +79,29 @@ export default function prerenderPlugin(env = {}) {
         return;
       }
 
-      console.log('🔧 Starting High-End SEO pre-rendering with database integration...\n');
-
+      console.log('\n🔧 SEO pre-rendering started...\n');
       const baseHtml = fs.readFileSync(indexPath, 'utf-8');
+      const allRoutes = [...mainRoutes, ...enRoutes, ...ruRoutes];
+      let count = 0;
 
-      for (const route of routes) {
+      for (const route of allRoutes) {
         const routePath = route.path === '/' ? indexPath : path.join(distPath, route.path, 'index.html');
 
         if (route.path !== '/') {
-          const routeDir = path.join(distPath, route.path);
-          fs.mkdirSync(routeDir, { recursive: true });
+          fs.mkdirSync(path.join(distPath, route.path), { recursive: true });
         }
 
-        let enhancedHtml = baseHtml;
+        let html = baseHtml;
+        const metaTags = generateMetaTags(route);
+        html = html.replace(/<title>.*?<\/title>/s, metaTags);
+        html = html.replace(/https:\/\/(www\.)?anatolymook\.de/g, BASE_URL).replace(/https:\/\/anatolymook\.com/g, BASE_URL);
 
-        try {
-          const seoData = await getSEOMetaTags(route.path);
-          const schemaData = await getSchemaMarkup(route.path);
-
-          if (seoData) {
-            const seoMetaTags = generateSEOMetaTags(seoData, route);
-            enhancedHtml = enhancedHtml.replace(
-              /<title>.*?<\/title>/s,
-              seoMetaTags
-            );
-
-            console.log(`✅ SEO: ${route.path} (${seoData.title})`);
-          } else {
-            console.log(`⚠️  No SEO data: ${route.path}`);
-          }
-
-          if (schemaData && schemaData.length > 0) {
-            const schemaMarkup = generateSchemaMarkup(schemaData);
-            enhancedHtml = enhancedHtml.replace('</head>', `${schemaMarkup}</head>`);
-            console.log(`   📋 Schema: ${schemaData.length} type(s)`);
-          }
-
-        } catch (error) {
-          console.error(`❌ Error processing ${route.path}:`, error.message);
-        }
-
-        enhancedHtml = enhancedHtml.replace(/https:\/\/anatolymook\.de/g, 'https://www.anatolymook.de');
-
-        fs.writeFileSync(routePath, enhancedHtml, 'utf-8');
+        fs.writeFileSync(routePath, html, 'utf-8');
+        count++;
       }
 
-      console.log(`\n🎉 High-End SEO pre-rendering complete!`);
-      console.log(`📊 Generated ${routes.length} routes with database-driven SEO`);
-      console.log(`🔗 All URLs updated to www.anatolymook.de\n`);
+      console.log(`✅ Pre-rendered ${count} routes with full SEO meta tags`);
+      console.log(`📊 Main: ${mainRoutes.length} | EN: ${enRoutes.length} | RU: ${ruRoutes.length}\n`);
     }
   };
 }

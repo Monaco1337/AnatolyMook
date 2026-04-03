@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
 import { getSectionSEO } from '../utils/seoConfig';
+import { graphSchema } from '../seo/schemaFactory';
 
 interface SEOHeadProps {
   title?: string;
@@ -33,28 +34,18 @@ interface SchemaMarkup {
   schema_json: Record<string, unknown>;
 }
 
-const GEO_COUNTRIES = [
-  { lang: 'de', country: 'DE', url: '' },
-  { lang: 'de', country: 'AT', url: '/at' },
-  { lang: 'de', country: 'CH', url: '/ch' },
-  { lang: 'en', country: 'US', url: '/en/us' },
-  { lang: 'en', country: 'GB', url: '/en/uk' },
-  { lang: 'en', country: 'CA', url: '/en/ca' },
-  { lang: 'en', country: 'AU', url: '/en/au' },
-  { lang: 'en', country: 'SG', url: '/en/sg' },
-  { lang: 'en', country: 'IN', url: '/en/in' },
-  { lang: 'en', country: 'ZA', url: '/en/za' },
-  { lang: 'ru', country: 'RU', url: '/ru' },
-  { lang: 'nl', country: 'NL', url: '/nl' },
-  { lang: 'fr', country: 'FR', url: '/fr' },
-  { lang: 'es', country: 'ES', url: '/es' },
-  { lang: 'it', country: 'IT', url: '/it' },
-  { lang: 'pl', country: 'PL', url: '/pl' },
-  { lang: 'cs', country: 'CZ', url: '/cs' },
-  { lang: 'sk', country: 'SK', url: '/sk' },
-  { lang: 'hu', country: 'HU', url: '/hu' },
-  { lang: 'pt', country: 'BR', url: '/pt/br' },
-  { lang: 'ar', country: 'AE', url: '/ar/ae' },
+const HREFLANG_MAP = [
+  { hreflang: 'de', prefix: '' },
+  { hreflang: 'de-DE', prefix: '' },
+  { hreflang: 'de-AT', prefix: '' },
+  { hreflang: 'de-CH', prefix: '' },
+  { hreflang: 'en', prefix: '/en' },
+  { hreflang: 'en-US', prefix: '/en' },
+  { hreflang: 'en-GB', prefix: '/en' },
+  { hreflang: 'en-CA', prefix: '/en' },
+  { hreflang: 'en-AU', prefix: '/en' },
+  { hreflang: 'ru', prefix: '/ru' },
+  { hreflang: 'ru-RU', prefix: '/ru' },
 ];
 
 export default function SEOHead({
@@ -69,14 +60,14 @@ export default function SEOHead({
   const [seoData, setSeoData] = useState<SEOMetaData | null>(null);
   const [schemaData, setSchemaData] = useState<SchemaMarkup[]>([]);
 
-  const baseUrl = 'https://anatolymook.de';
+  const baseUrl = 'https://www.anatoly-mook.de';
   const sectionSEO = getSectionSEO(section);
 
   const fullTitle = title || seoData?.title || sectionSEO.title || t('meta.defaultTitle') || 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft';
   const fullDescription = description || seoData?.description || sectionSEO.description || t('meta.defaultDescription') || 'Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.';
-  const canonicalUrl = baseUrl;
+  const canonicalUrl = `${baseUrl}${path && path !== '/' ? path : ''}`;
   const finalSchemaType = schemaType || sectionSEO.schemaType || 'WebPage';
-  const ogImage = seoData?.og_image || sectionSEO.ogImage || 'https://anatolymook.de/bildschirmfoto_2025-12-10_um_20.44.33.png';
+  const ogImage = seoData?.og_image || sectionSEO.ogImage || 'https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png';
 
   useEffect(() => {
     const loadSEOData = async () => {
@@ -89,9 +80,7 @@ export default function SEOHead({
           .eq('is_active', true)
           .maybeSingle();
 
-        if (metaData) {
-          setSeoData(metaData);
-        }
+        if (metaData) setSeoData(metaData);
 
         const { data: schemas } = await supabase
           .from('seo_schema_markup')
@@ -100,11 +89,9 @@ export default function SEOHead({
           .eq('language', language)
           .eq('is_active', true);
 
-        if (schemas) {
-          setSchemaData(schemas);
-        }
-      } catch (error) {
-        console.error('SEO data loading error:', error);
+        if (schemas) setSchemaData(schemas);
+      } catch {
+        // Supabase not configured - static SEO only
       }
     };
 
@@ -117,26 +104,19 @@ export default function SEOHead({
     const setOrUpdateMeta = (name: string, content: string, isProperty = false) => {
       const attribute = isProperty ? 'property' : 'name';
       let meta = document.querySelector(`meta[${attribute}="${name}"]`) as HTMLMetaElement;
-
       if (!meta) {
         meta = document.createElement('meta');
         meta.setAttribute(attribute, name);
         document.head.appendChild(meta);
       }
-
       meta.content = content;
     };
 
     setOrUpdateMeta('description', fullDescription);
+    setOrUpdateMeta('robots', seoData?.robots || 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
 
     const keywords = seoData?.keywords || sectionSEO.keywords || [];
-    if (keywords.length > 0) {
-      setOrUpdateMeta('keywords', keywords.join(', '));
-    }
-
-    if (seoData?.robots) {
-      setOrUpdateMeta('robots', seoData.robots);
-    }
+    if (keywords.length > 0) setOrUpdateMeta('keywords', keywords.join(', '));
 
     setOrUpdateMeta('og:title', seoData?.og_title || fullTitle, true);
     setOrUpdateMeta('og:description', seoData?.og_description || fullDescription, true);
@@ -153,21 +133,7 @@ export default function SEOHead({
       setOrUpdateMeta('og:image:alt', fullTitle, true);
     }
 
-    const localeMap: Record<string, string> = {
-      'de': 'de_DE',
-      'en': 'en_US',
-      'ru': 'ru_RU',
-      'nl': 'nl_NL',
-      'fr': 'fr_FR',
-      'es': 'es_ES',
-      'it': 'it_IT',
-      'pl': 'pl_PL',
-      'cs': 'cs_CZ',
-      'sk': 'sk_SK',
-      'hu': 'hu_HU',
-      'pt': 'pt_BR',
-      'ar': 'ar_AE'
-    };
+    const localeMap: Record<string, string> = { de: 'de_DE', en: 'en_US', ru: 'ru_RU' };
     setOrUpdateMeta('og:locale', localeMap[language] || 'de_DE', true);
 
     setOrUpdateMeta('twitter:card', 'summary_large_image');
@@ -180,6 +146,8 @@ export default function SEOHead({
       setOrUpdateMeta('twitter:image:alt', fullTitle);
     }
 
+    setOrUpdateMeta('author', 'Anatoly Mook');
+
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
     if (!canonical) {
       canonical = document.createElement('link');
@@ -191,17 +159,20 @@ export default function SEOHead({
     const existingHreflang = document.querySelectorAll('link[rel="alternate"][hreflang]:not([data-static])');
     existingHreflang.forEach(link => link.remove());
 
+    const cleanPath = path?.replace(/^\/(en|ru)/, '') || '';
+    const pagePath = cleanPath && cleanPath !== '/' ? cleanPath : '';
+
     const xDefault = document.createElement('link');
     xDefault.rel = 'alternate';
     xDefault.hreflang = 'x-default';
-    xDefault.href = `${baseUrl}${path}`;
+    xDefault.href = `${baseUrl}${pagePath}`;
     document.head.appendChild(xDefault);
 
-    GEO_COUNTRIES.forEach(geo => {
+    HREFLANG_MAP.forEach(entry => {
       const hreflang = document.createElement('link');
       hreflang.rel = 'alternate';
-      hreflang.hreflang = geo.country ? `${geo.lang}-${geo.country}` : geo.lang;
-      hreflang.href = `${baseUrl}${geo.url}${path}`;
+      hreflang.hreflang = entry.hreflang;
+      hreflang.href = `${baseUrl}${entry.prefix}${pagePath}`;
       document.head.appendChild(hreflang);
     });
 
@@ -226,40 +197,30 @@ export default function SEOHead({
       document.head.appendChild(schemaScript);
     });
 
-    const defaultSchema: Record<string, unknown> = {
-      "@context": "https://schema.org",
-      "@type": finalSchemaType,
-      "@id": `${canonicalUrl}#${finalSchemaType.toLowerCase()}`,
-      "url": canonicalUrl,
-      "name": fullTitle,
-      "description": fullDescription,
-      "inLanguage": localeMap[language] || 'de-DE',
-      "isPartOf": {
-        "@id": `${baseUrl}/#website`
+    if (!customSchema) {
+      const entityGraph = graphSchema();
+      const pageSchema: Record<string, unknown> = {
+        '@type': finalSchemaType,
+        '@id': `${canonicalUrl}#${finalSchemaType.toLowerCase()}`,
+        url: canonicalUrl,
+        name: fullTitle,
+        description: fullDescription,
+        inLanguage: localeMap[language] || 'de-DE',
+        isPartOf: { '@id': `${baseUrl}/#website` },
+        about: { '@id': `${baseUrl}/#person` },
+        speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.hero-content', '.definition-block', 'h1', 'h2'] },
+      };
+      if (ogImage) {
+        pageSchema.image = { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 };
       }
-    };
+      entityGraph['@graph'].push(pageSchema);
 
-    if (ogImage) {
-      defaultSchema.image = {
-        "@type": "ImageObject",
-        "url": ogImage,
-        "width": 1200,
-        "height": 630
-      };
+      const entityScript = document.createElement('script');
+      entityScript.type = 'application/ld+json';
+      entityScript.setAttribute('data-dynamic', 'true');
+      entityScript.textContent = JSON.stringify(entityGraph);
+      document.head.appendChild(entityScript);
     }
-
-    if (seoData?.ai_optimization?.speakable_content && seoData.ai_optimization.speakable_content.length > 0) {
-      defaultSchema['speakable'] = {
-        "@type": "SpeakableSpecification",
-        "cssSelector": [".hero-content", ".definition-block", "h1", "h2"]
-      };
-    }
-
-    const defaultSchemaScript = document.createElement('script');
-    defaultSchemaScript.type = 'application/ld+json';
-    defaultSchemaScript.setAttribute('data-dynamic', 'true');
-    defaultSchemaScript.textContent = JSON.stringify(defaultSchema);
-    document.head.appendChild(defaultSchemaScript);
 
   }, [fullTitle, fullDescription, canonicalUrl, language, path, seoData, schemaData, finalSchemaType, customSchema, ogImage, section, sectionSEO]);
 

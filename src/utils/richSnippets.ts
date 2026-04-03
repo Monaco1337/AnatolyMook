@@ -93,7 +93,7 @@ export const testimonialSchema = (testimonial: {
   '@type': 'Review',
   itemReviewed: {
     '@type': 'Service',
-    name: 'Spiritual Awakening Coaching',
+    name: 'Coaching & Mentoring für Klarheit und bewusste Führung',
     provider: {
       '@type': 'Person',
       name: 'Anatoly Mook'
@@ -199,20 +199,24 @@ export const collectionPageSchema = (collection: {
 export const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'Anatoly Mook - Spiritual Awakening & Consciousness Coaching',
-  image: 'https://anatolymook.com/og-image.jpg',
-  '@id': 'https://anatolymook.com',
-  url: 'https://anatolymook.com',
-  telephone: '+49-xxx-xxxxxx',
+  name: 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft',
+  image: 'https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png',
+  '@id': 'https://www.anatoly-mook.de',
+  url: 'https://www.anatoly-mook.de',
+  telephone: '+49-2303-3340628',
   priceRange: '€€€',
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Ackerstraße 56',
+    addressLocality: 'Unna',
+    postalCode: '59423',
+    addressRegion: 'Nordrhein-Westfalen',
     addressCountry: 'DE'
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 51.1657,
-    longitude: 10.4515
+    latitude: 51.5347,
+    longitude: 7.6889
   },
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
@@ -223,34 +227,44 @@ export const professionalServiceSchema = {
   sameAs: [
     'https://www.instagram.com/anatolymux',
     'https://www.youtube.com/@anatolymux',
-    'https://www.linkedin.com/in/anatolymook'
+    'https://www.linkedin.com/in/anatolymook',
+    'https://twitter.com/anatolymux',
+    'https://www.facebook.com/anatolymux'
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Spiritual Services',
+    name: 'Coaching, Seminare & Mentoring',
     itemListElement: [
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Individual Consciousness Coaching',
-          description: 'One-on-one guidance for spiritual awakening'
+          name: '1:1 Coaching & Mentoring',
+          description: 'Individuelle Begleitung für Klarheit, Entscheidungsstärke und persönliche Meisterschaft'
         }
       },
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Awakening Seminars',
-          description: 'Intensive group seminars for consciousness transformation'
+          name: 'Seminare & Workshops',
+          description: 'Intensive Gruppenformate für Bewusstseinsentwicklung und bewusste Führung'
         }
       },
       {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
-          name: 'Corporate Consciousness Programs',
-          description: 'Leadership development through awareness'
+          name: 'Corporate-Programme',
+          description: 'Führungskräfteentwicklung und Organisationstransformation durch bewusste Führung'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Keynote-Vorträge',
+          description: 'Inspirierende Impulsvorträge zu Klarheit, Bewusstsein und persönlicher Meisterschaft'
         }
       }
     ]

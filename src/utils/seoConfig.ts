@@ -11,7 +11,7 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
     title: 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft',
     description: 'Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen – klar, präzise, wirksam.',
     keywords: ['Anatoly Mook', 'Bewusstsein', 'Klarheit', 'bewusste Führung', 'persönliche Meisterschaft', 'Transformation', 'Coaching', 'Seminare', 'Mentoring'],
-    ogImage: 'https://anatolymook.de/bildschirmfoto_2025-12-10_um_20.44.33.png',
+    ogImage: 'https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png',
     schemaType: 'WebPage'
   },
   about: {
@@ -100,13 +100,13 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
   },
   impressum: {
     title: 'Impressum – Rechtliche Informationen von Anatoly Mook',
-    description: 'Impressum und rechtliche Informationen zur Website anatolymook.de gemäß TMG.',
+    description: 'Impressum und rechtliche Informationen zur Website www.anatoly-mook.de gemäß TMG.',
     keywords: ['Impressum', 'Rechtliches', 'Anbieterkennzeichnung', 'TMG'],
     schemaType: 'WebPage'
   },
   datenschutz: {
     title: 'Datenschutzerklärung – Datenschutz bei Anatoly Mook',
-    description: 'Datenschutzerklärung und Informationen zum Umgang mit personenbezogenen Daten auf anatolymook.de gemäß DSGVO.',
+    description: 'Datenschutzerklärung und Informationen zum Umgang mit personenbezogenen Daten auf www.anatoly-mook.de gemäß DSGVO.',
     keywords: ['Datenschutz', 'DSGVO', 'Privacy Policy', 'Datenschutzerklärung'],
     schemaType: 'WebPage'
   },

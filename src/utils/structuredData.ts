@@ -4,7 +4,7 @@ export function generateBreadcrumbSchema(section: string) {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://anatolymook.de"
+      "item": "https://www.anatoly-mook.de"
     }
   ];
 
@@ -30,7 +30,7 @@ export function generateBreadcrumbSchema(section: string) {
       "@type": "ListItem",
       "position": 2,
       "name": sectionMap[section],
-      "item": `https://anatolymook.de/#${section}`
+      "item": `https://www.anatoly-mook.de/${section}`
     });
   }
 
@@ -45,23 +45,23 @@ export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "https://anatolymook.de/#organization",
+    "@id": "https://www.anatoly-mook.de/#organization",
     "name": "Anatoly Mook",
-    "url": "https://anatolymook.de",
+    "url": "https://www.anatoly-mook.de",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://anatolymook.de/favicon-512x512.png",
+      "url": "https://www.anatoly-mook.de/favicon-512x512.png",
       "width": 512,
       "height": 512
     },
     "image": {
       "@type": "ImageObject",
-      "url": "https://anatolymook.de/bildschirmfoto_2025-12-10_um_20.44.33.png",
+      "url": "https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png",
       "width": 1200,
       "height": 630
     },
     "founder": {
-      "@id": "https://anatolymook.de/#person"
+      "@id": "https://www.anatoly-mook.de/#person"
     },
     "description": "Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.",
     "sameAs": [
@@ -81,13 +81,13 @@ export function generatePersonSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": "https://anatolymook.de/#person",
+    "@id": "https://www.anatoly-mook.de/#person",
     "name": "Anatoly Mook",
     "alternateName": "Anatolij Mook",
-    "url": "https://anatolymook.de",
+    "url": "https://www.anatoly-mook.de",
     "image": {
       "@type": "ImageObject",
-      "url": "https://anatolymook.de/bildschirmfoto_2025-12-10_um_20.44.33.png",
+      "url": "https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png",
       "caption": "Anatoly Mook – Mentor für Klarheit, bewusste Führung und persönliche Meisterschaft"
     },
     "sameAs": [
@@ -139,12 +139,12 @@ export function generateServiceSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": "https://anatolymook.de/#service",
+    "@id": "https://www.anatoly-mook.de/#service",
     "name": "Anatoly Mook Coaching & Mentoring",
-    "url": "https://anatolymook.de",
+    "url": "https://www.anatoly-mook.de",
     "description": "Coaching, Mentoring und Seminare für Bewusstseinsentwicklung, persönliche Meisterschaft und bewusste Führung",
     "provider": {
-      "@id": "https://anatolymook.de/#person"
+      "@id": "https://www.anatoly-mook.de/#person"
     },
     "serviceType": [
       "Executive Coaching",
@@ -177,19 +177,19 @@ export function generateWebsiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://anatolymook.de/#website",
-    "url": "https://anatolymook.de",
+    "@id": "https://www.anatoly-mook.de/#website",
+    "url": "https://www.anatoly-mook.de",
     "name": "Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft",
     "description": "Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.",
     "publisher": {
-      "@id": "https://anatolymook.de/#organization"
+      "@id": "https://www.anatoly-mook.de/#organization"
     },
     "inLanguage": ["de-DE", "en-US", "ru-RU"],
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://anatolymook.de/?s={search_term_string}"
+        "urlTemplate": "https://www.anatoly-mook.de/search?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -223,18 +223,18 @@ export function generateArticleSchema(article: {
     "@type": "Article",
     "headline": article.title,
     "description": article.description,
-    "image": article.image || "https://anatolymook.de/bildschirmfoto_2025-12-10_um_20.44.33.png",
+    "image": article.image || "https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png",
     "datePublished": article.datePublished,
     "dateModified": article.dateModified || article.datePublished,
     "author": {
-      "@id": "https://anatolymook.de/#person"
+      "@id": "https://www.anatoly-mook.de/#person"
     },
     "publisher": {
-      "@id": "https://anatolymook.de/#organization"
+      "@id": "https://www.anatoly-mook.de/#organization"
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://anatolymook.de"
+      "@id": "https://www.anatoly-mook.de"
     }
   };
 }
@@ -250,7 +250,7 @@ export function generateCourseSchema(course: {
     "name": course.name,
     "description": course.description,
     "provider": {
-      "@id": "https://anatolymook.de/#organization"
+      "@id": "https://www.anatoly-mook.de/#organization"
     }
   };
 }
@@ -276,10 +276,10 @@ export function generateEventSchema(event: {
       "name": event.location
     } : undefined,
     "organizer": {
-      "@id": "https://anatolymook.de/#organization"
+      "@id": "https://www.anatoly-mook.de/#organization"
     },
     "performer": {
-      "@id": "https://anatolymook.de/#person"
+      "@id": "https://www.anatoly-mook.de/#person"
     }
   };
 }

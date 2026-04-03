@@ -32,7 +32,7 @@ const routes = [
 
 export function generateMassiveInternalLinks(currentPath: string = '/'): InternalLink[] {
   const links: InternalLink[] = [];
-  const baseUrl = 'https://anatolymook.de';
+  const baseUrl = 'https://www.anatoly-mook.de';
 
   routes.forEach(route => {
     if (route.path === currentPath) return;
@@ -136,7 +136,7 @@ export function generateMassiveInternalLinks(currentPath: string = '/'): Interna
 }
 
 export function generateNavigationLinks(): LinkGroup {
-  const baseUrl = 'https://anatolymook.de';
+  const baseUrl = 'https://www.anatoly-mook.de';
   const links: InternalLink[] = [];
 
   routes.forEach(route => {
@@ -166,7 +166,7 @@ export function generateNavigationLinks(): LinkGroup {
 }
 
 export function generateFooterLinks(): LinkGroup[] {
-  const baseUrl = 'https://anatolymook.de';
+  const baseUrl = 'https://www.anatoly-mook.de';
 
   return [
     {
@@ -273,7 +273,7 @@ export function generateFooterLinks(): LinkGroup[] {
 }
 
 export function generateBreadcrumbs(currentPath: string): InternalLink[] {
-  const baseUrl = 'https://anatolymook.de';
+  const baseUrl = 'https://www.anatoly-mook.de';
   const breadcrumbs: InternalLink[] = [
     { url: baseUrl, text: 'Home', title: 'Zur Startseite' },
     { url: baseUrl, text: 'Startseite', title: 'Zurück zur Hauptseite' },
@@ -299,7 +299,7 @@ export function generateBreadcrumbs(currentPath: string): InternalLink[] {
 }
 
 export function generateRelatedLinks(currentPath: string): LinkGroup {
-  const baseUrl = 'https://anatolymook.de';
+  const baseUrl = 'https://www.anatoly-mook.de';
   const relatedMap: Record<string, string[]> = {
     '/': ['/about', '/seminare', '/coaching', '/events', '/blog', '/transformation', '/produkte', '/keynotes', '/corporate', '/resources'],
     '/about': ['/', '/coaching', '/kontakt', '/booking', '/transformation', '/seminare', '/keynotes', '/blog', '/corporate', '/resources'],
@@ -357,7 +357,7 @@ export function generateRelatedLinks(currentPath: string): LinkGroup {
 }
 
 export function generateContextualLinks(): LinkGroup[] {
-  const baseUrl = 'https://anatolymook.de';
+  const baseUrl = 'https://www.anatoly-mook.de';
 
   return [
     {
@@ -439,7 +439,7 @@ export function generateContextualLinks(): LinkGroup[] {
 }
 
 export function generateSitemapLinks(): LinkGroup {
-  const baseUrl = 'https://anatolymook.de';
+  const baseUrl = 'https://www.anatoly-mook.de';
   const links: InternalLink[] = [];
 
   routes.forEach(route => {

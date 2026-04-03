@@ -62,7 +62,7 @@ export const generateSocialMetaTags = (content: {
     ? content.description.substring(0, 152) + '...'
     : content.description;
 
-  const imageAlt = `${content.title} - Anatoly Mook Spiritual Awakening`;
+  const imageAlt = `${content.title} – Anatoly Mook`;
 
   return {
     openGraph: {
@@ -107,7 +107,7 @@ export const socialMediaImages = {
     author?: string;
     date?: string;
   }): string => {
-    const baseUrl = 'https://anatolymook.com/api/og-image';
+    const baseUrl = 'https://www.anatoly-mook.de/api/og-image';
     const queryParams = new URLSearchParams({
       type,
       title: params.title,
@@ -249,9 +249,9 @@ export const viralContentPatterns = {
     },
 
     hashtagStrategy: {
-      primary: ['#spiritualawakening', '#consciousness', '#enlightenment', '#awakening'],
-      secondary: ['#spirituality', '#mindfulness', '#meditation', '#transformation'],
-      branded: ['#anatolymok', '#anatolymux']
+      primary: ['#Klarheit', '#BewussteFührung', '#PersönlicheMeisterschaft', '#Bewusstsein'],
+      secondary: ['#Transformation', '#ExecutiveCoaching', '#Leadership', '#Entscheidungsstärke'],
+      branded: ['#AnatolyMook', '#anatolymux']
     },
 
     contentMix: {

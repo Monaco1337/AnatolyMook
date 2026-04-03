@@ -372,8 +372,8 @@ export default function Contact() {
                 <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-stone-900 mb-2 sm:mb-3">{t.forms.email}</h3>
-              <a href="mailto:info@anatolymook.com" className="text-amber-600 hover:text-amber-700 transition-colors text-sm sm:text-base md:text-lg font-semibold block break-all">
-                info@anatolymook.com
+              <a href="mailto:mail@anatoly-mook.de" className="text-amber-600 hover:text-amber-700 transition-colors text-sm sm:text-base md:text-lg font-semibold block break-all">
+                mail@anatoly-mook.de
               </a>
             </div>
 

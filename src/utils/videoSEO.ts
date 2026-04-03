@@ -28,7 +28,7 @@ export const generateVideoSchema = (video: VideoMetadata) => ({
     name: 'Anatoly Mook',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://anatolymook.com/logo.png'
+      url: 'https://www.anatoly-mook.de/logo.png'
     }
   },
   hasPart: video.chapters?.map(chapter => ({
@@ -123,7 +123,7 @@ export const generateVideoSitemap = (videos: typeof spiritualVideoLibrary) => {
 
   const entries = videos.map(video => `
   <url>
-    <loc>https://anatolymook.com/videos/${video.id}</loc>
+    <loc>https://www.anatoly-mook.de/videos/${video.id}</loc>
     <video:video>
       <video:thumbnail_loc>${video.thumbnailUrl}</video:thumbnail_loc>
       <video:title>${video.title}</video:title>

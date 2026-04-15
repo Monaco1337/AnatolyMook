@@ -4,6 +4,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import { faqEntries } from '../../seo/faqDatabase';
 import { faqPageSchema, breadcrumbSchema } from '../../seo/schemaFactory';
+import InternalLinks from '../../components/InternalLinks';
 import { ChevronRight, HelpCircle, ArrowRight } from 'lucide-react';
 
 export default function FAQDetailPage() {
@@ -81,19 +82,29 @@ export default function FAQDetailPage() {
         </article>
 
         {related.length > 0 && (
-          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20">
+          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <h2 className="text-2xl font-bold mb-6" style={{ color: colors.text.primary }}>
               {lang === 'en' ? 'Related Questions' : lang === 'ru' ? 'Связанные вопросы' : 'Verwandte Fragen'}
             </h2>
             <div className="space-y-3">
               {related.map(r => (
-                <Link key={r.slug} to={`/faq/${r.slug}`} className="block p-5 rounded-xl border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.primary }}>
+                <Link key={r.slug} to={`/faq/${r.slug}`} className="block p-5 rounded-xl border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.subtle }}>
                   <span className="font-medium" style={{ color: colors.text.primary }}>{r.question[lang]}</span>
                 </Link>
               ))}
             </div>
           </section>
         )}
+
+        <InternalLinks
+          currentSection="faq"
+          currentFaq={slug}
+          maxLinks={8}
+          showCities
+          showTopics
+          showGlossary
+          showTestimonials
+        />
       </div>
     </>
   );

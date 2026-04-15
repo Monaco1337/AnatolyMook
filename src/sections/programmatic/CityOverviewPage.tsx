@@ -84,7 +84,7 @@ export default function CityOverviewPage() {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {serviceList.map(svc => (
-              <Link key={svc.slug} to={`/${svc.slug}/${citySlug}`} className="group p-8 rounded-2xl border transition-all hover:border-amber-500/40 hover:shadow-lg" style={{ borderColor: colors.border.primary, backgroundColor: colors.bg.secondary }}>
+              <Link key={svc.slug} to={`/${svc.slug}/${citySlug}`} className="group p-8 rounded-2xl border transition-all hover:border-amber-500/40 hover:shadow-lg" style={{ borderColor: colors.border.subtle, backgroundColor: colors.bg.secondary }}>
                 <span className="text-3xl mb-4 block">{svc.icon}</span>
                 <h2 className="text-xl font-bold mb-2 group-hover:text-amber-500 transition-colors" style={{ color: colors.text.primary }}>
                   {language === 'en' ? svc.en : language === 'ru' ? svc.ru : svc.de}
@@ -97,22 +97,15 @@ export default function CityOverviewPage() {
           </div>
         </section>
 
-        <InternalLinks currentSection="home" maxLinks={6} />
-
-        {nearCities.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20">
-            <h2 className="text-2xl font-bold mb-6" style={{ color: colors.text.primary }}>
-              {language === 'en' ? 'Nearby cities' : language === 'ru' ? 'Города рядом' : 'Weitere Städte'}
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {nearCities.map(c => (
-                <Link key={c.slug} to={`/${c.slug}`} className="p-4 rounded-xl border text-center hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.primary, color: colors.text.secondary }}>
-                  {c.city}
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        <InternalLinks
+          currentSection="home"
+          currentCity={citySlug}
+          maxLinks={10}
+          showTestimonials
+          showFaqs
+          showTopics
+          showGlossary
+        />
       </div>
     </>
   );

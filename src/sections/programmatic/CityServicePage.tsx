@@ -100,7 +100,7 @@ export default function CityServicePage({ service }: Props) {
           <h2 className="text-2xl md:text-3xl font-bold mb-8" style={{ color: colors.text.primary }}>{t.services}</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {t.serviceList.map((svc, i) => (
-              <div key={i} className="p-6 rounded-2xl border transition-all hover:border-amber-500/40" style={{ borderColor: colors.border.primary, backgroundColor: colors.bg.secondary }}>
+              <div key={i} className="p-6 rounded-2xl border transition-all hover:border-amber-500/40" style={{ borderColor: colors.border.subtle, backgroundColor: colors.bg.secondary }}>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 rounded-full bg-amber-500" />
                   <span className="font-medium" style={{ color: colors.text.primary }}>{svc}</span>
@@ -137,30 +137,23 @@ export default function CityServicePage({ service }: Props) {
           </h2>
           <div className="flex flex-wrap gap-3">
             {serviceRoutes.map(svc => (
-              <Link key={svc} to={`/${svc}/${citySlug}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border transition-all hover:border-amber-500/40 capitalize" style={{ borderColor: colors.border.primary, color: colors.text.secondary }}>
+              <Link key={svc} to={`/${svc}/${citySlug}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border transition-all hover:border-amber-500/40 capitalize" style={{ borderColor: colors.border.subtle, color: colors.text.secondary }}>
                 {svc} <ArrowRight className="w-3 h-3" />
               </Link>
             ))}
           </div>
         </section>
 
-        <InternalLinks currentSection={service} maxLinks={6} />
-
-        {relatedCities.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20">
-            <h2 className="text-2xl font-bold mb-6" style={{ color: colors.text.primary }}>
-              {language === 'en' ? `${service} in other cities` : language === 'ru' ? `${service} в других городах` : `${service} in weiteren Städten`}
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-              {relatedCities.map(c => (
-                <Link key={c.slug} to={`/${service}/${c.slug}`} className="p-4 rounded-xl border text-center transition-all hover:border-amber-500/40" style={{ borderColor: colors.border.primary, color: colors.text.secondary }}>
-                  <MapPin className="w-4 h-4 mx-auto mb-2 text-amber-500/60" />
-                  <span className="text-sm font-medium">{c.city}</span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        <InternalLinks
+          currentSection={service}
+          currentCity={citySlug}
+          currentService={service}
+          maxLinks={10}
+          showTestimonials
+          showFaqs
+          showTopics
+          showGlossary
+        />
       </div>
     </>
   );

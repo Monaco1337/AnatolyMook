@@ -1,6 +1,10 @@
+import { Link } from 'react-router-dom';
 import { Mail, Linkedin, Instagram, Youtube, ArrowUp, Sparkles, Phone } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
+import { europeanCities } from '../utils/localSEO';
+import { topicClusters } from '../seo/topicClusters';
+import { glossaryEntries } from '../seo/glossaryData';
 
 interface FooterProps {
   onNavigate?: (section: string) => void;
@@ -304,6 +308,91 @@ export default function Footer({ onNavigate }: FooterProps) {
                 ))}
               </ul>
             </div>
+          </div>
+
+          {/* Mega Footer Sitemap for SEO */}
+          <div className="mb-16 pt-8">
+            <div className="w-full h-px mb-10" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(250,204,21,0.12) 50%, transparent 100%)' }} />
+
+            <details className="group">
+              <summary className="text-white/40 text-[11px] font-[680] tracking-[0.15em] uppercase cursor-pointer hover:text-white/60 transition-colors mb-6 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/40" />
+                Standorte &amp; Angebote
+                <span className="text-[10px] font-normal text-white/20 ml-2">({europeanCities.length} Städte)</span>
+              </summary>
+              <div className="space-y-6">
+                <div>
+                  <p className="text-white/30 text-[10px] font-[600] tracking-[0.12em] uppercase mb-3">Coaching in Ihrer Stadt</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {europeanCities.slice(0, 60).map(c => (
+                      <Link key={`c-${c.slug}`} to={`/coaching/${c.slug}`} className="text-white/20 hover:text-yellow-400/80 text-[11px] transition-colors">
+                        {c.city}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-white/30 text-[10px] font-[600] tracking-[0.12em] uppercase mb-3">Seminare in Ihrer Stadt</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {europeanCities.slice(0, 40).map(c => (
+                      <Link key={`s-${c.slug}`} to={`/seminare/${c.slug}`} className="text-white/20 hover:text-yellow-400/80 text-[11px] transition-colors">
+                        {c.city}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-white/30 text-[10px] font-[600] tracking-[0.12em] uppercase mb-3">Keynotes in Ihrer Stadt</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {europeanCities.slice(0, 30).map(c => (
+                      <Link key={`k-${c.slug}`} to={`/keynotes/${c.slug}`} className="text-white/20 hover:text-yellow-400/80 text-[11px] transition-colors">
+                        {c.city}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-white/30 text-[10px] font-[600] tracking-[0.12em] uppercase mb-3">Corporate-Programme</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {europeanCities.slice(0, 30).map(c => (
+                      <Link key={`co-${c.slug}`} to={`/corporate/${c.slug}`} className="text-white/20 hover:text-yellow-400/80 text-[11px] transition-colors">
+                        {c.city}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details className="group mt-6">
+              <summary className="text-white/40 text-[11px] font-[680] tracking-[0.15em] uppercase cursor-pointer hover:text-white/60 transition-colors mb-6 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-yellow-400/40" />
+                Themen &amp; Glossar
+                <span className="text-[10px] font-normal text-white/20 ml-2">({topicClusters.length + glossaryEntries.length} Einträge)</span>
+              </summary>
+              <div className="space-y-6">
+                <div>
+                  <p className="text-white/30 text-[10px] font-[600] tracking-[0.12em] uppercase mb-3">Themen</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {topicClusters.map(t => (
+                      <Link key={t.slug} to={`/thema/${t.slug}`} className="text-white/20 hover:text-yellow-400/80 text-[11px] transition-colors">
+                        {t.title.de}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-white/30 text-[10px] font-[600] tracking-[0.12em] uppercase mb-3">Glossar</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {glossaryEntries.map(g => (
+                      <Link key={g.slug} to={`/glossar/${g.slug}`} className="text-white/20 hover:text-yellow-400/80 text-[11px] transition-colors">
+                        {g.term.de}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </details>
           </div>
 
           <div className="relative pt-16 pb-8">

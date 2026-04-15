@@ -4,6 +4,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import { testimonials } from '../../seo/testimonialData';
 import { reviewSchema, breadcrumbSchema } from '../../seo/schemaFactory';
+import InternalLinks from '../../components/InternalLinks';
 import { ChevronRight, Star, ArrowRight } from 'lucide-react';
 
 export default function CaseStudyPage() {
@@ -85,13 +86,13 @@ export default function CaseStudyPage() {
         </article>
 
         {others.length > 0 && (
-          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20">
+          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <h2 className="text-2xl font-bold mb-6" style={{ color: colors.text.primary }}>
               {lang === 'en' ? 'More Success Stories' : lang === 'ru' ? 'Больше историй' : 'Weitere Erfolgsgeschichten'}
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
               {others.map(o => (
-                <Link key={o.slug} to={`/erfolgsgeschichte/${o.slug}`} className="p-6 rounded-xl border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.primary }}>
+                <Link key={o.slug} to={`/erfolgsgeschichte/${o.slug}`} className="p-6 rounded-xl border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.subtle }}>
                   <p className="font-semibold mb-1" style={{ color: colors.text.primary }}>{o.name}</p>
                   <p className="text-sm" style={{ color: colors.text.tertiary }}>{o.role}</p>
                 </Link>
@@ -99,6 +100,16 @@ export default function CaseStudyPage() {
             </div>
           </section>
         )}
+
+        <InternalLinks
+          currentSection="about"
+          maxLinks={8}
+          showCities
+          showTopics
+          showGlossary
+          showFaqs
+          showTestimonials={false}
+        />
       </div>
     </>
   );

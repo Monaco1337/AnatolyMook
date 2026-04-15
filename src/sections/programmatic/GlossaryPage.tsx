@@ -4,6 +4,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import { glossaryEntries } from '../../seo/glossaryData';
 import { definedTermSchema, breadcrumbSchema } from '../../seo/schemaFactory';
+import InternalLinks from '../../components/InternalLinks';
 import { ChevronRight, BookOpen } from 'lucide-react';
 
 export default function GlossaryPage() {
@@ -82,19 +83,29 @@ export default function GlossaryPage() {
         </article>
 
         {related.length > 0 && (
-          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20">
+          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <h2 className="text-2xl font-bold mb-6" style={{ color: colors.text.primary }}>
               {lang === 'en' ? 'Related Terms' : lang === 'ru' ? 'Связанные термины' : 'Verwandte Begriffe'}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {related.map(r => (
-                <Link key={r.slug} to={`/glossar/${r.slug}`} className="p-4 rounded-xl border hover:border-amber-500/40 transition-all text-center" style={{ borderColor: colors.border.primary }}>
+                <Link key={r.slug} to={`/glossar/${r.slug}`} className="p-4 rounded-xl border hover:border-amber-500/40 transition-all text-center" style={{ borderColor: colors.border.subtle }}>
                   <span className="font-medium text-sm" style={{ color: colors.text.primary }}>{r.term[lang]}</span>
                 </Link>
               ))}
             </div>
           </section>
         )}
+
+        <InternalLinks
+          currentSection="resources"
+          currentGlossary={termSlug}
+          maxLinks={8}
+          showCities
+          showTopics
+          showFaqs
+          showTestimonials
+        />
       </div>
     </>
   );

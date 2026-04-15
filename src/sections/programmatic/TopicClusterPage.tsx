@@ -4,6 +4,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import { topicClusters } from '../../seo/topicClusters';
 import { webPageSchema, breadcrumbSchema } from '../../seo/schemaFactory';
+import InternalLinks from '../../components/InternalLinks';
 import { ChevronRight, ArrowRight, BookOpen } from 'lucide-react';
 
 export default function TopicClusterPage() {
@@ -70,7 +71,7 @@ export default function TopicClusterPage() {
           </div>
 
           {topic.relatedServices.length > 0 && (
-            <div className="mt-12 p-8 rounded-2xl border" style={{ borderColor: colors.border.primary, backgroundColor: colors.bg.secondary }}>
+            <div className="mt-12 p-8 rounded-2xl border" style={{ borderColor: colors.border.subtle, backgroundColor: colors.bg.secondary }}>
               <h2 className="text-xl font-bold mb-4" style={{ color: colors.text.primary }}>
                 {lang === 'en' ? 'Related Services' : lang === 'ru' ? 'Связанные услуги' : 'Passende Angebote'}
               </h2>
@@ -79,7 +80,7 @@ export default function TopicClusterPage() {
                   const info = serviceLinks[svc];
                   if (!info) return null;
                   return (
-                    <Link key={svc} to={info.path} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.primary, color: colors.text.secondary }}>
+                    <Link key={svc} to={info.path} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.subtle, color: colors.text.secondary }}>
                       {lang === 'en' ? info.en : info.de} <ArrowRight className="w-3 h-3" />
                     </Link>
                   );
@@ -90,13 +91,13 @@ export default function TopicClusterPage() {
         </article>
 
         {related.length > 0 && (
-          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20">
+          <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <h2 className="text-2xl font-bold mb-6" style={{ color: colors.text.primary }}>
               {lang === 'en' ? 'Related Topics' : lang === 'ru' ? 'Связанные темы' : 'Verwandte Themen'}
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {related.map(r => (
-                <Link key={r.slug} to={`/thema/${r.slug}`} className="p-6 rounded-xl border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.primary }}>
+                <Link key={r.slug} to={`/thema/${r.slug}`} className="p-6 rounded-xl border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.subtle }}>
                   <h3 className="font-semibold mb-2" style={{ color: colors.text.primary }}>{r.title[lang]}</h3>
                   <span className="text-sm text-amber-500">{lang === 'en' ? 'Read more' : lang === 'ru' ? 'Подробнее' : 'Mehr erfahren'}</span>
                 </Link>
@@ -104,6 +105,16 @@ export default function TopicClusterPage() {
             </div>
           </section>
         )}
+
+        <InternalLinks
+          currentSection="blog"
+          currentTopic={topicSlug}
+          maxLinks={8}
+          showCities
+          showGlossary
+          showFaqs
+          showTestimonials
+        />
       </div>
     </>
   );

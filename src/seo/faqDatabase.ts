@@ -520,6 +520,366 @@ export const faqEntries: FAQEntry[] = [
     relatedServices: ["seminare", "resources"],
     relatedFaqs: ["welche-seminare-gibt-es", "vorbereitung-auf-seminar"]
   },
+  {
+    slug: "wie-misst-man-coaching-erfolg",
+    question: { de: "Wie wird Coaching-Erfolg gemessen?", en: "How do you measure coaching success?", ru: "Как измеряется успех коучинга?" },
+    answer: {
+      de: "Der Erfolg wird auf mehreren Ebenen gemessen. Zu Beginn definieren wir gemeinsam klare Ziele und Erfolgsindikatoren. Regelmäßige Selbsteinschätzungen und Reflexionsgespräche machen Fortschritte sichtbar. Im Corporate-Kontext setzen wir zusätzlich 360-Grad-Feedbacks und Leistungskennzahlen ein. Neben messbaren Veränderungen in Verhalten und Ergebnissen achten wir auch auf subjektive Indikatoren wie innere Klarheit, Entscheidungssicherheit und Lebensqualität. Die meisten Klienten berichten bereits nach drei bis vier Sitzungen von deutlich spürbaren Veränderungen.",
+      en: "Success is measured on multiple levels. At the outset, we jointly define clear goals and success indicators. Regular self-assessments and reflection conversations make progress visible. In the corporate context, we additionally use 360-degree feedback and performance metrics. Beyond measurable changes in behavior and results, we also pay attention to subjective indicators such as inner clarity, decision confidence, and quality of life. Most clients report noticeable changes after just three to four sessions.",
+      ru: "Успех измеряется на нескольких уровнях. В начале мы совместно определяем ясные цели и индикаторы успеха. Регулярные самооценки и рефлексивные беседы делают прогресс видимым. В корпоративном контексте дополнительно используются 360-градусная обратная связь и показатели эффективности. Помимо измеримых изменений в поведении мы отслеживаем субъективные индикаторы: внутреннюю ясность, уверенность в решениях и качество жизни. Большинство клиентов отмечают заметные изменения уже после трёх-четырёх сессий."
+    },
+    category: "ergebnisse",
+    relatedServices: ["coaching", "corporate"],
+    relatedFaqs: ["welche-ergebnisse-kann-ich-erwarten", "messbarer-coaching-erfolg"]
+  },
+  {
+    slug: "qualifikationen-anatoly-mook",
+    question: { de: "Welche Qualifikationen hat Anatoly Mook?", en: "What qualifications does Anatoly Mook have?", ru: "Какими квалификациями обладает Анатолий Мук?" },
+    answer: {
+      de: "Anatoly Mook verfügt über umfassende Ausbildungen in Coaching, Bewusstseinsarbeit und Organisationsentwicklung. Seine Expertise basiert auf jahrelanger praktischer Erfahrung in der Begleitung von Führungskräften und Unternehmern. Er bildet sich kontinuierlich weiter und integriert Erkenntnisse aus Psychologie, Neurowissenschaft und Führungsforschung in seine Arbeit. Darüber hinaus bringt er eigene unternehmerische Erfahrung mit, die seine Coaching-Arbeit besonders praxisnah und relevant macht.",
+      en: "Anatoly Mook holds comprehensive certifications in coaching, consciousness work, and organizational development. His expertise is based on years of practical experience guiding executives and entrepreneurs. He continuously furthers his education and integrates insights from psychology, neuroscience, and leadership research into his work. Additionally, he brings his own entrepreneurial experience, which makes his coaching work particularly practical and relevant.",
+      ru: "Анатолий Мук обладает обширными сертификациями в коучинге, работе с сознанием и организационном развитии. Его экспертиза основана на многолетнем практическом опыте сопровождения руководителей и предпринимателей. Он постоянно повышает квалификацию и интегрирует в работу знания из психологии, нейронауки и исследований лидерства. Кроме того, он привносит собственный предпринимательский опыт, что делает его коучинг особенно практичным и актуальным."
+    },
+    category: "allgemein",
+    relatedServices: ["coaching"],
+    relatedFaqs: ["wer-ist-anatoly-mook", "was-unterscheidet-anatoly-mook"]
+  },
+  {
+    slug: "coaching-und-therapie",
+    question: { de: "Kann Coaching mit Therapie kombiniert werden?", en: "Can coaching be combined with therapy?", ru: "Можно ли сочетать коучинг с терапией?" },
+    answer: {
+      de: "Ja, Coaching und Therapie können sich hervorragend ergänzen. Coaching fokussiert auf Entwicklung, Ziele und Zukunftsgestaltung, während Therapie tieferliegende psychische Themen behandelt. Anatoly Mook arbeitet bei Bedarf in Abstimmung mit Therapeuten seiner Klienten. Wichtig: Coaching ersetzt keine Therapie bei akuten psychischen Erkrankungen. Im Erstgespräch klären wir gemeinsam, ob Coaching das richtige Format für Ihre Situation ist, und empfehlen gegebenenfalls ergänzende professionelle Unterstützung.",
+      en: "Yes, coaching and therapy can complement each other excellently. Coaching focuses on development, goals, and shaping the future, while therapy addresses deeper psychological issues. Anatoly Mook works in coordination with his clients therapists when needed. Important: Coaching does not replace therapy for acute mental health conditions. In the initial consultation, we jointly determine whether coaching is the right format for your situation and recommend additional professional support if appropriate.",
+      ru: "Да, коучинг и терапия могут отлично дополнять друг друга. Коучинг фокусируется на развитии, целях и формировании будущего, тогда как терапия работает с глубинными психологическими темами. Анатолий Мук при необходимости координируется с терапевтами клиентов. Важно: коучинг не заменяет терапию при острых психических расстройствах. На первичной консультации мы определяем, подходит ли коучинг для вашей ситуации, и при необходимости рекомендуем дополнительную поддержку."
+    },
+    category: "coaching",
+    relatedServices: ["coaching"],
+    relatedFaqs: ["wie-funktioniert-coaching", "fuer-wen-ist-das-angebot"]
+  },
+  {
+    slug: "gruppencoaching-verfuegbar",
+    question: { de: "Gibt es Gruppencoaching-Angebote?", en: "Is there group coaching available?", ru: "Доступен ли групповой коучинг?" },
+    answer: {
+      de: "Ja, neben dem Einzelcoaching bietet Anatoly Mook auch Gruppencoaching-Formate an. In kleinen Gruppen von vier bis acht Teilnehmern entsteht eine besondere Dynamik des gemeinsamen Lernens. Teilnehmer profitieren von verschiedenen Perspektiven und der Erfahrung, dass andere ähnliche Herausforderungen bewältigen. Gruppencoaching eignet sich besonders für Führungskräfte, die von Peer-Learning und gegenseitiger Inspiration profitieren möchten. Die Gruppen werden thematisch oder nach Entwicklungsstufe zusammengestellt.",
+      en: "Yes, alongside individual coaching, Anatoly Mook also offers group coaching formats. In small groups of four to eight participants, a special dynamic of shared learning emerges. Participants benefit from different perspectives and the experience that others face similar challenges. Group coaching is particularly suitable for leaders who want to benefit from peer learning and mutual inspiration. Groups are assembled by theme or development stage.",
+      ru: "Да, наряду с индивидуальным коучингом Анатолий Мук предлагает форматы группового коучинга. В малых группах из четырёх-восьми участников возникает особая динамика совместного обучения. Участники выигрывают от различных перспектив и осознания, что другие сталкиваются с похожими вызовами. Групповой коучинг особенно подходит для руководителей, желающих учиться у коллег. Группы формируются по темам или уровню развития."
+    },
+    category: "coaching",
+    relatedServices: ["coaching", "seminare"],
+    relatedFaqs: ["wie-funktioniert-coaching", "team-coaching"]
+  },
+  {
+    slug: "retreat-themen",
+    question: { de: "Welche Themen werden auf den Retreats behandelt?", en: "What topics do the retreats cover?", ru: "Какие темы охватывают ретриты?" },
+    answer: {
+      de: "Die Retreats behandeln Themen wie tiefe Selbsterkenntnis, Bewusstseinsentwicklung, Loslassen alter Muster, Klarheit in Lebensfragen und persönliche Neuausrichtung. Jeder Retreat hat einen thematischen Schwerpunkt, ergänzt durch Meditation, Atemarbeit und Reflexionsübungen. Die mehrtägige Intensität ermöglicht Einsichten, die in kürzeren Formaten kaum erreichbar sind. Die Retreats finden an ausgewählten, ruhigen Orten statt, die eine Atmosphäre der Konzentration und inneren Einkehr fördern.",
+      en: "The retreats cover topics such as deep self-knowledge, consciousness development, releasing old patterns, clarity in life questions, and personal realignment. Each retreat has a thematic focus, complemented by meditation, breathwork, and reflection exercises. The multi-day intensity enables insights rarely achievable in shorter formats. Retreats take place at selected, quiet locations that foster an atmosphere of concentration and inner reflection.",
+      ru: "Ретриты охватывают темы глубокого самопознания, развития сознания, отпускания старых паттернов, ясности в жизненных вопросах и личной переориентации. Каждый ретрит имеет тематический фокус, дополняемый медитацией, дыхательными практиками и рефлексивными упражнениями. Многодневная интенсивность позволяет достичь инсайтов, малодоступных в коротких форматах. Ретриты проходят в отобранных тихих местах с атмосферой концентрации."
+    },
+    category: "seminare",
+    relatedServices: ["seminare"],
+    relatedFaqs: ["welche-seminare-gibt-es", "vorbereitung-auf-seminar"]
+  },
+  {
+    slug: "schnell-termin-buchen",
+    question: { de: "Wie schnell kann ich eine Sitzung buchen?", en: "How quickly can I book a session?", ru: "Как быстро можно забронировать сессию?" },
+    answer: {
+      de: "In der Regel ist ein Erstgespräch innerhalb von ein bis zwei Wochen möglich. Bei dringenden Anliegen bemühen wir uns um kurzfristigere Termine. Reguläre Coaching-Sessions werden in einem festen Rhythmus vereinbart, der sich nach Ihren Bedürfnissen richtet. Die Buchung erfolgt bequem über den Online-Kalender auf unserer Website, per E-Mail an mail@anatoly-mook.de oder telefonisch unter 02303 334 0628.",
+      en: "Typically, an initial consultation is possible within one to two weeks. For urgent matters, we endeavor to arrange shorter-notice appointments. Regular coaching sessions are scheduled in a fixed rhythm tailored to your needs. Booking is conveniently done through the online calendar on our website, via email at mail@anatoly-mook.de, or by phone at 02303 334 0628.",
+      ru: "Обычно первичная консультация возможна в течение одной-двух недель. При срочных запросах мы стараемся найти более быстрый вариант. Регулярные коучинг-сессии назначаются в фиксированном ритме, адаптированном под ваши потребности. Бронирование удобно через онлайн-календарь на сайте, по электронной почте mail@anatoly-mook.de или по телефону 02303 334 0628."
+    },
+    category: "praktisch",
+    relatedServices: ["booking", "coaching"],
+    relatedFaqs: ["wie-buche-ich-einen-termin", "wie-funktioniert-erstgespraech"]
+  },
+  {
+    slug: "langzeit-rabatte",
+    question: { de: "Gibt es Rabatte bei langfristiger Zusammenarbeit?", en: "Are there discounts for long-term commitments?", ru: "Есть ли скидки при долгосрочном сотрудничестве?" },
+    answer: {
+      de: "Ja, für längere Begleitprozesse bieten wir attraktive Paketangebote an, die deutlich günstiger sind als Einzelsitzungen. Ein 6-Monats-Paket oder Jahresprogramm beinhaltet in der Regel einen spürbaren Preisvorteil sowie zusätzliche Leistungen wie Zwischenchecks und exklusive Materialien. Die genauen Konditionen werden im Erstgespräch individuell besprochen und auf Ihre Bedürfnisse abgestimmt. Ratenzahlung ist ebenfalls möglich.",
+      en: "Yes, for longer accompaniment processes we offer attractive package deals that are significantly more affordable than individual sessions. A 6-month package or annual program typically includes a noticeable price advantage plus additional services such as interim check-ins and exclusive materials. Exact terms are discussed individually in the initial consultation and tailored to your needs. Installment payments are also available.",
+      ru: "Да, для длительных процессов сопровождения мы предлагаем привлекательные пакетные предложения, значительно выгоднее отдельных сессий. Полугодовой пакет или годовая программа обычно включают заметное ценовое преимущество и дополнительные услуги: промежуточные проверки и эксклюзивные материалы. Точные условия обсуждаются индивидуально на первичной консультации. Рассрочка также доступна."
+    },
+    category: "kosten",
+    relatedServices: ["coaching", "booking"],
+    relatedFaqs: ["was-kostet-coaching", "zahlung-und-rechnung"]
+  },
+  {
+    slug: "bewusstseins-quiz",
+    question: { de: "Was ist der Bewusstseins-Quiz?", en: "What is the Consciousness Quiz?", ru: "Что такое Квиз осознанности?" },
+    answer: {
+      de: "Der Bewusstseins-Quiz ist ein interaktives Online-Tool auf unserer Website, das Ihnen hilft, Ihren aktuellen Stand der Bewusstseinsentwicklung einzuschätzen. In wenigen Minuten erhalten Sie eine erste Orientierung zu Ihren Stärken und Entwicklungsfeldern in Bereichen wie Selbstkenntnis, Entscheidungsstärke und Führungspräsenz. Die Ergebnisse dienen als Gesprächsgrundlage für ein mögliches Erstgespräch und zeigen konkrete Ansatzpunkte für Ihre persönliche Entwicklung.",
+      en: "The Consciousness Quiz is an interactive online tool on our website that helps you assess your current level of consciousness development. In just a few minutes, you receive initial orientation about your strengths and development areas in domains such as self-knowledge, decision-making strength, and leadership presence. The results serve as a conversation basis for a potential initial consultation and reveal concrete starting points for your personal development.",
+      ru: "Квиз осознанности — интерактивный онлайн-инструмент на нашем сайте, помогающий оценить текущий уровень развития сознания. За несколько минут вы получаете первичную ориентацию о ваших сильных сторонах и зонах развития в областях самопознания, силы принятия решений и лидерского присутствия. Результаты служат основой для первичной консультации и показывают конкретные точки входа для личного развития."
+    },
+    category: "praktisch",
+    relatedServices: ["resources", "coaching"],
+    relatedFaqs: ["digitale-ressourcen", "wie-funktioniert-erstgespraech"]
+  },
+  {
+    slug: "kollege-zum-seminar",
+    question: { de: "Kann ich einen Kollegen zum Seminar mitbringen?", en: "Can I bring a colleague to a seminar?", ru: "Могу ли я привести коллегу на семинар?" },
+    answer: {
+      de: "Ja, bei offenen Seminaren und Workshops sind zusätzliche Teilnehmer herzlich willkommen, solange Plätze verfügbar sind. Für Paarbuchungen bieten wir in der Regel einen Preisvorteil an. Wenn Sie mit mehreren Kollegen teilnehmen möchten, kann auch ein maßgeschneidertes Corporate-Format die bessere Wahl sein. Bitte melden Sie zusätzliche Teilnehmer rechtzeitig an, da die Gruppengrößen bewusst klein gehalten werden.",
+      en: "Yes, for open seminars and workshops, additional participants are welcome as long as spots are available. For pair bookings, we typically offer a price advantage. If you would like to attend with several colleagues, a customized corporate format might be the better choice. Please register additional participants in advance, as group sizes are deliberately kept small.",
+      ru: "Да, на открытых семинарах и воркшопах дополнительные участники приветствуются при наличии мест. Для парных бронирований обычно предоставляется ценовое преимущество. Если вы хотите участвовать с несколькими коллегами, индивидуальный корпоративный формат может быть лучшим выбором. Регистрируйте дополнительных участников заблаговременно, так как размеры групп намеренно малые."
+    },
+    category: "seminare",
+    relatedServices: ["seminare", "corporate"],
+    relatedFaqs: ["welche-seminare-gibt-es", "wie-gross-sind-die-gruppen"]
+  },
+  {
+    slug: "corporate-bedarfsanalyse",
+    question: { de: "Wie funktioniert die Corporate-Bedarfsanalyse?", en: "How does the corporate needs analysis work?", ru: "Как проводится корпоративный анализ потребностей?" },
+    answer: {
+      de: "Die Bedarfsanalyse beginnt mit einem ausführlichen Briefing-Gespräch mit den Entscheidungsträgern. Anschließend führen wir bei Bedarf Interviews mit Stakeholdern und Mitarbeitern durch. Auf Basis dieser Erkenntnisse erstellen wir ein maßgeschneidertes Konzept mit klaren Zielen, Meilensteinen und messbaren Erfolgsindikatoren. Der gesamte Analyseprozess ist vertraulich und ergebnisoffen. Erst nach Ihrer Zustimmung zum Konzept beginnt die eigentliche Programmarbeit.",
+      en: "The needs analysis begins with a detailed briefing conversation with decision-makers. We then conduct interviews with stakeholders and employees as needed. Based on these insights, we create a customized concept with clear goals, milestones, and measurable success indicators. The entire analysis process is confidential and open-ended. Only after your approval of the concept does the actual program work begin.",
+      ru: "Анализ потребностей начинается с подробного брифинга с лицами, принимающими решения. Затем при необходимости проводятся интервью с заинтересованными сторонами и сотрудниками. На основе полученных данных создаётся индивидуальная концепция с ясными целями, этапами и измеримыми показателями успеха. Весь процесс анализа конфиденциален. Программная работа начинается только после вашего одобрения концепции."
+    },
+    category: "corporate",
+    relatedServices: ["corporate"],
+    relatedFaqs: ["corporate-programme-details", "corporate-roi"]
+  },
+  {
+    slug: "branchen",
+    question: { de: "Mit welchen Branchen arbeitet Anatoly Mook?", en: "What industries does Anatoly Mook work with?", ru: "С какими отраслями работает Анатолий Мук?" },
+    answer: {
+      de: "Anatoly Mook arbeitet branchenübergreifend mit Führungskräften und Unternehmen aus unterschiedlichsten Bereichen — von Technologie und Finanzwesen über Gesundheitswesen und Industrie bis hin zu Beratung und Bildung. Die Kernthemen bewusste Führung, Klarheit und persönliche Meisterschaft sind universell. Die Methoden werden individuell auf die spezifischen Herausforderungen und Kontexte der jeweiligen Branche angepasst.",
+      en: "Anatoly Mook works across industries with leaders and companies from diverse sectors — from technology and finance to healthcare and manufacturing to consulting and education. The core themes of conscious leadership, clarity, and personal mastery are universal. Methods are individually adapted to the specific challenges and contexts of each industry.",
+      ru: "Анатолий Мук работает межотраслево с руководителями и компаниями из самых разных сфер — от технологий и финансов до здравоохранения и промышленности, от консалтинга до образования. Ключевые темы осознанного лидерства, ясности и личного мастерства универсальны. Методы индивидуально адаптируются под специфику каждой отрасли."
+    },
+    category: "corporate",
+    relatedServices: ["corporate", "coaching"],
+    relatedFaqs: ["corporate-programme-details", "fuer-wen-ist-das-angebot"]
+  },
+  {
+    slug: "alumni-netzwerk",
+    question: { de: "Gibt es ein Netzwerk für ehemalige Teilnehmer?", en: "Is there a network for former participants?", ru: "Есть ли сеть для бывших участников?" },
+    answer: {
+      de: "Ja, Teilnehmer unserer Seminare und Coaching-Programme werden Teil einer wachsenden Gemeinschaft Gleichgesinnter. Es gibt regelmäßige Alumni-Treffen, exklusive Online-Formate und die Möglichkeit zum gegenseitigen Austausch. Dieses Netzwerk bietet wertvolle Kontakte, kontinuierliche Inspiration und die Möglichkeit, Erfahrungen zu teilen. Ehemalige Teilnehmer erhalten zudem Vorzugskonditionen für zukünftige Seminare und Veranstaltungen.",
+      en: "Yes, participants of our seminars and coaching programs become part of a growing community of like-minded individuals. There are regular alumni meetings, exclusive online formats, and opportunities for mutual exchange. This network provides valuable contacts, continuous inspiration, and the chance to share experiences. Former participants also receive preferential terms for future seminars and events.",
+      ru: "Да, участники наших семинаров и коучинг-программ становятся частью растущего сообщества единомышленников. Проводятся регулярные встречи выпускников, эксклюзивные онлайн-форматы и возможности для взаимного обмена. Эта сеть предоставляет ценные контакты, непрерывное вдохновение и возможность делиться опытом. Бывшие участники получают льготные условия на будущие семинары."
+    },
+    category: "seminare",
+    relatedServices: ["seminare", "resources"],
+    relatedFaqs: ["seminar-nachbetreuung", "welche-seminare-gibt-es"]
+  },
+  {
+    slug: "unterschied-seminar-retreat",
+    question: { de: "Was ist der Unterschied zwischen Seminar und Retreat?", en: "What is the difference between a seminar and a retreat?", ru: "В чём разница между семинаром и ретритом?" },
+    answer: {
+      de: "Seminare sind kompakte Lernformate von einem halben bis zwei Tagen mit klarem thematischem Fokus und strukturiertem Programm. Retreats dauern mehrere Tage und bieten mehr Raum für Stille, Reflexion und tiefe persönliche Arbeit. Während Seminare stärker auf Wissensvermittlung und praktische Werkzeuge ausgerichtet sind, ermöglichen Retreats eine intensivere Transformation durch den Rückzug aus dem Alltag und die vollständige Konzentration auf die eigene Entwicklung.",
+      en: "Seminars are compact learning formats lasting half a day to two days with a clear thematic focus and structured program. Retreats last several days and offer more space for silence, reflection, and deep personal work. While seminars are more oriented toward knowledge transfer and practical tools, retreats enable more intensive transformation through withdrawal from daily life and complete focus on personal development.",
+      ru: "Семинары — компактные учебные форматы от полудня до двух дней с чётким тематическим фокусом и структурированной программой. Ретриты длятся несколько дней и предоставляют больше пространства для тишины, рефлексии и глубокой личной работы. Если семинары больше направлены на передачу знаний и практические инструменты, то ретриты обеспечивают более интенсивную трансформацию через уход от повседневности."
+    },
+    category: "seminare",
+    relatedServices: ["seminare"],
+    relatedFaqs: ["welche-seminare-gibt-es", "retreat-themen"]
+  },
+  {
+    slug: "abend-sitzungen",
+    question: { de: "Können Sitzungen auch abends stattfinden?", en: "Can sessions be conducted in the evening?", ru: "Можно ли проводить сессии вечером?" },
+    answer: {
+      de: "Ja, Anatoly Mook bietet flexible Terminoptionen, die sich an Ihren Zeitplan anpassen. Coaching-Sessions sind auch in den Abendstunden möglich, in der Regel bis 20 Uhr. Für Klienten in anderen Zeitzonen werden individuelle Termine vereinbart, die auch außerhalb der üblichen Geschäftszeiten liegen können. Die Flexibilität ist uns wichtig, damit der Coaching-Prozess sich nahtlos in Ihren anspruchsvollen Alltag integriert.",
+      en: "Yes, Anatoly Mook offers flexible scheduling options that adapt to your calendar. Coaching sessions are also possible in the evening hours, typically until 8 PM. For clients in other time zones, individual appointments are arranged that may fall outside usual business hours. Flexibility is important to us so that the coaching process integrates seamlessly into your demanding daily schedule.",
+      ru: "Да, Анатолий Мук предлагает гибкие варианты расписания, адаптированные под ваш график. Коучинг-сессии возможны и в вечерние часы, обычно до 20:00. Для клиентов в других часовых поясах согласовываются индивидуальные встречи, которые могут выходить за рамки обычного рабочего времени. Гибкость для нас важна, чтобы коучинг-процесс органично вписывался в ваш насыщенный день."
+    },
+    category: "praktisch",
+    relatedServices: ["coaching", "booking"],
+    relatedFaqs: ["wie-buche-ich-einen-termin", "online-oder-vor-ort"]
+  },
+  {
+    slug: "zufriedenheitsgarantie",
+    question: { de: "Was passiert, wenn ich nicht zufrieden bin?", en: "What happens if I am not satisfied?", ru: "Что будет, если я не удовлетворён?" },
+    answer: {
+      de: "Ihre Zufriedenheit hat oberste Priorität. Wenn Sie nach den ersten Sessions das Gefühl haben, dass der Ansatz nicht zu Ihnen passt, sprechen wir offen darüber und finden gemeinsam eine Lösung. Bei Seminaren bieten wir eine Zufriedenheitsregelung an. Unser Ziel ist eine vertrauensvolle Zusammenarbeit, in der beide Seiten ehrlich kommunizieren. Das kostenlose Erstgespräch dient auch dazu, vorab zu prüfen, ob Ansatz und Chemie stimmen.",
+      en: "Your satisfaction is our top priority. If after the first sessions you feel the approach does not suit you, we discuss this openly and find a solution together. For seminars, we offer a satisfaction policy. Our goal is a trusting collaboration where both sides communicate honestly. The free initial consultation also serves to check in advance whether the approach and chemistry are right.",
+      ru: "Ваша удовлетворённость — наш главный приоритет. Если после первых сессий вы чувствуете, что подход вам не подходит, мы открыто обсудим это и найдём решение. Для семинаров действует политика удовлетворённости. Наша цель — доверительное сотрудничество с честной коммуникацией. Бесплатная первичная консультация также помогает заранее проверить, подходят ли подход и взаимодействие."
+    },
+    category: "praktisch",
+    relatedServices: ["coaching", "seminare"],
+    relatedFaqs: ["wie-funktioniert-erstgespraech", "stornierung-und-umbuchung"]
+  },
+  {
+    slug: "ressourcen-selbststudium",
+    question: { de: "Gibt es Ressourcen zum Selbststudium?", en: "Are there resources for self-study?", ru: "Есть ли ресурсы для самостоятельного изучения?" },
+    answer: {
+      de: "Ja, auf unserer Ressourcen-Seite finden Sie kostenlose Materialien wie Reflexionstools, Guides zur Bewusstseinsentwicklung und praxisnahe Übungen. Im Shop sind darüber hinaus digitale Kurse und vertiefende Programme erhältlich, die Sie in Ihrem eigenen Tempo durcharbeiten können. Diese Materialien eignen sich hervorragend als Einstieg oder als Ergänzung zu einem Coaching-Prozess und helfen Ihnen, eigenständig an Ihrer Entwicklung zu arbeiten.",
+      en: "Yes, on our resources page you will find free materials such as reflection tools, consciousness development guides, and practical exercises. The shop also offers digital courses and in-depth programs you can work through at your own pace. These materials are excellent as an introduction or supplement to a coaching process and help you work independently on your development.",
+      ru: "Да, на странице ресурсов вы найдёте бесплатные материалы: инструменты рефлексии, руководства по развитию сознания и практические упражнения. В магазине также доступны цифровые курсы и углублённые программы, которые можно проходить в своём темпе. Эти материалы отлично подходят как вступление или дополнение к коучинг-процессу и помогают самостоятельно работать над развитием."
+    },
+    category: "praktisch",
+    relatedServices: ["resources"],
+    relatedFaqs: ["digitale-ressourcen", "bewusstseins-quiz"]
+  },
+  {
+    slug: "online-vs-praesenz-coaching",
+    question: { de: "Wie unterscheidet sich Online-Coaching von Präsenz-Coaching?", en: "How does online coaching differ from in-person?", ru: "Чем отличается онлайн-коучинг от очного?" },
+    answer: {
+      de: "Die inhaltliche Qualität ist in beiden Formaten gleich hoch. Online-Coaching bietet mehr Flexibilität und spart Reisezeit, was besonders für vielbeschäftigte Führungskräfte vorteilhaft ist. Präsenz-Coaching in Unna ermöglicht eine noch intensivere Atmosphäre und kann nonverbale Signale besser einbeziehen. Viele Klienten kombinieren beide Formate — zum Beispiel monatliche Präsenz-Sessions ergänzt durch Online-Termine. Die Wahl hängt von Ihren Präferenzen und Ihrer Situation ab.",
+      en: "The quality of content is equally high in both formats. Online coaching offers more flexibility and saves travel time, which is particularly advantageous for busy executives. In-person coaching in Unna enables an even more intensive atmosphere and can better incorporate nonverbal signals. Many clients combine both formats — for example, monthly in-person sessions supplemented by online appointments. The choice depends on your preferences and situation.",
+      ru: "Содержательное качество одинаково высоко в обоих форматах. Онлайн-коучинг предлагает большую гибкость и экономит время на поездки, что особенно выгодно для занятых руководителей. Очный коучинг в Унне обеспечивает ещё более интенсивную атмосферу и лучше учитывает невербальные сигналы. Многие клиенты сочетают оба формата. Выбор зависит от ваших предпочтений и ситуации."
+    },
+    category: "praktisch",
+    relatedServices: ["coaching"],
+    relatedFaqs: ["online-oder-vor-ort", "wie-funktioniert-coaching"]
+  },
+  {
+    slug: "keynote-vorbereitung",
+    question: { de: "Welche Vorbereitung ist für eine Keynote nötig?", en: "What preparation is needed for a keynote?", ru: "Какая подготовка нужна для ки-ноута?" },
+    answer: {
+      de: "Vor jeder Keynote führt Anatoly Mook ein ausführliches Briefing-Gespräch mit den Veranstaltern. Dabei werden Zielgruppe, Kontext der Veranstaltung, gewünschte Botschaften und technische Anforderungen besprochen. Auf Basis dieses Briefings wird die Keynote individuell angepasst. Als Veranstalter sollten Sie Informationen zu Publikum, Anlass und technischer Ausstattung bereitstellen. Einen Technik-Check empfehlen wir am Vortag oder am Veranstaltungstag selbst.",
+      en: "Before every keynote, Anatoly Mook conducts a detailed briefing conversation with the organizers. This covers the target audience, event context, desired messages, and technical requirements. Based on this briefing, the keynote is individually customized. As an organizer, you should provide information about the audience, occasion, and technical equipment. We recommend a technical check the day before or on the event day itself.",
+      ru: "Перед каждым ки-ноутом Анатолий Мук проводит подробный брифинг с организаторами. Обсуждаются целевая аудитория, контекст мероприятия, желаемые послания и технические требования. На основе брифинга ки-ноут индивидуально адаптируется. Как организатору вам следует предоставить информацию об аудитории, поводе и техническом оснащении. Технический тест рекомендуется за день до мероприятия."
+    },
+    category: "keynotes",
+    relatedServices: ["keynotes", "booking"],
+    relatedFaqs: ["keynote-buchen", "keynote-themen"]
+  },
+  {
+    slug: "keynote-beispiel",
+    question: { de: "Kann ich eine Keynote vorab sehen?", en: "Can I see a sample keynote?", ru: "Можно ли увидеть пример ки-ноута?" },
+    answer: {
+      de: "Ja, auf Anfrage stellen wir ein Showreel mit Ausschnitten vergangener Keynotes zur Verfügung. Auf unserer Website finden Sie zudem kurze Videoausschnitte und Referenzen von bisherigen Veranstaltungen. Für größere Buchungen bieten wir auch ein persönliches Vorgespräch an, in dem Anatoly Mook seinen Stil und Ansatz vorstellt. So können Sie sich vorab ein Bild machen und sicherstellen, dass der Vortrag zu Ihrer Veranstaltung passt.",
+      en: "Yes, upon request we provide a showreel with excerpts from past keynotes. On our website, you will also find short video clips and references from previous events. For larger bookings, we also offer a personal preliminary conversation where Anatoly Mook presents his style and approach. This way, you can get an impression in advance and ensure the presentation fits your event.",
+      ru: "Да, по запросу мы предоставляем шоурил с фрагментами прошлых ки-ноутов. На сайте также доступны короткие видеоклипы и отзывы о прошедших мероприятиях. Для крупных бронирований предлагаем личную предварительную беседу, где Анатолий Мук представляет свой стиль и подход. Так вы сможете заранее составить впечатление и убедиться, что выступление подходит вашему мероприятию."
+    },
+    category: "keynotes",
+    relatedServices: ["keynotes"],
+    relatedFaqs: ["keynote-buchen", "keynote-dauer-und-format"]
+  },
+  {
+    slug: "keynote-publikumsgroesse",
+    question: { de: "Für welche Publikumsgrößen eignen sich die Keynotes?", en: "What size audiences are keynotes suitable for?", ru: "Для какого размера аудитории подходят ки-ноуты?" },
+    answer: {
+      de: "Anatoly Mook spricht vor Publikumsgrößen von 20 bis über 2000 Personen. Für kleinere Gruppen werden interaktivere Formate gewählt, die intensive Teilnahme ermöglichen. Bei größeren Veranstaltungen wird der Vortrag durch visuelle Elemente und digitale Interaktionsmöglichkeiten ergänzt. Unabhängig von der Größe zeichnet sich jede Keynote durch persönliche Ansprache und die Fähigkeit aus, sowohl den einzelnen Zuhörer als auch das gesamte Publikum zu erreichen.",
+      en: "Anatoly Mook speaks to audiences ranging from 20 to over 2000 people. For smaller groups, more interactive formats are chosen that enable intensive participation. For larger events, the presentation is supplemented with visual elements and digital interaction options. Regardless of size, every keynote is characterized by personal address and the ability to reach both individual listeners and the entire audience.",
+      ru: "Анатолий Мук выступает перед аудиторией от 20 до более 2000 человек. Для небольших групп выбираются более интерактивные форматы с интенсивным участием. На крупных мероприятиях доклад дополняется визуальными элементами и цифровыми возможностями взаимодействия. Независимо от размера каждый ки-ноут отличается личным обращением и способностью достигать каждого слушателя."
+    },
+    category: "keynotes",
+    relatedServices: ["keynotes"],
+    relatedFaqs: ["keynote-fuer-konferenzen", "keynote-dauer-und-format"]
+  },
+  {
+    slug: "parkplatz-unna",
+    question: { de: "Gibt es Parkplätze am Standort in Unna?", en: "Is there parking at the Unna location?", ru: "Есть ли парковка у офиса в Унне?" },
+    answer: {
+      de: "Ja, in unmittelbarer Nähe unseres Standorts in der Ackerstraße 56 in Unna stehen ausreichend kostenlose Parkmöglichkeiten zur Verfügung. Für Anreisende mit öffentlichen Verkehrsmitteln ist der Standort gut vom Bahnhof Unna aus erreichbar. Detaillierte Anfahrtsbeschreibungen mit Karte erhalten Sie bei der Terminbestätigung. Bei Seminaren an anderen Standorten informieren wir Sie vorab über die Parksituation vor Ort.",
+      en: "Yes, ample free parking is available in the immediate vicinity of our location at Ackerstraße 56 in Unna. For those arriving by public transportation, the location is easily accessible from Unna train station. Detailed directions with a map are provided with the appointment confirmation. For seminars at other locations, we inform you about the parking situation in advance.",
+      ru: "Да, в непосредственной близости от нашего офиса на Ackerstraße 56 в Унне достаточно бесплатных парковочных мест. Для приезжающих общественным транспортом локация легко доступна от вокзала Унны. Подробное описание маршрута с картой предоставляется при подтверждении встречи. Для семинаров в других местах мы заранее информируем о парковочной ситуации."
+    },
+    category: "praktisch",
+    relatedServices: ["coaching", "seminare"],
+    relatedFaqs: ["online-oder-vor-ort", "wo-finden-seminare-statt"]
+  },
+  {
+    slug: "kreditkartenzahlung",
+    question: { de: "Kann ich mit Kreditkarte bezahlen?", en: "Can I pay with credit card?", ru: "Можно ли оплатить кредитной картой?" },
+    answer: {
+      de: "Die Zahlung erfolgt in der Regel per Banküberweisung oder auf Rechnung. Für internationale Klienten bieten wir zusätzliche Zahlungsmöglichkeiten an. Bei Seminarbuchungen über die Website stehen je nach Anbieter verschiedene Zahlungsmethoden zur Verfügung. Für Unternehmen stellen wir ordnungsgemäße Rechnungen mit ausgewiesener MwSt. aus. Kontaktieren Sie uns gerne, wenn Sie eine bestimmte Zahlungsmethode bevorzugen, und wir finden eine passende Lösung.",
+      en: "Payment is typically made by bank transfer or invoice. For international clients, we offer additional payment options. For seminar bookings through the website, various payment methods are available depending on the provider. For companies, we issue proper invoices with VAT. Please contact us if you prefer a specific payment method, and we will find a suitable solution.",
+      ru: "Оплата обычно производится банковским переводом или по счёту. Для международных клиентов предлагаются дополнительные варианты оплаты. При бронировании семинаров через сайт доступны различные методы оплаты. Для компаний выставляются надлежащие счета с НДС. Свяжитесь с нами, если предпочитаете определённый способ оплаты, и мы найдём подходящее решение."
+    },
+    category: "kosten",
+    relatedServices: ["booking"],
+    relatedFaqs: ["zahlung-und-rechnung", "was-kostet-coaching"]
+  },
+  {
+    slug: "corporate-mengenrabatte",
+    question: { de: "Gibt es Mengenrabatte für Unternehmen?", en: "Are there corporate volume discounts?", ru: "Есть ли корпоративные скидки за объём?" },
+    answer: {
+      de: "Ja, für umfangreiche Corporate-Programme bieten wir attraktive Konditionen, die sich nach Umfang, Dauer und Teilnehmerzahl richten. Mehrjährige Partnerschaften und Programme, die verschiedene Formate kombinieren, profitieren von besonders vorteilhaften Konditionen. Jedes Angebot wird individuell kalkuliert, um das beste Preis-Leistungs-Verhältnis zu gewährleisten. Im Briefing-Gespräch erstellen wir ein transparentes Angebot, das zu Ihrem Budget und Ihren Zielen passt.",
+      en: "Yes, for comprehensive corporate programs we offer attractive terms based on scope, duration, and number of participants. Multi-year partnerships and programs combining various formats benefit from particularly favorable conditions. Each offer is individually calculated to ensure the best value. In the briefing conversation, we create a transparent offer that fits your budget and goals.",
+      ru: "Да, для масштабных корпоративных программ мы предлагаем привлекательные условия, зависящие от объёма, продолжительности и числа участников. Многолетние партнёрства и программы, сочетающие различные форматы, получают особо выгодные условия. Каждое предложение калькулируется индивидуально для оптимального соотношения цены и качества. На брифинге создаётся прозрачное предложение под ваш бюджет и цели."
+    },
+    category: "kosten",
+    relatedServices: ["corporate"],
+    relatedFaqs: ["corporate-programme-details", "zahlung-und-rechnung"]
+  },
+  {
+    slug: "stornierung-corporate",
+    question: { de: "Wie sind die Stornierungsbedingungen für Corporate-Events?", en: "What is the cancellation policy for corporate events?", ru: "Какова политика отмены корпоративных мероприятий?" },
+    answer: {
+      de: "Für Corporate-Events gelten individuelle Stornierungsbedingungen, die im Vertrag festgelegt werden. In der Regel ist eine kostenlose Stornierung bis 30 Tage vor dem vereinbarten Termin möglich. Bei kurzfristiger Absage fallen gestaffelte Ausfallgebühren an. Terminverschiebungen sind in Absprache flexibler möglich. Alle Konditionen werden transparent im Angebot kommuniziert, sodass Sie von Anfang an Planungssicherheit haben.",
+      en: "Corporate events have individual cancellation terms defined in the contract. Generally, free cancellation is possible up to 30 days before the agreed date. For short-notice cancellations, graduated cancellation fees apply. Rescheduling is more flexibly possible by arrangement. All terms are transparently communicated in the offer, giving you planning certainty from the start.",
+      ru: "Для корпоративных мероприятий действуют индивидуальные условия отмены, зафиксированные в договоре. Обычно бесплатная отмена возможна за 30 дней до согласованной даты. При поздней отмене применяются ступенчатые сборы. Перенос сроков возможен гибче по договорённости. Все условия прозрачно сообщаются в предложении, обеспечивая вам уверенность в планировании."
+    },
+    category: "corporate",
+    relatedServices: ["corporate", "booking"],
+    relatedFaqs: ["corporate-programme-details", "stornierung-und-umbuchung"]
+  },
+  {
+    slug: "corporate-programmstart",
+    question: { de: "Wie schnell kann ein Corporate-Programm starten?", en: "How soon can a corporate program start?", ru: "Как быстро может начаться корпоративная программа?" },
+    answer: {
+      de: "Nach dem initialen Briefing und der Bedarfsanalyse kann ein Corporate-Programm in der Regel innerhalb von zwei bis vier Wochen starten. Für dringende Anliegen bieten wir beschleunigte Prozesse an. Die Vorlaufzeit hängt von der Komplexität des Programms und der Verfügbarkeit aller Beteiligten ab. Einfachere Formate wie eine einzelne Keynote oder ein Workshop lassen sich auch kurzfristiger realisieren.",
+      en: "After the initial briefing and needs analysis, a corporate program can typically start within two to four weeks. For urgent matters, we offer accelerated processes. Lead time depends on the complexity of the program and availability of all participants. Simpler formats such as a single keynote or workshop can be realized on shorter notice.",
+      ru: "После начального брифинга и анализа потребностей корпоративная программа обычно может стартовать в течение двух-четырёх недель. Для срочных запросов предлагаем ускоренные процессы. Время подготовки зависит от сложности программы и доступности всех участников. Более простые форматы, такие как отдельный ки-ноут или воркшоп, реализуются и в более сжатые сроки."
+    },
+    category: "corporate",
+    relatedServices: ["corporate", "booking"],
+    relatedFaqs: ["corporate-bedarfsanalyse", "corporate-programme-details"]
+  },
+  {
+    slug: "einzigartigkeit-coaching-ansatz",
+    question: { de: "Was macht den Coaching-Ansatz einzigartig?", en: "What makes the coaching approach unique?", ru: "Что делает коучинг-подход уникальным?" },
+    answer: {
+      de: "Der Ansatz von Anatoly Mook ist einzigartig durch die Verbindung von Tiefe und Pragmatismus. Statt an der Oberfläche zu bleiben, arbeiten wir auf der Ebene von Bewusstsein und Identität, wo echte Transformation stattfindet. Gleichzeitig ist jeder Schritt auf messbare Ergebnisse ausgerichtet. Die dreisprachige Arbeit, die Integration verschiedener Methoden und die Verbindung von östlicher Weisheit mit westlicher Führungspraxis machen den Ansatz besonders wirkungsvoll.",
+      en: "Anatoly Mook's approach is unique through the combination of depth and pragmatism. Instead of staying on the surface, we work at the level of consciousness and identity where real transformation occurs. At the same time, every step is oriented toward measurable results. The trilingual work, integration of various methods, and connection of Eastern wisdom with Western leadership practice make the approach particularly effective.",
+      ru: "Подход Анатолия Мука уникален сочетанием глубины и прагматизма. Вместо работы на поверхности мы действуем на уровне сознания и идентичности, где происходит настоящая трансформация. При этом каждый шаг направлен на измеримые результаты. Трёхъязычная работа, интеграция различных методов и связь восточной мудрости с западной практикой лидерства делают подход особенно действенным."
+    },
+    category: "allgemein",
+    relatedServices: ["coaching", "transformation"],
+    relatedFaqs: ["was-unterscheidet-anatoly-mook", "was-ist-bewusste-fuehrung"]
+  },
+  {
+    slug: "bereitschaft-transformation",
+    question: { de: "Wie erkenne ich, dass ich bereit für Transformation bin?", en: "How do I know if I am ready for transformation?", ru: "Как понять, что я готов к трансформации?" },
+    answer: {
+      de: "Typische Zeichen sind eine wachsende Unzufriedenheit mit dem Status quo, das Gefühl, dass es mehr geben muss, wiederkehrende Muster, die Sie verändern möchten, oder der Wunsch nach tieferer Klarheit und Authentizität. Die Bereitschaft zeigt sich oft in der Offenheit, sich ehrlich mit sich selbst auseinanderzusetzen. Sie müssen nicht alles wissen oder können — Sie müssen nur bereit sein, sich auf den Prozess einzulassen. Ein Erstgespräch kann helfen, Ihre Bereitschaft gemeinsam zu reflektieren.",
+      en: "Typical signs include growing dissatisfaction with the status quo, the feeling that there must be more, recurring patterns you want to change, or the desire for deeper clarity and authenticity. Readiness often shows in openness to honestly engage with yourself. You do not need to know or be able to do everything — you just need to be willing to engage in the process. An initial consultation can help reflect on your readiness together.",
+      ru: "Типичные признаки: растущая неудовлетворённость текущим положением, чувство, что должно быть нечто большее, повторяющиеся паттерны, которые хочется изменить, или желание более глубокой ясности. Готовность часто проявляется в открытости к честной работе с собой. Вам не нужно всё знать или уметь — достаточно быть готовым включиться в процесс. Первичная консультация поможет совместно оценить вашу готовность."
+    },
+    category: "allgemein",
+    relatedServices: ["coaching", "transformation"],
+    relatedFaqs: ["was-ist-transformation", "wie-funktioniert-erstgespraech"]
+  },
+  {
+    slug: "rolle-achtsamkeit",
+    question: { de: "Welche Rolle spielt Achtsamkeit im Coaching?", en: "What role does mindfulness play?", ru: "Какую роль играет осознанность в коучинге?" },
+    answer: {
+      de: "Achtsamkeit ist ein zentrales Element in Anatoly Mooks Arbeit. Sie bildet die Grundlage für Selbstkenntnis, klare Wahrnehmung und bewusste Entscheidungen. Im Coaching werden Achtsamkeitstechniken eingesetzt, um Klienten zu helfen, ihre automatischen Reaktionsmuster zu erkennen und bewusstere Alternativen zu entwickeln. Dabei geht es nicht um esoterische Praktiken, sondern um wissenschaftlich fundierte Methoden, die nachweislich Fokus, Stressresistenz und Entscheidungsqualität verbessern.",
+      en: "Mindfulness is a central element in Anatoly Mook's work. It forms the foundation for self-knowledge, clear perception, and conscious decisions. In coaching, mindfulness techniques are used to help clients recognize their automatic reaction patterns and develop more conscious alternatives. This is not about esoteric practices but about scientifically grounded methods that demonstrably improve focus, stress resistance, and decision quality.",
+      ru: "Осознанность — центральный элемент в работе Анатолия Мука. Она составляет основу самопознания, ясного восприятия и осознанных решений. В коучинге техники осознанности помогают клиентам распознавать автоматические паттерны реакций и развивать более осознанные альтернативы. Речь не об эзотерических практиках, а о научно обоснованных методах, доказанно улучшающих фокус, стрессоустойчивость и качество решений."
+    },
+    category: "coaching",
+    relatedServices: ["coaching", "seminare"],
+    relatedFaqs: ["ist-das-esoterisch", "was-ist-bewusste-fuehrung"]
+  },
+  {
+    slug: "coaching-bei-burnout",
+    question: { de: "Kann Coaching bei Burnout helfen?", en: "Can coaching help with burnout?", ru: "Может ли коучинг помочь при выгорании?" },
+    answer: {
+      de: "Coaching kann sowohl präventiv als auch begleitend bei Burnout-Themen wirken. In der Prävention hilft es, Stressmuster zu erkennen, gesunde Grenzen zu setzen und nachhaltige Arbeitsweisen zu entwickeln. Bei bereits aufgetretenem Burnout kann Coaching den Genesungsprozess unterstützen — ergänzend zu medizinischer oder therapeutischer Betreuung. Anatoly Mook hilft Klienten, die tieferliegenden Ursachen zu verstehen und eine neue Balance zwischen Leistung und Wohlbefinden zu finden.",
+      en: "Coaching can work both preventively and supportively on burnout topics. In prevention, it helps recognize stress patterns, set healthy boundaries, and develop sustainable work practices. When burnout has already occurred, coaching can support the recovery process — complementary to medical or therapeutic care. Anatoly Mook helps clients understand the deeper causes and find a new balance between performance and well-being.",
+      ru: "Коучинг может работать как превентивно, так и поддерживающе при теме выгорания. В профилактике он помогает распознавать стресс-паттерны, устанавливать здоровые границы и развивать устойчивые рабочие привычки. При уже наступившем выгорании коучинг поддерживает процесс восстановления — дополнительно к медицинской помощи. Анатолий Мук помогает клиентам понять глубинные причины и найти новый баланс между результативностью и благополучием."
+    },
+    category: "coaching",
+    relatedServices: ["coaching"],
+    relatedFaqs: ["coaching-und-therapie", "fuer-wen-ist-das-angebot"]
+  },
+  {
+    slug: "langfristige-unterstuetzung",
+    question: { de: "Welche langfristige Unterstützung gibt es?", en: "What long-term support is available?", ru: "Какая долгосрочная поддержка доступна?" },
+    answer: {
+      de: "Nach Abschluss eines Coaching-Prozesses bietet Anatoly Mook verschiedene Möglichkeiten der langfristigen Begleitung: regelmäßige Auffrischungssessions in größeren Abständen, Zugang zum Alumni-Netzwerk, exklusive Veranstaltungen und digitale Ressourcen. Viele Klienten wechseln nach dem intensiven Coaching in ein leichteres Format mit vierteljährlichen Check-ins. So bleibt die Verbindung bestehen und Sie haben einen vertrauten Sparring-Partner, wenn neue Herausforderungen auftreten.",
+      en: "After completing a coaching process, Anatoly Mook offers various long-term support options: regular refresher sessions at longer intervals, access to the alumni network, exclusive events, and digital resources. Many clients transition from intensive coaching to a lighter format with quarterly check-ins. This maintains the connection and ensures you have a trusted sparring partner when new challenges arise.",
+      ru: "После завершения коучинг-процесса Анатолий Мук предлагает различные варианты долгосрочной поддержки: регулярные обновляющие сессии с большими интервалами, доступ к сети выпускников, эксклюзивные мероприятия и цифровые ресурсы. Многие клиенты переходят от интенсивного коучинга к более лёгкому формату с ежеквартальными встречами. Это поддерживает связь и обеспечивает наличие доверенного партнёра при новых вызовах."
+    },
+    category: "ergebnisse",
+    relatedServices: ["coaching", "resources"],
+    relatedFaqs: ["langfristige-wirkung", "nachhaltige-veraenderung"]
+  },
 ];
 
 export function getFaqBySlug(slug: string): FAQEntry | undefined {

@@ -34,34 +34,199 @@ export default function Corporate() {
   const [offers, setOffers] = useState<CorporateOffer[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadOffers();
-
-    const offersChannel = supabase
-      .channel('corporate-offers-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'corporate_offers' }, () => {
-        loadOffers();
-      })
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(offersChannel);
-    };
-  }, []);
-
-  const loadOffers = async () => {
-    setLoading(true);
-    const { data } = await supabase
-      .from('corporate_offers')
-      .select('*')
-      .eq('is_active', true)
-      .order('order_index', { ascending: true });
-
-    if (data) {
-      setOffers(data);
+  const staticOffers: CorporateOffer[] = useMemo(() => [
+    {
+      id: 'leadership-mastery',
+      category: 'leadership',
+      title: 'Leadership Mastery',
+      subtitle: 'Führungskräfteentwicklung für nachhaltigen Unternehmenserfolg',
+      tagline: 'Wer klar führt, braucht keinen Druck.',
+      duration: '3–6 Monate',
+      participants: '8–15 Führungskräfte',
+      format: 'Präsenz & Hybrid',
+      availability: 'Auf Anfrage',
+      price: 'Auf Anfrage',
+      description: 'Ein intensives Programm für Führungskräfte, die Klarheit, Präsenz und bewusste Entscheidungsstärke in ihren Führungsalltag integrieren wollen. Praxisnah, tiefgehend und direkt umsetzbar.',
+      essence: 'Echte Führung beginnt mit Selbstführung.',
+      includes: [
+        'Individuelles Führungsprofil & Standortbestimmung',
+        '6 Intensiv-Module à 2 Tage',
+        '1:1 Executive Coaching (monatlich)',
+        'Praxis-Transfer-Begleitung zwischen den Modulen',
+        '360°-Feedback-Prozess',
+        'Zugang zur Leadership-Community'
+      ],
+      benefits: [
+        { title: 'Klare Entscheidungen unter Druck', description: 'Entwickeln Sie die Fähigkeit, auch in komplexen Situationen souverän und klar zu handeln.' },
+        { title: 'Authentische Autorität', description: 'Führen Sie durch Präsenz und innere Stärke statt durch Position und Kontrolle.' },
+        { title: 'Nachhaltige Team-Performance', description: 'Schaffen Sie ein Umfeld, in dem Teams eigenverantwortlich Höchstleistung erbringen.' }
+      ],
+      ideal_for: ['C-Level Executives & Geschäftsführung', 'Bereichs- und Abteilungsleitungen', 'High-Potential Führungsnachwuchs', 'Unternehmer & Gründer'],
+      program_outline: ['Standortbestimmung & Führungsprofil', 'Bewusste Kommunikation & Präsenz', 'Entscheidungsstärke & innere Klarheit', 'Konfliktkompetenz & schwierige Gespräche', 'Teamdynamik & Organisationskultur', 'Integration & nachhaltige Verankerung'],
+      gradient: 'from-cyan-500 to-blue-500',
+      image: '/bildschirmfoto_2026-01-10_um_12.29.12.png',
+      highlight: true,
+      is_active: true,
+      order_index: 1
+    },
+    {
+      id: 'team-transformation',
+      category: 'team-retreat',
+      title: 'Team Transformation',
+      subtitle: 'Tiefgreifende Teamarbeit für echte Veränderung',
+      tagline: 'Ein starkes Team entsteht nicht durch Teambuilding, sondern durch gemeinsames Wachstum.',
+      duration: '2–3 Tage Intensiv',
+      participants: '10–30 Teilnehmer',
+      format: 'Offsite / Retreat',
+      availability: 'Termine auf Anfrage',
+      price: 'Ab 8.900 €',
+      description: 'Ein intensives Offsite-Format, das Teams aus der Routine holt und den Raum schafft für ehrliche Kommunikation, klare Ausrichtung und neue Zusammenarbeit. Kein Entertainment, sondern echte Arbeit an dem, was zählt.',
+      essence: 'Wenn ein Team wirklich zusammenfindet, wird aus Zusammenarbeit Wirksamkeit.',
+      includes: [
+        'Vorgespräch mit Teamleitung (Ziel & Kontext)',
+        '2–3 Tage Intensiv-Programm',
+        'Individuelle Team-Diagnose',
+        'Moderierte Reflexions- und Praxiseinheiten',
+        'Konkrete Maßnahmen & Transferplan',
+        'Follow-up Call nach 4 Wochen'
+      ],
+      benefits: [
+        { title: 'Echte Verbindung', description: 'Schaffen Sie die Basis für Vertrauen, Offenheit und konstruktive Zusammenarbeit im Team.' },
+        { title: 'Gemeinsame Ausrichtung', description: 'Entwickeln Sie ein klares, geteiltes Verständnis von Zielen, Rollen und Verantwortung.' },
+        { title: 'Spürbare Veränderung', description: 'Erleben Sie den Unterschied zwischen einem netten Teamtag und echter Transformation.' }
+      ],
+      ideal_for: ['Management-Teams', 'Projektteams in Umbruchphasen', 'Abteilungen mit Reibungsverlusten', 'Neuzusammengesetzte Teams'],
+      program_outline: ['Ankommen & Rahmen setzen', 'Standortbestimmung als Team', 'Kernthemen identifizieren & bearbeiten', 'Neue Vereinbarungen & Strukturen', 'Integration & Transferplan'],
+      gradient: 'from-purple-500 to-violet-500',
+      image: '/bildschirmfoto_2026-01-09_um_18.51.39.png',
+      is_active: true,
+      order_index: 2
+    },
+    {
+      id: 'conscious-workshop',
+      category: 'workshop',
+      title: 'Bewusste Kommunikation',
+      subtitle: 'Workshop für wirkungsvolle Gesprächsführung',
+      tagline: 'Die Qualität Ihrer Gespräche bestimmt die Qualität Ihrer Ergebnisse.',
+      duration: '1–2 Tage',
+      participants: '12–20 Teilnehmer',
+      format: 'Präsenz (Inhouse)',
+      availability: 'Flexibel buchbar',
+      price: 'Ab 4.500 €',
+      description: 'Ein praxisintensiver Workshop, der die Gesprächskultur in Ihrem Unternehmen auf ein neues Level hebt. Von schwierigen Feedbackgesprächen bis zu inspirierenden Präsentationen – Klarheit in der Kommunikation verändert alles.',
+      essence: 'Wer klar spricht, wird gehört. Wer zuhört, wird verstanden.',
+      includes: [
+        'Kompakter Impuls zu bewusster Kommunikation',
+        'Live-Übungen mit echten Situationen der Teilnehmer',
+        'Feedback-Training (Geben & Empfangen)',
+        'Werkzeuge für schwierige Gespräche',
+        'Handout mit Praxis-Tools',
+        'Optional: Follow-up Coaching'
+      ],
+      benefits: [
+        { title: 'Souveräne Gesprächsführung', description: 'Führen Sie jedes Gespräch – ob Mitarbeitergespräch oder Verhandlung – mit Klarheit und Wirkung.' },
+        { title: 'Konstruktive Konfliktlösung', description: 'Verwandeln Sie Spannungen in produktive Dialoge und nachhaltige Lösungen.' },
+        { title: 'Stärkere Unternehmenskultur', description: 'Schaffen Sie eine Kultur der Offenheit, in der Feedback als Geschenk verstanden wird.' }
+      ],
+      ideal_for: ['Führungskräfte aller Ebenen', 'HR & People-Teams', 'Vertriebs- & Kundenteams', 'Projektleitungen'],
+      program_outline: ['Grundlagen bewusster Kommunikation', 'Die Kunst des aktiven Zuhörens', 'Feedback als Führungsinstrument', 'Schwierige Gespräche meistern', 'Transfer in den Arbeitsalltag'],
+      gradient: 'from-amber-500 to-orange-500',
+      image: '/bildschirmfoto_2025-12-19_um_01.49.07.png',
+      is_active: true,
+      order_index: 3
+    },
+    {
+      id: 'training-series-resilience',
+      category: 'training-series',
+      title: 'Resilient Leadership',
+      subtitle: '6-teilige Trainingsreihe für belastbare Führung',
+      tagline: 'Resilienz ist keine Eigenschaft, sondern eine tägliche Praxis.',
+      duration: '6 × 1 Tag (monatlich)',
+      participants: '8–12 Führungskräfte',
+      format: 'Präsenz & Online-Begleitung',
+      availability: 'Nächster Start: Q2 2026',
+      price: 'Ab 12.500 €',
+      description: 'Eine strukturierte Trainingsreihe, die Führungskräfte befähigt, auch unter hohem Druck klar, wirksam und gesund zu bleiben. Sechs aufeinander aufbauende Module mit Praxistransfer zwischen den Einheiten.',
+      essence: 'Wer sich selbst führen kann, führt andere mit Leichtigkeit.',
+      includes: [
+        '6 Ganztages-Module über 6 Monate',
+        'Begleitendes Online-Lernportal',
+        'Peer-Coaching-Gruppen (je 3 Teilnehmer)',
+        'Stress- und Resilienz-Assessment',
+        'Individuelle Transferaufgaben',
+        'Abschluss-Zertifikat'
+      ],
+      benefits: [
+        { title: 'Stressresistenz aufbauen', description: 'Entwickeln Sie mentale Stärke und emotionale Stabilität für anspruchsvolle Führungssituationen.' },
+        { title: 'Energie nachhaltig managen', description: 'Lernen Sie, Ihre Energie bewusst einzusetzen und langfristig leistungsfähig zu bleiben.' },
+        { title: 'Vorbild-Funktion leben', description: 'Zeigen Sie Ihrem Team durch eigenes Vorbild, dass Leistung und Wohlbefinden kein Widerspruch sind.' }
+      ],
+      ideal_for: ['Führungskräfte unter hoher Belastung', 'Manager in Transformationsphasen', 'Teamleiter mit großer Verantwortung', 'Unternehmer & Geschäftsführer'],
+      program_outline: ['Standortbestimmung & persönliches Resilienz-Profil', 'Mentale Stärke & Fokus unter Druck', 'Emotionale Intelligenz in der Führung', 'Energiemanagement & nachhaltige Performance', 'Umgang mit Unsicherheit & Veränderung', 'Integration & persönlicher Führungskompass'],
+      gradient: 'from-emerald-500 to-teal-500',
+      image: '/bildschirmfoto_2025-12-13_um_20.01.21.png',
+      highlight: true,
+      is_active: true,
+      order_index: 4
+    },
+    {
+      id: 'org-transformation',
+      category: 'transformation',
+      title: 'Organisationstransformation',
+      subtitle: 'Begleitung für Unternehmen im Wandel',
+      tagline: 'Transformation gelingt nicht durch neue Prozesse, sondern durch neues Bewusstsein.',
+      duration: '6–12 Monate',
+      participants: 'Gesamte Organisation',
+      format: 'Vor Ort & Hybrid',
+      availability: 'Nach Vorgespräch',
+      price: 'Individuell',
+      description: 'Ein ganzheitlicher Transformationsprozess, der Ihre Organisation von innen heraus verändert. Von der Geschäftsführung bis zur operativen Ebene – wir begleiten den Wandel mit Tiefe, Struktur und Konsequenz.',
+      essence: 'Wenn sich das Bewusstsein einer Organisation verändert, verändert sich alles.',
+      includes: [
+        'Umfassende Organisations-Diagnose',
+        'Strategische Transformations-Roadmap',
+        'Leadership-Alignment auf C-Level',
+        'Kultur-Workshops für alle Ebenen',
+        'Change-Agent-Ausbildung (intern)',
+        'Kontinuierliche Prozessbegleitung',
+        'Regelmäßige Review & Anpassung'
+      ],
+      benefits: [
+        { title: 'Echte Kulturveränderung', description: 'Erleben Sie, wie sich Unternehmenskultur tatsächlich wandelt – nicht nur auf dem Papier.' },
+        { title: 'Erhöhte Anpassungsfähigkeit', description: 'Machen Sie Ihre Organisation fit für kontinuierlichen Wandel und neue Herausforderungen.' },
+        { title: 'Messbare Ergebnisse', description: 'Verfolgen Sie den Transformationsfortschritt anhand klar definierter KPIs und Meilensteine.' }
+      ],
+      ideal_for: ['Unternehmen in strategischen Umbruchphasen', 'Organisationen nach Fusionen oder Übernahmen', 'Wachsende Unternehmen mit Kulturherausforderungen', 'Traditionelle Unternehmen auf dem Weg zur Agilität'],
+      program_outline: ['Diagnose & Zieldefinition', 'Leadership Alignment', 'Pilot-Phase mit ausgewählten Teams', 'Breite Rollout-Phase', 'Verankerung & Nachhaltigkeit'],
+      gradient: 'from-orange-500 to-amber-500',
+      image: '/bildschirmfoto_2026-01-19_um_18.37.19.png',
+      is_active: true,
+      order_index: 5
     }
-    setLoading(false);
-  };
+  ], []);
+
+  useEffect(() => {
+    const loadOffers = async () => {
+      try {
+        const { data } = await supabase
+          .from('corporate_offers')
+          .select('*')
+          .eq('is_active', true)
+          .order('order_index', { ascending: true });
+
+        if (data && data.length > 0) {
+          setOffers(data);
+        } else {
+          setOffers(staticOffers);
+        }
+      } catch {
+        setOffers(staticOffers);
+      }
+      setLoading(false);
+    };
+
+    loadOffers();
+  }, [staticOffers]);
 
   const categories = useMemo(() => [
     { id: 'all', label: t.corporate.categories.all, icon: Sparkles },

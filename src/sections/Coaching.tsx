@@ -34,38 +34,170 @@ export default function Coaching() {
   const [loading, setLoading] = useState(true);
   const [scrollY, setScrollY] = useState(0);
 
-  useEffect(() => {
-    loadPackages();
+  const staticPackages: CoachingPackage[] = useMemo(() => [
+    {
+      id: 'einzelsession',
+      tier: 'einzelsession',
+      title: 'Einzelsession',
+      subtitle: 'Der erste Schritt zur Klarheit',
+      tagline: 'Eine Session kann alles verändern – wenn du bereit bist.',
+      duration: '90 Minuten',
+      price: '290 €',
+      sessions: '1 Session',
+      format: 'Online oder Präsenz',
+      availability: 'Innerhalb von 7 Tagen',
+      description: 'Eine intensive Einzelsession für ein konkretes Thema. Ob Klarheit in einer Entscheidung, Auflösung eines inneren Konflikts oder ein gezielter Impuls – in 90 Minuten arbeiten wir präzise an dem, was gerade dran ist.',
+      essence: 'Manchmal braucht es nur einen klaren Moment, um den ganzen Weg zu sehen.',
+      includes: [
+        '90 Minuten 1:1 mit Anatoly',
+        'Vorbereitungsfragebogen',
+        'Audio-Aufnahme der Session',
+        'Konkrete Praxis-Empfehlung',
+        'E-Mail-Nachbetreuung (7 Tage)'
+      ],
+      benefits: [
+        { title: 'Sofortige Klarheit', description: 'Verlasse die Session mit einem klaren Bild und konkreten nächsten Schritten.' },
+        { title: 'Tiefgehend & präzise', description: 'Keine Smalltalk-Runde, sondern fokussierte Arbeit an deinem Kernthema.' },
+        { title: 'Flexibel', description: 'Online oder persönlich – du wählst das Format, das für dich passt.' }
+      ],
+      perfect_for: ['Konkrete Entscheidungssituationen', 'Akute innere Konflikte', 'Orientierung in Umbruchphasen', 'Kennenlernen der Arbeitsweise'],
+      gradient: 'from-amber-400 to-orange-500',
+      image: '/bildschirmfoto_2025-12-19_um_01.49.07.png',
+      is_active: true,
+      order_index: 1
+    },
+    {
+      id: 'intensiv-3',
+      tier: 'intensiv',
+      title: 'Intensiv-Paket',
+      subtitle: '3 Sessions für nachhaltige Veränderung',
+      tagline: 'Veränderung braucht Wiederholung – und jemanden, der dich hält.',
+      duration: '3 × 90 Minuten',
+      price: '790 €',
+      sessions: '3 Sessions (über 6 Wochen)',
+      format: 'Online oder Präsenz',
+      availability: 'Start innerhalb von 14 Tagen',
+      description: 'Drei aufeinander aufbauende Sessions über sechs Wochen. Ideal, um ein Thema wirklich durchzuarbeiten: Erkennen, Auflösen, Verankern. Zwischen den Sessions integrierst du das Gelernte im Alltag.',
+      essence: 'Echte Transformation geschieht nicht in einem Moment – sie braucht Raum und Begleitung.',
+      includes: [
+        '3 × 90 Minuten 1:1 Coaching',
+        'Individuelle Standortbestimmung',
+        'Persönlicher Entwicklungsplan',
+        'Praxis-Aufgaben zwischen den Sessions',
+        'Messenger-Support zwischen den Sessions',
+        'Audio-Aufnahmen aller Sessions'
+      ],
+      benefits: [
+        { title: 'Nachhaltige Veränderung', description: 'Drei Zyklen von Erkenntnis, Übung und Integration verankern neue Muster dauerhaft.' },
+        { title: 'Persönliche Begleitung', description: 'Auch zwischen den Sessions bist du nicht allein – Support via Messenger inklusive.' },
+        { title: 'Spar-Vorteil', description: 'Spare gegenüber Einzelbuchungen und sichere dir einen strukturierten Prozess.' }
+      ],
+      perfect_for: ['Berufliche Neuorientierung', 'Führungskraft-Entwicklung', 'Beziehungsmuster auflösen', 'Selbstwert & innere Stärke'],
+      gradient: 'from-blue-400 to-cyan-500',
+      image: '/bildschirmfoto_2026-01-10_um_12.33.46.png',
+      highlight: true,
+      is_active: true,
+      order_index: 2
+    },
+    {
+      id: 'vip-mentoring',
+      tier: 'vip',
+      title: 'VIP Mentoring',
+      subtitle: '3 Monate persönliche Transformation',
+      tagline: 'Für Menschen, die bereit sind, ihr ganzes Potenzial zu leben.',
+      duration: '3 Monate',
+      price: '4.900 €',
+      sessions: '12 Sessions + Unlimited Support',
+      format: 'Hybrid (Präsenz + Online)',
+      availability: 'Begrenzt auf 5 Plätze',
+      description: 'Das umfassendste 1:1 Angebot: Drei Monate intensive Begleitung mit wöchentlichen Sessions, unbegrenztem Support und persönlicher Verfügbarkeit. Für maximale Transformation in kürzester Zeit.',
+      essence: 'Wenn du dich ganz einlässt, verändert sich alles.',
+      includes: [
+        '12 × 90 Minuten 1:1 Coaching (wöchentlich)',
+        '1 Präsenz-Tag (Ganztag) mit Anatoly',
+        'Unbegrenzter Messenger-Support',
+        'Persönlichkeits- & Stärken-Assessment',
+        'Maßgeschneiderter Transformationsplan',
+        'Geführte Meditationen (personalisiert)',
+        'Zugang zu exklusiven Inhalten',
+        'Abschluss-Gespräch & Langzeit-Strategie'
+      ],
+      benefits: [
+        { title: 'Maximale Tiefe', description: 'Wöchentliche Sessions und tägliche Verfügbarkeit ermöglichen Transformation auf allen Ebenen.' },
+        { title: 'Ganzheitlich', description: 'Beruf, Beziehung, Gesundheit, Sinn – wir arbeiten an allem, was für dich relevant ist.' },
+        { title: 'Exklusiv', description: 'Nur 5 VIP-Plätze gleichzeitig – volle Aufmerksamkeit und höchste Priorität.' }
+      ],
+      perfect_for: ['Unternehmer & Führungskräfte', 'Menschen in tiefgreifenden Lebensphasen', 'High-Performer mit Sinnfragen', 'Jeder, der bereit ist für den nächsten großen Schritt'],
+      gradient: 'from-purple-400 to-violet-500',
+      image: '/bildschirmfoto_2026-01-09_um_18.51.39.png',
+      highlight: true,
+      is_active: true,
+      order_index: 3
+    },
+    {
+      id: 'executive-coaching',
+      tier: 'executive',
+      title: 'Executive Coaching',
+      subtitle: 'Für Entscheider auf höchstem Niveau',
+      tagline: 'An der Spitze ist es oft einsam – aber es muss nicht unklar sein.',
+      duration: '6 Monate',
+      price: 'Auf Anfrage',
+      sessions: 'Individuell (bi-weekly + on-demand)',
+      format: 'Präsenz & On-Demand',
+      availability: 'Nach Vorgespräch',
+      description: 'Maßgeschneidertes Coaching für C-Level Executives und Geschäftsführer. Diskretion, höchste Qualität und absolute Flexibilität. Wir arbeiten an strategischer Klarheit, persönlicher Wirksamkeit und der Balance zwischen Leistung und Lebensqualität.',
+      essence: 'Wer andere auf höchstem Niveau führt, braucht einen Sparringspartner auf Augenhöhe.',
+      includes: [
+        'Bi-weekly Coaching-Sessions (90 Min.)',
+        'On-Demand Verfügbarkeit für akute Situationen',
+        '2 Halbtages-Intensiv-Sessions (Präsenz)',
+        '360°-Feedback Integration',
+        'Strategische Sparring-Gespräche',
+        'Absolute Diskretion & NDA',
+        'Vierteljährliche Review & Neuausrichtung'
+      ],
+      benefits: [
+        { title: 'Strategische Klarheit', description: 'Treffen Sie bessere Entscheidungen schneller – mit einem klaren Kopf und ruhigem Geist.' },
+        { title: 'Persönliche Wirksamkeit', description: 'Steigern Sie Ihre Präsenz, Kommunikation und Ihren Einfluss auf natürliche Weise.' },
+        { title: 'Sustainable Performance', description: 'Finden Sie den Weg zu nachhaltiger Höchstleistung ohne Burnout-Risiko.' }
+      ],
+      perfect_for: ['CEOs & Geschäftsführer', 'Vorstände & C-Level Executives', 'Unternehmer mit >50 Mitarbeitern', 'Führungskräfte vor Schlüsselentscheidungen'],
+      gradient: 'from-emerald-400 to-teal-500',
+      image: '/bildschirmfoto_2026-01-19_um_18.37.19.png',
+      is_active: true,
+      order_index: 4
+    }
+  ], []);
 
+  useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    const packagesChannel = supabase
-      .channel('coaching-packages-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'coaching_packages' }, () => {
-        loadPackages();
-      })
-      .subscribe();
+    const loadPackages = async () => {
+      try {
+        const { data } = await supabase
+          .from('coaching_packages')
+          .select('*')
+          .eq('is_active', true)
+          .order('order_index', { ascending: true });
+
+        if (data && data.length > 0) {
+          setPackages(data);
+        } else {
+          setPackages(staticPackages);
+        }
+      } catch {
+        setPackages(staticPackages);
+      }
+      setLoading(false);
+    };
+
+    loadPackages();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      supabase.removeChannel(packagesChannel);
     };
-  }, []);
-
-  const loadPackages = async () => {
-    setLoading(true);
-    const { data } = await supabase
-      .from('coaching_packages')
-      .select('*')
-      .eq('is_active', true)
-      .order('order_index', { ascending: true });
-
-    if (data) {
-      setPackages(data);
-    }
-    setLoading(false);
-  };
+  }, [staticPackages]);
 
   const tiers = useMemo(() => [
     { id: 'all', label: t.coaching.tiers.all, icon: Sparkles },

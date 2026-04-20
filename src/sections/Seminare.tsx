@@ -272,44 +272,217 @@ export default function Seminare() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadSeminars();
-
-    const seminarsChannel = supabase
-      .channel('seminars-changes-public')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'seminars' }, () => {
-        loadSeminars();
-      })
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(seminarsChannel);
-    };
-  }, []);
-
-  const loadSeminars = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const { data, error: fetchError } = await supabase
-        .from('seminars')
-        .select('*')
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
-
-      if (fetchError) {
-        console.error('Error loading seminars:', fetchError);
-        setError(fetchError.message);
-      } else if (data) {
-        setSeminare(data);
-      }
-    } catch (err) {
-      console.error('Unexpected error:', err);
-      setError('Ein unerwarteter Fehler ist aufgetreten');
-    } finally {
-      setLoading(false);
+  const staticSeminars: Seminar[] = useMemo(() => [
+    {
+      id: 'klarheit-intensiv',
+      format: 'praesenz',
+      title: 'Klarheit Intensiv',
+      subtitle: '3-Tage Transformations-Seminar',
+      tagline: 'Vom Denken ins Sein – der direkte Weg zur inneren Klarheit.',
+      duration: '3 Tage (Fr–So)',
+      price: 'Ab 1.490 €',
+      capacity: 'Max. 25 Teilnehmer',
+      dates: [
+        { month: 'Mai', days: '16–18', year: '2026', location: 'München', available: 8 },
+        { month: 'Juli', days: '10–12', year: '2026', location: 'Berlin', available: 12 },
+        { month: 'Sep', days: '18–20', year: '2026', location: 'Zürich', available: 20 }
+      ],
+      description: 'Drei Tage intensive Bewusstseinsarbeit. Du lernst, den Verstand zu beruhigen, Klarheit zu finden und aus innerer Stille heraus zu handeln. Keine Theorie – reine Praxis, präzise geführt.',
+      essence: 'Klarheit ist kein Zustand, den man erreicht. Es ist das, was bleibt, wenn man aufhört zu suchen.',
+      includes: [
+        'Geführte Bewusstseinsübungen & Meditationen',
+        'Individuelle Standortbestimmung',
+        'Praxis-Tools für den Alltag',
+        'Persönliches Integrations-Gespräch',
+        'Verpflegung & Getränke inklusive',
+        'Zugang zur Teilnehmer-Community'
+      ],
+      transformationen: [
+        { von: 'Grübeln', zu: 'Klarheit' },
+        { von: 'Reaktivität', zu: 'Bewusste Antwort' },
+        { von: 'Unruhe', zu: 'Innere Stille' }
+      ],
+      module: [
+        { tag: 'Tag 1', title: 'Ankommen & Ausrichtung', content: 'Den Verstand erkennen. Stille finden. Präsenz als Fundament etablieren.' },
+        { tag: 'Tag 2', title: 'Vertiefung & Durchbruch', content: 'Kernmuster auflösen. Bewusste Wahrnehmung schulen. Integration beginnen.' },
+        { tag: 'Tag 3', title: 'Integration & Transfer', content: 'Das Erfahrene verankern. Konkrete Alltagsstrategien. Persönlicher Weg nach vorn.' }
+      ],
+      gradient: 'from-amber-400 to-orange-500',
+      image: '/bildschirmfoto_2025-12-19_um_01.49.07.png'
+    },
+    {
+      id: 'fuehrung-masterclass',
+      format: 'praesenz',
+      title: 'Führung aus Bewusstsein',
+      subtitle: '5-Tage Masterclass für Führungskräfte',
+      tagline: 'Wer sich selbst führen kann, führt andere mit natürlicher Autorität.',
+      duration: '5 Tage (Mo–Fr)',
+      price: 'Ab 3.900 €',
+      capacity: 'Max. 15 Teilnehmer',
+      dates: [
+        { month: 'Jun', days: '8–12', year: '2026', location: 'Kitzbühel', available: 5 },
+        { month: 'Okt', days: '5–9', year: '2026', location: 'Hamburg', available: 15 }
+      ],
+      description: 'Die intensive Masterclass für Führungskräfte, die ihre Wirksamkeit auf ein neues Level bringen wollen. Fünf Tage Tiefenarbeit an Präsenz, Entscheidungsstärke und authentischer Führung.',
+      essence: 'Echte Führung braucht keinen Druck. Sie entsteht aus Klarheit und Präsenz.',
+      includes: [
+        '5 intensive Tagesmodule',
+        'Persönliches Führungs-Assessment',
+        '1:1 Coaching-Session mit Anatoly',
+        'Führungs-Toolkit & Praxishandbuch',
+        'Exklusive Retreat-Location inkl. Verpflegung',
+        '3 Monate Follow-up Begleitung'
+      ],
+      transformationen: [
+        { von: 'Kontrolle', zu: 'Vertrauen' },
+        { von: 'Druck', zu: 'Inspiration' },
+        { von: 'Management', zu: 'Wahre Führung' }
+      ],
+      module: [
+        { tag: 'Tag 1', title: 'Selbstführung', content: 'Die Basis: Innere Ordnung, Präsenz und klare Selbstwahrnehmung als Führungsfundament.' },
+        { tag: 'Tag 2', title: 'Bewusste Kommunikation', content: 'Zuhören, Sprechen, Schweigen – die drei Dimensionen wirkungsvoller Führungskommunikation.' },
+        { tag: 'Tag 3', title: 'Entscheidungsintelligenz', content: 'Jenseits von Pro-Contra-Listen: Zugang zur intuitiven Klarheit für stimmige Entscheidungen.' },
+        { tag: 'Tag 4', title: 'Team & Kultur', content: 'Wie du ein Umfeld erschaffst, in dem Menschen natürlich wachsen und leisten.' },
+        { tag: 'Tag 5', title: 'Integration & Vision', content: 'Dein persönlicher Führungskompass. Konkrete nächste Schritte und Langzeitstrategie.' }
+      ],
+      gradient: 'from-cyan-400 to-blue-500',
+      image: '/bildschirmfoto_2026-01-10_um_12.29.12.png'
+    },
+    {
+      id: 'online-bewusstsein',
+      format: 'online-live',
+      title: 'Bewusstsein Online',
+      subtitle: 'Live-Seminar via Zoom',
+      tagline: 'Tiefe braucht keinen Ort – nur Offenheit.',
+      duration: '4 Abende (je 2,5h)',
+      price: '490 €',
+      capacity: 'Max. 40 Teilnehmer',
+      dates: [
+        { month: 'Mai', days: '6, 13, 20, 27', year: '2026', location: 'Online (Zoom)', available: 25 },
+        { month: 'Aug', days: '4, 11, 18, 25', year: '2026', location: 'Online (Zoom)', available: 40 }
+      ],
+      description: 'Vier intensive Abende, die dein Bewusstsein nachhaltig erweitern. Live geführte Praxis, klare Impulse und direkter Austausch – alles von zu Hause aus.',
+      essence: 'Der wichtigste Raum ist nicht der äußere, sondern der innere.',
+      includes: [
+        '4 Live-Sessions à 2,5 Stunden',
+        'Aufzeichnungen aller Sessions',
+        'Geführte Meditationen zum Download',
+        'Wöchentliche Praxis-Aufgaben',
+        'Community-Zugang',
+        'Q&A mit Anatoly'
+      ],
+      transformationen: [
+        { von: 'Ablenkung', zu: 'Fokus' },
+        { von: 'Stress', zu: 'Gelassenheit' },
+        { von: 'Zweifel', zu: 'Vertrauen' }
+      ],
+      module: [
+        { tag: 'Abend 1', title: 'Grundlagen der Präsenz', content: 'Den Geist beruhigen. Ankommen im Hier und Jetzt.' },
+        { tag: 'Abend 2', title: 'Muster erkennen', content: 'Automatische Reaktionen sichtbar machen und loslassen.' },
+        { tag: 'Abend 3', title: 'Stille & Kraft', content: 'Die Kraft der inneren Stille entdecken und nutzen.' },
+        { tag: 'Abend 4', title: 'Integration', content: 'Das Erlernte verankern und in den Alltag tragen.' }
+      ],
+      gradient: 'from-orange-400 to-amber-500',
+      image: '/bildschirmfoto_2025-12-13_um_20.01.21.png'
+    },
+    {
+      id: 'on-demand-grundlagen',
+      format: 'on-demand',
+      title: 'Grundlagen der Achtsamkeit',
+      subtitle: 'Selbstlernkurs – Jederzeit starten',
+      tagline: 'Dein Tempo. Dein Weg. Deine Tiefe.',
+      duration: '8 Module (je 60 Min.)',
+      price: '290 €',
+      capacity: 'Unbegrenzt',
+      dates: [
+        { month: 'Jederzeit', days: 'verfügbar', year: '', location: 'Online (On-Demand)', available: 999 }
+      ],
+      description: 'Ein strukturierter Selbstlernkurs, der dich Schritt für Schritt in die Praxis der Achtsamkeit einführt. 8 aufeinander aufbauende Module mit Video-Lektionen, geführten Meditationen und Reflexionsaufgaben.',
+      essence: 'Der erste Schritt ist nicht der schwierigste – er ist der wichtigste.',
+      includes: [
+        '8 Video-Module (je 45–60 Min.)',
+        '16 geführte Meditationen',
+        'Begleitendes Workbook (PDF)',
+        'Lebenslanger Zugang',
+        'Community-Forum',
+        'Zertifikat bei Abschluss'
+      ],
+      transformationen: [
+        { von: 'Autopilot', zu: 'Bewusstheit' },
+        { von: 'Hektik', zu: 'Ruhe' },
+        { von: 'Oberfläche', zu: 'Tiefe' }
+      ],
+      module: [
+        { tag: 'Modul 1–2', title: 'Fundament', content: 'Was Achtsamkeit wirklich ist und wie du sie in deinen Alltag integrierst.' },
+        { tag: 'Modul 3–4', title: 'Vertiefung', content: 'Körperwahrnehmung, Atempraxis und geführte Meditation.' },
+        { tag: 'Modul 5–6', title: 'Anwendung', content: 'Achtsame Kommunikation, Stressmanagement und bewusste Entscheidungen.' },
+        { tag: 'Modul 7–8', title: 'Integration', content: 'Langfristige Praxis etablieren und persönlichen Weg definieren.' }
+      ],
+      gradient: 'from-rose-400 to-pink-500',
+      image: '/bildschirmfoto_2026-01-19_um_18.47.55.png'
+    },
+    {
+      id: 'hybrid-retreat',
+      format: 'hybrid',
+      title: 'Wochenend-Retreat Hybrid',
+      subtitle: 'Vor Ort oder Live-Stream',
+      tagline: 'Verbunden sein – egal wo du bist.',
+      duration: '2 Tage (Sa–So)',
+      price: 'Ab 690 €',
+      capacity: 'Max. 30 Präsenz + 50 Online',
+      dates: [
+        { month: 'Jun', days: '28–29', year: '2026', location: 'Frankfurt + Online', available: 18 },
+        { month: 'Nov', days: '14–15', year: '2026', location: 'Wien + Online', available: 30 }
+      ],
+      description: 'Ein intensives Wochenende, das du wahlweise vor Ort oder im Live-Stream erlebst. Beide Formate sind vollwertig integriert – du bist mittendrin, nicht nur dabei.',
+      essence: 'Transformation kennt keine Entfernung.',
+      includes: [
+        '2 volle Tage Live-Programm',
+        'Interaktive Breakout-Sessions',
+        'Geführte Praxis & Reflexion',
+        'Vollverpflegung (Präsenz)',
+        'Aufzeichnung für 30 Tage',
+        'Praxis-Guide zum Mitnehmen'
+      ],
+      transformationen: [
+        { von: 'Isolation', zu: 'Verbundenheit' },
+        { von: 'Theorie', zu: 'Erfahrung' },
+        { von: 'Alltag', zu: 'Tiefe' }
+      ],
+      module: [
+        { tag: 'Samstag', title: 'Öffnung & Tiefe', content: 'Ankommen, Ausrichtung finden und in die Tiefe der Bewusstseinsarbeit eintauchen.' },
+        { tag: 'Sonntag', title: 'Integration & Kraft', content: 'Das Erfahrene verankern, persönliche Erkenntnisse und den Transfer in den Alltag gestalten.' }
+      ],
+      gradient: 'from-emerald-400 to-teal-500',
+      image: '/bildschirmfoto_2026-01-02_um_22.35.10.png'
     }
-  };
+  ], []);
+
+  useEffect(() => {
+    const loadSeminars = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const { data, error: fetchError } = await supabase
+          .from('seminars')
+          .select('*')
+          .eq('is_active', true)
+          .order('order_index', { ascending: true });
+
+        if (fetchError || !data || data.length === 0) {
+          setSeminare(staticSeminars);
+        } else {
+          setSeminare(data);
+        }
+      } catch {
+        setSeminare(staticSeminars);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSeminars();
+  }, [staticSeminars]);
 
   const formats = useMemo(() => [
     { id: 'all' as FormatFilter, label: t.seminare.filter.all, icon: Globe },

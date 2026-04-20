@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown, Sparkles, MessageCircle, Users, ShoppingCart, BookOpen, Mail, Calendar, CreditCard, Shield, HelpCircle, Search, Zap, ArrowRight, Briefcase, Home, Clock, FileText } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -257,6 +257,27 @@ export default function FAQ() {
       item.answer.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+  useEffect(() => {
+    const faqSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.setAttribute('data-faq-schema', 'true');
+    script.textContent = JSON.stringify(faqSchema);
+    document.head.appendChild(script);
+    return () => { script.remove(); };
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">

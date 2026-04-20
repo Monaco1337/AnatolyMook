@@ -218,108 +218,137 @@ export default function HomeDynamic() {
   return (
     <div style={{ backgroundColor: colors.bg.primary }}>
       {/* 1️⃣ HERO */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: colors.bg.primary }} data-section>
-        <div className="relative w-full max-w-[1600px] mx-auto h-screen px-3 sm:px-5 md:px-8 lg:px-16 pt-24 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8">
-          <div className="relative w-full h-full rounded-lg sm:rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#000' }} data-section>
+        <div className="relative w-full max-w-[1600px] mx-auto h-screen px-3 sm:px-5 md:px-8 lg:px-12 pt-20 sm:pt-16 md:pt-20 pb-4 sm:pb-6 md:pb-8">
+          <div className="relative w-full h-full rounded-2xl sm:rounded-[24px] md:rounded-[32px] overflow-hidden"
+               style={{ boxShadow: '0 25px 80px -12px rgba(0,0,0,0.8), 0 0 120px rgba(212,175,55,0.06)' }}>
             <img
               src="/anatoly_mook.png"
               alt="Anatoly Mook – Bewusstseinscoach und Mentor für innere Transformation und bewusstes Leben"
               className="w-full h-full object-cover object-[65%_center] sm:object-[center_20%] md:object-[center_15%] lg:object-[center_10%]"
               loading="eager"
               fetchPriority="high"
+              style={{ transform: `scale(${1 + scrollY * 0.0001})`, transition: 'transform 0.1s linear' }}
             />
 
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/15" />
-            <div className="absolute inset-x-0 bottom-0 h-[55vh] sm:h-[58vh] md:h-[62vh] lg:h-[68vh] bg-gradient-to-t from-yellow-400/80 via-yellow-400/40 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-[40vh] sm:h-[45vh] md:h-[50vh] lg:h-[55vh] bg-gradient-to-t from-yellow-500/50 via-yellow-500/20 to-transparent" />
+            {/* Cinematic overlays */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent via-40% to-black/70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
+            <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-            <div className="absolute inset-x-5 sm:inset-x-8 md:inset-x-12 lg:inset-x-16 xl:inset-x-20 bottom-8 sm:bottom-12 md:bottom-14 lg:bottom-16 z-10">
-              <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-8">
-                  <div className="flex-1">
-                    <h1 className="text-[1.85rem] leading-[1.08] sm:text-[2.25rem] md:text-[2.5rem] lg:text-[2.75rem] xl:text-[3rem] text-white mb-2 sm:mb-3.5 md:mb-4"
-                        style={{
-                          fontFamily: "'SF Pro Display', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif",
-                          fontWeight: 800,
-                          letterSpacing: '-0.04em',
-                          textShadow: '0 2px 20px rgba(0,0,0,0.4), 0 0 60px rgba(255,215,0,0.15)'
-                        }}>
-                      {hero.mainHeading?.split('\n').map((line: string, i: number) => (
-                        <span key={i}>{line}<br /></span>
-                      )) || 'Innere Ruhe. Klarheit im Denken. Ein Leben, das sich richtig anfühlt.'}
-                    </h1>
+            {/* Subtle warm accent at bottom */}
+            <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-amber-900/20 via-amber-800/5 to-transparent" />
 
-                    <p className="text-[0.8rem] sm:text-[0.9rem] md:text-[0.95rem] lg:text-base text-white/85 mb-2 sm:mb-3.5 md:mb-4 font-semibold leading-relaxed"
+            {/* Vignette */}
+            <div className="absolute inset-0" style={{ boxShadow: 'inset 0 0 150px 40px rgba(0,0,0,0.3)' }} />
+
+            {/* Top accent line */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-400/30 to-transparent" />
+
+            {/* Content */}
+            <div className="absolute inset-x-6 sm:inset-x-10 md:inset-x-14 lg:inset-x-20 xl:inset-x-24 bottom-10 sm:bottom-14 md:bottom-16 lg:bottom-20 z-10">
+              <div className="max-w-6xl">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 mb-5 sm:mb-6"
+                     style={{ opacity: Math.max(0, 1 - scrollY * 0.002) }}>
+                  <div className="h-px w-8 sm:w-12 bg-gradient-to-r from-amber-400/80 to-transparent" />
+                  <span className="text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.25em] text-amber-300/80"
+                        style={{ fontFamily: "'Inter', -apple-system, sans-serif" }}>
+                    Bewusstseinsarbeit & Transformation
+                  </span>
+                </div>
+
+                {/* Main heading */}
+                <h1 className="text-[2rem] leading-[1.05] sm:text-[2.75rem] md:text-[3.25rem] lg:text-[3.75rem] xl:text-[4.25rem] text-white mb-4 sm:mb-5 md:mb-6 max-w-4xl"
+                    style={{
+                      fontFamily: "'SF Pro Display', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif",
+                      fontWeight: 700,
+                      letterSpacing: '-0.035em',
+                      textShadow: '0 2px 30px rgba(0,0,0,0.5)',
+                      opacity: Math.max(0, 1 - scrollY * 0.001)
+                    }}>
+                  {hero.mainHeading?.split('\n').map((line: string, i: number) => (
+                    <span key={i}>{line}<br /></span>
+                  )) || (<>Innere Ruhe. Klarheit<br />im Denken. <span className="bg-gradient-to-r from-amber-200 via-yellow-200 to-amber-300 bg-clip-text text-transparent">Ein Leben,{'\n'}das sich richtig anfühlt.</span></>)}
+                </h1>
+
+                {/* Subheading */}
+                {hero.subheading && (
+                  <p className="text-sm sm:text-base md:text-lg text-white/70 mb-5 sm:mb-6 max-w-2xl leading-relaxed font-light"
+                     style={{
+                       fontFamily: "'Inter', -apple-system, sans-serif",
+                       letterSpacing: '0.01em',
+                       textShadow: '0 1px 12px rgba(0,0,0,0.4)'
+                     }}>
+                    {hero.subheading?.split('\n').map((line: string, i: number) => (
+                      <span key={i}>{line}<br /></span>
+                    ))}
+                  </p>
+                )}
+
+                {/* Quote */}
+                {hero.quote && (
+                  <div className="mb-6 sm:mb-8">
+                    <p className="text-sm sm:text-base text-white/50 italic font-light"
                        style={{
-                         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-                         letterSpacing: '0.01em',
+                         fontFamily: "'Inter', -apple-system, sans-serif",
                          textShadow: '0 1px 8px rgba(0,0,0,0.3)'
                        }}>
-                      {hero.subheading?.split('\n').map((line: string, i: number) => (
-                        <span key={i}>{line}<br /></span>
-                      ))}
+                      „{hero.quote}"
                     </p>
-
-                    <div className="inline-block group/quote mb-3 sm:mb-4">
-                      <div className="relative backdrop-blur-xl bg-gradient-to-br from-white/15 via-white/10 to-white/5 border border-white/30 rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.25),_0_0_80px_rgba(255,215,0,0.1)] transition-all duration-500 hover:shadow-[0_12px_48px_rgba(0,0,0,0.3),_0_0_100px_rgba(255,215,0,0.15)] hover:border-white/40">
-                        <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent rounded-2xl" />
-                        <p className="relative text-[0.75rem] sm:text-[0.85rem] md:text-[0.9rem] text-white/95 font-medium italic"
-                           style={{
-                             fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-                             letterSpacing: '0.01em'
-                           }}>
-                          „{hero.quote}"
-                        </p>
-                      </div>
-                    </div>
                   </div>
+                )}
 
-                  <div className="md:flex-shrink-0">
-                    <button
-                      className="group relative inline-flex items-center justify-center gap-2.5
-                      h-11 sm:h-[52px] md:h-14 lg:h-[60px] px-7 sm:px-9 md:px-10 lg:px-11
-                      bg-white hover:bg-white
-                      text-black
-                      text-[0.85rem] sm:text-[0.95rem] md:text-base lg:text-[1.05rem] font-semibold
-                      rounded-full
-                      transition-all duration-500 ease-out
-                      hover:scale-[1.03]
-                      active:scale-[0.97]
-                      shadow-[0_8px_32px_rgba(0,0,0,0.3),_0_0_80px_rgba(255,255,255,0.2)]
-                      hover:shadow-[0_12px_48px_rgba(0,0,0,0.4),_0_0_120px_rgba(255,255,255,0.3)]
-                      overflow-hidden"
-                      style={{
-                        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
-                      }}
-                      onClick={() => {
-                        window.location.hash = '#booking';
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-yellow-50/30 via-transparent to-yellow-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <span className="relative font-semibold tracking-wide">{hero.ctaText || 'Kostenlos Erstgespräch'}</span>
-                      <ArrowRight
-                        className="relative w-[18px] h-[18px] md:w-5 md:h-5 transition-transform duration-500 group-hover:translate-x-1.5"
-                        strokeWidth={2.5}
-                      />
-                    </button>
-                    <p className="text-[0.65rem] sm:text-[0.75rem] text-white/60 text-center mt-1.5 sm:mt-2 italic">
+                {/* CTA Row */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                  <button
+                    className="group relative inline-flex items-center gap-3
+                    h-12 sm:h-14 md:h-[60px] px-8 sm:px-10 md:px-12
+                    rounded-full overflow-hidden
+                    transition-all duration-500 ease-out
+                    hover:scale-[1.03] active:scale-[0.97]"
+                    style={{
+                      background: 'linear-gradient(135deg, #f5c542 0%, #d4a438 50%, #c4922e 100%)',
+                      fontFamily: "'Inter', -apple-system, sans-serif",
+                      boxShadow: '0 8px 32px rgba(212,164,56,0.35), 0 0 60px rgba(212,164,56,0.1), inset 0 1px 0 rgba(255,255,255,0.25)'
+                    }}
+                    onClick={() => {
+                      window.location.hash = '#booking';
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/20 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <span className="relative text-sm sm:text-base md:text-[1.05rem] font-semibold text-black tracking-wide">
+                      {hero.ctaText || 'Kostenlos Erstgespräch'}
+                    </span>
+                    <ArrowRight className="relative w-4 h-4 md:w-5 md:h-5 text-black transition-transform duration-500 group-hover:translate-x-1.5" strokeWidth={2.5} />
+                  </button>
+
+                  <div className="flex items-center gap-3">
+                    <div className="h-px w-6 bg-white/20 hidden sm:block" />
+                    <p className="text-xs sm:text-sm text-white/40 font-light tracking-wide">
                       {hero.ctaSubtext || '15 Minuten · vertraulich · unverbindlich'}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Bottom accent line */}
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-400/20 to-transparent" />
           </div>
         </div>
 
+        {/* Scroll indicator */}
         <button
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 group"
+          style={{ opacity: Math.max(0, 1 - scrollY * 0.005) }}
         >
-          <div className="flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors">
-            <ChevronDown size={20} className="animate-bounce" strokeWidth={2.5} />
+          <div className="flex flex-col items-center gap-1.5">
+            <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1.5 group-hover:border-white/40 transition-colors">
+              <div className="w-1 h-2 rounded-full bg-white/50 animate-bounce" />
+            </div>
           </div>
         </button>
       </section>

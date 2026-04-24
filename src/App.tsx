@@ -56,7 +56,15 @@ function AppContent() {
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const rawPath = location.pathname.replace(/^\/(en|ru)/, '') || '/';
-  const currentSection = rawPath === '/' ? 'home' : rawPath.substring(1).split('/')[0];
+  const pathSegments = rawPath.split('/').filter(Boolean);
+  const isFaqDetail = pathSegments[0] === 'faq' && pathSegments.length > 1;
+  const currentSection =
+    rawPath === '/'
+      ? 'home'
+      : isFaqDetail
+        ? 'faq-detail'
+        : pathSegments[0] || 'home';
+  const navSection = isFaqDetail ? 'faq' : currentSection;
 
   useEffect(() => {
     const savedCart = localStorage.getItem('shop_cart');
@@ -208,7 +216,7 @@ function AppContent() {
     <div className="min-h-screen smooth-scroll overflow-x-hidden" style={{ backgroundColor: colors.bg.primary }}>
       <SEOHead section={currentSection} path={location.pathname} />
       {showNavAndFooter && (
-        <Navigation currentSection={currentSection} onNavigate={handleNavigate} cartItemCount={cartItemCount} onCartClick={() => setIsCartOpen(true)} />
+        <Navigation currentSection={navSection} onNavigate={handleNavigate} cartItemCount={cartItemCount} onCartClick={() => setIsCartOpen(true)} />
       )}
       <main className="section-fade-in">
         <Suspense fallback={<LoadingFallback />}>

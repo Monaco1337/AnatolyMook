@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
 import { getSectionSEO } from '../utils/seoConfig';
-import { graphSchema } from '../seo/schemaFactory';
+import { graphSchema, faqPageGraphNode } from '../seo/schemaFactory';
+import { MAIN_FAQ_HUB_ITEMS, isMainFaqHubPath } from '../seo/mainFaqHubData';
 
 interface SEOHeadProps {
   title?: string;
@@ -181,6 +182,8 @@ export default function SEOHead({
     const existingSchemas = document.querySelectorAll('script[type="application/ld+json"][data-dynamic]');
     existingSchemas.forEach(script => script.remove());
 
+    const faqHubPath = isMainFaqHubPath(path || '');
+
     if (customSchema) {
       const schemaScript = document.createElement('script');
       schemaScript.type = 'application/ld+json';
@@ -190,6 +193,8 @@ export default function SEOHead({
     }
 
     schemaData.forEach(schema => {
+      const json = schema.schema_json as Record<string, unknown> | undefined;
+      if (faqHubPath && json && json['@type'] === 'FAQPage') return;
       const schemaScript = document.createElement('script');
       schemaScript.type = 'application/ld+json';
       schemaScript.setAttribute('data-dynamic', 'true');
@@ -199,21 +204,35 @@ export default function SEOHead({
 
     if (!customSchema) {
       const entityGraph = graphSchema();
-      const pageSchema: Record<string, unknown> = {
-        '@type': finalSchemaType,
-        '@id': `${canonicalUrl}#${finalSchemaType.toLowerCase()}`,
-        url: canonicalUrl,
-        name: fullTitle,
-        description: fullDescription,
-        inLanguage: localeMap[language] || 'de-DE',
-        isPartOf: { '@id': `${baseUrl}/#website` },
-        about: { '@id': `${baseUrl}/#person` },
-        speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.hero-content', '.definition-block', 'h1', 'h2'] },
-      };
-      if (ogImage) {
-        pageSchema.image = { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 };
+      const inLangSchema = language === 'en' ? 'en-US' : language === 'ru' ? 'ru-RU' : 'de-DE';
+
+      if (faqHubPath && section === 'faq') {
+        const qaPairs = MAIN_FAQ_HUB_ITEMS.map(({ question, answer }) => ({ question, answer }));
+        entityGraph['@graph'].push(
+          faqPageGraphNode(canonicalUrl, qaPairs, {
+            name: fullTitle,
+            description: fullDescription,
+            inLanguage: inLangSchema
+          })
+        );
+      } else {
+        const graphPageType = finalSchemaType === 'FAQPage' ? 'WebPage' : finalSchemaType;
+        const pageSchema: Record<string, unknown> = {
+          '@type': graphPageType,
+          '@id': `${canonicalUrl}#${String(graphPageType).toLowerCase()}`,
+          url: canonicalUrl,
+          name: fullTitle,
+          description: fullDescription,
+          inLanguage: inLangSchema,
+          isPartOf: { '@id': `${baseUrl}/#website` },
+          about: { '@id': `${baseUrl}/#person` },
+          speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.hero-content', '.definition-block', 'h1', 'h2'] },
+        };
+        if (ogImage) {
+          pageSchema.image = { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 };
+        }
+        entityGraph['@graph'].push(pageSchema);
       }
-      entityGraph['@graph'].push(pageSchema);
 
       const entityScript = document.createElement('script');
       entityScript.type = 'application/ld+json';

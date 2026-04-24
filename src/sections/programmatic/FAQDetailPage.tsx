@@ -3,7 +3,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import SEOHead from '../../components/SEOHead';
 import { faqEntries } from '../../seo/faqDatabase';
-import { faqPageSchema, breadcrumbSchema } from '../../seo/schemaFactory';
+import { faqPageGraphNode, breadcrumbListGraphNode } from '../../seo/schemaFactory';
 import InternalLinks from '../../components/InternalLinks';
 import { ChevronRight, HelpCircle, ArrowRight } from 'lucide-react';
 
@@ -23,10 +23,18 @@ export default function FAQDetailPage() {
   }
 
   const related = faqEntries.filter(f => faq.relatedFaqs.includes(f.slug)).slice(0, 5);
-  const schema = faqPageSchema([{ question: faq.question[lang], answer: faq.answer[lang] }]);
-  const crumbs = breadcrumbSchema([
-    { name: 'FAQ', url: '/faq' },
-    { name: faq.question[lang].substring(0, 50), url: `/faq/${slug}` }
+  const langPrefix = lang === 'en' ? '/en' : lang === 'ru' ? '/ru' : '';
+  const pagePath = `${langPrefix}/faq/${slug}`;
+  const canonicalUrl = `https://www.anatoly-mook.de${pagePath}`;
+  const inLang = lang === 'en' ? 'en-US' : lang === 'ru' ? 'ru-RU' : 'de-DE';
+  const faqNode = faqPageGraphNode(
+    canonicalUrl,
+    [{ question: faq.question[lang], answer: faq.answer[lang] }],
+    { name: faq.question[lang], description: faq.answer[lang].substring(0, 320), inLanguage: inLang }
+  );
+  const crumbs = breadcrumbListGraphNode(canonicalUrl, [
+    { name: 'FAQ', url: `${langPrefix}/faq` },
+    { name: faq.question[lang].substring(0, 56), url: pagePath }
   ]);
 
   return (
@@ -34,10 +42,10 @@ export default function FAQDetailPage() {
       <SEOHead
         title={`${faq.question[lang]} | Anatoly Mook`}
         description={faq.answer[lang].substring(0, 155)}
-        path={`/faq/${slug}`}
-        section="faq"
-        schemaType="FAQPage"
-        customSchema={{ '@context': 'https://schema.org', '@graph': [schema, crumbs] }}
+        path={pagePath}
+        section="faq-detail"
+        schemaType="WebPage"
+        customSchema={{ '@context': 'https://schema.org', '@graph': [faqNode, crumbs] }}
       />
 
       <div className="min-h-screen pt-20" style={{ backgroundColor: colors.bg.primary }}>

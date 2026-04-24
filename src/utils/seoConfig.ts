@@ -74,6 +74,12 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
     keywords: ['FAQ', 'Fragen', 'Antworten', 'Häufig gestellte Fragen', 'Coaching FAQ'],
     schemaType: 'FAQPage'
   },
+  'faq-detail': {
+    title: 'FAQ – Einzelfrage | Anatoly Mook',
+    description: 'Antwort auf eine häufig gestellte Frage zu Coaching, Seminaren und Angeboten von Anatoly Mook.',
+    keywords: ['FAQ', 'Fragen', 'Antworten', 'Coaching', 'Seminare'],
+    schemaType: 'WebPage'
+  },
   kontakt: {
     title: 'Kontakt – Anatoly Mook für Coaching & Seminare erreichen',
     description: 'Kontaktieren Sie Anatoly Mook für Coaching, Seminare, Keynotes oder individuelle Anfragen. Persönlicher Kontakt für eine nachhaltige Zusammenarbeit.',

@@ -80,28 +80,6 @@ export default function prerenderPlugin() {
         console.log('  Loaded internal link fragment for injection');
       }
 
-      // Build FAQPage JSON-LD from source FAQ data
-      let faqSchemaTag = '';
-      try {
-        const faqSrc = fs.readFileSync(path.resolve(distPath, '..', 'src', 'sections', 'FAQ.tsx'), 'utf-8');
-        const faqPairs = [];
-        const qRe = /question:\s*'([^']+)'/g;
-        const aRe = /answer:\s*'([^']+)'/g;
-        let qm, am;
-        const questions = [];
-        const answers = [];
-        while ((qm = qRe.exec(faqSrc)) !== null) questions.push(qm[1]);
-        while ((am = aRe.exec(faqSrc)) !== null) answers.push(am[1]);
-        for (let i = 0; i < Math.min(questions.length, answers.length); i++) {
-          faqPairs.push({ '@type': 'Question', name: questions[i], acceptedAnswer: { '@type': 'Answer', text: answers[i] } });
-        }
-        if (faqPairs.length > 0) {
-          const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqPairs };
-          faqSchemaTag = `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`;
-          console.log(`  FAQPage schema: ${faqPairs.length} questions`);
-        }
-      } catch { /* FAQ source not available */ }
-
       const baseHtml = fs.readFileSync(indexPath, 'utf-8');
       const allRoutes = [...mainRoutes, ...enRoutes, ...ruRoutes];
       let count = 0;
@@ -115,10 +93,6 @@ export default function prerenderPlugin() {
         const metaTags = generateMetaTags(route);
         html = html.replace(/<title>.*?<\/title>/s, metaTags);
         html = html.replace(/https:\/\/(www\.)?anatolymook\.de/g, BASE_URL).replace(/https:\/\/anatolymook\.com/g, BASE_URL);
-
-        if (faqSchemaTag && (route.path === '/faq' || route.path === '/en/faq' || route.path === '/ru/faq')) {
-          html = html.replace('</head>', `${faqSchemaTag}\n</head>`);
-        }
 
         if (linkFragment) {
           html = html.replace('</body>', `${linkFragment}\n</body>`);

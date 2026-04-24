@@ -128,6 +128,55 @@ export function faqPageSchema(faqs: Array<{ question: string; answer: string }>)
   };
 }
 
+/** One FAQPage node for @graph (no nested @context). Google requires mainEntity. */
+export function faqPageGraphNode(
+  canonicalUrl: string,
+  faqs: Array<{ question: string; answer: string }>,
+  opts?: { name?: string; description?: string; inLanguage?: string }
+): Record<string, unknown> {
+  const node: Record<string, unknown> = {
+    '@type': 'FAQPage',
+    '@id': `${canonicalUrl}#faqpage`,
+    url: canonicalUrl,
+    isPartOf: { '@id': `${BASE_URL}/#website` },
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer }
+    }))
+  };
+  if (opts?.name) node.name = opts.name;
+  if (opts?.description) node.description = opts.description;
+  if (opts?.inLanguage) node.inLanguage = opts.inLanguage;
+  return node;
+}
+
+function toAbsoluteUrl(pathOrUrl: string): string {
+  if (pathOrUrl.startsWith('http')) return pathOrUrl;
+  const path = pathOrUrl.startsWith('/') ? pathOrUrl : `/${pathOrUrl}`;
+  return `${BASE_URL}${path}`;
+}
+
+/** BreadcrumbList for embedding in @graph (no nested @context). */
+export function breadcrumbListGraphNode(
+  canonicalUrl: string,
+  trail: Array<{ name: string; url: string }>
+): Record<string, unknown> {
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': `${canonicalUrl}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+      ...trail.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 2,
+        name: item.name,
+        item: toAbsoluteUrl(item.url)
+      }))
+    ]
+  };
+}
+
 export function courseSchema(course: { name: string; description: string; url: string; provider?: string }) {
   return {
     '@context': 'https://schema.org',

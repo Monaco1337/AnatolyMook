@@ -4,13 +4,26 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'system-ui', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'system-ui', 'sans-serif'],
+        display: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        'display-2xl': ['4.5rem', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '200' }],
-        'display-xl': ['3.75rem', { lineHeight: '1', letterSpacing: '-0.02em', fontWeight: '200' }],
-        'display-lg': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '200' }],
-        'display-md': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.01em', fontWeight: '300' }],
+        'display-2xl': ['4.5rem', { lineHeight: '1.05', letterSpacing: '-0.012em', fontWeight: '600' }],
+        'display-xl': ['3.75rem', { lineHeight: '1.08', letterSpacing: '-0.012em', fontWeight: '600' }],
+        'display-lg': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.010em', fontWeight: '600' }],
+        'display-md': ['2.25rem', { lineHeight: '1.15', letterSpacing: '-0.008em', fontWeight: '600' }],
+        'premium-h1': ['clamp(2.75rem, 5.5vw, 4.5rem)', { lineHeight: '1.08', letterSpacing: '-0.012em', fontWeight: '600' }],
+        'premium-h2': ['clamp(2rem, 3.6vw, 2.75rem)', { lineHeight: '1.12', letterSpacing: '-0.010em', fontWeight: '600' }],
+        'premium-h3': ['clamp(1.375rem, 2vw, 1.75rem)', { lineHeight: '1.22', letterSpacing: '-0.005em', fontWeight: '500' }],
+        'premium-body': ['1.0625rem', { lineHeight: '1.55', fontWeight: '400' }],
+        'premium-body-lg': ['1.125rem', { lineHeight: '1.55', fontWeight: '400' }],
+      },
+      maxWidth: {
+        'premium': '1200px',
+      },
+      spacing: {
+        'section': 'clamp(80px, 9vw, 120px)',
+        'section-mobile': 'clamp(48px, 12vw, 64px)',
       },
       colors: {
         'apple-gray': {

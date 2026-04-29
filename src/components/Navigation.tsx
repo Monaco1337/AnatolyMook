@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Menu, X, ShoppingCart, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import DropdownPortal from './DropdownPortal';
@@ -33,7 +33,7 @@ const getSectionUrl = (section: string): string => {
   return urlMap[section] || `/${section}`;
 };
 
-export default function Navigation({ currentSection, onNavigate, cartItemCount = 0, onCartClick }: NavigationProps) {
+export default function Navigation({ currentSection, onNavigate }: NavigationProps) {
   const { theme, toggleTheme, colors } = useTheme();
   const { t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -144,7 +144,7 @@ export default function Navigation({ currentSection, onNavigate, cartItemCount =
       lastScrollY = window.scrollY;
       if (!ticking) {
         requestAnimationFrame(() => {
-          setIsScrolled(lastScrollY > 20);
+          setIsScrolled(lastScrollY > 0);
           ticking = false;
         });
         ticking = true;
@@ -236,6 +236,21 @@ export default function Navigation({ currentSection, onNavigate, cartItemCount =
 
   return (
     <>
+      <style>{`
+        .nav-booking-cta { transform: translate3d(0, 0, 0); will-change: transform, box-shadow; }
+        .nav-booking-cta:hover { transform: translate3d(0, -1px, 0); }
+        .nav-booking-cta:active { transform: translate3d(0, 0, 0) scale(0.97); }
+        .nav-booking-cta:focus-visible {
+          outline: none;
+          box-shadow:
+            inset 0 1px 0 rgba(255, 240, 200, 0.5),
+            inset 0 0 0 1px rgba(255, 230, 175, 0.1),
+            0 0 0 3px rgba(214, 168, 62, 0.35),
+            0 0 26px rgba(230, 190, 90, 0.32),
+            0 0 70px rgba(214, 168, 62, 0.20),
+            0 8px 22px rgba(0, 0, 0, 0.35);
+        }
+      `}</style>
       <nav
         className="fixed top-0 left-0 right-0 z-[999999] pointer-events-none"
         style={{
@@ -257,20 +272,27 @@ export default function Navigation({ currentSection, onNavigate, cartItemCount =
               <div
                 className="relative rounded-[20px]"
                 style={{
-                  background: navBg,
-                  backdropFilter: 'blur(60px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(60px) saturate(180%)',
-                  border: navBorder,
-                  boxShadow: navShadow,
+                  background: isScrolled ? navBg : 'transparent',
+                  backdropFilter: isScrolled ? 'blur(60px) saturate(180%)' : 'none',
+                  WebkitBackdropFilter: isScrolled ? 'blur(60px) saturate(180%)' : 'none',
+                  border: isScrolled ? navBorder : '0.5px solid transparent',
+                  boxShadow: isScrolled ? navShadow : 'none',
                   transform: 'translate3d(0, 0, 0)',
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                   perspective: '1000px',
                   WebkitPerspective: '1000px',
-                  overflow: 'visible'
+                  overflow: 'visible',
+                  transition: 'background 250ms ease, border-color 250ms ease, box-shadow 250ms ease, backdrop-filter 250ms ease, -webkit-backdrop-filter 250ms ease'
                 }}
               >
-                <div className={`absolute inset-0 bg-gradient-to-b ${gradientOverlay} via-transparent to-transparent pointer-events-none`} />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-b ${gradientOverlay} via-transparent to-transparent pointer-events-none`}
+                  style={{
+                    opacity: isScrolled ? 1 : 0,
+                    transition: 'opacity 250ms ease'
+                  }}
+                />
 
                 <div className="flex items-center justify-between h-[60px] px-4 relative">
                   <a
@@ -300,9 +322,9 @@ export default function Navigation({ currentSection, onNavigate, cartItemCount =
                               e.preventDefault();
                               onNavigate(menu.targetId);
                             }}
-                            className={`px-4 py-2 rounded-[9px] transition-all duration-300 ${hoverBg}`}
+                            className={`h-9 px-4 rounded-[9px] inline-flex items-center transition-all duration-300 ${hoverBg}`}
                           >
-                            <span className={`text-[13px] font-[550] tracking-[0.01em] ${textSecondary} hover:${textActive} transition-colors`}>
+                            <span className={`text-[13px] font-[550] tracking-[0.01em] leading-none ${textSecondary} hover:${textActive} transition-colors`}>
                               {menu.label}
                             </span>
                           </a>
@@ -318,9 +340,9 @@ export default function Navigation({ currentSection, onNavigate, cartItemCount =
                         >
                           <button
                             ref={(el) => (dropdownButtonRefs.current[menu.id] = el)}
-                            className={`px-4 py-2 rounded-[9px] transition-all duration-300 flex items-center gap-1.5 ${hoverBg}`}
+                            className={`h-9 px-4 rounded-[9px] transition-all duration-300 inline-flex items-center gap-1.5 ${hoverBg}`}
                           >
-                            <span className={`text-[13px] font-[550] tracking-[0.01em] ${textSecondary} hover:${textActive} transition-colors`}>
+                            <span className={`text-[13px] font-[550] tracking-[0.01em] leading-none ${textSecondary} hover:${textActive} transition-colors`}>
                               {menu.label}
                             </span>
                             <svg
@@ -382,7 +404,70 @@ export default function Navigation({ currentSection, onNavigate, cartItemCount =
                         e.preventDefault();
                         onNavigate('booking');
                       }}
-                      className={`relative px-5 py-2.5 rounded-[11px] transition-all duration-400 active:scale-95 inline-block`}
+                      className="nav-booking-cta relative inline-flex items-center justify-center px-5 py-2.5 rounded-[11px]"
+                      style={{
+                        background: theme === 'dark'
+                          ? 'linear-gradient(180deg, rgba(255, 238, 195, 0.14) 0%, rgba(255, 220, 160, 0.07) 55%, rgba(255, 215, 150, 0.04) 100%)'
+                          : 'linear-gradient(180deg, rgba(255, 250, 232, 0.92) 0%, rgba(255, 240, 205, 0.62) 100%)',
+                        border: theme === 'dark'
+                          ? '1px solid rgba(255, 222, 165, 0.28)'
+                          : '1px solid rgba(214, 168, 62, 0.4)',
+                        boxShadow: theme === 'dark'
+                          ? `inset 0 1px 0 rgba(255, 240, 200, 0.35),
+                             inset 0 0 0 1px rgba(255, 230, 175, 0.05),
+                             0 0 18px rgba(230, 190, 90, 0.18),
+                             0 0 48px rgba(214, 168, 62, 0.10),
+                             0 4px 14px rgba(0, 0, 0, 0.3)`
+                          : `inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                             inset 0 0 0 1px rgba(255, 230, 175, 0.4),
+                             0 0 16px rgba(214, 168, 62, 0.18),
+                             0 0 40px rgba(214, 168, 62, 0.08),
+                             0 4px 12px rgba(0, 0, 0, 0.06)`,
+                        transition: 'transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 350ms cubic-bezier(0.2, 0.8, 0.2, 1), background 350ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+                        isolation: 'isolate'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = theme === 'dark'
+                          ? `inset 0 1px 0 rgba(255, 240, 200, 0.5),
+                             inset 0 0 0 1px rgba(255, 230, 175, 0.1),
+                             0 0 26px rgba(230, 190, 90, 0.32),
+                             0 0 70px rgba(214, 168, 62, 0.20),
+                             0 8px 22px rgba(0, 0, 0, 0.35)`
+                          : `inset 0 1px 0 rgba(255, 255, 255, 1),
+                             inset 0 0 0 1px rgba(255, 220, 160, 0.55),
+                             0 0 26px rgba(214, 168, 62, 0.32),
+                             0 0 60px rgba(214, 168, 62, 0.16),
+                             0 8px 20px rgba(0, 0, 0, 0.08)`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = theme === 'dark'
+                          ? `inset 0 1px 0 rgba(255, 240, 200, 0.35),
+                             inset 0 0 0 1px rgba(255, 230, 175, 0.05),
+                             0 0 18px rgba(230, 190, 90, 0.18),
+                             0 0 48px rgba(214, 168, 62, 0.10),
+                             0 4px 14px rgba(0, 0, 0, 0.3)`
+                          : `inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                             inset 0 0 0 1px rgba(255, 230, 175, 0.4),
+                             0 0 16px rgba(214, 168, 62, 0.18),
+                             0 0 40px rgba(214, 168, 62, 0.08),
+                             0 4px 12px rgba(0, 0, 0, 0.06)`;
+                      }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 rounded-[11px] overflow-hidden"
+                        style={{
+                          background: 'linear-gradient(180deg, rgba(255,250,232,0.18) 0%, rgba(255,250,232,0) 45%)'
+                        }}
+                      />
+                      <span className={`relative text-[13px] font-[600] tracking-[0.01em] leading-none ${textActive} transition-colors duration-400`}>
+                        Termin buchen
+                      </span>
+                    </a>
+
+                    <button
+                      onClick={toggleTheme}
+                      className="relative w-[40px] h-[40px] -mr-0.5 flex items-center justify-center rounded-full transition-all duration-300 ease-out active:scale-95"
                       style={{
                         background: theme === 'dark'
                           ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%)'
@@ -392,191 +477,38 @@ export default function Navigation({ currentSection, onNavigate, cartItemCount =
                           ? 'inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2)'
                           : 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.08)'
                       }}
-                    >
-                      <span className={`text-[13px] font-[600] tracking-[0.01em] ${textActive} transition-colors duration-400`}>
-                        Termin buchen
-                      </span>
-                    </a>
-
-                    <button
-                      onClick={onCartClick}
-                      className={`relative w-[36px] h-[36px] flex items-center justify-center rounded-[9px] transition-all duration-400 ${hoverBg} active:scale-95`}
-                    >
-                      <ShoppingCart size={16} className={textSecondary} strokeWidth={2} />
-                      {cartItemCount > 0 && (
-                        <span className="absolute -top-1 -right-1 w-[18px] h-[18px] bg-red-500 text-white rounded-full flex items-center justify-center text-[10px] font-[600] shadow-lg">
-                          {cartItemCount}
-                        </span>
-                      )}
-                    </button>
-
-                    <button
-                      onClick={toggleTheme}
-                      className="relative w-[56px] h-[40px] -mr-0.5 flex items-center justify-center rounded-[14px] transition-all duration-700 ease-out active:scale-95 group overflow-hidden"
-                      style={{
-                        background: theme === 'dark'
-                          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%)'
-                          : 'linear-gradient(135deg, rgba(250, 204, 21, 0.12) 0%, rgba(250, 204, 21, 0.06) 100%)',
-                        backdropFilter: 'blur(40px)',
-                        WebkitBackdropFilter: 'blur(40px)',
-                        border: theme === 'dark'
-                          ? '1px solid rgba(255, 255, 255, 0.25)'
-                          : '1px solid rgba(250, 204, 21, 0.25)',
-                        boxShadow: theme === 'dark'
-                          ? 'inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 4px 16px rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.2)'
-                          : 'inset 0 1px 2px rgba(250, 204, 21, 0.3), 0 4px 16px rgba(250, 204, 21, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08)',
-                        transform: 'translate3d(0, 0, 0)',
-                        willChange: 'transform'
-                      }}
                       aria-label={theme === 'dark' ? t.nav.theme.light : t.nav.theme.dark}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = theme === 'dark'
-                          ? 'inset 0 1px 2px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(255, 255, 255, 0.25), 0 4px 12px rgba(0, 0, 0, 0.3)'
-                          : 'inset 0 1px 2px rgba(250, 204, 21, 0.4), 0 8px 24px rgba(250, 204, 21, 0.25), 0 4px 12px rgba(0, 0, 0, 0.12)';
+                        e.currentTarget.style.background = theme === 'dark'
+                          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.14) 100%)'
+                          : 'linear-gradient(135deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.07) 100%)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = theme === 'dark'
-                          ? 'inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 4px 16px rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.2)'
-                          : 'inset 0 1px 2px rgba(250, 204, 21, 0.3), 0 4px 16px rgba(250, 204, 21, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08)';
+                        e.currentTarget.style.background = theme === 'dark'
+                          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%)'
+                          : 'linear-gradient(135deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.05) 100%)';
                       }}
                     >
-                      {/* Animated Background Gradient */}
-                      <div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                        style={{
-                          background: theme === 'dark'
-                            ? 'radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%)'
-                            : 'radial-gradient(circle at center, rgba(250, 204, 21, 0.2) 0%, transparent 70%)'
-                        }}
-                      />
-
-                      {/* Sliding Track */}
-                      <div
-                        className="absolute inset-[4px] rounded-[10px] transition-all duration-700 ease-out"
-                        style={{
-                          background: theme === 'dark'
-                            ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%)'
-                            : 'linear-gradient(135deg, rgba(250, 204, 21, 0.15) 0%, rgba(250, 204, 21, 0.08) 100%)',
-                          boxShadow: theme === 'dark'
-                            ? 'inset 0 2px 4px rgba(0, 0, 0, 0.3)'
-                            : 'inset 0 2px 4px rgba(0, 0, 0, 0.1)'
-                        }}
-                      />
-
-                      {/* Floating Icon Container with Glow */}
-                      <div
-                        className="absolute transition-all duration-700 ease-out"
-                        style={{
-                          left: theme === 'dark' ? '4px' : 'calc(100% - 32px - 4px)',
-                          top: '4px',
-                          width: '32px',
-                          height: '32px',
-                          transform: 'translate3d(0, 0, 0)',
-                          willChange: 'left'
-                        }}
-                      >
-                        {/* Glow Effect */}
-                        <div
-                          className="absolute inset-0 rounded-full blur-[12px] opacity-60"
+                      <span className="relative w-[16px] h-[16px] block">
+                        <Sun
+                          size={16}
+                          strokeWidth={1.75}
+                          className={`absolute inset-0 ${textActive} transition-all duration-300 ease-out`}
                           style={{
-                            background: theme === 'dark'
-                              ? 'radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%)'
-                              : 'radial-gradient(circle, rgba(250, 204, 21, 0.8) 0%, transparent 70%)'
+                            opacity: theme === 'light' ? 1 : 0,
+                            transform: theme === 'light' ? 'rotate(0deg) scale(1)' : 'rotate(-90deg) scale(0.6)'
                           }}
                         />
-
-                        {/* Icon Background */}
-                        <div
-                          className="absolute inset-0 rounded-full transition-all duration-700"
+                        <Moon
+                          size={16}
+                          strokeWidth={1.75}
+                          className={`absolute inset-0 ${textActive} transition-all duration-300 ease-out`}
                           style={{
-                            background: theme === 'dark'
-                              ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(235, 235, 235, 1) 100%)'
-                              : 'linear-gradient(135deg, rgba(250, 204, 21, 1) 0%, rgba(251, 191, 36, 1) 100%)',
-                            boxShadow: theme === 'dark'
-                              ? '0 4px 12px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
-                              : '0 4px 12px rgba(250, 204, 21, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+                            opacity: theme === 'dark' ? 1 : 0,
+                            transform: theme === 'dark' ? 'rotate(0deg) scale(1)' : 'rotate(90deg) scale(0.6)'
                           }}
                         />
-
-                        {/* Icons */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          {/* Sun Icon */}
-                          <div
-                            className="absolute transition-all duration-700 ease-out"
-                            style={{
-                              opacity: theme === 'light' ? 1 : 0,
-                              transform: theme === 'light'
-                                ? 'rotate(0deg) scale(1)'
-                                : 'rotate(180deg) scale(0.3)',
-                              filter: theme === 'light' ? 'none' : 'blur(4px)'
-                            }}
-                          >
-                            <Sun
-                              size={18}
-                              className="text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
-                              strokeWidth={2.5}
-                            />
-                          </div>
-
-                          {/* Moon Icon */}
-                          <div
-                            className="absolute transition-all duration-700 ease-out"
-                            style={{
-                              opacity: theme === 'dark' ? 1 : 0,
-                              transform: theme === 'dark'
-                                ? 'rotate(0deg) scale(1)'
-                                : 'rotate(-180deg) scale(0.3)',
-                              filter: theme === 'dark' ? 'none' : 'blur(4px)'
-                            }}
-                          >
-                            <Moon
-                              size={18}
-                              className="text-black drop-shadow-[0_2px_4px_rgba(250,204,21,0.3)]"
-                              strokeWidth={2.5}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Shine Effect */}
-                        <div
-                          className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 50%)',
-                            transform: 'translate3d(0, 0, 0)'
-                          }}
-                        />
-                      </div>
-
-                      {/* Sparkle Particles */}
-                      <div
-                        className="absolute transition-all duration-700 pointer-events-none"
-                        style={{
-                          left: theme === 'dark' ? '8px' : 'auto',
-                          right: theme === 'dark' ? 'auto' : '8px',
-                          top: '50%',
-                          transform: 'translateY(-50%)',
-                          opacity: 0.6
-                        }}
-                      >
-                        {[...Array(3)].map((_, i) => (
-                          <div
-                            key={i}
-                            className="absolute w-1 h-1 rounded-full animate-pulse"
-                            style={{
-                              background: theme === 'dark'
-                                ? 'rgba(255, 255, 255, 0.8)'
-                                : 'rgba(250, 204, 21, 0.8)',
-                              left: `${i * 3}px`,
-                              top: `${i % 2 === 0 ? -2 : 2}px`,
-                              animationDelay: `${i * 200}ms`,
-                              animationDuration: '1.5s',
-                              boxShadow: theme === 'dark'
-                                ? '0 0 4px rgba(255, 255, 255, 0.6)'
-                                : '0 0 4px rgba(250, 204, 21, 0.6)'
-                            }}
-                          />
-                        ))}
-                      </div>
+                      </span>
                     </button>
                   </div>
 
@@ -745,134 +677,44 @@ export default function Navigation({ currentSection, onNavigate, cartItemCount =
 
               <button
                 onClick={toggleTheme}
-                className="relative w-full h-[48px] rounded-[14px] transition-all duration-700 ease-out active:scale-[0.97] flex items-center justify-between px-4 overflow-hidden group"
+                className="relative w-full h-[44px] rounded-[11px] transition-all duration-300 ease-out active:scale-[0.97] flex items-center justify-between px-4"
                 style={{
                   background: theme === 'dark'
-                    ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%)'
-                    : 'linear-gradient(135deg, rgba(250, 204, 21, 0.12) 0%, rgba(250, 204, 21, 0.06) 100%)',
-                  backdropFilter: 'blur(40px)',
-                  WebkitBackdropFilter: 'blur(40px)',
-                  border: theme === 'dark'
-                    ? '1px solid rgba(255, 255, 255, 0.25)'
-                    : '1px solid rgba(250, 204, 21, 0.25)',
+                    ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%)'
+                    : 'linear-gradient(135deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.05) 100%)',
+                  border: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(0, 0, 0, 0.1)',
                   boxShadow: theme === 'dark'
-                    ? 'inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 4px 16px rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.2)'
-                    : 'inset 0 1px 2px rgba(250, 204, 21, 0.3), 0 4px 16px rgba(250, 204, 21, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08)'
+                    ? 'inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2)'
+                    : 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.08)'
                 }}
+                aria-label={theme === 'dark' ? t.nav.theme.light : t.nav.theme.dark}
               >
-                {/* Background Glow */}
-                <div
-                  className="absolute inset-0 opacity-0 group-active:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: theme === 'dark'
-                      ? 'radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%)'
-                      : 'radial-gradient(circle at center, rgba(250, 204, 21, 0.2) 0%, transparent 70%)'
-                  }}
-                />
-
-                {/* Text Label */}
                 <span
-                  className="relative z-10 text-[14px] font-[560] tracking-[0.01em]"
-                  style={{
-                    color: theme === 'dark' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(250, 204, 21, 1)'
-                  }}
+                  className={`text-[13px] font-[550] tracking-[0.01em] ${textSecondary}`}
                 >
                   {theme === 'dark' ? t.nav.theme.lightMode : t.nav.theme.darkMode}
                 </span>
 
-                {/* Icon Container */}
-                <div
-                  className="relative z-10 w-[32px] h-[32px] rounded-full flex items-center justify-center transition-all duration-700"
-                  style={{
-                    background: theme === 'dark'
-                      ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(235, 235, 235, 1) 100%)'
-                      : 'linear-gradient(135deg, rgba(250, 204, 21, 1) 0%, rgba(251, 191, 36, 1) 100%)',
-                    boxShadow: theme === 'dark'
-                      ? '0 4px 12px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
-                      : '0 4px 12px rgba(250, 204, 21, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
-                  }}
-                >
-                  {/* Sun Icon */}
-                  <div
-                    className="absolute transition-all duration-700 ease-out"
+                <span className="relative w-[16px] h-[16px] block">
+                  <Sun
+                    size={16}
+                    strokeWidth={1.75}
+                    className={`absolute inset-0 ${textActive} transition-all duration-300 ease-out`}
                     style={{
                       opacity: theme === 'light' ? 1 : 0,
-                      transform: theme === 'light'
-                        ? 'rotate(0deg) scale(1)'
-                        : 'rotate(180deg) scale(0.3)',
-                      filter: theme === 'light' ? 'none' : 'blur(4px)'
+                      transform: theme === 'light' ? 'rotate(0deg) scale(1)' : 'rotate(-90deg) scale(0.6)'
                     }}
-                  >
-                    <Sun
-                      size={18}
-                      className="text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]"
-                      strokeWidth={2.5}
-                    />
-                  </div>
-
-                  {/* Moon Icon */}
-                  <div
-                    className="absolute transition-all duration-700 ease-out"
+                  />
+                  <Moon
+                    size={16}
+                    strokeWidth={1.75}
+                    className={`absolute inset-0 ${textActive} transition-all duration-300 ease-out`}
                     style={{
                       opacity: theme === 'dark' ? 1 : 0,
-                      transform: theme === 'dark'
-                        ? 'rotate(0deg) scale(1)'
-                        : 'rotate(-180deg) scale(0.3)',
-                      filter: theme === 'dark' ? 'none' : 'blur(4px)'
+                      transform: theme === 'dark' ? 'rotate(0deg) scale(1)' : 'rotate(90deg) scale(0.6)'
                     }}
-                  >
-                    <Moon
-                      size={18}
-                      className="text-black drop-shadow-[0_2px_4px_rgba(250,204,21,0.3)]"
-                      strokeWidth={2.5}
-                    />
-                  </div>
-                </div>
-
-                {/* Sparkle Particles */}
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                  {[...Array(2)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-1 h-1 rounded-full animate-pulse"
-                      style={{
-                        background: theme === 'dark'
-                          ? 'rgba(255, 255, 255, 0.8)'
-                          : 'rgba(250, 204, 21, 0.8)',
-                        left: `${i * 4}px`,
-                        top: `${i % 2 === 0 ? -3 : 3}px`,
-                        animationDelay: `${i * 200}ms`,
-                        animationDuration: '1.5s',
-                        boxShadow: theme === 'dark'
-                          ? '0 0 4px rgba(255, 255, 255, 0.6)'
-                          : '0 0 4px rgba(250, 204, 21, 0.6)'
-                      }}
-                    />
-                  ))}
-                </div>
-              </button>
-
-              <button
-                onClick={() => {
-                  if (onCartClick) onCartClick();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="w-full h-[40px] rounded-[10px] text-[13px] font-[510] tracking-[0.01em] transition-all duration-300 active:scale-[0.97] flex items-center justify-center gap-2 relative"
-                style={{
-                  background: theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)',
-                  color: theme === 'dark' ? 'white' : '#1c1917',
-                  boxShadow: theme === 'dark'
-                    ? `inset 0 0.5px 0 0 rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2)`
-                    : `inset 0 1px 2px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06)`
-                }}
-              >
-                <ShoppingCart size={16} className={theme === 'dark' ? 'text-white/90' : 'text-stone-800'} strokeWidth={2} />
-                <span>{t.nav.cart}</span>
-                {cartItemCount > 0 && (
-                  <span className="absolute -top-1 right-3 w-[18px] h-[18px] bg-red-500 text-white rounded-full flex items-center justify-center text-[10px] font-[600] shadow-lg">
-                    {cartItemCount}
-                  </span>
-                )}
+                  />
+                </span>
               </button>
             </div>
           </div>

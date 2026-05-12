@@ -348,8 +348,8 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
         </div>
 
-        {/* SEO Mega-Sitemap — eingeklappt, sehr ruhig */}
-        <div className="mb-12 sm:mb-14">
+        {/* SEO Mega-Sitemap — im DOM für Crawler, visuell ausgeblendet */}
+        <div className="seo-internal-link-silo" data-seo-footer-sitemap>
           <div
             className="h-px w-full mb-10"
             aria-hidden

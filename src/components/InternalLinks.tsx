@@ -110,7 +110,10 @@ export default function InternalLinks({
   const mainLinks = mainPages.filter(p => p.slug !== currentSection);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <div
+      className="seo-internal-link-silo max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12"
+      data-seo-internal-links
+    >
       {/* Services */}
       <nav aria-label="Services">
         <h3 className="text-lg font-bold mb-4 flex items-center gap-2" style={{ color: colors.text.primary }}>

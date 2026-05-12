@@ -414,7 +414,9 @@ console.log(`\n  HTML sitemap: ${htmlLinkCount} internal links\n`);
 // ── 3. LINK FRAGMENT for pre-render injection ────────────────────────────────
 
 const fragParts = [];
-fragParts.push(`<nav id="seo-internal-links" aria-label="Interne Verlinkung" style="padding:1rem 2rem;font-size:.75rem;line-height:1.8;color:#555">`);
+fragParts.push(
+  `<nav id="seo-internal-links" class="seo-internal-link-silo" aria-label="Interne Verlinkung">`,
+);
 
 fragParts.push(`<p><strong>Unsere Angebote:</strong> `);
 for (const p of MAIN_PAGES.filter(p => p.loc !== '/')) {

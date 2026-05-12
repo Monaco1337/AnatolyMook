@@ -36,6 +36,8 @@ const MAIN_PAGES = [
   { loc: '/events', priority: '0.8', freq: 'weekly', label: 'Events & Veranstaltungen' },
   { loc: '/corporate', priority: '0.8', freq: 'monthly', label: 'Corporate-Programme' },
   { loc: '/transformation', priority: '0.8', freq: 'monthly', label: 'Transformation' },
+  { loc: '/bewusstsein', priority: '0.85', freq: 'monthly', label: 'Neues Bewusstsein' },
+  { loc: '/methodik', priority: '0.85', freq: 'monthly', label: 'Methodik & drei Ebenen' },
   { loc: '/blog', priority: '0.7', freq: 'weekly', label: 'Blog & Insights' },
   { loc: '/produkte', priority: '0.7', freq: 'weekly', label: 'Shop & Produkte' },
   { loc: '/resources', priority: '0.6', freq: 'monthly', label: 'Ressourcen & Downloads' },

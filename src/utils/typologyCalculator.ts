@@ -71,7 +71,7 @@ const TYPES = {
   },
   performance_driven: {
     label: 'Leistungsgetriebener',
-    color: '#F59E0B', // Gold
+    color: '#8A5528', // Gold
     description: 'Fokussiert auf Ergebnisse, Erfolg und Wirksamkeit. Gefahr: Ausb rennen durch permanenten Druck.',
     howToSpeak: 'Direkt, ergebnisorientiert, mit messbaren Zielen',
     whatToAvoid: 'Langsamkeit, Ineffizienz, "nur Theorie"',

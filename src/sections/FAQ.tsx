@@ -53,7 +53,7 @@ export default function FAQ() {
         <div
           className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(251, 146, 60, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 50%)',
+            backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(251, 146, 60, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(138, 85, 40, 0.06) 0%, transparent 50%)',
             animation: 'pulse 8s ease-in-out infinite'
           }}
         />
@@ -185,7 +185,7 @@ export default function FAQ() {
                       ? '0 8px 32px rgba(251, 146, 60, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                       : '0 4px 16px rgba(0, 0, 0, 0.1)',
                     ...isActive && {
-                      '--tw-gradient-from': category.gradient.includes('amber') ? '#f59e0b' : '#fb923c',
+                      '--tw-gradient-from': category.gradient.includes('amber') ? '#8A5528' : '#fb923c',
                       '--tw-gradient-to': category.gradient.includes('red') ? '#dc2626' : '#f97316'
                     } as any
                   }}
@@ -271,7 +271,7 @@ export default function FAQ() {
                       <div
                         className="absolute inset-0 opacity-5"
                         style={{
-                          background: `linear-gradient(135deg, ${categoryInfo?.gradient.includes('amber') ? '#f59e0b' : '#fb923c'}, ${categoryInfo?.gradient.includes('red') ? '#dc2626' : '#f97316'})`,
+                          background: `linear-gradient(135deg, ${categoryInfo?.gradient.includes('amber') ? '#8A5528' : '#fb923c'}, ${categoryInfo?.gradient.includes('red') ? '#dc2626' : '#f97316'})`,
                           pointerEvents: 'none'
                         }}
                       />
@@ -384,7 +384,7 @@ export default function FAQ() {
               href="#kontakt"
               className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-bold text-lg group/cta relative overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, #f59e0b, #fb923c)',
+                background: 'linear-gradient(135deg, #8A5528, #fb923c)',
                 boxShadow: '0 12px 40px rgba(251, 146, 60, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                 transition: 'all 0.3s ease'
               }}

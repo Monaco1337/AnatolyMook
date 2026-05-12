@@ -38,6 +38,61 @@ export default {
           800: '#2C2C2E',
           900: '#1C1C1E',
         },
+        // ANATOLY MOOK — Bronze brand palette
+        bronze: {
+          50: '#F4EFE7',
+          100: '#EFE2CB',
+          200: '#E6C18A',
+          300: '#D6A85E',
+          400: '#C89150',
+          500: '#B9823F',
+          600: '#8A5528',
+          700: '#7A4A24',
+          800: '#5A371B',
+          900: '#4A2A16',
+        },
+        // Re-route Tailwind's built-in yellow/amber scales to bronze so legacy
+        // `text-yellow-400`, `bg-amber-500`, etc. now render bronze.
+        yellow: {
+          50: '#F4EFE7',
+          100: '#EFE2CB',
+          200: '#E6C18A',
+          300: '#D6A85E',
+          400: '#B9823F',
+          500: '#B9823F',
+          600: '#8A5528',
+          700: '#7A4A24',
+          800: '#5A371B',
+          900: '#4A2A16',
+        },
+        amber: {
+          50: '#F4EFE7',
+          100: '#EFE2CB',
+          200: '#E6C18A',
+          300: '#D6A85E',
+          400: '#B9823F',
+          500: '#B9823F',
+          600: '#8A5528',
+          700: '#7A4A24',
+          800: '#5A371B',
+          900: '#4A2A16',
+        },
+        // Re-route warm "orange" co-accents that were paired with the old gold
+        // palette to the deeper bronze tones so the whole warm spectrum is
+        // unified. (Admin status colors that need a real orange still resolve
+        // through their own utility classes.)
+        orange: {
+          50: '#F4EFE7',
+          100: '#EFE2CB',
+          200: '#E6C18A',
+          300: '#D6A85E',
+          400: '#B9823F',
+          500: '#8A5528',
+          600: '#7A4A24',
+          700: '#5A371B',
+          800: '#4A2A16',
+          900: '#4A2A16',
+        },
       },
       backdropBlur: {
         'apple': '40px',

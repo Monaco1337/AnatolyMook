@@ -52,11 +52,11 @@ interface Seminar {
 }
 
 const formatConfig = {
-  praesenz: { label: 'Präsenz', color: '#f59e0b', icon: Users },
+  praesenz: { label: 'Präsenz', color: '#8A5528', icon: Users },
   'online-live': { label: 'Online Live', color: '#f97316', icon: Video },
   webinar: { label: 'Webinar', color: '#ca8a04', icon: Monitor },
   'on-demand': { label: 'On-Demand', color: '#c2410c', icon: PlayCircle },
-  hybrid: { label: 'Hybrid', color: '#d97706', icon: Wifi }
+  hybrid: { label: 'Hybrid', color: '#7A4A24', icon: Wifi }
 };
 
 export default function SeminarsManager() {

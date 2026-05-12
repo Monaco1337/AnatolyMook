@@ -19,6 +19,8 @@ const routes = [
   { path: '/events', name: 'Events', keywords: ['Events', 'Termine', 'Veranstaltungen', 'Kalender', 'Aktuelle Events', 'Kommende Termine', 'Veranstaltungskalender', 'Event-Übersicht'] },
   { path: '/corporate', name: 'Corporate', keywords: ['Corporate', 'Geschäftskunden', 'Unternehmen', 'B2B', 'Firmen', 'Organisationen', 'Führungskräfte-Entwicklung', 'Team-Coaching'] },
   { path: '/transformation', name: 'Transformation', keywords: ['Transformation', 'Veränderung', 'Wandel', 'Entwicklung', 'Persönliche Transformation', 'Bewusstseins-Transformation', 'Transformations-Prozess', 'Transformations-Weg'] },
+  { path: '/bewusstsein', name: 'Neues Bewusstsein', keywords: ['Neues Bewusstsein', 'Bewusstsein', 'Selbstführung', 'Angsttransparenz', 'Meisterschaft', 'Paradigma', 'Bewusstsein ist kein Konzept'] },
+  { path: '/methodik', name: 'Methodik', keywords: ['Methodik', 'Achtsamkeitslehre', 'Bewusstseinstraining', 'drei Ebenen', 'Prozess', 'Dimensionen', 'Transformation drei Dimensionen'] },
   { path: '/blog', name: 'Blog', keywords: ['Blog', 'Artikel', 'Insights', 'Wissen', 'Beiträge', 'Perspektiven', 'Gedanken', 'Reflexionen'] },
   { path: '/produkte', name: 'Produkte', keywords: ['Produkte', 'Shop', 'Angebote', 'Leistungen', 'Digitale Produkte', 'Online-Kurse', 'E-Learning', 'Downloads'] },
   { path: '/resources', name: 'Ressourcen', keywords: ['Ressourcen', 'Downloads', 'Tools', 'Materialien', 'Werkzeuge', 'Hilfsmittel', 'Guides', 'Anleitungen'] },

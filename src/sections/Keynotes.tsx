@@ -321,8 +321,8 @@ export default function Keynotes() {
                 <div
                   className="w-20 h-20 mx-auto rounded-full flex items-center justify-center transition-all duration-700"
                   style={{
-                    background: 'rgba(250, 204, 21, 0.04)',
-                    border: '0.5px solid rgba(250, 204, 21, 0.12)'
+                    background: 'rgba(185, 130, 63, 0.04)',
+                    border: '0.5px solid rgba(185, 130, 63, 0.12)'
                   }}
                 >
                   <Sparkles size={28} className="text-yellow-400/60 transition-all duration-700 group-hover:text-yellow-400/80" strokeWidth={1.4} />
@@ -344,8 +344,8 @@ export default function Keynotes() {
                 <div
                   className="w-20 h-20 mx-auto rounded-full flex items-center justify-center transition-all duration-700"
                   style={{
-                    background: 'rgba(250, 204, 21, 0.04)',
-                    border: '0.5px solid rgba(250, 204, 21, 0.12)'
+                    background: 'rgba(185, 130, 63, 0.04)',
+                    border: '0.5px solid rgba(185, 130, 63, 0.12)'
                   }}
                 >
                   <Circle size={28} className="text-yellow-400/60 transition-all duration-700 group-hover:text-yellow-400/80" strokeWidth={1.4} />
@@ -367,8 +367,8 @@ export default function Keynotes() {
                 <div
                   className="w-20 h-20 mx-auto rounded-full flex items-center justify-center transition-all duration-700"
                   style={{
-                    background: 'rgba(250, 204, 21, 0.04)',
-                    border: '0.5px solid rgba(250, 204, 21, 0.12)'
+                    background: 'rgba(185, 130, 63, 0.04)',
+                    border: '0.5px solid rgba(185, 130, 63, 0.12)'
                   }}
                 >
                   <Infinity size={28} className="text-yellow-400/60 transition-all duration-700 group-hover:text-yellow-400/80" strokeWidth={1.4} />
@@ -481,11 +481,11 @@ export default function Keynotes() {
                     className="relative overflow-hidden rounded-[24px] p-10 transition-all duration-900"
                     style={{
                       background: activeMantra === idx
-                        ? 'rgba(250, 204, 21, 0.055)'
-                        : 'rgba(250, 204, 21, 0.025)',
+                        ? 'rgba(185, 130, 63, 0.055)'
+                        : 'rgba(185, 130, 63, 0.025)',
                       border: activeMantra === idx
-                        ? '0.5px solid rgba(250, 204, 21, 0.22)'
-                        : '0.5px solid rgba(250, 204, 21, 0.1)'
+                        ? '0.5px solid rgba(185, 130, 63, 0.22)'
+                        : '0.5px solid rgba(185, 130, 63, 0.1)'
                     }}
                   >
                     <div className="flex items-start gap-5 mb-8">
@@ -500,8 +500,8 @@ export default function Keynotes() {
                         className="text-[18px] font-[600] tracking-[0.005em] leading-[1.55] transition-all duration-900"
                         style={{
                           background: activeMantra === idx
-                            ? 'linear-gradient(135deg, rgba(250, 204, 21, 1) 0%, rgba(250, 204, 21, 0.85) 100%)'
-                            : 'linear-gradient(135deg, rgba(250, 204, 21, 0.9) 0%, rgba(250, 204, 21, 0.6) 100%)',
+                            ? 'linear-gradient(135deg, rgba(185, 130, 63, 1) 0%, rgba(185, 130, 63, 0.85) 100%)'
+                            : 'linear-gradient(135deg, rgba(185, 130, 63, 0.9) 0%, rgba(185, 130, 63, 0.6) 100%)',
                           WebkitBackgroundClip: 'text',
                           WebkitTextFillColor: 'transparent',
                           backgroundClip: 'text'
@@ -526,7 +526,7 @@ export default function Keynotes() {
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.025] blur-[140px]"
           style={{
-            background: 'radial-gradient(circle, rgba(250, 204, 21, 0.35) 0%, transparent 70%)'
+            background: 'radial-gradient(circle, rgba(185, 130, 63, 0.35) 0%, transparent 70%)'
           }}
         />
 
@@ -676,7 +676,7 @@ export default function Keynotes() {
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.02] blur-[120px]"
           style={{
-            background: 'radial-gradient(circle, rgba(250, 204, 21, 0.35) 0%, transparent 70%)'
+            background: 'radial-gradient(circle, rgba(185, 130, 63, 0.35) 0%, transparent 70%)'
           }}
         />
 
@@ -697,8 +697,8 @@ export default function Keynotes() {
                 key={idx}
                 className="group relative overflow-hidden rounded-[20px] p-8 transition-all duration-600 hover:scale-[1.01]"
                 style={{
-                  background: 'rgba(250, 204, 21, 0.018)',
-                  border: '0.5px solid rgba(250, 204, 21, 0.08)'
+                  background: 'rgba(185, 130, 63, 0.018)',
+                  border: '0.5px solid rgba(185, 130, 63, 0.08)'
                 }}
               >
                 <div className="flex items-start gap-4">
@@ -706,7 +706,7 @@ export default function Keynotes() {
                   <p
                     className="text-[14px] font-[540] tracking-[0.005em] leading-[1.65] transition-all duration-600"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.85) 0%, rgba(250, 204, 21, 0.55) 100%)',
+                      background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.85) 0%, rgba(185, 130, 63, 0.55) 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
@@ -835,7 +835,7 @@ export default function Keynotes() {
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.03] blur-[160px]"
           style={{
-            background: 'radial-gradient(circle, rgba(250, 204, 21, 0.35) 0%, transparent 70%)'
+            background: 'radial-gradient(circle, rgba(185, 130, 63, 0.35) 0%, transparent 70%)'
           }}
         />
 
@@ -862,16 +862,16 @@ export default function Keynotes() {
             <button
               className="group relative overflow-hidden rounded-full px-14 py-6 transition-all duration-700 mx-auto"
               style={{
-                background: 'linear-gradient(135deg, rgba(250, 204, 21, 1) 0%, rgba(245, 158, 11, 1) 100%)',
-                boxShadow: '0 16px 56px rgba(250, 204, 21, 0.22)'
+                background: 'linear-gradient(135deg, rgba(185, 130, 63, 1) 0%, rgba(138, 85, 40, 1) 100%)',
+                boxShadow: '0 16px 56px rgba(185, 130, 63, 0.22)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px) scale(1.04)';
-                e.currentTarget.style.boxShadow = '0 24px 72px rgba(250, 204, 21, 0.38)';
+                e.currentTarget.style.boxShadow = '0 24px 72px rgba(185, 130, 63, 0.38)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.boxShadow = '0 16px 56px rgba(250, 204, 21, 0.22)';
+                e.currentTarget.style.boxShadow = '0 16px 56px rgba(185, 130, 63, 0.22)';
               }}
             >
               <span className="flex items-center gap-3 text-black text-[13px] font-[640] tracking-[0.03em]">

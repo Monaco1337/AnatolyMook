@@ -260,7 +260,7 @@ export default function Corporate() {
     : offers.filter(offer => offer.category === selectedCategory);
 
   const categoryColors: Record<string, { from: string; to: string }> = {
-    workshop: { from: '#f59e0b', to: '#f97316' },
+    workshop: { from: '#8A5528', to: '#f97316' },
     'training-series': { from: '#10b981', to: '#14b8a6' },
     'team-retreat': { from: '#8b5cf6', to: '#a78bfa' },
     leadership: { from: '#06b6d4', to: '#0ea5e9' },

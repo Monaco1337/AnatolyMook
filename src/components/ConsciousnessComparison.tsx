@@ -87,7 +87,7 @@ export default function ConsciousnessComparison() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section */}
         <div className="text-center mb-16 sm:mb-20 md:mb-24">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-yellow-400/10 to-amber-500/10 border border-yellow-400/30 backdrop-blur-xl mb-8 shadow-[0_8px_32px_rgba(251,191,36,0.15)]">
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-yellow-400/10 to-amber-500/10 border border-yellow-400/30 backdrop-blur-xl mb-8 shadow-[0_8px_32px_rgba(185, 130, 63, 0.15)]">
             <Sparkles className="w-5 h-5 text-yellow-400" strokeWidth={2.5} />
             <span className="text-yellow-400 font-semibold text-sm sm:text-base tracking-wide uppercase">
               {t.consciousness.badge}
@@ -247,7 +247,7 @@ export default function ConsciousnessComparison() {
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-amber-500/10 to-yellow-400/10 rounded-[32px] blur-3xl" />
           <div className="absolute -inset-4 bg-gradient-to-r from-yellow-500/5 via-amber-500/5 to-yellow-500/5 rounded-[40px] blur-[60px]" />
 
-          <div className="relative backdrop-blur-2xl bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] border border-yellow-400/30 rounded-[32px] p-8 sm:p-10 md:p-12 lg:p-16 shadow-[0_20px_80px_-20px_rgba(251,191,36,0.3)]">
+          <div className="relative backdrop-blur-2xl bg-gradient-to-br from-white/[0.08] via-white/[0.05] to-white/[0.02] border border-yellow-400/30 rounded-[32px] p-8 sm:p-10 md:p-12 lg:p-16 shadow-[0_20px_80px_-20px_rgba(185, 130, 63, 0.3)]">
 
             {/* CTA Header */}
             <div className="text-center mb-10 sm:mb-12 md:mb-16">
@@ -273,7 +273,7 @@ export default function ConsciousnessComparison() {
                 {/* Background Layers */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl" />
                 <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-amber-500/20 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-500" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(251,191,36,0.1),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(185, 130, 63, 0.1),transparent_50%)]" />
 
                 <div className="relative border border-white/20 group-hover/cta:border-yellow-400/40 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-500">
 
@@ -303,7 +303,7 @@ export default function ConsciousnessComparison() {
                   const bookingSection = document.querySelector('[data-section-id="booking"]');
                   bookingSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="group/cta relative overflow-hidden rounded-2xl sm:rounded-3xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_20px_60px_-15px_rgba(251,191,36,0.5)]"
+                className="group/cta relative overflow-hidden rounded-2xl sm:rounded-3xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_20px_60px_-15px_rgba(185, 130, 63, 0.5)]"
               >
                 {/* Background Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-500" />

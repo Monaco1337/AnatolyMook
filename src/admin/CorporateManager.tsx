@@ -40,7 +40,7 @@ interface CorporateOffer {
 
 const categoryConfig = {
   workshop: { label: 'Workshop', color: '#0ea5e9' },
-  'training-series': { label: 'Training-Serie', color: '#f59e0b' },
+  'training-series': { label: 'Training-Serie', color: '#8A5528' },
   'team-retreat': { label: 'Team-Retreat', color: '#ec4899' },
   leadership: { label: 'Leadership', color: '#8b5cf6' },
   transformation: { label: 'Transformation', color: '#10b981' }

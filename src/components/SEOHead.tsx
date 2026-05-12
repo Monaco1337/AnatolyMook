@@ -69,6 +69,9 @@ export default function SEOHead({
   const canonicalUrl = `${baseUrl}${path && path !== '/' ? path : ''}`;
   const finalSchemaType = schemaType || sectionSEO.schemaType || 'WebPage';
   const ogImage = seoData?.og_image || sectionSEO.ogImage || 'https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png';
+  const ogImagePixelWidth = seoData?.og_image ? 1200 : (sectionSEO.ogImageWidth || 1200);
+  const ogImagePixelHeight = seoData?.og_image ? 630 : (sectionSEO.ogImageHeight || 630);
+  const ogImageMimeType = sectionSEO.ogImageType || 'image/png';
 
   useEffect(() => {
     const loadSEOData = async () => {
@@ -128,9 +131,9 @@ export default function SEOHead({
     if (ogImage) {
       setOrUpdateMeta('og:image', ogImage, true);
       setOrUpdateMeta('og:image:secure_url', ogImage, true);
-      setOrUpdateMeta('og:image:type', 'image/png', true);
-      setOrUpdateMeta('og:image:width', '1200', true);
-      setOrUpdateMeta('og:image:height', '630', true);
+      setOrUpdateMeta('og:image:type', ogImageMimeType, true);
+      setOrUpdateMeta('og:image:width', String(ogImagePixelWidth), true);
+      setOrUpdateMeta('og:image:height', String(ogImagePixelHeight), true);
       setOrUpdateMeta('og:image:alt', fullTitle, true);
     }
 
@@ -229,7 +232,12 @@ export default function SEOHead({
           speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.hero-content', '.definition-block', 'h1', 'h2'] },
         };
         if (ogImage) {
-          pageSchema.image = { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 };
+          pageSchema.image = {
+            '@type': 'ImageObject',
+            url: ogImage,
+            width: ogImagePixelWidth,
+            height: ogImagePixelHeight
+          };
         }
         entityGraph['@graph'].push(pageSchema);
       }
@@ -241,7 +249,7 @@ export default function SEOHead({
       document.head.appendChild(entityScript);
     }
 
-  }, [fullTitle, fullDescription, canonicalUrl, language, path, seoData, schemaData, finalSchemaType, customSchema, ogImage, section, sectionSEO]);
+  }, [fullTitle, fullDescription, canonicalUrl, language, path, seoData, schemaData, finalSchemaType, customSchema, ogImage, ogImagePixelWidth, ogImagePixelHeight, ogImageMimeType, section, sectionSEO]);
 
   return null;
 }

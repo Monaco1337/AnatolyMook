@@ -40,11 +40,11 @@ const SeminarCard = memo(({
 }) => {
   const formatConfig = useMemo(() => {
     const configs = {
-      praesenz: { label: t.formats.praesenz, colorFrom: 'rgb(251, 191, 36)', colorTo: 'rgb(245, 158, 11)', icon: Users },
+      praesenz: { label: t.formats.praesenz, colorFrom: 'rgb(185, 130, 63)', colorTo: 'rgb(138, 85, 40)', icon: Users },
       'online-live': { label: t.formats.onlineLive, colorFrom: 'rgb(251, 146, 60)', colorTo: 'rgb(249, 115, 22)', icon: Video },
-      webinar: { label: t.formats.webinar, colorFrom: 'rgb(234, 179, 8)', colorTo: 'rgb(202, 138, 4)', icon: Monitor },
+      webinar: { label: t.formats.webinar, colorFrom: 'rgb(185, 130, 63)', colorTo: 'rgb(202, 138, 4)', icon: Monitor },
       'on-demand': { label: t.formats.onDemand, colorFrom: 'rgb(234, 88, 12)', colorTo: 'rgb(194, 65, 12)', icon: PlayCircle },
-      hybrid: { label: t.formats.hybrid, colorFrom: 'rgb(245, 158, 11)', colorTo: 'rgb(217, 119, 6)', icon: Wifi }
+      hybrid: { label: t.formats.hybrid, colorFrom: 'rgb(138, 85, 40)', colorTo: 'rgb(122, 74, 36)', icon: Wifi }
     };
     return configs[seminar.format];
   }, [seminar.format, t]);
@@ -635,7 +635,7 @@ export default function Seminare() {
 
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[800px] rounded-full opacity-[0.15] blur-[200px]"
-            style={{ background: 'radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, transparent 70%)' }}
+            style={{ background: 'radial-gradient(circle, rgba(185, 130, 63, 0.4) 0%, transparent 70%)' }}
           />
         </div>
 
@@ -711,8 +711,8 @@ export default function Seminare() {
                   onClick={() => handleFormatChange(format.id)}
                   className="px-5 sm:px-8 py-3 sm:py-4 rounded-[14px] sm:rounded-[16px] transition-all duration-300 border"
                   style={{
-                    background: isActive ? 'rgba(251, 191, 36, 0.15)' : 'rgba(255, 255, 255, 0.06)',
-                    borderColor: isActive ? 'rgba(251, 191, 36, 0.4)' : 'rgba(255, 255, 255, 0.12)',
+                    background: isActive ? 'rgba(185, 130, 63, 0.15)' : 'rgba(255, 255, 255, 0.06)',
+                    borderColor: isActive ? 'rgba(185, 130, 63, 0.4)' : 'rgba(255, 255, 255, 0.12)',
                     transform: isActive ? 'scale(1.05)' : 'scale(1)'
                   }}
                 >
@@ -847,7 +847,7 @@ export default function Seminare() {
 
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[900px] h-[900px] rounded-full opacity-[0.08] blur-[180px]"
-            style={{ background: 'radial-gradient(circle, rgba(251, 191, 36, 0.5) 0%, transparent 70%)' }}
+            style={{ background: 'radial-gradient(circle, rgba(185, 130, 63, 0.5) 0%, transparent 70%)' }}
           />
         </div>
 

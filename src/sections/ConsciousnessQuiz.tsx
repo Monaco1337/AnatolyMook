@@ -206,7 +206,7 @@ export default function ConsciousnessQuiz() {
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 via-yellow-300/20 to-yellow-400/20 rounded-2xl sm:rounded-3xl blur-2xl" />
                 <div className="relative bg-gradient-to-br from-yellow-400/10 via-yellow-500/5 to-yellow-400/10 backdrop-blur-xl rounded-2xl sm:rounded-3xl border-2 border-yellow-400/30 p-6 sm:p-8 md:p-10 lg:p-12">
                   <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shadow-[0_8px_32px_rgba(250,204,21,0.4)]">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shadow-[0_8px_32px_rgba(185, 130, 63, 0.4)]">
                       <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-black" strokeWidth={2.5} />
                     </div>
                   </div>
@@ -262,7 +262,7 @@ export default function ConsciousnessQuiz() {
                     </div>
                     <div className="relative w-full h-2.5 sm:h-3 bg-yellow-400/20 rounded-full overflow-hidden">
                       <div
-                        className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-300 transition-all duration-[2000ms] ease-out rounded-full shadow-[0_0_20px_rgba(250,204,21,0.5)]"
+                        className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-300 transition-all duration-[2000ms] ease-out rounded-full shadow-[0_0_20px_rgba(185, 130, 63, 0.5)]"
                         style={{ width: `${results.newPercentage}%` }}
                       />
                     </div>
@@ -316,7 +316,7 @@ export default function ConsciousnessQuiz() {
                 </p>
                 <button
                   onClick={() => window.location.href = '/'}
-                  className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 h-14 sm:h-16 px-8 sm:px-10 rounded-xl sm:rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-black font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_8px_32px_rgba(250,204,21,0.3)] hover:shadow-[0_12px_48px_rgba(250,204,21,0.5)]"
+                  className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 h-14 sm:h-16 px-8 sm:px-10 rounded-xl sm:rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-black font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_8px_32px_rgba(185, 130, 63, 0.3)] hover:shadow-[0_12px_48px_rgba(185, 130, 63, 0.5)]"
                 >
                   <Brain className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
                   <span>Persönliches Coaching anfragen</span>
@@ -346,7 +346,7 @@ export default function ConsciousnessQuiz() {
           <div className="max-w-4xl w-full">
             <div className="relative">
               <div className="text-center mb-10 sm:mb-16">
-                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-yellow-400 to-yellow-500 mb-8 sm:mb-10 shadow-[0_20px_60px_rgba(250,204,21,0.4)] animate-pulse">
+                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-yellow-400 to-yellow-500 mb-8 sm:mb-10 shadow-[0_20px_60px_rgba(185, 130, 63, 0.4)] animate-pulse">
                   <Brain className="w-10 h-10 sm:w-12 sm:h-12 text-black" strokeWidth={2.5} />
                 </div>
 
@@ -393,7 +393,7 @@ export default function ConsciousnessQuiz() {
                   <button
                     onClick={handleStartQuiz}
                     disabled={!userInfo.name || !userInfo.email}
-                    className="group relative w-full h-14 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-black font-bold text-lg sm:text-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-95 shadow-[0_8px_32px_rgba(250,204,21,0.3)] hover:shadow-[0_12px_48px_rgba(250,204,21,0.5)] overflow-hidden"
+                    className="group relative w-full h-14 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-black font-bold text-lg sm:text-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-95 shadow-[0_8px_32px_rgba(185, 130, 63, 0.3)] hover:shadow-[0_12px_48px_rgba(185, 130, 63, 0.5)] overflow-hidden"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
                       Quiz starten
@@ -450,7 +450,7 @@ export default function ConsciousnessQuiz() {
               </div>
               <div className="relative w-full h-2.5 sm:h-3 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
                 <div
-                  className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 transition-all duration-500 ease-out rounded-full shadow-[0_0_20px_rgba(250,204,21,0.5)]"
+                  className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-500 transition-all duration-500 ease-out rounded-full shadow-[0_0_20px_rgba(185, 130, 63, 0.5)]"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
@@ -618,7 +618,7 @@ export default function ConsciousnessQuiz() {
               <button
                 onClick={handleSubmit}
                 disabled={answeredCount !== questions.length || isSubmitting}
-                className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 h-14 sm:h-16 px-8 sm:px-10 rounded-xl sm:rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-black font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_8px_32px_rgba(250,204,21,0.3)] hover:shadow-[0_12px_48px_rgba(250,204,21,0.5)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 touch-manipulation"
+                className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 h-14 sm:h-16 px-8 sm:px-10 rounded-xl sm:rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-300 hover:to-yellow-400 text-black font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_8px_32px_rgba(185, 130, 63, 0.3)] hover:shadow-[0_12px_48px_rgba(185, 130, 63, 0.5)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 touch-manipulation"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />

@@ -26,6 +26,8 @@ const Datenschutz = lazy(() => import('./sections/Datenschutz'));
 const ConsciousnessQuiz = lazy(() => import('./sections/ConsciousnessQuiz'));
 const Anamnesis = lazy(() => import('./sections/Anamnesis'));
 const Transformation = lazy(() => import('./sections/Transformation'));
+const Bewusstsein = lazy(() => import('./sections/Bewusstsein'));
+const Methodik = lazy(() => import('./sections/Methodik'));
 const Dashboard = lazy(() => import('./admin/Dashboard'));
 const Login = lazy(() => import('./admin/Login'));
 
@@ -160,6 +162,8 @@ function AppContent() {
       <Route path="/corporate" element={<Corporate />} />
       <Route path="/geschaeftskunden" element={<Corporate />} />
       <Route path="/transformation" element={<Transformation />} />
+      <Route path="/bewusstsein" element={<Bewusstsein />} />
+      <Route path="/methodik" element={<Methodik />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/produkte" element={shopElement} />
       <Route path="/resources" element={<Resources />} />
@@ -203,6 +207,8 @@ function AppContent() {
       <Route path={`/${langPrefix}/events`} element={<Events />} />
       <Route path={`/${langPrefix}/corporate`} element={<Corporate />} />
       <Route path={`/${langPrefix}/transformation`} element={<Transformation />} />
+      <Route path={`/${langPrefix}/bewusstsein`} element={<Bewusstsein />} />
+      <Route path={`/${langPrefix}/methodik`} element={<Methodik />} />
       <Route path={`/${langPrefix}/blog`} element={<Blog />} />
       <Route path={`/${langPrefix}/produkte`} element={shopElement} />
       <Route path={`/${langPrefix}/resources`} element={<Resources />} />

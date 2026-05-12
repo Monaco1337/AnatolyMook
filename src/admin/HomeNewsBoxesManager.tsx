@@ -270,7 +270,7 @@ export default function HomeNewsBoxesManager() {
                     description_font_size: 'sm',
                     description_color: '#666666',
                     button_style: 'solid',
-                    button_color_custom: '#facc15',
+                    button_color_custom: '#B9823F',
                     button_text_color: '#000000',
                     background_type: 'transparent',
                     background_color: '#ffffff',

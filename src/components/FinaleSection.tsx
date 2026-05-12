@@ -2,7 +2,20 @@ import { useState, useEffect, useMemo } from 'react';
 import { ArrowRight, Plus, Heart, Brain, Shield, Star, Sparkles, Zap, Target, Crown, ChevronRight, Quote } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-export default function FinaleSection() {
+export interface FinaleSectionProps {
+  /** Hero „Anfang der Meisterschaft“ inkl. Bild & CTAs */
+  showHero?: boolean;
+  /** Reise-Panels + drei Ebenen (Achtsamkeit / Bewusstsein / Transformation) */
+  showJourneyAndLevels?: boolean;
+  /** Statistik-Streifen unten */
+  showStats?: boolean;
+}
+
+export default function FinaleSection({
+  showHero = true,
+  showJourneyAndLevels = true,
+  showStats = true
+}: FinaleSectionProps) {
   const { t } = useLanguage();
   const [openPanel, setOpenPanel] = useState<number | null>(null);
   const [expandedLevel, setExpandedLevel] = useState<number | null>(null);
@@ -93,9 +106,10 @@ export default function FinaleSection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-400/10 rounded-full blur-[200px]" />
       </div>
 
+      {showHero && (
       <div className="relative w-full max-w-[1800px] mx-auto px-3 sm:px-5 md:px-8 lg:px-12 xl:px-16 pt-6 sm:pt-8 md:pt-12 lg:pt-16">
         <div className="text-center mb-6 sm:mb-8 lg:mb-12">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-yellow-500/20 via-amber-500/15 to-orange-500/20 border border-yellow-400/30 backdrop-blur-xl mb-4 sm:mb-6 shadow-[0_0_30px_rgba(250,204,21,0.15)]">
+          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-yellow-500/20 via-amber-500/15 to-orange-500/20 border border-yellow-400/30 backdrop-blur-xl mb-4 sm:mb-6 shadow-[0_0_30px_rgba(185, 130, 63, 0.15)]">
             <div className="relative">
               <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
               <div className="absolute inset-0 animate-ping">
@@ -229,7 +243,7 @@ export default function FinaleSection() {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <a
                       href="#booking"
-                      className="group relative inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-4 overflow-hidden rounded-xl sm:rounded-2xl shadow-[0_16px_48px_rgba(250,204,21,0.3)] hover:shadow-[0_20px_60px_rgba(250,204,21,0.5)] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
+                      className="group relative inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-4 overflow-hidden rounded-xl sm:rounded-2xl shadow-[0_16px_48px_rgba(185, 130, 63, 0.3)] hover:shadow-[0_20px_60px_rgba(185, 130, 63, 0.5)] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-yellow-300 to-orange-400" />
                       <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-orange-300 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -253,7 +267,9 @@ export default function FinaleSection() {
           <div className="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl lg:rounded-[32px] border border-white/[0.08]" />
         </div>
       </div>
+      )}
 
+      {showJourneyAndLevels && (
       <div className="relative w-full max-w-[1800px] mx-auto px-3 sm:px-5 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 lg:py-16">
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
           <div className="relative">
@@ -262,7 +278,7 @@ export default function FinaleSection() {
               <div className="flex items-center justify-between mb-6">
                 <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-400/30">
                   <div className="relative">
-                    <div className="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_12px_rgba(250,204,21,1)]" />
+                    <div className="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_12px_rgba(185, 130, 63, 1)]" />
                     <div className="absolute inset-0 w-2 h-2 rounded-full bg-yellow-400 animate-ping opacity-50" />
                   </div>
                   <span className="text-xs font-bold tracking-[0.2em] text-yellow-300 uppercase">{t.transformationSlider.journey.badge}</span>
@@ -283,13 +299,13 @@ export default function FinaleSection() {
                   return (
                     <div key={panel.id} className="relative group/panel">
                       <div className={`absolute -inset-[1px] bg-gradient-to-r from-yellow-400/40 via-orange-400/30 to-yellow-400/40 rounded-xl sm:rounded-2xl transition-all duration-500 pointer-events-none ${isOpen ? 'opacity-100 blur-[1px]' : 'opacity-0'}`} />
-                      <div className={`relative rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-white/[0.08] shadow-[0_8px_32px_rgba(250,204,21,0.1)]' : 'bg-white/[0.04] hover:bg-white/[0.06]'} border border-white/[0.08]`}>
+                      <div className={`relative rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-white/[0.08] shadow-[0_8px_32px_rgba(185, 130, 63, 0.1)]' : 'bg-white/[0.04] hover:bg-white/[0.06]'} border border-white/[0.08]`}>
                         <button
                           onClick={() => setOpenPanel(isOpen ? null : panel.id)}
                           className="w-full p-4 sm:p-5 flex items-center justify-between gap-4 text-left"
                         >
                           <div className="flex items-center gap-3 sm:gap-4">
-                            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_8px_24px_rgba(250,204,21,0.4)] scale-105' : 'bg-white/10'}`}>
+                            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_8px_24px_rgba(185, 130, 63, 0.4)] scale-105' : 'bg-white/10'}`}>
                               <Icon className={`w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300 ${isOpen ? 'text-black' : 'text-yellow-400'}`} strokeWidth={2} />
                             </div>
                             <div>
@@ -301,7 +317,7 @@ export default function FinaleSection() {
                               </p>
                             </div>
                           </div>
-                          <div className={`flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-500 ${isOpen ? 'bg-gradient-to-br from-yellow-400 to-orange-500 rotate-45 shadow-[0_4px_16px_rgba(250,204,21,0.5)]' : 'bg-white/10 group-hover/panel:bg-white/15'}`}>
+                          <div className={`flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-500 ${isOpen ? 'bg-gradient-to-br from-yellow-400 to-orange-500 rotate-45 shadow-[0_4px_16px_rgba(185, 130, 63, 0.5)]' : 'bg-white/10 group-hover/panel:bg-white/15'}`}>
                             <Plus className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${isOpen ? 'text-black' : 'text-yellow-400'}`} strokeWidth={2.5} />
                           </div>
                         </button>
@@ -314,7 +330,7 @@ export default function FinaleSection() {
                                 <div className="space-y-2.5">
                                   {panel.items.map((item, i) => (
                                     <div key={i} className="flex items-start gap-3 group/item">
-                                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 mt-2 flex-shrink-0 group-hover/item:scale-125 transition-transform shadow-[0_0_8px_rgba(250,204,21,0.5)]" />
+                                      <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 mt-2 flex-shrink-0 group-hover/item:scale-125 transition-transform shadow-[0_0_8px_rgba(185, 130, 63, 0.5)]" />
                                       <p className="text-sm text-white/80 leading-relaxed group-hover/item:text-white/95 transition-colors">{item}</p>
                                     </div>
                                   ))}
@@ -340,7 +356,7 @@ export default function FinaleSection() {
                 <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/20 border border-amber-400/30">
                   <div className="flex gap-1">
                     {[0, 1, 2].map((i) => (
-                      <div key={i} className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.8)]" style={{ animationDelay: `${i * 0.2}s` }} />
+                      <div key={i} className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(185, 130, 63, 0.8)]" style={{ animationDelay: `${i * 0.2}s` }} />
                     ))}
                   </div>
                   <span className="text-xs font-bold tracking-[0.2em] text-amber-200 uppercase">{t.transformationSlider.levels.badge}</span>
@@ -361,13 +377,13 @@ export default function FinaleSection() {
                   return (
                     <div key={index} className="relative group/level">
                       <div className={`absolute -inset-[1px] bg-gradient-to-r ${level.gradient} rounded-xl sm:rounded-2xl transition-all duration-500 pointer-events-none ${isOpen ? 'opacity-40 blur-[2px]' : 'opacity-0'}`} />
-                      <div className={`relative rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-white/[0.08] shadow-[0_8px_32px_rgba(251,191,36,0.1)]' : 'bg-white/[0.04] hover:bg-white/[0.06]'} border border-white/[0.08]`}>
+                      <div className={`relative rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-white/[0.08] shadow-[0_8px_32px_rgba(185, 130, 63, 0.1)]' : 'bg-white/[0.04] hover:bg-white/[0.06]'} border border-white/[0.08]`}>
                         <button
                           onClick={() => setExpandedLevel(isOpen ? null : index)}
                           className="w-full p-4 sm:p-5 flex items-center justify-between gap-4 text-left"
                         >
                           <div className="flex items-center gap-3 sm:gap-4">
-                            <div className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${level.gradient} flex items-center justify-center shadow-lg transition-all duration-300 ${isOpen ? 'scale-105 shadow-[0_8px_24px_rgba(251,191,36,0.4)]' : ''}`}>
+                            <div className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${level.gradient} flex items-center justify-center shadow-lg transition-all duration-300 ${isOpen ? 'scale-105 shadow-[0_8px_24px_rgba(185, 130, 63, 0.4)]' : ''}`}>
                               <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" strokeWidth={2} />
                               {isOpen && (
                                 <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${level.gradient} animate-pulse opacity-50`} />
@@ -382,7 +398,7 @@ export default function FinaleSection() {
                               </p>
                             </div>
                           </div>
-                          <div className={`flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-500 ${isOpen ? `bg-gradient-to-br ${level.gradient} rotate-45 shadow-[0_4px_16px_rgba(251,191,36,0.5)]` : 'bg-white/10 group-hover/level:bg-white/15'}`}>
+                          <div className={`flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-500 ${isOpen ? `bg-gradient-to-br ${level.gradient} rotate-45 shadow-[0_4px_16px_rgba(185, 130, 63, 0.5)]` : 'bg-white/10 group-hover/level:bg-white/15'}`}>
                             <Plus className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-300 ${isOpen ? 'text-white' : 'text-amber-400'}`} strokeWidth={2.5} />
                           </div>
                         </button>
@@ -430,10 +446,12 @@ export default function FinaleSection() {
           </div>
         </div>
       </div>
+      )}
 
+      {showStats && (
       <div className="relative w-full max-w-[1800px] mx-auto px-3 sm:px-5 md:px-8 lg:px-12 xl:px-16 pb-12 sm:pb-16 lg:pb-20">
         <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-yellow-500/10 via-black/50 to-orange-500/10 border border-white/[0.08] p-6 sm:p-8 lg:p-12">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(250,204,21,0.1),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(185, 130, 63, 0.1),transparent_50%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(251,146,60,0.1),transparent_50%)]" />
 
           <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
@@ -449,6 +467,7 @@ export default function FinaleSection() {
           </div>
         </div>
       </div>
+      )}
     </section>
   );
 }

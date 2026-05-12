@@ -41,7 +41,7 @@ interface CoachingPackage {
 
 const tierConfig = {
   einzelsession: { label: 'Einzelsession', color: '#0ea5e9', icon: Video },
-  intensiv: { label: 'Intensiv', color: '#f59e0b', icon: Star },
+  intensiv: { label: 'Intensiv', color: '#8A5528', icon: Star },
   vip: { label: 'VIP', color: '#ec4899', icon: Crown },
   executive: { label: 'Executive', color: '#8b5cf6', icon: Users }
 };

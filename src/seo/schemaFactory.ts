@@ -1,5 +1,7 @@
+import { HERO_PORTRAIT } from '../constants/brandAssets';
+
 const BASE_URL = 'https://www.anatoly-mook.de';
-const OG_IMAGE = `${BASE_URL}/bildschirmfoto_2025-12-10_um_20.44.33.png`;
+const OG_IMAGE = HERO_PORTRAIT.absPng;
 
 export function personSchema() {
   return {
@@ -8,7 +10,13 @@ export function personSchema() {
     name: 'Anatoly Mook',
     alternateName: 'Anatolij Mook',
     url: BASE_URL,
-    image: { '@type': 'ImageObject', url: OG_IMAGE, caption: 'Anatoly Mook – Mentor für Klarheit, bewusste Führung und persönliche Meisterschaft' },
+    image: {
+      '@type': 'ImageObject',
+      url: OG_IMAGE,
+      width: HERO_PORTRAIT.width,
+      height: HERO_PORTRAIT.height,
+      caption: 'Anatoly Mook – Mentor für Klarheit, bewusste Führung und persönliche Meisterschaft'
+    },
     sameAs: [
       'https://www.linkedin.com/in/anatolymook',
       'https://twitter.com/anatolymux',
@@ -43,7 +51,7 @@ export function organizationSchema() {
     name: 'Anatoly Mook Academy',
     url: BASE_URL,
     logo: { '@type': 'ImageObject', url: `${BASE_URL}/favicon-512x512.png`, width: 512, height: 512 },
-    image: { '@type': 'ImageObject', url: OG_IMAGE },
+    image: { '@type': 'ImageObject', url: OG_IMAGE, width: HERO_PORTRAIT.width, height: HERO_PORTRAIT.height },
     founder: { '@id': `${BASE_URL}/#person` },
     description: 'Coaching, Seminare und Mentoring für Klarheit, bewusste Führung und persönliche Meisterschaft.',
     sameAs: [

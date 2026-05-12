@@ -33,15 +33,54 @@
   --premium-radius-md: 16px;
   --premium-radius-lg: 20px;
   --premium-radius-xl: 24px;
+  /* Primary CTA / Nav „Termin buchen“ — gleiche Ecke */
+  --premium-cta-radius: 11px;
 
   /* Calm shadow system */
   --premium-shadow-1: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.16);
   --premium-shadow-2: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.20);
   --premium-shadow-3: 0 4px 8px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.28);
 
-  /* Accent (gold) — only for CTAs / active / highlights */
-  --premium-accent: #f5c542;
-  --premium-accent-deep: #d4a438;
+  /* ------------------------------------------------------------------
+     BRAND ACCENT — BRONZE / CHAMPAGNE / COPPER
+     New luxury brand palette. Replaces the previous yellow/gold system.
+     ------------------------------------------------------------------ */
+  --accent: #B9823F;                 /* Primary Bronze */
+  --accent-dark: #7A4A24;            /* Deep Bronze */
+  --accent-light: #E6C18A;           /* Soft Champagne */
+  --accent-highlight: #D6A85E;       /* Warm Highlight */
+  --accent-copper: #4A2A16;          /* Dark Copper */
+  --accent-mid: #8A5528;             /* Mid Bronze (gradient stop) */
+  --ivory: #F4EFE7;                  /* Ivory Text */
+  --ivory-muted: rgba(244, 239, 231, 0.68);
+
+  --accent-soft: rgba(185, 130, 63, 0.16);
+  --accent-border: rgba(230, 193, 138, 0.38);
+
+  /* ------------------------------------------------------------------
+     OBSIDIAN SURFACE SYSTEM — matte luxury background palette
+     ------------------------------------------------------------------ */
+  --obsidian: #050505;             /* deepest base */
+  --anthracite: #0E0E0F;           /* primary section bg */
+  --graphite: #161616;             /* elevated card surface */
+  --deep-shadow: #080808;          /* under-section shadow */
+  --elevated: #111111;             /* modal / dropdown */
+  --hairline: rgba(244, 239, 231, 0.06);  /* card edge highlight */
+  --hairline-bronze: rgba(230, 193, 138, 0.08);
+
+  /* Material shadow recipes (very soft, deep) */
+  --mat-shadow-1: 0 12px 40px rgba(0,0,0,0.42), 0 2px 12px rgba(185,130,63,0.06);
+  --mat-shadow-2: 0 24px 60px rgba(0,0,0,0.55), 0 4px 16px rgba(185,130,63,0.08);
+  --mat-shadow-inset: inset 0 1px 0 rgba(244,239,231,0.04);
+
+  /* Signature brushed-bronze gradient */
+  --accent-gradient: linear-gradient(135deg, #7A4A24 0%, #B9823F 38%, #E6C18A 62%, #8A5528 100%);
+  --accent-gradient-text: linear-gradient(135deg, #B9823F 0%, #E6C18A 50%, #8A5528 100%);
+  --accent-divider: linear-gradient(90deg, transparent, rgba(230, 193, 138, 0.55), transparent);
+
+  /* Legacy aliases — keep the old token names working but pointing to bronze */
+  --premium-accent: #B9823F;
+  --premium-accent-deep: #7A4A24;
 
   /* Easing */
   --premium-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -107,17 +146,113 @@ p {
 
 /* Selection */
 ::selection {
-  background: var(--premium-accent);
-  color: #000;
+  background: var(--accent);
+  color: #1A1009;
 }
 
 /* ----------------------------------------------------------------------------
    3. ACCENT DISCIPLINE — GOLD ONLY FOR CTA / ACTIVE / HIGHLIGHT
    ---------------------------------------------------------------------------- */
-/* Soften loud yellow text used as decoration to a calmer warm white.
-   Accent stays for buttons / actively-highlighted spans. */
-.text-yellow-400:not(button):not(button *):not(a):not(a *):not(svg):not(svg *) {
-  color: #fcd34d !important; /* Warmer, less screaming */
+/* Re-route the entire legacy yellow/amber accent surface to the new bronze brand.
+   These rules win against Tailwind utility classes globally. */
+.text-yellow-50, .text-yellow-100, .text-yellow-200, .text-yellow-300,
+.text-amber-50, .text-amber-100, .text-amber-200, .text-amber-300 {
+  color: var(--accent-light) !important;
+}
+
+.text-yellow-400, .text-yellow-500,
+.text-amber-400, .text-amber-500 {
+  color: var(--accent) !important;
+}
+
+.text-yellow-600, .text-yellow-700, .text-yellow-800, .text-yellow-900,
+.text-amber-600, .text-amber-700, .text-amber-800, .text-amber-900 {
+  color: var(--accent-dark) !important;
+}
+
+.bg-yellow-50, .bg-yellow-100, .bg-amber-50, .bg-amber-100 {
+  background-color: rgba(230, 193, 138, 0.12) !important;
+}
+.bg-yellow-200, .bg-yellow-300, .bg-amber-200, .bg-amber-300 {
+  background-color: var(--accent-light) !important;
+}
+.bg-yellow-400, .bg-yellow-500, .bg-amber-400, .bg-amber-500 {
+  background-color: var(--accent) !important;
+}
+.bg-yellow-600, .bg-yellow-700, .bg-yellow-800, .bg-yellow-900,
+.bg-amber-600, .bg-amber-700, .bg-amber-800, .bg-amber-900 {
+  background-color: var(--accent-dark) !important;
+}
+
+.border-yellow-50, .border-yellow-100, .border-yellow-200, .border-yellow-300,
+.border-amber-50, .border-amber-100, .border-amber-200, .border-amber-300 {
+  border-color: var(--accent-border) !important;
+}
+.border-yellow-400, .border-yellow-500, .border-amber-400, .border-amber-500 {
+  border-color: var(--accent) !important;
+}
+.border-yellow-600, .border-yellow-700, .border-yellow-800, .border-yellow-900,
+.border-amber-600, .border-amber-700, .border-amber-800, .border-amber-900 {
+  border-color: var(--accent-dark) !important;
+}
+
+/* Ring / outline utilities */
+[class*="ring-yellow-"], [class*="ring-amber-"] {
+  --tw-ring-color: var(--accent) !important;
+}
+[class*="outline-yellow-"], [class*="outline-amber-"] {
+  outline-color: var(--accent) !important;
+}
+
+/* Gradient stops (from-, via-, to- yellow/amber/orange) are already remapped
+   through the Tailwind theme config (see tailwind.config.js). No CSS override
+   needed — Tailwind now emits bronze values directly. */
+
+/* Hover states */
+.hover\:text-yellow-300:hover, .hover\:text-yellow-400:hover, .hover\:text-yellow-500:hover,
+.hover\:text-amber-300:hover, .hover\:text-amber-400:hover, .hover\:text-amber-500:hover {
+  color: var(--accent-light) !important;
+}
+.hover\:bg-yellow-400:hover, .hover\:bg-yellow-500:hover,
+.hover\:bg-amber-400:hover, .hover\:bg-amber-500:hover {
+  background-color: var(--accent) !important;
+}
+.hover\:border-yellow-400:hover, .hover\:border-yellow-500:hover,
+.hover\:border-amber-400:hover, .hover\:border-amber-500:hover {
+  border-color: var(--accent-light) !important;
+}
+
+/* Fill / stroke for inline SVG icons that use Tailwind color utilities */
+.fill-yellow-400, .fill-yellow-500, .fill-amber-400, .fill-amber-500 { fill: var(--accent) !important; }
+.fill-yellow-300, .fill-amber-300 { fill: var(--accent-light) !important; }
+.stroke-yellow-400, .stroke-yellow-500, .stroke-amber-400, .stroke-amber-500 { stroke: var(--accent) !important; }
+.stroke-yellow-300, .stroke-amber-300 { stroke: var(--accent-light) !important; }
+
+/* Common inline-style colour values used across the codebase.
+   We map well-known yellow/amber hex values to the bronze palette wherever they
+   appear as an inline `color: …` style. Background/box-shadow inline values
+   can't be re-routed via CSS alone, so the most prominent ones are patched in
+   the component files. */
+[style*="color: #B9823F"],
+[style*="color:#B9823F"],
+[style*="color: #B9823F"],
+[style*="color:#B9823F"],
+[style*="color: #E6C18A"],
+[style*="color:#E6C18A"],
+[style*="color: #B9823F"],
+[style*="color:#B9823F"],
+[style*="color: #B9823F"],
+[style*="color:#B9823F"] {
+  color: var(--accent) !important;
+}
+
+[style*="color: #8A5528"],
+[style*="color:#8A5528"],
+[style*="color: #7A4A24"],
+[style*="color:#7A4A24"],
+[style*="color: #7A4A24"],
+[style*="color:#7A4A24"] {
+  color: var(--accent-dark) !important;
 }
 
 /* ----------------------------------------------------------------------------
@@ -164,7 +299,7 @@ p {
 /* Cap heavy text drop-shadow glows on gradient text. The headline still glows,
    just softer (calmer, more premium). */
 [style*="drop-shadow"] {
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.18)) drop-shadow(0 0 24px rgba(245, 197, 66, 0.18)) !important;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.20)) drop-shadow(0 0 24px rgba(185, 130, 63, 0.20)) !important;
 }
 
 /* Specifically tame the gigantic radial blurs that fill backgrounds.
@@ -182,18 +317,19 @@ p {
 }
 
 /* Reduce decorative `boxShadow` that creates colored halos — only for
-   non-button, non-card primary inline styles using rgba(251,191,36,…). */
-[data-section] [style*="rgba(251,191,36,0.5"]:not(button):not(.btn-primary),
-[data-section] [style*="rgba(251,191,36,0.6"]:not(button):not(.btn-primary),
-[data-section] [style*="rgba(251,191,36,0.4"]:not(button):not(.btn-primary) {
+   non-button, non-card primary inline styles using rgba(185, 130, 63, …). */
+[data-section] [style*="rgba(185, 130, 63, 0.5"]:not(button):not(.btn-primary),
+[data-section] [style*="rgba(185, 130, 63, 0.6"]:not(button):not(.btn-primary),
+[data-section] [style*="rgba(185, 130, 63, 0.4"]:not(button):not(.btn-primary) {
   /* Cannot override inline directly without re-declaring boxShadow.
      Instead reduce via filter/opacity wrappers when nested. */
 }
 
 /* Soften any ring-style glows around accent decoration (top-right pseudo,
    etc) by capping the visual prominence. */
-.glow-yellow {
-  filter: drop-shadow(0 0 14px rgba(245, 197, 66, 0.28)) !important;
+.glow-yellow,
+.glow-bronze {
+  filter: drop-shadow(0 0 16px rgba(185, 130, 63, 0.30)) !important;
 }
 
 /* ----------------------------------------------------------------------------
@@ -216,6 +352,33 @@ section[data-section]:first-of-type {
   section[data-section] {
     padding-top: var(--premium-section-y-mobile) !important;
     padding-bottom: var(--premium-section-y-mobile) !important;
+  }
+}
+
+/* Homepage canvas: globales Section-Padding + große innere Shells ergeben sonst Doppel-Luft.
+   Nur Startseite — gleiche Farben/Typo/Struktur, engerer äußerer Rhythmus + sanfteres Ankern unter fixer Nav. */
+.home-scroll-flow section[data-section]:first-of-type {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.home-scroll-flow section[data-section]:not(:first-of-type) {
+  padding-top: clamp(28px, 4.5vw, 52px) !important;
+  padding-bottom: clamp(28px, 4.5vw, 52px) !important;
+  scroll-margin-top: clamp(4.5rem, 14vw, 5.75rem);
+}
+
+@media (max-width: 768px) {
+  .home-scroll-flow section[data-section]:not(:first-of-type) {
+    padding-top: clamp(18px, 5.5vw, 36px) !important;
+    padding-bottom: clamp(18px, 5.5vw, 36px) !important;
+    scroll-margin-top: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-scroll-flow section[data-section]:not(:first-of-type) {
+    scroll-margin-top: 4.5rem;
   }
 }
 
@@ -253,9 +416,9 @@ section[data-section]:first-of-type {
 }
 
 .glass-card:hover {
-  border-color: rgba(245, 197, 66, 0.22) !important;
+  border-color: var(--accent-border) !important;
   transform: translateY(-2px) !important;
-  box-shadow: var(--premium-shadow-3) !important;
+  box-shadow: var(--premium-shadow-3), 0 0 40px rgba(185, 130, 63, 0.18) !important;
 }
 
 /* Standard card radius targets — unify visually */
@@ -272,38 +435,175 @@ section[data-section]:first-of-type {
 }
 
 /* ----------------------------------------------------------------------------
-   8. CTA SYSTEM — CONSISTENT, CALM, CLEAR
+   8. CTA — BRONZE (High-End, abgerundetes Rechteck)
+   ----------------------------------------------------------------------------
+   Klassen: .metallic-bronze-button, .btn-primary, .btn-bronze, .hero-cta
+
+   Form: --premium-cta-radius (11px) — wie Nav „Termin buchen“ (rounded-[11px])
+   Farbe: Bronze → Champagne, dunkle Typo #1A1009
    ---------------------------------------------------------------------------- */
-/* Refine .btn-primary (used as primary CTA) */
-.btn-primary {
-  background: linear-gradient(180deg, #f5c542 0%, #e3b138 100%) !important;
-  color: #1a1407 !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.005em !important;
-  border: 1px solid rgba(0,0,0,0.04) !important;
+
+.metallic-bronze-button,
+.btn-bronze,
+.btn-primary,
+.hero-cta {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  border-radius: var(--premium-cta-radius) !important;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+
+  color: #F4E4C4 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.25 !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(0.375rem, 1.8vw, 0.625rem) !important;
+
+  border: 1px solid rgba(166, 124, 82, 0.55) !important;
+  background-color: #14110d !important;
+  background-image:
+    linear-gradient(180deg, rgba(255, 240, 210, 0.04) 0%, rgba(255, 240, 210, 0) 38%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(180deg, #1c1208 0%, #140c06 100%) !important;
+  background-size: 100% 100%, 100% 100% !important;
+  background-position: 0 0, 0 0 !important;
+  background-repeat: no-repeat !important;
+
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.35),
-    0 4px 14px rgba(212,164,56,0.28),
-    0 1px 2px rgba(0,0,0,0.10) !important;
-  transition: transform 220ms var(--premium-ease),
-              box-shadow 260ms var(--premium-ease) !important;
+    inset 0 1px 0 rgba(242, 226, 192, 0.22),
+    inset 0 -1px 0 rgba(90, 56, 30, 0.55),
+    inset 0 0 0 1px rgba(166, 124, 82, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.03),
+    0 6px 18px -8px rgba(0, 0, 0, 0.65),
+    0 10px 30px -16px rgba(0, 0, 0, 0.7) !important;
+
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.28s ease !important;
 }
 
+/* Responsive Innenabstand — Hero behält eigene Inline-Paddings */
+.metallic-bronze-button:not(.hero-cta),
+.btn-bronze:not(.hero-cta),
+.btn-primary:not(.hero-cta) {
+  padding: clamp(0.7rem, 1.8vw, 1rem) clamp(1rem, 3.2vw, 2rem) !important;
+  min-height: clamp(44px, 11vw, 52px) !important;
+  font-size: clamp(0.8125rem, 0.72rem + 1.4vw, 1rem) !important;
+}
+
+@media (max-width: 380px) {
+  .metallic-bronze-button:not(.hero-cta),
+  .btn-bronze:not(.hero-cta),
+  .btn-primary:not(.hero-cta) {
+    padding: clamp(0.65rem, 1.6vw, 0.85rem) clamp(0.875rem, 2.8vw, 1.25rem) !important;
+    min-height: clamp(42px, 12vw, 48px) !important;
+    font-size: clamp(0.78rem, 0.7rem + 1.2vw, 0.94rem) !important;
+  }
+}
+
+/* Bronze Hairline-Highlight oben (Bezel-Effekt, sehr subtil) */
+.metallic-bronze-button::before,
+.btn-bronze::before,
 .btn-primary::before,
-.btn-primary::after {
+.hero-cta::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 8px !important;
+  right: 8px !important;
+  top: 1px !important;
+  height: 1px !important;
+  border-radius: 1px !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  background: linear-gradient(
+    90deg,
+    rgba(166, 124, 82, 0) 0%,
+    rgba(214, 176, 128, 0.55) 50%,
+    rgba(166, 124, 82, 0) 100%
+  ) !important;
+}
+
+.metallic-bronze-button::after,
+.btn-bronze::after,
+.btn-primary::after,
+.hero-cta::after {
   display: none !important;
+  content: none !important;
 }
 
-.btn-primary:hover {
+.metallic-bronze-button > *,
+.btn-bronze > *,
+.btn-primary > *,
+.hero-cta > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.metallic-bronze-button span,
+.btn-bronze span,
+.btn-primary span,
+.hero-cta span {
+  background-image: linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  filter:
+    drop-shadow(0 1px 0 rgba(0,0,0,0.55))
+    drop-shadow(0 0 14px rgba(166,124,82,0.18)) !important;
+}
+
+.metallic-bronze-button svg,
+.btn-bronze svg,
+.btn-primary svg,
+.hero-cta svg {
+  color: #E2BE85 !important;
+  stroke: #E2BE85 !important;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,0.55)) !important;
+}
+
+.metallic-bronze-button:hover,
+.btn-bronze:hover,
+.btn-primary:hover,
+.hero-cta:hover {
   transform: translateY(-1px) !important;
+  border-color: rgba(196, 154, 106, 0.7) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.45),
-    0 6px 18px rgba(212,164,56,0.36),
-    0 2px 4px rgba(0,0,0,0.12) !important;
+    inset 0 1px 0 rgba(248, 232, 200, 0.32),
+    inset 0 -1px 0 rgba(110, 70, 38, 0.7),
+    inset 0 0 0 1px rgba(184, 138, 94, 0.18),
+    0 0 0 1px rgba(184, 138, 94, 0.08),
+    0 8px 22px -10px rgba(0, 0, 0, 0.7),
+    0 14px 36px -18px rgba(82, 54, 30, 0.45) !important;
 }
 
-.btn-primary:active {
-  transform: translateY(0) !important;
+.metallic-bronze-button:active,
+.btn-bronze:active,
+.btn-primary:active,
+.hero-cta:active {
+  transform: translateY(0) scale(0.99) !important;
+}
+
+.metallic-bronze-button:focus-visible,
+.btn-bronze:focus-visible,
+.btn-primary:focus-visible,
+.hero-cta:focus-visible {
+  outline: 2px solid rgba(185, 130, 63, 0.55) !important;
+  outline-offset: 3px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metallic-bronze-button,
+  .btn-bronze,
+  .btn-primary,
+  .hero-cta {
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
 }
 
 /* Refine .btn-secondary — quiet, no glassy noise */
@@ -336,7 +636,7 @@ section[data-section]:first-of-type {
    9. FOCUS RING — ACCESSIBLE, PREMIUM
    ---------------------------------------------------------------------------- */
 :focus-visible {
-  outline: 2px solid rgba(245, 197, 66, 0.6) !important;
+  outline: 2px solid rgba(185, 130, 63, 0.6) !important;
   outline-offset: 3px !important;
   border-radius: 6px;
 }
@@ -368,7 +668,7 @@ a:focus:not(:focus-visible) {
   transition: background 220ms var(--premium-ease);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 197, 66, 0.35);
+  background: rgba(185, 130, 63, 0.45);
 }
 
 /* ----------------------------------------------------------------------------
@@ -414,3 +714,208 @@ p[style*="textShadow"] {
 .raw * {
   font-family: revert !important;
 }
+
+/* ----------------------------------------------------------------------------
+   15. BRONZE BRAND UTILITIES
+   ---------------------------------------------------------------------------- */
+.accent-text {
+  background: var(--accent-gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.accent-divider {
+  height: 1px;
+  width: 100%;
+  background: var(--accent-divider);
+  border: 0;
+}
+
+.accent-glow {
+  box-shadow: 0 0 40px rgba(185, 130, 63, 0.22);
+}
+
+/* Re-route the existing .gradient-text helper to the new bronze gradient */
+.gradient-text {
+  background: var(--accent-gradient-text) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+
+/* Mesh-gradient backgrounds — replace yellow hues with warm bronze */
+.mesh-gradient {
+  background:
+    radial-gradient(at 27% 37%, rgba(185, 130, 63, 0.18) 0px, transparent 50%),
+    radial-gradient(at 97% 21%, rgba(230, 193, 138, 0.12) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, rgba(0, 0, 0, 0.9) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, rgba(0, 0, 0, 0.9) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, rgba(122, 74, 36, 0.16) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, rgba(0, 0, 0, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, rgba(0, 0, 0, 1) 0px, transparent 50%) !important;
+}
+
+/* ----------------------------------------------------------------------------
+   15B. OBSIDIAN MATERIAL BACKGROUND SYSTEM
+   ----------------------------------------------------------------------------
+   Replaces flat pure-black surfaces with a matte, subtly-textured obsidian /
+   anthracite material that reads as premium stone. The material has three
+   layers stacked via `background:` on the body + a soft noise overlay
+   pseudo-element. No layout, no DOM changes. */
+
+html,
+body {
+  background-color: #050505 !important;
+}
+
+body {
+  position: relative;
+  background-image:
+    /* (a) very soft radial vignette — center is a hair lighter than edges */
+    radial-gradient(ellipse 120% 90% at 50% 0%, rgba(244,239,231,0.025) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(185,130,63,0.03) 0%, transparent 60%),
+    /* (b) calm vertical material gradient — obsidian → anthracite → obsidian */
+    linear-gradient(180deg, #050505 0%, #0B0B0B 38%, #0E0E0F 62%, #080808 100%) !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Sub-pixel film grain — barely-there texture, fixed to viewport so it doesn't
+   move on scroll. SVG fractal noise → no asset load. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.05  0 0 0 0 0.05  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+}
+
+/* Make sure all real content sits above the grain layer */
+#root,
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Section surfaces — any section that the codebase forced to flat black gets
+   the obsidian look. We target the most common Tailwind black backgrounds
+   and inline patterns used across the site without changing layout. */
+section.bg-black,
+section[class*="bg-black"],
+[data-section].bg-black {
+  background-color: transparent !important;
+  background-image:
+    linear-gradient(180deg, rgba(11,11,11,0.0) 0%, rgba(14,14,15,0.55) 50%, rgba(8,8,8,0.0) 100%) !important;
+}
+
+/* "Pure black" inline backgrounds → obsidian */
+[style*="background-color: #000"]:not([style*="rgba"]),
+[style*="background-color:#000"]:not([style*="rgba"]),
+[style*="background: #000"]:not([style*="rgba"]),
+[style*="background:#000"]:not([style*="rgba"]),
+[style*="backgroundColor: '#000000'"],
+[style*="backgroundColor:'#000000'"],
+[style*="backgroundColor: '#000'"] {
+  background-color: #0B0B0B !important;
+}
+
+/* Glass cards / dark surface cards — give them matte stone material with a
+   barely-visible bronze hairline. Replaces previous glassy white tint. */
+.glass-morphism,
+.glass-morphism-dark,
+.glass-card {
+  background: linear-gradient(180deg, rgba(22,22,22,0.78) 0%, rgba(17,17,17,0.86) 100%) !important;
+  border: 1px solid var(--hairline-bronze) !important;
+  box-shadow:
+    var(--mat-shadow-1),
+    inset 0 1px 0 rgba(244,239,231,0.035) !important;
+}
+
+.glass-morphism-light {
+  background: linear-gradient(180deg, rgba(28,28,28,0.72) 0%, rgba(20,20,20,0.82) 100%) !important;
+  border: 1px solid rgba(244,239,231,0.07) !important;
+}
+
+/* Common "white-on-black" card patterns produced by Tailwind
+   (e.g. `from-white/[0.08] to-white/[0.03]`) — flatten into matte stone */
+[class*="from-white/[0.08]"][class*="to-white/[0.03]"],
+[class*="from-white/[0.06]"][class*="to-white/[0.02]"],
+[class*="from-white/[0.05]"][class*="to-white/[0.02]"] {
+  background-image: linear-gradient(180deg, rgba(22,22,22,0.82) 0%, rgba(17,17,17,0.88) 100%) !important;
+  background-color: rgba(17,17,17,0.85) !important;
+}
+
+/* Standard card containers — bronze hairline on edges, soft material shadow */
+.glass-card {
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.55),
+    0 4px 16px rgba(185,130,63,0.05),
+    inset 0 1px 0 rgba(244,239,231,0.04) !important;
+}
+
+.glass-card:hover {
+  border-color: rgba(230,193,138,0.18) !important;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.65),
+    0 6px 22px rgba(185,130,63,0.10),
+    inset 0 1px 0 rgba(244,239,231,0.06) !important;
+}
+
+/* Navigation / footer / modal backdrops — matte obsidian, not pure black */
+nav[class*="bg-black"],
+footer[class*="bg-black"],
+[role="dialog"][class*="bg-black"] {
+  background-color: rgba(11,11,11,0.92) !important;
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+}
+
+/* Inputs / textareas / selects — matte graphite */
+input,
+textarea,
+select {
+  background-color: rgba(17,17,17,0.85);
+}
+input:focus,
+textarea:focus,
+select:focus {
+  background-color: rgba(22,22,22,0.92);
+}
+
+/* Bronze hairline divider utility for use anywhere */
+.hairline-bronze {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.32) 50%, transparent 100%);
+}
+
+/* ----------------------------------------------------------------------------
+   16. INLINE-STYLE BRONZE REROUTE (common values)
+   ----------------------------------------------------------------------------
+   Many components set yellow/amber values via inline `style={{}}`. We can't
+   override an inline `background:` from CSS directly, but where teams used
+   well-known hex values for *backgroundColor*, *borderColor*, *box-shadow's
+   color portion*, the standalone properties below catch the most frequent
+   cases. */
+[style*="background-color: #B9823F"], [style*="background-color:#B9823F"],
+[style*="background-color: #B9823F"], [style*="background-color:#B9823F"],
+[style*="background-color: #B9823F"], [style*="background-color:#B9823F"],
+[style*="background-color: #B9823F"], [style*="background-color:#B9823F"] {
+  background-color: var(--accent) !important;
+}
+
+[style*="border-color: #B9823F"], [style*="border-color:#B9823F"],
+[style*="border-color: #B9823F"], [style*="border-color:#B9823F"],
+[style*="border-color: #E6C18A"], [style*="border-color:#E6C18A"],
+[style*="border-color: #B9823F"], [style*="border-color:#B9823F"] {
+  border-color: var(--accent-border) !important;
+}
+
+/* NOTE: previous yellow rgba values have been replaced directly in the source
+   tree with bronze rgba equivalents, so no global filter is needed here. */

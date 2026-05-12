@@ -70,7 +70,7 @@ export default function Home() {
                           fontFamily: "'SF Pro Display', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif",
                           fontWeight: 800,
                           letterSpacing: '-0.04em',
-                          textShadow: '0 2px 20px rgba(0,0,0,0.4), 0 0 60px rgba(255,215,0,0.15)'
+                          textShadow: '0 2px 20px rgba(0,0,0,0.4), 0 0 60px rgba(230, 193, 138, 0.15)'
                         }}>
                       Innere Ruhe.<br />
                       Klarheit im Denken.<br />
@@ -98,7 +98,7 @@ export default function Home() {
                     </p>
 
                     <div className="inline-block group/quote mb-4">
-                      <div className="relative backdrop-blur-xl bg-gradient-to-br from-white/15 via-white/10 to-white/5 border border-white/30 rounded-2xl px-5 sm:px-6 py-3 sm:py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.25),_0_0_80px_rgba(255,215,0,0.1)] transition-all duration-500 hover:shadow-[0_12px_48px_rgba(0,0,0,0.3),_0_0_100px_rgba(255,215,0,0.15)] hover:border-white/40">
+                      <div className="relative backdrop-blur-xl bg-gradient-to-br from-white/15 via-white/10 to-white/5 border border-white/30 rounded-2xl px-5 sm:px-6 py-3 sm:py-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.25),_0_0_80px_rgba(230, 193, 138, 0.1)] transition-all duration-500 hover:shadow-[0_12px_48px_rgba(0,0,0,0.3),_0_0_100px_rgba(230, 193, 138, 0.15)] hover:border-white/40">
                         <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 to-transparent rounded-2xl" />
                         <p className="relative text-[0.8rem] sm:text-[0.85rem] md:text-[0.9rem] text-white/95 font-medium italic"
                            style={{
@@ -263,7 +263,7 @@ export default function Home() {
       {/* 3️⃣ THEMEN — Worum geht es auf dieser Seite? */}
       <section className="relative py-16 sm:py-20 md:py-24 lg:py-32 xl:py-40 bg-black overflow-hidden" data-section>
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(250,204,21,0.08),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(185, 130, 63, 0.08),transparent)]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-16">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -276,7 +276,7 @@ export default function Home() {
                 <div
                   className="relative rounded-[24px] sm:rounded-[32px] overflow-hidden"
                   style={{
-                    boxShadow: '0 40px 80px -20px rgba(0,0,0,0.8), 0 25px 50px -20px rgba(251,191,36,0.2), inset 0 1px 0 0 rgba(255,255,255,0.1)'
+                    boxShadow: '0 40px 80px -20px rgba(0,0,0,0.8), 0 25px 50px -20px rgba(185, 130, 63, 0.2), inset 0 1px 0 0 rgba(255,255,255,0.1)'
                   }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10 pointer-events-none" />
@@ -355,7 +355,7 @@ export default function Home() {
               <div
                 className="relative rounded-2xl sm:rounded-[28px] md:rounded-[32px] overflow-hidden"
                 style={{
-                  boxShadow: '0 30px 60px -20px rgba(0,0,0,0.7), 0 20px 40px -30px rgba(251,191,36,0.3)'
+                  boxShadow: '0 30px 60px -20px rgba(0,0,0,0.7), 0 20px 40px -30px rgba(185, 130, 63, 0.3)'
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
@@ -509,7 +509,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-orange-400/10 to-yellow-400/10 rounded-2xl sm:rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative flex flex-col md:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-8 p-5 sm:p-6 md:p-8 lg:p-10 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/20 backdrop-blur-sm hover:border-yellow-400/40 transition-all duration-500">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 sm:w-[72px] sm:h-[72px] md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(250,204,21,0.5)]">
+                    <div className="w-16 h-16 sm:w-[72px] sm:h-[72px] md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(185, 130, 63, 0.5)]">
                       <span className="text-2xl sm:text-[1.75rem] md:text-3xl lg:text-4xl font-black text-black" style={{ fontFamily: "'Inter', sans-serif" }}>
                         {step.step}
                       </span>
@@ -688,7 +688,7 @@ export default function Home() {
                   const bookingSection = document.querySelector('[data-section-id="booking"]');
                   bookingSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="group w-full inline-flex items-center justify-center gap-2 h-11 sm:h-12 px-6 bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-black text-sm font-bold rounded-lg transition-all duration-300 shadow-[0_4px_20px_rgba(250,204,21,0.3)] hover:shadow-[0_6px_30px_rgba(250,204,21,0.5)]"
+                className="metallic-bronze-button btn-bronze group w-full inline-flex items-center justify-center gap-2 h-11 sm:h-12 px-6 text-sm"
               >
                 <span>Erstgespräch buchen</span>
                 <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.5} />

@@ -238,7 +238,7 @@ export default function Contact() {
           padding: 2px;
           background: linear-gradient(135deg,
             rgba(212, 175, 55, 0.3),
-            rgba(251, 191, 36, 0.2),
+            rgba(185, 130, 63, 0.2),
             rgba(212, 175, 55, 0.3)
           );
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -252,7 +252,7 @@ export default function Contact() {
             #8B7355 0%,
             #D4AF37 20%,
             #F5E6D3 40%,
-            #FFD700 50%,
+            #E6C18A 50%,
             #F5E6D3 60%,
             #D4AF37 80%,
             #8B7355 100%

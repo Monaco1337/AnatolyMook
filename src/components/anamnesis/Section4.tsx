@@ -108,7 +108,7 @@ export default function Section4({ formData, setFormData }: Props) {
           width: 24px;
           height: 24px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #fbbf24, #f97316);
+          background: linear-gradient(135deg, #B9823F, #f97316);
           cursor: pointer;
           box-shadow: 0 4px 12px rgba(251, 146, 60, 0.5);
           transition: all 0.2s;
@@ -121,7 +121,7 @@ export default function Section4({ formData, setFormData }: Props) {
           width: 24px;
           height: 24px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #fbbf24, #f97316);
+          background: linear-gradient(135deg, #B9823F, #f97316);
           cursor: pointer;
           border: none;
           box-shadow: 0 4px 12px rgba(251, 146, 60, 0.5);

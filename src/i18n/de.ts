@@ -556,6 +556,7 @@ export default {
   },
 
   footer: {
+    logoHomeAria: 'Zur Startseite – Anatoly Mook',
     tagline: 'Nachhaltige Selbstverwirklichung als stabiler Seinszustand',
     description: 'Tiefe wird real, weil sie dein Leben hebt: mehr Lebendigkeit – und die Freiheit, wieder zu staunen, den Moment zu zelebrieren und wirklich zu leben',
     sections: {
@@ -654,18 +655,19 @@ export default {
   },
 
   consciousness: {
-    badge: 'Transformation',
-    heading: 'Neues Bewusstsein. Neue Selbstführung. Ein neues Leben.',
-    subheading: 'Neues Bewusstsein ist eine andere Art zu sehen, zu wählen und zu leben. Was entsteht, ist eine bewusste Selbstführung, geprägt von innerer Stimmigkeit mit starker äußerer Wirkkraft: eine nachhaltig steigende Qualität in Vitalität, Beziehung, Berufung, Erfolg und Erfüllung.',
+    badge: 'Orientierung',
+    heading: 'Bewusstsein, das trägt — Führung mit Tiefe.',
+    subheading:
+      'Ein anderer Blick auf Entscheiden und Handeln: Selbstführung mit innerer Stimmigkeit — und mehr Ruhe in Vitalität, Beziehung, Berufung, Erfolg und Erfüllung.',
 
     healthVitality: {
       title: 'Gesundheit & Vitalität',
       icon: '💪',
       gradient: 'from-green-400 to-emerald-500',
       points: [
-        'Wenn die Physis schwankt, trübt sich die Klarheit und die Qualität deiner Achtsamkeit.',
-        'Wir strukturieren deine Energie so, dass Vitalität keine Wunschvorstellung bleibt, sondern zur stabilen Ressource wird.',
-        'Dein Körper wird zum stabilen Träger von Ausstrahlung und echter Lebendigkeit. Physische Souveränität versetzt dich in die Kraft, neue Maßstäbe zu setzen und das Leben voll zu genießen.'
+        'Wenn die Basis schwankt, wird Klarheit mühsamer.',
+        'Rhythmus und Energie werden so geordnet, dass Vitalität tragfähig wird.',
+        'Der Körper wird zur stillen Stütze von Präsenz — weniger Druck, mehr tragende Lebendigkeit.'
       ]
     },
 
@@ -674,9 +676,9 @@ export default {
       icon: '❤️',
       gradient: 'from-pink-400 to-rose-500',
       points: [
-        'Konflikte entstehen oft aus unbewussten Mustern. Reaktive Impulse zerfetzen die Harmonie.',
-        'Wir schaffen einen Raum, in dem echte Nähe wieder sicher ist. Trigger verlieren ihre Macht – an ihre Stelle treten Wahrheit, tiefes Vertrauen und verbindende Gemeinsamkeiten.',
-        'Wahre Liebe blüht auf einem Fundament aus Klarheit und Freiheit. Deine Beziehungen werden zur Kraftquelle für persönliche Entfaltung und beruflichen Erfolg.'
+        'Konflikte folgen oft Mustern unterhalb der Oberfläche.',
+        'Es entsteht Raum, in dem Nähe wieder verlässlich ist — weniger Erwartungsdruck, mehr Klarheit und Bindung.',
+        'Beziehungen gewinnen Tiefe, wenn Freiheit und Präsenz zusammenkommen — ohne Dynamik zu übersteuern.'
       ]
     },
 
@@ -685,9 +687,9 @@ export default {
       icon: '🎯',
       gradient: 'from-blue-400 to-indigo-500',
       points: [
-        'Erfolg ohne Erfüllung führt oft in den inneren Verschleiß.',
-        'Wir synchronisieren deine Ambition mit deiner wahren Natur, legen verborgene Potenziale frei und übersetzen sie in reine Wirkkraft.',
-        'Erfolg fühlt sich nicht mehr nach Kampf an, sondern ist der natürliche Ausdruck deiner inneren Ordnung. Du folgst einem Weg, der nicht nur finanziell trägt, sondern dich in deinem Wesen erfüllt.'
+        'Äußerer Erfolg und innere Leere schließen sich nicht aus.',
+        'Ambition und Natur werden in eine Linie gebracht — Potenzial wird sichtbar und handelbar.',
+        'Der Weg trägt nach außen und fühlt sich innen stimmig an.'
       ]
     },
 
@@ -697,31 +699,31 @@ export default {
       gradient: 'from-yellow-400 to-amber-500',
       points: [
         'Nicht der Markt begrenzt den Zufluss, sondern innere Barrieren.',
-        'Wir lösen unbewusste Verknüpfungen und richten dein System auf Fülle und Wachstum aus.',
-        'Der Kampf endet, ein spielerischer Fluss beginnt. Entscheidungen fallen sauber. Das Ergebnis ist souveräne Konsequenz: weniger Reibung, mehr Wirksamkeit. Du erweiterst deine Kapazität für Wohlstand und handelst bewusst aus purer Freude am Erschaffen.'
+        'Unbewusste Verknüpfungen lösen sich — das System richtet sich auf Wachstum und Fülle aus.',
+        'Weniger Kampf, klarer Fluss — Entscheidungen leichter, Handling souveräner.'
       ]
     },
 
     fulfillmentBliss: {
-      title: 'Erfüllung & Glückseligkeit',
+      title: 'Erfüllung & Tiefe',
       icon: '✨',
       gradient: 'from-purple-400 to-violet-500',
       points: [
-        'Selbst bei äußerem Wohlstand kann innere Leere bleiben.',
-        'Wir initiieren einen Bewusstseinswandel, der eine völlig neue Wahrnehmung eröffnet. Du gewinnst die Freiheit, konsequent deiner wahren Bestimmung zu folgen.',
-        'Sicherheit verankert sich im Inneren. Angst fällt als Antreiber weg. Du erlebst eine Lebendigkeit, die unerschütterlich ist – echte Glückseligkeit als stabile Basis deines Seins.'
+        'Äußerer Wohlstand schließt innere Leere nicht aus.',
+        'Ein bewusster Wandel öffnet einen anderen Blick — mit Spielraum für echte Prioritäten.',
+        'Ruhe im Inneren ersetzt Antrieb aus Angst; Lebendigkeit wird tragfähig statt laut.'
       ]
     },
 
     cta: {
-      heading: 'Wähle den nächsten stimmigen Schritt.',
+      heading: 'Der nächste stimmige Schritt.',
       button1: {
-        text: 'Formate entdecken',
-        subtitle: 'alle Wege im Überblick · nach Fokus sortiert · direkt wählbar'
+        text: 'Formate ansehen',
+        subtitle: 'Wege im Überblick · nach Fokus geordnet'
       },
       button2: {
-        text: 'Termin buchen',
-        subtitle: 'kostenloses Erstgespräch · klare Einordnung · konkrete Schritte'
+        text: 'Zeit reservieren',
+        subtitle: 'Erstgespräch · Einordnung · nächste Schritte'
       }
     }
   },

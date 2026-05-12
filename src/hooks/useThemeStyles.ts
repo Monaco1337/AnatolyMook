@@ -31,9 +31,9 @@ export function useThemeStyles() {
 
     accent: {
       primary: theme === 'dark'
-        ? 'from-yellow-200 to-yellow-400'
-        : 'from-orange-500 to-red-600',
-      secondary: theme === 'dark' ? 'text-yellow-400' : 'text-orange-600',
+        ? 'from-bronze-200 to-bronze-500'
+        : 'from-bronze-600 to-bronze-800',
+      secondary: theme === 'dark' ? 'text-bronze-400' : 'text-bronze-700',
     },
 
     shadow: {
@@ -47,8 +47,8 @@ export function useThemeStyles() {
 
     overlay: {
       gradient: theme === 'dark'
-        ? 'bg-gradient-to-b from-transparent via-yellow-500/[0.02] to-transparent'
-        : 'bg-gradient-to-b from-transparent via-orange-500/[0.02] to-transparent',
+        ? 'bg-gradient-to-b from-transparent via-bronze-500/[0.03] to-transparent'
+        : 'bg-gradient-to-b from-transparent via-bronze-600/[0.03] to-transparent',
     },
 
     getGradientBg: (isDark: string, isLight: string) => theme === 'dark' ? isDark : isLight,

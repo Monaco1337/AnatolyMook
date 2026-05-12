@@ -1,8 +1,14 @@
+import { HERO_PORTRAIT } from '../constants/brandAssets';
+
 export interface SectionSEO {
   title: string;
   description: string;
   keywords: string[];
   ogImage?: string;
+  /** OG / Twitter / JSON-LD Bildmaße (echte Pixel, wenn abweichend von 1200×630) */
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  ogImageType?: string;
   schemaType: 'WebPage' | 'Article' | 'Course' | 'Event' | 'FAQPage' | 'Product' | 'Service';
 }
 
@@ -11,7 +17,10 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
     title: 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft',
     description: 'Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen – klar, präzise, wirksam.',
     keywords: ['Anatoly Mook', 'Bewusstsein', 'Klarheit', 'bewusste Führung', 'persönliche Meisterschaft', 'Transformation', 'Coaching', 'Seminare', 'Mentoring'],
-    ogImage: 'https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png',
+    ogImage: HERO_PORTRAIT.absPng,
+    ogImageWidth: HERO_PORTRAIT.width,
+    ogImageHeight: HERO_PORTRAIT.height,
+    ogImageType: 'image/png',
     schemaType: 'WebPage'
   },
   about: {
@@ -51,9 +60,21 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
     schemaType: 'Service'
   },
   transformation: {
-    title: 'Transformation – Der Weg zur persönlichen Meisterschaft',
-    description: 'Verstehen Sie den Transformationsprozess und wie Sie Ihre persönliche Meisterschaft entwickeln. Von Klarheit über Bewusstsein zur konsequenten Lebensgestaltung.',
-    keywords: ['Transformation', 'Persönliche Meisterschaft', 'Bewusstseinsentwicklung', 'Veränderung', 'Wachstum'],
+    title: 'Transformation – Bewusstsein im Alltag vertiefen',
+    description: 'Zwei Arten zu leben: unbewusst und bewusst – plus Transformations-Karten und vertiefende Einblicke in den Wandel.',
+    keywords: ['Transformation', 'bewusst leben', 'Bewusstsein', 'Persönlichkeitsentwicklung', 'Unbewusst vs. bewusst'],
+    schemaType: 'WebPage'
+  },
+  bewusstsein: {
+    title: 'Neues Bewusstsein – Klarheit, Selbstführung & Paradigmen',
+    description: 'Was neues Bewusstsein bedeutet: Lebensbereiche, Meisterschaft und Paradigmen wie Angsttransparenz und echtes Erleben statt Konzept.',
+    keywords: ['Neues Bewusstsein', 'Selbstführung', 'Meisterschaft', 'Angsttransparenz', 'Bewusstsein ist kein Konzept'],
+    schemaType: 'WebPage'
+  },
+  methodik: {
+    title: 'Methodik – Drei Ebenen, Achtsamkeit & Bewusstseinstraining',
+    description: 'Die Arbeit in drei Dimensionen: Achtsamkeitslehre, Bewusstseinstraining und Transformation – Prozess, Journey und konkrete Entwicklungsebenen.',
+    keywords: ['Methodik', 'Achtsamkeitslehre', 'Bewusstseinstraining', 'drei Ebenen', 'Entwicklungsebenen', 'Prozess'],
     schemaType: 'WebPage'
   },
   blog: {

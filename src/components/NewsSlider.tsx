@@ -93,14 +93,14 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/30 to-transparent" />
           <div className="px-5 py-2 rounded-full"
             style={{
-              background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1))',
-              border: '1px solid rgba(251, 191, 36, 0.2)',
-              boxShadow: '0 0 20px rgba(251, 191, 36, 0.1)'
+              background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.1), rgba(138, 85, 40, 0.1))',
+              border: '1px solid rgba(185, 130, 63, 0.2)',
+              boxShadow: '0 0 20px rgba(185, 130, 63, 0.1)'
             }}
           >
             <span className="text-xs font-bold tracking-[0.2em] uppercase"
               style={{
-                background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
+                background: 'linear-gradient(135deg, #B9823F, #8A5528)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'
@@ -126,7 +126,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
               Klare{' '}
               <span
                 style={{
-                  background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #ea580c 100%)',
+                  background: 'linear-gradient(135deg, #B9823F 0%, #8A5528 50%, #ea580c 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -244,9 +244,9 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                     {article.category && (
                       <div className="px-4 py-2.5 rounded-xl backdrop-blur-2xl transition-all duration-500 group-hover:scale-110"
                         style={{
-                          background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.25), rgba(245, 158, 11, 0.2))',
-                          border: '1px solid rgba(251, 191, 36, 0.5)',
-                          boxShadow: '0 4px 20px rgba(251, 191, 36, 0.25), 0 0 40px rgba(251, 191, 36, 0.1)'
+                          background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.25), rgba(138, 85, 40, 0.2))',
+                          border: '1px solid rgba(185, 130, 63, 0.5)',
+                          boxShadow: '0 4px 20px rgba(185, 130, 63, 0.25), 0 0 40px rgba(185, 130, 63, 0.1)'
                         }}
                       >
                         <span className="text-xs font-bold tracking-[0.15em] text-yellow-100 uppercase">
@@ -301,8 +301,8 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
 
                       <div className="px-6 py-3 rounded-xl transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl"
                         style={{
-                          background: 'linear-gradient(135deg, #fbbf24, #f59e0b, #ea580c)',
-                          boxShadow: '0 4px 20px rgba(251, 191, 36, 0.4), 0 0 40px rgba(251, 191, 36, 0.2)'
+                          background: 'linear-gradient(135deg, #B9823F, #8A5528, #ea580c)',
+                          boxShadow: '0 4px 20px rgba(185, 130, 63, 0.4), 0 0 40px rgba(185, 130, 63, 0.2)'
                         }}
                       >
                         <div className="flex items-center gap-2 text-black">
@@ -316,7 +316,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/0 via-orange-400/0 to-yellow-400/0 opacity-0 group-hover:opacity-15 transition-opacity duration-700 pointer-events-none" />
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle at 50% 100%, rgba(251, 191, 36, 0.15), transparent 70%)'
+                      background: 'radial-gradient(circle at 50% 100%, rgba(185, 130, 63, 0.15), transparent 70%)'
                     }}
                   />
                 </div>
@@ -324,7 +324,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                 <div
                   className="absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 -z-10"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.4), rgba(245, 158, 11, 0.3), rgba(234, 88, 12, 0.2))',
+                    background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.4), rgba(138, 85, 40, 0.3), rgba(234, 88, 12, 0.2))',
                     filter: 'blur(24px)'
                   }}
                 />
@@ -350,10 +350,10 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
               style={{
                 width: currentIndex === index ? '48px' : '12px',
                 background: currentIndex === index
-                  ? 'linear-gradient(90deg, #fbbf24, #f59e0b, #ea580c)'
+                  ? 'linear-gradient(90deg, #B9823F, #8A5528, #ea580c)'
                   : 'rgba(255, 255, 255, 0.15)',
                 boxShadow: currentIndex === index
-                  ? '0 0 20px rgba(251, 191, 36, 0.5)'
+                  ? '0 0 20px rgba(185, 130, 63, 0.5)'
                   : 'none'
               }}
               aria-label={`Zu Artikel ${index + 1} springen`}

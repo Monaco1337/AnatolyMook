@@ -55,7 +55,7 @@ function MinimalistFusionCard() {
             {/* Plus/X Toggle Button */}
             <div className="flex-shrink-0">
               <div className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center transition-all duration-500 ${
-                isExpanded ? 'rotate-180 scale-95' : 'rotate-0 hover:scale-110 hover:shadow-[0_0_24px_rgba(250,204,21,0.4)]'
+                isExpanded ? 'rotate-180 scale-95' : 'rotate-0 hover:scale-110 hover:shadow-[0_0_24px_rgba(185, 130, 63, 0.4)]'
               }`}>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-300 to-orange-400 opacity-0 hover:opacity-100 transition-opacity duration-300" />
                 {isExpanded ? (
@@ -95,7 +95,7 @@ function MinimalistFusionCard() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
                   href="#booking"
-                  className="group relative flex-1 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-black text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] shadow-[0_4px_20px_rgba(250,204,21,0.25)] hover:shadow-[0_6px_28px_rgba(250,204,21,0.35)]"
+                  className="group relative flex-1 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-black text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] shadow-[0_4px_20px_rgba(185, 130, 63, 0.25)] hover:shadow-[0_6px_28px_rgba(185, 130, 63, 0.35)]"
                   style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
                 >
                   <Calendar className="w-4 h-4" strokeWidth={2.5} />
@@ -527,11 +527,11 @@ export default function TransformationSlider() {
           <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-16 space-y-3 sm:space-y-4 md:space-y-5">
             <div className="flex items-center justify-center gap-2 sm:gap-2.5 md:gap-3 mb-1.5 sm:mb-2">
               <div className="h-[1px] w-10 sm:w-12 md:w-16 bg-gradient-to-r from-transparent via-yellow-400/50 to-yellow-400/80" />
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_0_20px_rgba(250,204,21,0.6)]" />
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_0_20px_rgba(185, 130, 63, 0.6)]" />
               <span className="text-[9px] sm:text-[10px] md:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.3em] bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>
                 {t.transformationSection.results.badge}
               </span>
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_0_20px_rgba(250,204,21,0.6)]" />
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_0_20px_rgba(185, 130, 63, 0.6)]" />
               <div className="h-[1px] w-10 sm:w-12 md:w-16 bg-gradient-to-l from-transparent via-yellow-400/50 to-yellow-400/80" />
             </div>
             <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-black text-white leading-tight px-4" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, letterSpacing: '-0.02em' }}>
@@ -571,7 +571,7 @@ export default function TransformationSlider() {
                   >
                     <span className={`relative z-10 transition-all duration-300 ${
                       expandedSlide === tab.id
-                        ? 'text-white drop-shadow-[0_0_8px_rgba(250,204,21,0.6)]'
+                        ? 'text-white drop-shadow-[0_0_8px_rgba(185, 130, 63, 0.6)]'
                         : 'text-white/60 group-hover:text-white/90'
                     }`}>
                       {tab.label}

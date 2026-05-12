@@ -175,7 +175,7 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
                   <div
                     className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.9), rgba(245, 158, 11, 0.9))',
+                      background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.9), rgba(138, 85, 40, 0.9))',
                       color: '#000'
                     }}
                   >
@@ -246,8 +246,8 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
                     onClick={handleContactClick}
                     className="w-full py-4 sm:py-5 rounded-xl sm:rounded-2xl font-bold text-sm sm:text-base lg:text-lg uppercase tracking-wide transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                     style={{
-                      background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #ea580c 100%)',
-                      boxShadow: '0 8px 32px rgba(251, 191, 36, 0.35)'
+                      background: 'linear-gradient(135deg, #B9823F 0%, #8A5528 50%, #ea580c 100%)',
+                      boxShadow: '0 8px 32px rgba(185, 130, 63, 0.35)'
                     }}
                   >
                     <div className="flex items-center justify-center gap-2 sm:gap-3 text-black">

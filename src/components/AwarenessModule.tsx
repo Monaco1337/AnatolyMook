@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Plus, Minus, Brain, Heart, Sparkles, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-export default function AwarenessModule() {
+export type AwarenessModuleVariant = 'default' | 'cardsOnly' | 'paradigmaOnly';
+
+export default function AwarenessModule({ variant = 'default' }: { variant?: AwarenessModuleVariant }) {
   const { t } = useLanguage();
-  const [mainOpen, setMainOpen] = useState(false);
+  const [mainOpen, setMainOpen] = useState(variant === 'cardsOnly');
   const [leftCardOpen, setLeftCardOpen] = useState(false);
   const [rightCardOpen, setRightCardOpen] = useState(false);
   const [paradigmaVisible, setParadigmaVisible] = useState(false);
@@ -26,6 +28,120 @@ export default function AwarenessModule() {
     setOpenParadigmaItems(newSet);
   };
 
+  if (variant === 'paradigmaOnly') {
+    return (
+      <section className="relative py-16 sm:py-20 md:py-24 lg:py-32 xl:py-36 bg-black overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-yellow-400/10 rounded-full blur-[120px] animate-pulse-slow" />
+          <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px] animate-pulse-slower" />
+        </div>
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <p className="text-xs sm:text-sm text-white/50 tracking-[0.28em] uppercase font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
+              {t.awarenessModule.paradigmaLabel}
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-5">
+            {t.awarenessModule.paradigmaItems.map((item, idx) => {
+              const isOpen = openParadigmaItems.has(idx);
+              return (
+                <div
+                  key={idx}
+                  className={`relative rounded-2xl overflow-hidden backdrop-blur-2xl transition-all duration-700 ${
+                    isOpen
+                      ? 'bg-white/[0.08] border-yellow-400/30 shadow-[0_8px_32px_-8px_rgba(185, 130, 63, 0.3)]'
+                      : 'bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/[0.12]'
+                  } border`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleParadigmaItem(idx)}
+                    className="w-full p-6 sm:p-7 md:p-8 flex items-center justify-between gap-4 text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center transition-all duration-500 ${
+                        isOpen
+                          ? 'bg-gradient-to-br from-yellow-400/30 to-orange-500/30 border border-yellow-400/40'
+                          : 'bg-white/[0.05] border border-white/[0.1]'
+                      }`}>
+                        <Sparkles className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-500 ${
+                          isOpen ? 'text-yellow-400' : 'text-white/40'
+                        }`} strokeWidth={2} />
+                      </div>
+                      <h5 className={`text-base sm:text-lg md:text-xl font-bold tracking-tight transition-colors duration-500 ${
+                        isOpen ? 'text-white' : 'text-white/80'
+                      }`} style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif" }}>
+                        {item.title}
+                      </h5>
+                    </div>
+                    <div className={`flex-shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-500 ${
+                      isOpen
+                        ? 'bg-gradient-to-br from-yellow-400 to-orange-500 rotate-45'
+                        : 'bg-white/[0.05] border border-white/[0.1]'
+                    }`}>
+                      <Plus className={`w-4 h-4 sm:w-4.5 sm:h-4.5 transition-colors duration-500 ${
+                        isOpen ? 'text-black' : 'text-white/60'
+                      }`} strokeWidth={2.5} />
+                    </div>
+                  </button>
+
+                  <div
+                    className={`overflow-hidden transition-all duration-700 ${
+                      isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="px-6 sm:px-7 md:px-8 pb-6 sm:pb-7 md:pb-8 pt-0">
+                      <div className="pl-12 sm:pl-14 border-l-2 border-yellow-400/30">
+                        <p className="text-sm sm:text-base text-white/60 font-light leading-relaxed" style={{ fontFamily: "'Inter', sans-serif", lineHeight: '1.6' }}>
+                          {item.detail}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="text-center pt-14 sm:pt-16 md:pt-20">
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 opacity-10 blur-3xl" />
+              <p className="relative text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 font-light leading-relaxed max-w-3xl mx-auto px-6" style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", letterSpacing: '-0.01em' }}>
+                <span className="text-yellow-400">{t.awarenessModule.finalMessage1}</span> {t.awarenessModule.finalMessage2}
+                <br />
+                <span className="text-white/90">{t.awarenessModule.finalMessage3}</span>{' '}
+                <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent font-bold">{t.awarenessModule.finalMessage4}</span>
+                <span className="text-white/90">{t.awarenessModule.finalMessage5}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <style>{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.05); }
+        }
+        @keyframes pulse-slower {
+          0%, 100% { opacity: 0.2; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.08); }
+        }
+        .animate-pulse-slow { animation: pulse-slow 8s ease-in-out infinite; }
+        .animate-pulse-slower { animation: pulse-slower 12s ease-in-out infinite; }
+      `}</style>
+      </section>
+    );
+  }
+
   return (
     <section className="relative py-16 sm:py-20 md:py-24 lg:py-32 xl:py-40 bg-black overflow-hidden">
       {/* Premium Background Elements */}
@@ -37,16 +153,16 @@ export default function AwarenessModule() {
       <div className="relative max-w-[1800px] mx-auto px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8">
 
         {/* STATE 0 - CLOSED */}
-        {!mainOpen && (
+        {!mainOpen && variant === 'default' && (
           <div className="text-center space-y-5 sm:space-y-6 md:space-y-8 lg:space-y-12 py-8 sm:py-10 md:py-12 lg:py-16">
             {/* Section Header */}
             <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-5 md:mb-6">
               <div className="h-[1px] w-6 sm:w-8 md:w-10 lg:w-12 bg-gradient-to-r from-transparent via-yellow-400/50 to-yellow-400/80" />
-              <div className="w-1 h-1 rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.6)]" />
+              <div className="w-1 h-1 rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(185, 130, 63, 0.6)]" />
               <span className="text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] font-black tracking-[0.25em] sm:tracking-[0.3em] bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent uppercase" style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900 }}>
                 {t.awarenessModule.badge}
               </span>
-              <div className="w-1 h-1 rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.6)]" />
+              <div className="w-1 h-1 rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(185, 130, 63, 0.6)]" />
               <div className="h-[1px] w-6 sm:w-8 md:w-10 lg:w-12 bg-gradient-to-l from-transparent via-yellow-400/50 to-yellow-400/80" />
             </div>
 
@@ -54,7 +170,7 @@ export default function AwarenessModule() {
               className="text-[1.75rem] sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black text-white tracking-tight leading-[1.1]"
               style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900, letterSpacing: '-0.03em' }}
             >
-              <span className="block bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(250,204,21,0.3)]">
+              <span className="block bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.3)]">
                 {t.awarenessModule.heading}
               </span>
             </h2>
@@ -68,7 +184,7 @@ export default function AwarenessModule() {
               className="group inline-flex flex-col items-center gap-3 sm:gap-3.5 md:gap-4 transition-all duration-700 hover:scale-105"
             >
               <div className="relative">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-full bg-gradient-to-br from-yellow-400/20 to-orange-500/20 backdrop-blur-xl border border-yellow-400/30 flex items-center justify-center transition-all duration-700 group-hover:border-yellow-400/60 group-hover:shadow-[0_0_60px_rgba(250,204,21,0.4)]">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 rounded-full bg-gradient-to-br from-yellow-400/20 to-orange-500/20 backdrop-blur-xl border border-yellow-400/30 flex items-center justify-center transition-all duration-700 group-hover:border-yellow-400/60 group-hover:shadow-[0_0_60px_rgba(185, 130, 63, 0.4)]">
                   <Plus className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 text-yellow-400 group-hover:text-yellow-300 transition-all duration-700 group-hover:rotate-90" strokeWidth={2} />
                 </div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700" />
@@ -96,7 +212,7 @@ export default function AwarenessModule() {
                 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-black text-white tracking-tight leading-[1.1]"
                 style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900, letterSpacing: '-0.03em' }}
               >
-                <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(250,204,21,0.3)]">
+                <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.3)]">
                   {t.awarenessModule.transformationTitle1}
                 </span>
                 <span className="block mt-1 sm:mt-1.5 md:mt-2">{t.awarenessModule.transformationTitle2}</span>
@@ -213,7 +329,7 @@ export default function AwarenessModule() {
                 <div className="absolute inset-0 rounded-xl sm:rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] ring-1 ring-inset ring-yellow-400/[0.15]" />
 
                 {/* Ultra Luxury Shadow with Glow */}
-                <div className="absolute inset-0 rounded-xl sm:rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] shadow-[0_20px_80px_-15px_rgba(250,204,21,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)]" />
+                <div className="absolute inset-0 rounded-xl sm:rounded-[1.25rem] md:rounded-[1.5rem] lg:rounded-[2rem] shadow-[0_20px_80px_-15px_rgba(185, 130, 63, 0.4),inset_0_1px_1px_rgba(255,255,255,0.1)]" />
 
                 {/* Background Image - Meditation, Ruhe, Klarheit */}
                 <div className="absolute inset-0 opacity-30">
@@ -229,7 +345,7 @@ export default function AwarenessModule() {
 
                 <div className="relative p-4 sm:p-5 md:p-6 lg:p-8 xl:p-10 space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6">
                   {/* Icon Badge */}
-                  <div className="inline-flex w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-lg sm:rounded-xl backdrop-blur-2xl bg-yellow-400/20 border border-yellow-400/40 items-center justify-center shadow-[0_4px_16px_-4px_rgba(250,204,21,0.6)]">
+                  <div className="inline-flex w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-lg sm:rounded-xl backdrop-blur-2xl bg-yellow-400/20 border border-yellow-400/40 items-center justify-center shadow-[0_4px_16px_-4px_rgba(185, 130, 63, 0.6)]">
                     <Heart className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-yellow-400" strokeWidth={1.5} />
                   </div>
 
@@ -286,7 +402,7 @@ export default function AwarenessModule() {
             </div>
 
             {/* STATE 3 - PARADIGMA TRIGGER */}
-            {paradigmaVisible && (
+            {variant === 'default' && paradigmaVisible && (
               <div className="text-center space-y-6 pt-8 sm:pt-12 animate-fade-in">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-xl bg-white/[0.05] border border-white/[0.1]">
                   <div className="w-1 h-1 rounded-full bg-yellow-400 animate-pulse" />
@@ -300,7 +416,7 @@ export default function AwarenessModule() {
                   className="group inline-flex flex-col items-center gap-4 transition-all duration-700 hover:scale-105"
                 >
                   <div className="relative">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-yellow-400/20 to-orange-500/20 backdrop-blur-xl border border-yellow-400/30 flex items-center justify-center transition-all duration-700 group-hover:border-yellow-400/60 group-hover:shadow-[0_0_50px_rgba(250,204,21,0.3)]">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-yellow-400/20 to-orange-500/20 backdrop-blur-xl border border-yellow-400/30 flex items-center justify-center transition-all duration-700 group-hover:border-yellow-400/60 group-hover:shadow-[0_0_50px_rgba(185, 130, 63, 0.3)]">
                       {paradigmaOpen ? (
                         <Minus className="w-6 h-6 sm:w-7 sm:h-7 text-yellow-400 transition-all duration-700" strokeWidth={2} />
                       ) : (
@@ -314,7 +430,7 @@ export default function AwarenessModule() {
             )}
 
             {/* STATE 4 - PARADIGMA CONTENT */}
-            {paradigmaOpen && (
+            {variant === 'default' && paradigmaOpen && (
               <div className="max-w-4xl mx-auto space-y-4 sm:space-y-5 animate-fade-in pt-6">
                 {t.awarenessModule.paradigmaItems.map((item, idx) => {
                   const isOpen = openParadigmaItems.has(idx);
@@ -323,7 +439,7 @@ export default function AwarenessModule() {
                       key={idx}
                       className={`relative rounded-2xl overflow-hidden backdrop-blur-2xl transition-all duration-700 ${
                         isOpen
-                          ? 'bg-white/[0.08] border-yellow-400/30 shadow-[0_8px_32px_-8px_rgba(250,204,21,0.3)]'
+                          ? 'bg-white/[0.08] border-yellow-400/30 shadow-[0_8px_32px_-8px_rgba(185, 130, 63, 0.3)]'
                           : 'bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/[0.12]'
                       } border`}
                     >
@@ -380,7 +496,7 @@ export default function AwarenessModule() {
             )}
 
             {/* FINAL MESSAGE */}
-            {paradigmaOpen && (
+            {variant === 'default' && paradigmaOpen && (
               <div className="text-center pt-16 sm:pt-20 md:pt-24 animate-fade-in">
                 <div className="relative inline-block">
                   <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 opacity-10 blur-3xl" />

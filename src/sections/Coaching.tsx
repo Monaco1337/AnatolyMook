@@ -230,10 +230,10 @@ export default function Coaching() {
     : packages.filter(pkg => pkg.tier === selectedTier);
 
   const tierColors: Record<string, { from: string; to: string; text: string }> = {
-    einzelsession: { from: '#fef08a', to: '#fde047', text: 'text-yellow-300' },
-    intensiv: { from: '#facc15', to: '#eab308', text: 'text-yellow-400' },
-    vip: { from: '#eab308', to: '#ca8a04', text: 'text-yellow-500' },
-    executive: { from: '#fbbf24', to: '#f59e0b', text: 'text-yellow-400' }
+    einzelsession: { from: '#E6C18A', to: '#E6C18A', text: 'text-yellow-300' },
+    intensiv: { from: '#B9823F', to: '#B9823F', text: 'text-yellow-400' },
+    vip: { from: '#B9823F', to: '#ca8a04', text: 'text-yellow-500' },
+    executive: { from: '#B9823F', to: '#8A5528', text: 'text-yellow-400' }
   };
 
   return (
@@ -249,7 +249,7 @@ export default function Coaching() {
           }}
         />
         <div
-          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(250,204,21,0.15),transparent_50%)]"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(185, 130, 63, 0.15),transparent_50%)]"
           style={{
             transform: `translateY(${scrollY * 0.5}px)`,
             willChange: 'transform'

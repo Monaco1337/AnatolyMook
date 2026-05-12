@@ -87,8 +87,8 @@ export default function Events() {
   };
 
   const gradientColors: Record<string, string> = {
-    'yellow-400': '#facc15',
-    'yellow-500': '#eab308',
+    'yellow-400': '#B9823F',
+    'yellow-500': '#B9823F',
     'orange-400': '#fb923c',
     'orange-500': '#f97316',
     'blue-400': '#60a5fa',
@@ -168,7 +168,7 @@ export default function Events() {
                 height: `${Math.random() * 300 + 100}px`,
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                background: `radial-gradient(circle, ${i % 2 === 0 ? 'rgba(250, 204, 21, 0.03)' : 'rgba(249, 115, 22, 0.02)'} 0%, transparent 70%)`,
+                background: `radial-gradient(circle, ${i % 2 === 0 ? 'rgba(185, 130, 63, 0.03)' : 'rgba(249, 115, 22, 0.02)'} 0%, transparent 70%)`,
                 animationDelay: `${Math.random() * 3}s`,
                 animationDuration: `${Math.random() * 4 + 3}s`
               }}
@@ -177,9 +177,9 @@ export default function Events() {
         </div>
 
         <div className="relative max-w-[1600px] mx-auto px-6 lg:px-12 py-32 text-center z-10">
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full mb-8 backdrop-blur-xl border border-yellow-400/30 shadow-[0_0_80px_rgba(234,179,8,0.15)]"
+          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full mb-8 backdrop-blur-xl border border-yellow-400/30 shadow-[0_0_80px_rgba(185, 130, 63, 0.15)]"
                style={{
-                 background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.08), rgba(249, 115, 22, 0.08))'
+                 background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.08), rgba(249, 115, 22, 0.08))'
                }}>
             <Zap className="text-yellow-400" size={20} strokeWidth={2.5} />
             <span className="text-yellow-400 font-bold text-sm tracking-wider uppercase">Live Events & Keynotes</span>
@@ -189,7 +189,7 @@ export default function Events() {
             <span className="inline-block bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_4px_32px_rgba(255,255,255,0.15)]">
               {heading}{' '}
             </span>
-            <span className="inline-block bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-transparent animate-pulse drop-shadow-[0_0_80px_rgba(234,179,8,0.3)]">
+            <span className="inline-block bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-transparent animate-pulse drop-shadow-[0_0_80px_rgba(185, 130, 63, 0.3)]">
               {highlight}
             </span>
           </h1>
@@ -201,9 +201,9 @@ export default function Events() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={linkTarget}
-              className="group relative inline-flex items-center justify-center gap-3 h-[60px] px-10 rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_60px_rgba(234,179,8,0.3)] hover:shadow-[0_0_100px_rgba(234,179,8,0.5)]"
+              className="group relative inline-flex items-center justify-center gap-3 h-[60px] px-10 rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_60px_rgba(185, 130, 63, 0.3)] hover:shadow-[0_0_100px_rgba(185, 130, 63, 0.5)]"
               style={{
-                background: 'linear-gradient(135deg, #facc15 0%, #f97316 100%)'
+                background: 'linear-gradient(135deg, #B9823F 0%, #f97316 100%)'
               }}
             >
               <span className="relative text-black font-bold text-[15px] tracking-[-0.01em]">
@@ -230,7 +230,7 @@ export default function Events() {
         <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
             {events.map((event) => {
-              const fromColor = gradientColors[event.gradient_from] || '#facc15';
+              const fromColor = gradientColors[event.gradient_from] || '#B9823F';
               const toColor = gradientColors[event.gradient_to] || '#f97316';
               const titleSizeClass = titleFontSizeClasses[event.title_font_size || '3xl'] || 'text-3xl';
               const subtitleSizeClass = textFontSizeClasses[event.subtitle_font_size || 'sm'] || 'text-sm';
@@ -296,8 +296,8 @@ export default function Events() {
             <div className="text-center py-32">
               <div className="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6"
                    style={{
-                     background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.1), rgba(249, 115, 22, 0.1))',
-                     border: '2px solid rgba(250, 204, 21, 0.2)'
+                     background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.1), rgba(249, 115, 22, 0.1))',
+                     border: '2px solid rgba(185, 130, 63, 0.2)'
                    }}>
                 <Sparkles className="text-yellow-400" size={40} strokeWidth={2} />
               </div>
@@ -317,7 +317,7 @@ export default function Events() {
         <div className="max-w-[1000px] mx-auto px-6 lg:px-12 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full mb-8 backdrop-blur-xl border border-yellow-400/30"
                style={{
-                 background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.08), rgba(249, 115, 22, 0.08))'
+                 background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.08), rgba(249, 115, 22, 0.08))'
                }}>
             <Sparkles className="text-yellow-400" size={18} strokeWidth={2.5} />
             <span className="text-yellow-400 font-bold text-sm tracking-wider uppercase">Digitaler Zugang</span>

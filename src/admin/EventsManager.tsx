@@ -460,7 +460,7 @@ export default function EventsManager() {
         <div className="absolute -inset-2 bg-gradient-to-r from-yellow-500/30 via-orange-500/30 to-yellow-500/30 rounded-3xl blur-2xl opacity-60 group-hover:opacity-100 transition-all duration-700 animate-pulse" />
         <div className="absolute -inset-1 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-2xl blur-xl" />
 
-        <div className="relative bg-gradient-to-br from-zinc-900/90 via-zinc-800/90 to-zinc-900/90 backdrop-blur-xl rounded-2xl border-2 border-yellow-500/30 shadow-[0_0_80px_rgba(234,179,8,0.3),inset_0_0_60px_rgba(234,179,8,0.05)]">
+        <div className="relative bg-gradient-to-br from-zinc-900/90 via-zinc-800/90 to-zinc-900/90 backdrop-blur-xl rounded-2xl border-2 border-yellow-500/30 shadow-[0_0_80px_rgba(185, 130, 63, 0.3),inset_0_0_60px_rgba(185, 130, 63, 0.05)]">
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
 
@@ -468,12 +468,12 @@ export default function EventsManager() {
             <div className="flex items-center gap-4 mb-6">
               <div className="relative">
                 <div className="absolute inset-0 bg-yellow-400/30 rounded-2xl blur-xl animate-pulse" />
-                <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 flex items-center justify-center shadow-[0_0_40px_rgba(234,179,8,0.6)]">
+                <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 flex items-center justify-center shadow-[0_0_40px_rgba(185, 130, 63, 0.6)]">
                   <Zap className="w-7 h-7 text-black" strokeWidth={2.5} />
                 </div>
               </div>
               <div>
-                <h2 className="text-3xl font-black bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(234,179,8,0.5)]">
+                <h2 className="text-3xl font-black bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.5)]">
                   Events Section
                 </h2>
                 <p className="text-white/60 text-sm mt-1">Überschrift und Event-Karten verwalten</p>
@@ -711,7 +711,7 @@ export default function EventsManager() {
           <div className="relative max-w-6xl w-full max-h-[90vh] overflow-y-auto" style={{ margin: 'auto' }}>
             <div className="absolute -inset-2 bg-gradient-to-r from-yellow-500/30 via-orange-500/30 to-yellow-500/30 rounded-3xl blur-2xl animate-pulse" />
 
-            <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 rounded-2xl border-2 border-yellow-500/30 shadow-[0_0_100px_rgba(234,179,8,0.4)]">
+            <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 rounded-2xl border-2 border-yellow-500/30 shadow-[0_0_100px_rgba(185, 130, 63, 0.4)]">
               <div className="p-8">
                 <div className="flex justify-between items-center mb-6">
                   <h3 className="text-2xl font-black bg-gradient-to-r from-yellow-200 to-orange-400 bg-clip-text text-transparent">

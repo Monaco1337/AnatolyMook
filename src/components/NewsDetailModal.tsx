@@ -233,8 +233,8 @@ export default function NewsDetailModal({ article, onClose }: NewsDetailModalPro
                   {article.category && (
                     <div className="px-2 py-0.5 rounded-full backdrop-blur-xl"
                       style={{
-                        background: 'rgba(251, 191, 36, 0.15)',
-                        border: '1px solid rgba(251, 191, 36, 0.3)'
+                        background: 'rgba(185, 130, 63, 0.15)',
+                        border: '1px solid rgba(185, 130, 63, 0.3)'
                       }}
                     >
                       <span className="text-xs font-semibold text-yellow-300 uppercase tracking-wider">

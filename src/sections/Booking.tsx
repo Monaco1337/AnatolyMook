@@ -240,7 +240,7 @@ export default function Booking() {
       description: 'Intensive Seminare und Workshops fur tiefgreifende personliche Entwicklung und nachhaltigen Wandel',
       count: seminars.length,
       accentColor: 'from-amber-400 via-yellow-400 to-orange-400',
-      glowColor: 'rgba(251, 191, 36, 0.4)',
+      glowColor: 'rgba(185, 130, 63, 0.4)',
       bgGradient: 'from-amber-500/8 via-yellow-500/5 to-orange-500/8',
       features: [
         { text: 'Prasenzseminare', icon: Mountain },
@@ -311,14 +311,14 @@ export default function Booking() {
             <div className="absolute inset-0 blur-[100px] bg-yellow-400/40 rounded-full animate-pulse" />
             <div className="relative w-36 h-36 rounded-[32px] flex items-center justify-center mx-auto"
               style={{
-                background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.25) 0%, rgba(250, 204, 21, 0.1) 100%)',
+                background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.25) 0%, rgba(185, 130, 63, 0.1) 100%)',
                 backdropFilter: 'blur(60px)',
                 WebkitBackdropFilter: 'blur(60px)',
-                border: '1px solid rgba(250, 204, 21, 0.4)',
+                border: '1px solid rgba(185, 130, 63, 0.4)',
                 boxShadow: `
                   inset 0 1px 2px rgba(255, 255, 255, 0.3),
-                  0 0 80px rgba(250, 204, 21, 0.3),
-                  0 20px 60px rgba(250, 204, 21, 0.2)
+                  0 0 80px rgba(185, 130, 63, 0.3),
+                  0 20px 60px rgba(185, 130, 63, 0.2)
                 `
               }}
             >
@@ -351,9 +351,9 @@ export default function Booking() {
             onClick={resetBooking}
             className="group relative h-[60px] px-[32px] rounded-[18px] text-[15px] font-[600] overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
             style={{
-              background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.15) 0%, rgba(250, 204, 21, 0.08) 100%)',
-              border: '1px solid rgba(250, 204, 21, 0.3)',
-              boxShadow: '0 0 30px rgba(250, 204, 21, 0.15)'
+              background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.15) 0%, rgba(185, 130, 63, 0.08) 100%)',
+              border: '1px solid rgba(185, 130, 63, 0.3)',
+              boxShadow: '0 0 30px rgba(185, 130, 63, 0.15)'
             }}
           >
             <span className="relative z-10 flex items-center gap-3 text-yellow-400">
@@ -379,14 +379,14 @@ export default function Booking() {
           <div className="text-center mb-20">
             <div className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full mb-10"
               style={{
-                background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.15) 0%, rgba(250, 204, 21, 0.05) 100%)',
+                background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.15) 0%, rgba(185, 130, 63, 0.05) 100%)',
                 backdropFilter: 'blur(40px)',
                 WebkitBackdropFilter: 'blur(40px)',
-                border: '1px solid rgba(250, 204, 21, 0.3)',
+                border: '1px solid rgba(185, 130, 63, 0.3)',
                 boxShadow: `
                   inset 0 1px 2px rgba(255, 255, 255, 0.25),
-                  0 0 50px rgba(250, 204, 21, 0.2),
-                  0 8px 24px rgba(250, 204, 21, 0.15)
+                  0 0 50px rgba(185, 130, 63, 0.2),
+                  0 8px 24px rgba(185, 130, 63, 0.15)
                 `
               }}
             >
@@ -415,8 +415,8 @@ export default function Booking() {
                 className="absolute top-1/2 left-0 h-[2px] -translate-y-1/2 transition-all duration-1000 ease-out"
                 style={{
                   width: `${(currentStepIndex / (steps.length - 1)) * 100}%`,
-                  background: 'linear-gradient(90deg, rgba(250, 204, 21, 0.8) 0%, rgba(251, 191, 36, 1) 100%)',
-                  boxShadow: '0 0 20px rgba(250, 204, 21, 0.5)'
+                  background: 'linear-gradient(90deg, rgba(185, 130, 63, 0.8) 0%, rgba(185, 130, 63, 1) 100%)',
+                  boxShadow: '0 0 20px rgba(185, 130, 63, 0.5)'
                 }}
               />
 
@@ -430,15 +430,15 @@ export default function Booking() {
                       className="w-14 h-14 lg:w-16 lg:h-16 rounded-[18px] flex items-center justify-center transition-all duration-700 relative"
                       style={{
                         background: isActive
-                          ? 'linear-gradient(135deg, rgba(250, 204, 21, 0.25) 0%, rgba(250, 204, 21, 0.1) 100%)'
+                          ? 'linear-gradient(135deg, rgba(185, 130, 63, 0.25) 0%, rgba(185, 130, 63, 0.1) 100%)'
                           : theme === 'dark'
                           ? 'rgba(255, 255, 255, 0.03)'
                           : 'rgba(0, 0, 0, 0.03)',
                         backdropFilter: 'blur(40px)',
                         WebkitBackdropFilter: 'blur(40px)',
-                        border: isActive ? '1.5px solid rgba(250, 204, 21, 0.4)' : `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)'}`,
+                        border: isActive ? '1.5px solid rgba(185, 130, 63, 0.4)' : `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)'}`,
                         boxShadow: isActive
-                          ? `0 0 40px rgba(250, 204, 21, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2)`
+                          ? `0 0 40px rgba(185, 130, 63, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2)`
                           : 'none',
                         transform: isCurrent ? 'scale(1.15)' : 'scale(1)'
                       }}
@@ -702,11 +702,11 @@ export default function Booking() {
                     <div
                       className="relative px-8 py-6 rounded-[24px] transition-all duration-500"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.12) 0%, rgba(250, 204, 21, 0.04) 100%)',
+                        background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.12) 0%, rgba(185, 130, 63, 0.04) 100%)',
                         backdropFilter: 'blur(40px)',
                         WebkitBackdropFilter: 'blur(40px)',
-                        border: '1px solid rgba(250, 204, 21, 0.2)',
-                        boxShadow: '0 0 40px rgba(250, 204, 21, 0.1)'
+                        border: '1px solid rgba(185, 130, 63, 0.2)',
+                        boxShadow: '0 0 40px rgba(185, 130, 63, 0.1)'
                       }}
                     >
                       <div className="flex items-center justify-between gap-4">
@@ -714,8 +714,8 @@ export default function Booking() {
                           <div
                             className="w-14 h-14 rounded-[16px] flex items-center justify-center transition-all duration-500 group-hover:scale-110"
                             style={{
-                              background: 'linear-gradient(135deg, rgba(250, 204, 21, 1) 0%, rgba(251, 191, 36, 1) 100%)',
-                              boxShadow: '0 8px 32px rgba(250, 204, 21, 0.4)'
+                              background: 'linear-gradient(135deg, rgba(185, 130, 63, 1) 0%, rgba(185, 130, 63, 1) 100%)',
+                              boxShadow: '0 8px 32px rgba(185, 130, 63, 0.4)'
                             }}
                           >
                             <Phone className="text-black" size={24} strokeWidth={2.5} />
@@ -822,7 +822,7 @@ export default function Booking() {
                     icon={[Flame, Sun, Lightbulb, Brain, Mountain][idx % 5]}
                     accentIcon={[Sparkles, Star, Zap][idx % 3]}
                     badge={seminar.format}
-                    accentColor="rgba(251, 191, 36, 0.4)"
+                    accentColor="rgba(185, 130, 63, 0.4)"
                   />
                 ))}
 
@@ -881,7 +881,7 @@ export default function Booking() {
                     theme={theme}
                     text={text}
                     accentColor={
-                      selectedCategory === 'seminars' ? 'rgba(251, 191, 36, 0.4)' :
+                      selectedCategory === 'seminars' ? 'rgba(185, 130, 63, 0.4)' :
                       selectedCategory === 'coaching' ? 'rgba(52, 211, 153, 0.4)' :
                       'rgba(56, 189, 248, 0.4)'
                     }
@@ -1008,8 +1008,8 @@ export default function Booking() {
                       onClick={() => setCurrentStep('contact')}
                       className="group flex-1 h-[60px] px-[32px] rounded-[18px] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(250, 204, 21, 1) 0%, rgba(251, 191, 36, 1) 100%)',
-                        boxShadow: '0 8px 32px rgba(250, 204, 21, 0.35)'
+                        background: 'linear-gradient(135deg, rgba(185, 130, 63, 1) 0%, rgba(185, 130, 63, 1) 100%)',
+                        boxShadow: '0 8px 32px rgba(185, 130, 63, 0.35)'
                       }}
                     >
                       <span className="flex items-center justify-center gap-3 text-black text-[15px] font-[650]">
@@ -1052,7 +1052,7 @@ export default function Booking() {
                         className="absolute -inset-2 rounded-[24px]"
                         style={{
                           background: selectedCategory === 'seminars'
-                            ? 'radial-gradient(circle at center, rgba(251, 191, 36, 0.25) 0%, transparent 70%)'
+                            ? 'radial-gradient(circle at center, rgba(185, 130, 63, 0.25) 0%, transparent 70%)'
                             : selectedCategory === 'coaching'
                             ? 'radial-gradient(circle at center, rgba(52, 211, 153, 0.25) 0%, transparent 70%)'
                             : 'radial-gradient(circle at center, rgba(56, 189, 248, 0.25) 0%, transparent 70%)',
@@ -1065,17 +1065,17 @@ export default function Booking() {
                           width: '72px',
                           height: '72px',
                           background: selectedCategory === 'seminars'
-                            ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.08) 100%)'
+                            ? 'linear-gradient(135deg, rgba(185, 130, 63, 0.2) 0%, rgba(185, 130, 63, 0.08) 100%)'
                             : selectedCategory === 'coaching'
                             ? 'linear-gradient(135deg, rgba(52, 211, 153, 0.2) 0%, rgba(52, 211, 153, 0.08) 100%)'
                             : 'linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(56, 189, 248, 0.08) 100%)',
                           border: selectedCategory === 'seminars'
-                            ? '1.5px solid rgba(251, 191, 36, 0.35)'
+                            ? '1.5px solid rgba(185, 130, 63, 0.35)'
                             : selectedCategory === 'coaching'
                             ? '1.5px solid rgba(52, 211, 153, 0.35)'
                             : '1.5px solid rgba(56, 189, 248, 0.35)',
                           boxShadow: selectedCategory === 'seminars'
-                            ? '0 0 40px rgba(251, 191, 36, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2)'
+                            ? '0 0 40px rgba(185, 130, 63, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2)'
                             : selectedCategory === 'coaching'
                             ? '0 0 40px rgba(52, 211, 153, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2)'
                             : '0 0 40px rgba(56, 189, 248, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2)'
@@ -1276,8 +1276,8 @@ export default function Booking() {
                       disabled={submitting}
                       className="group flex-1 h-[60px] px-[32px] rounded-[18px] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(250, 204, 21, 1) 0%, rgba(251, 191, 36, 1) 100%)',
-                        boxShadow: '0 8px 32px rgba(250, 204, 21, 0.35)'
+                        background: 'linear-gradient(135deg, rgba(185, 130, 63, 1) 0%, rgba(185, 130, 63, 1) 100%)',
+                        boxShadow: '0 8px 32px rgba(185, 130, 63, 0.35)'
                       }}
                     >
                       <span className="flex items-center justify-center gap-3 text-black text-[15px] font-[650]">
@@ -1355,8 +1355,8 @@ function ServiceCard({
         <div
           className="absolute -top-3 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full z-20 flex items-center gap-2"
           style={{
-            background: 'linear-gradient(135deg, rgba(250, 204, 21, 1) 0%, rgba(251, 191, 36, 1) 100%)',
-            boxShadow: '0 4px 20px rgba(250, 204, 21, 0.4)'
+            background: 'linear-gradient(135deg, rgba(185, 130, 63, 1) 0%, rgba(185, 130, 63, 1) 100%)',
+            boxShadow: '0 4px 20px rgba(185, 130, 63, 0.4)'
           }}
         >
           <Crown size={12} className="text-black" strokeWidth={2.5} />

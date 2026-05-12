@@ -180,7 +180,7 @@ export default function Impressum() {
                 <div
                   className="absolute -inset-12 rounded-full opacity-20 blur-3xl"
                   style={{
-                    background: 'radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, transparent 70%)'
+                    background: 'radial-gradient(circle, rgba(185, 130, 63, 0.2) 0%, transparent 70%)'
                   }}
                 />
                 <ShieldCheck
@@ -232,9 +232,9 @@ export default function Impressum() {
                       <div
                         className="relative flex-shrink-0 w-[48px] h-[48px] rounded-xl flex items-center justify-center transition-all duration-500"
                         style={{
-                          background: 'rgba(250, 204, 21, 0.06)',
-                          border: '1px solid rgba(250, 204, 21, 0.12)',
-                          boxShadow: 'inset 0 1px 0 0 rgba(250, 204, 21, 0.15)'
+                          background: 'rgba(185, 130, 63, 0.06)',
+                          border: '1px solid rgba(185, 130, 63, 0.12)',
+                          boxShadow: 'inset 0 1px 0 0 rgba(185, 130, 63, 0.15)'
                         }}
                       >
                         <Icon

@@ -53,9 +53,9 @@ const darkTheme: ThemeColors = {
     inverse: '#000000',
   },
   accent: {
-    primary: '#fbbf24',
-    secondary: '#f59e0b',
-    hover: '#fcd34d',
+    primary: '#B9823F',
+    secondary: '#7A4A24',
+    hover: '#E6C18A',
   },
   border: {
     subtle: 'rgba(255, 255, 255, 0.1)',
@@ -84,9 +84,9 @@ const lightTheme: ThemeColors = {
     inverse: '#ffffff',
   },
   accent: {
-    primary: '#ea580c',
-    secondary: '#c2410c',
-    hover: '#f97316',
+    primary: '#B9823F',
+    secondary: '#7A4A24',
+    hover: '#8A5528',
   },
   border: {
     subtle: 'rgba(0, 0, 0, 0.06)',

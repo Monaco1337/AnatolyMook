@@ -40,7 +40,7 @@ export default function BookingCalendar({
   onDateSelect,
   theme,
   text,
-  accentColor = 'rgba(250, 204, 21, 0.4)'
+  accentColor = 'rgba(185, 130, 63, 0.4)'
 }: BookingCalendarProps) {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -243,7 +243,7 @@ export default function BookingCalendar({
           `}
           style={{
             background: isSelected
-              ? 'linear-gradient(135deg, rgba(250, 204, 21, 0.3) 0%, rgba(250, 204, 21, 0.15) 100%)'
+              ? 'linear-gradient(135deg, rgba(185, 130, 63, 0.3) 0%, rgba(185, 130, 63, 0.15) 100%)'
               : isHovered && status !== 'past' && status !== 'blocked'
               ? theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)'
               : 'transparent',
@@ -336,8 +336,8 @@ export default function BookingCalendar({
             <div
               className="w-12 h-12 rounded-[14px] flex items-center justify-center"
               style={{
-                background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.2) 0%, rgba(250, 204, 21, 0.08) 100%)',
-                border: '1px solid rgba(250, 204, 21, 0.3)'
+                background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.2) 0%, rgba(185, 130, 63, 0.08) 100%)',
+                border: '1px solid rgba(185, 130, 63, 0.3)'
               }}
             >
               <CalendarDays className="text-yellow-400" size={24} strokeWidth={1.8} />
@@ -489,16 +489,16 @@ export default function BookingCalendar({
         <div
           className="p-5 rounded-[20px] flex items-center gap-4"
           style={{
-            background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.15) 0%, rgba(250, 204, 21, 0.05) 100%)',
-            border: '1px solid rgba(250, 204, 21, 0.3)',
-            boxShadow: '0 0 30px rgba(250, 204, 21, 0.1)'
+            background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.15) 0%, rgba(185, 130, 63, 0.05) 100%)',
+            border: '1px solid rgba(185, 130, 63, 0.3)',
+            boxShadow: '0 0 30px rgba(185, 130, 63, 0.1)'
           }}
         >
           <div
             className="w-14 h-14 rounded-[16px] flex items-center justify-center"
             style={{
-              background: 'linear-gradient(135deg, rgba(250, 204, 21, 0.3) 0%, rgba(250, 204, 21, 0.15) 100%)',
-              border: '1px solid rgba(250, 204, 21, 0.4)'
+              background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.3) 0%, rgba(185, 130, 63, 0.15) 100%)',
+              border: '1px solid rgba(185, 130, 63, 0.4)'
             }}
           >
             <CalendarCheck className="text-yellow-400" size={28} strokeWidth={1.8} />

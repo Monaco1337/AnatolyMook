@@ -516,6 +516,7 @@ export default {
   },
 
   footer: {
+    logoHomeAria: 'Go to homepage – Anatoly Mook',
     tagline: 'Sustainable self-realization as a stable state of being',
     description: 'Depth becomes real because it elevates your life: more vitality – and the freedom to marvel again, celebrate the moment, and truly live',
     sections: {

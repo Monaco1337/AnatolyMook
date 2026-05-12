@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import BrandWordmark from './BrandWordmark';
 
 interface SliderItem {
   id: string;
@@ -191,9 +192,9 @@ export default function PremiumSlider({ items, hideCounter = false, autoplayInte
                 </div>
 
                 <div className="transform transition-all duration-300 group-hover/card:translate-y-[-8px]">
-                  <p className="text-[10px] sm:text-[11px] md:text-xs font-bold tracking-widest text-white/60 mb-2 sm:mb-2.5 uppercase">
-                    ANATOLY MOOK
-                  </p>
+                  <div className="mb-2 sm:mb-2.5 opacity-95">
+                    <BrandWordmark variant="slider" theme="dark" />
+                  </div>
                   <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] xl:text-5xl font-bold text-white mb-3 sm:mb-4 leading-[1.1] tracking-tight"
                     style={{
                       fontFamily: "'Inter', -apple-system, sans-serif",

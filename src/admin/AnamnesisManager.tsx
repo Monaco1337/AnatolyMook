@@ -32,7 +32,7 @@ interface AnamnesisSubmission {
 
 const TYPES_CONFIG = {
   structure_seeker: { label: 'Struktursucher', color: '#3B82F6' },
-  performance_driven: { label: 'Leistungsgetriebener', color: '#F59E0B' },
+  performance_driven: { label: 'Leistungsgetriebener', color: '#8A5528' },
   meaning_seeker: { label: 'Sinn- & Beziehungstyp', color: '#10B981' },
   exhausted_functioner: { label: 'Erschöpfter Funktionierer', color: '#8B5CF6' }
 };

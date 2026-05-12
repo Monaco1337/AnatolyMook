@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import DropdownPortal from './DropdownPortal';
+import BrandWordmark from './BrandWordmark';
 
 interface NavigationProps {
   currentSection: string;
@@ -34,7 +34,7 @@ const getSectionUrl = (section: string): string => {
 };
 
 export default function Navigation({ currentSection, onNavigate }: NavigationProps) {
-  const { theme, toggleTheme, colors } = useTheme();
+  const theme: 'dark' = 'dark';
   const { t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -221,7 +221,6 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
     ? 'from-white/[0.08]'
     : 'from-white/[0.5]';
 
-  const textPrimary = theme === 'dark' ? 'text-white/95' : 'text-stone-800';
   const textSecondary = theme === 'dark' ? 'text-white/65' : 'text-stone-600';
   const textActive = theme === 'dark' ? 'text-white' : 'text-stone-900';
   const hoverBg = theme === 'dark' ? 'hover:bg-white/[0.08]' : 'hover:bg-black/[0.04]';
@@ -243,11 +242,11 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
         .nav-booking-cta:focus-visible {
           outline: none;
           box-shadow:
-            inset 0 1px 0 rgba(255, 240, 200, 0.5),
-            inset 0 0 0 1px rgba(255, 230, 175, 0.1),
-            0 0 0 3px rgba(214, 168, 62, 0.35),
-            0 0 26px rgba(230, 190, 90, 0.32),
-            0 0 70px rgba(214, 168, 62, 0.20),
+            inset 0 1px 0 rgba(244, 239, 231, 0.5),
+            inset 0 0 0 1px rgba(230, 193, 138, 0.1),
+            0 0 0 3px rgba(185, 130, 63, 0.35),
+            0 0 26px rgba(214, 168, 94, 0.32),
+            0 0 70px rgba(185, 130, 63, 0.20),
             0 8px 22px rgba(0, 0, 0, 0.35);
         }
       `}</style>
@@ -306,8 +305,8 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                     <div
                       className={`absolute inset-0 rounded-[12px] ${theme === 'dark' ? 'bg-white/[0.08]' : 'bg-black/[0.04]'} opacity-0 group-hover:opacity-100 transition-all duration-400`}
                     />
-                    <span className={`relative text-[16px] font-[590] tracking-[0.01em] ${textPrimary} transition-all duration-400 group-hover:${textActive}`}>
-                      {t.nav.logo}
+                    <span className="relative transition-all duration-400 group-hover:opacity-[0.98]">
+                      <BrandWordmark variant="nav" theme={theme} />
                     </span>
                   </a>
 
@@ -397,119 +396,87 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                     })}
                   </div>
 
-                  <div className="hidden lg:flex items-center gap-2.5">
+                  <div className="hidden lg:flex items-center">
                     <a
                       href="/booking"
                       onClick={(e) => {
                         e.preventDefault();
                         onNavigate('booking');
                       }}
-                      className="nav-booking-cta relative inline-flex items-center justify-center px-5 py-2.5 rounded-[11px]"
+                      className="nav-booking-cta group/cta relative inline-flex items-center justify-center px-5 py-2.5 rounded-[11px] overflow-hidden"
                       style={{
-                        background: theme === 'dark'
-                          ? 'linear-gradient(180deg, rgba(255, 238, 195, 0.14) 0%, rgba(255, 220, 160, 0.07) 55%, rgba(255, 215, 150, 0.04) 100%)'
-                          : 'linear-gradient(180deg, rgba(255, 250, 232, 0.92) 0%, rgba(255, 240, 205, 0.62) 100%)',
-                        border: theme === 'dark'
-                          ? '1px solid rgba(255, 222, 165, 0.28)'
-                          : '1px solid rgba(214, 168, 62, 0.4)',
-                        boxShadow: theme === 'dark'
-                          ? `inset 0 1px 0 rgba(255, 240, 200, 0.35),
-                             inset 0 0 0 1px rgba(255, 230, 175, 0.05),
-                             0 0 18px rgba(230, 190, 90, 0.18),
-                             0 0 48px rgba(214, 168, 62, 0.10),
-                             0 4px 14px rgba(0, 0, 0, 0.3)`
-                          : `inset 0 1px 0 rgba(255, 255, 255, 0.9),
-                             inset 0 0 0 1px rgba(255, 230, 175, 0.4),
-                             0 0 16px rgba(214, 168, 62, 0.18),
-                             0 0 40px rgba(214, 168, 62, 0.08),
-                             0 4px 12px rgba(0, 0, 0, 0.06)`,
-                        transition: 'transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 350ms cubic-bezier(0.2, 0.8, 0.2, 1), background 350ms cubic-bezier(0.2, 0.8, 0.2, 1)',
+                        background:
+                          'linear-gradient(180deg, rgba(28,18,10,0.92) 0%, rgba(20,12,6,0.95) 100%)',
+                        border: '1px solid rgba(166, 124, 82, 0.55)',
+                        boxShadow: `
+                          inset 0 1px 0 rgba(242, 226, 192, 0.22),
+                          inset 0 -1px 0 rgba(90, 56, 30, 0.55),
+                          inset 0 0 0 1px rgba(166, 124, 82, 0.08),
+                          0 1px 0 rgba(255, 255, 255, 0.03),
+                          0 6px 18px -8px rgba(0, 0, 0, 0.65),
+                          0 10px 30px -16px rgba(0, 0, 0, 0.7)
+                        `,
+                        transition:
+                          'transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 350ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 350ms ease',
                         isolation: 'isolate'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = theme === 'dark'
-                          ? `inset 0 1px 0 rgba(255, 240, 200, 0.5),
-                             inset 0 0 0 1px rgba(255, 230, 175, 0.1),
-                             0 0 26px rgba(230, 190, 90, 0.32),
-                             0 0 70px rgba(214, 168, 62, 0.20),
-                             0 8px 22px rgba(0, 0, 0, 0.35)`
-                          : `inset 0 1px 0 rgba(255, 255, 255, 1),
-                             inset 0 0 0 1px rgba(255, 220, 160, 0.55),
-                             0 0 26px rgba(214, 168, 62, 0.32),
-                             0 0 60px rgba(214, 168, 62, 0.16),
-                             0 8px 20px rgba(0, 0, 0, 0.08)`;
+                        e.currentTarget.style.boxShadow = `
+                          inset 0 1px 0 rgba(248, 232, 200, 0.32),
+                          inset 0 -1px 0 rgba(110, 70, 38, 0.7),
+                          inset 0 0 0 1px rgba(184, 138, 94, 0.18),
+                          0 0 0 1px rgba(184, 138, 94, 0.08),
+                          0 8px 22px -10px rgba(0, 0, 0, 0.7),
+                          0 14px 36px -18px rgba(82, 54, 30, 0.45)
+                        `;
+                        e.currentTarget.style.borderColor = 'rgba(196, 154, 106, 0.7)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = theme === 'dark'
-                          ? `inset 0 1px 0 rgba(255, 240, 200, 0.35),
-                             inset 0 0 0 1px rgba(255, 230, 175, 0.05),
-                             0 0 18px rgba(230, 190, 90, 0.18),
-                             0 0 48px rgba(214, 168, 62, 0.10),
-                             0 4px 14px rgba(0, 0, 0, 0.3)`
-                          : `inset 0 1px 0 rgba(255, 255, 255, 0.9),
-                             inset 0 0 0 1px rgba(255, 230, 175, 0.4),
-                             0 0 16px rgba(214, 168, 62, 0.18),
-                             0 0 40px rgba(214, 168, 62, 0.08),
-                             0 4px 12px rgba(0, 0, 0, 0.06)`;
+                        e.currentTarget.style.boxShadow = `
+                          inset 0 1px 0 rgba(242, 226, 192, 0.22),
+                          inset 0 -1px 0 rgba(90, 56, 30, 0.55),
+                          inset 0 0 0 1px rgba(166, 124, 82, 0.08),
+                          0 1px 0 rgba(255, 255, 255, 0.03),
+                          0 6px 18px -8px rgba(0, 0, 0, 0.65),
+                          0 10px 30px -16px rgba(0, 0, 0, 0.7)
+                        `;
+                        e.currentTarget.style.borderColor = 'rgba(166, 124, 82, 0.55)';
                       }}
                     >
+                      {/* Edler Top-Glanz */}
                       <span
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 rounded-[11px] overflow-hidden"
+                        className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[11px]"
                         style={{
-                          background: 'linear-gradient(180deg, rgba(255,250,232,0.18) 0%, rgba(255,250,232,0) 45%)'
+                          background:
+                            'linear-gradient(180deg, rgba(242, 226, 192, 0.10) 0%, rgba(242, 226, 192, 0.02) 60%, rgba(242, 226, 192, 0) 100%)'
                         }}
                       />
-                      <span className={`relative text-[13px] font-[600] tracking-[0.01em] leading-none ${textActive} transition-colors duration-400`}>
+                      {/* Bronze-Hairline innen */}
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-x-2 top-px h-px"
+                        style={{
+                          background:
+                            'linear-gradient(90deg, rgba(166,124,82,0) 0%, rgba(214,176,128,0.55) 50%, rgba(166,124,82,0) 100%)'
+                        }}
+                      />
+                      <span
+                        className="relative text-[13px] font-[500] tracking-[0.02em] leading-none transition-colors duration-400"
+                        style={{
+                          backgroundImage:
+                            'linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          color: 'transparent',
+                          filter:
+                            'drop-shadow(0 1px 0 rgba(0,0,0,0.55)) drop-shadow(0 0 14px rgba(166,124,82,0.18))'
+                        }}
+                      >
                         Termin buchen
                       </span>
                     </a>
-
-                    <button
-                      onClick={toggleTheme}
-                      className="relative w-[40px] h-[40px] -mr-0.5 flex items-center justify-center rounded-full transition-all duration-300 ease-out active:scale-95"
-                      style={{
-                        background: theme === 'dark'
-                          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%)'
-                          : 'linear-gradient(135deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.05) 100%)',
-                        border: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(0, 0, 0, 0.1)',
-                        boxShadow: theme === 'dark'
-                          ? 'inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2)'
-                          : 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.08)'
-                      }}
-                      aria-label={theme === 'dark' ? t.nav.theme.light : t.nav.theme.dark}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = theme === 'dark'
-                          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.14) 100%)'
-                          : 'linear-gradient(135deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.07) 100%)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = theme === 'dark'
-                          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%)'
-                          : 'linear-gradient(135deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.05) 100%)';
-                      }}
-                    >
-                      <span className="relative w-[16px] h-[16px] block">
-                        <Sun
-                          size={16}
-                          strokeWidth={1.75}
-                          className={`absolute inset-0 ${textActive} transition-all duration-300 ease-out`}
-                          style={{
-                            opacity: theme === 'light' ? 1 : 0,
-                            transform: theme === 'light' ? 'rotate(0deg) scale(1)' : 'rotate(-90deg) scale(0.6)'
-                          }}
-                        />
-                        <Moon
-                          size={16}
-                          strokeWidth={1.75}
-                          className={`absolute inset-0 ${textActive} transition-all duration-300 ease-out`}
-                          style={{
-                            opacity: theme === 'dark' ? 1 : 0,
-                            transform: theme === 'dark' ? 'rotate(0deg) scale(1)' : 'rotate(90deg) scale(0.6)'
-                          }}
-                        />
-                      </span>
-                    </button>
                   </div>
 
                   <button
@@ -650,9 +617,16 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
               })}
             </div>
 
-            <div className={`h-[0.5px] ${theme === 'dark' ? 'bg-white/[0.15]' : 'bg-black/[0.1]'} mx-4 my-2`} />
+            <div
+              className="mx-4 my-2 h-px"
+              aria-hidden
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(166,124,82,0) 0%, rgba(166,124,82,0.32) 50%, rgba(166,124,82,0) 100%)'
+              }}
+            />
 
-            <div className="p-4 pt-2 pb-4 space-y-2">
+            <div className="p-4 pt-2 pb-4">
               <a
                 href="/booking"
                 onClick={(e) => {
@@ -660,62 +634,52 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                   onNavigate('booking');
                   setIsMobileMenuOpen(false);
                 }}
-                className="block w-full h-[44px] rounded-[11px] text-[14px] font-[600] tracking-[0.01em] transition-all duration-300 active:scale-[0.97] flex items-center justify-center"
+                className="relative block w-full h-[44px] rounded-[11px] text-[14px] font-[500] tracking-[0.02em] transition-all duration-300 active:scale-[0.97] flex items-center justify-center overflow-hidden"
                 style={{
-                  background: theme === 'dark'
-                    ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%)'
-                    : 'linear-gradient(135deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.05) 100%)',
-                  color: theme === 'dark' ? 'white' : '#1c1917',
-                  border: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(0, 0, 0, 0.1)',
-                  boxShadow: theme === 'dark'
-                    ? `inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2)`
-                    : `inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.08)`
+                  background:
+                    'linear-gradient(180deg, rgba(28,18,10,0.92) 0%, rgba(20,12,6,0.95) 100%)',
+                  border: '1px solid rgba(166, 124, 82, 0.55)',
+                  boxShadow: `
+                    inset 0 1px 0 rgba(242, 226, 192, 0.22),
+                    inset 0 -1px 0 rgba(90, 56, 30, 0.55),
+                    inset 0 0 0 1px rgba(166, 124, 82, 0.08),
+                    0 6px 18px -8px rgba(0, 0, 0, 0.65),
+                    0 10px 30px -16px rgba(0, 0, 0, 0.7)
+                  `
                 }}
-              >
-                <span>Termin buchen</span>
-              </a>
-
-              <button
-                onClick={toggleTheme}
-                className="relative w-full h-[44px] rounded-[11px] transition-all duration-300 ease-out active:scale-[0.97] flex items-center justify-between px-4"
-                style={{
-                  background: theme === 'dark'
-                    ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%)'
-                    : 'linear-gradient(135deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.05) 100%)',
-                  border: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(0, 0, 0, 0.1)',
-                  boxShadow: theme === 'dark'
-                    ? 'inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2)'
-                    : 'inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(0, 0, 0, 0.08)'
-                }}
-                aria-label={theme === 'dark' ? t.nav.theme.light : t.nav.theme.dark}
               >
                 <span
-                  className={`text-[13px] font-[550] tracking-[0.01em] ${textSecondary}`}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[11px]"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, rgba(242, 226, 192, 0.10) 0%, rgba(242, 226, 192, 0) 100%)'
+                  }}
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-3 top-px h-px"
+                  style={{
+                    background:
+                      'linear-gradient(90deg, rgba(166,124,82,0) 0%, rgba(214,176,128,0.55) 50%, rgba(166,124,82,0) 100%)'
+                  }}
+                />
+                <span
+                  className="relative"
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                    filter:
+                      'drop-shadow(0 1px 0 rgba(0,0,0,0.55)) drop-shadow(0 0 14px rgba(166,124,82,0.18))'
+                  }}
                 >
-                  {theme === 'dark' ? t.nav.theme.lightMode : t.nav.theme.darkMode}
+                  Termin buchen
                 </span>
-
-                <span className="relative w-[16px] h-[16px] block">
-                  <Sun
-                    size={16}
-                    strokeWidth={1.75}
-                    className={`absolute inset-0 ${textActive} transition-all duration-300 ease-out`}
-                    style={{
-                      opacity: theme === 'light' ? 1 : 0,
-                      transform: theme === 'light' ? 'rotate(0deg) scale(1)' : 'rotate(-90deg) scale(0.6)'
-                    }}
-                  />
-                  <Moon
-                    size={16}
-                    strokeWidth={1.75}
-                    className={`absolute inset-0 ${textActive} transition-all duration-300 ease-out`}
-                    style={{
-                      opacity: theme === 'dark' ? 1 : 0,
-                      transform: theme === 'dark' ? 'rotate(0deg) scale(1)' : 'rotate(90deg) scale(0.6)'
-                    }}
-                  />
-                </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>

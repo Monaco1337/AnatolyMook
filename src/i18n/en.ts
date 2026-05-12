@@ -463,22 +463,23 @@ export default {
 
   blog: {
     title: 'Blog & Insights',
-    subtitle: 'Thoughts, insights and inspiration for your personal and professional transformation',
-    insightsInspiration: 'Insights & Inspiration',
-    featured: 'Featured',
-    allArticles: 'All Articles',
-    searchPlaceholder: 'Search for articles, topics or tags...',
-    readMore: 'Read More',
+    subtitle:
+      'Notes on consciousness, decision-making and quiet clarity — written with care, without quick fixes.',
+    insightsInspiration: 'Journal',
+    featured: 'Selected',
+    allArticles: 'More pieces',
+    searchPlaceholder: 'Title, topic or tag…',
+    readMore: 'Continue reading',
     read: 'Read',
     minutes: 'min',
-    readingTime: 'min reading time',
+    readingTime: 'min. read',
     published: 'Published',
     author: 'Author',
-    authorCoach: 'Author & Coach',
-    noArticlesFound: 'No articles found',
-    adjustFilters: 'Try adjusting your search or filters',
+    authorCoach: 'Author',
+    noArticlesFound: 'No matches',
+    adjustFilters: 'Try another keyword or category — or return another time.',
     categories: {
-      all: 'All Articles',
+      all: 'All',
       consciousness: 'Consciousness',
       transformation: 'Transformation',
       leadership: 'Leadership',
@@ -498,7 +499,14 @@ export default {
     inquiry: 'Inquiry',
     sendMessage: 'Send message',
     successMessage: 'Thank you for your message! I will get back to you shortly.',
-    errorMessage: 'An error occurred. Please try again or contact me directly.'
+    errorMessage: 'An error occurred. Please try again or contact me directly.',
+    locationLabel: 'Location',
+    anamnesisCardLabel: 'Anamnesis',
+    anamnesisCardTitle: 'Personal anamnesis form',
+    anamnesisCardHint:
+      'Structured questions · confidential · not a substitute for clinical diagnosis.',
+    anamnesisCardAction: 'Open form',
+    orBookAppointment: 'Or request an appointment straight away'
   },
 
   booking: {
@@ -531,6 +539,7 @@ export default {
       corporate: 'Corporate',
       products: 'Products',
       about: 'About Anatoly',
+      dieArbeit: 'The Work',
       blog: 'Blog',
       faq: 'FAQ',
       booking: 'Book Appointment',

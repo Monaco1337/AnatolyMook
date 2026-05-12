@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useId, type CSSProperties, type ReactNode } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Sparkles, Award, Users, Star, TrendingUp, Check, Target, Brain, Heart, Shield, Play, Calendar, Zap, Book, ChevronLeft, ChevronRight, Plus, Minus, AlertCircle, Eye, Repeat, Crown, TrendingDown, Waves, Puzzle, Pause, X, Compass, Lightbulb, Cog, MousePointerClick, Activity, Diamond } from 'lucide-react';
 import { useThemeStyles } from '../hooks/useThemeStyles';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -243,6 +244,7 @@ interface HomeEvent {
 export default function HomeDynamic() {
   const { theme, colors, text, bg } = useThemeStyles();
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
   const [content, setContent] = useState<Record<string, any>>({});
   const [events, setEvents] = useState<HomeEvent[]>([]);
@@ -618,20 +620,8 @@ export default function HomeDynamic() {
             `}</style>
 
             <picture className="absolute inset-0 z-0 block h-full w-full">
-              <source
-                type="image/avif"
-                srcSet={`${HERO_PORTRAIT.pathBase}-640.avif 640w, ${HERO_PORTRAIT.pathBase}.avif 1024w`}
-                sizes="100vw"
-              />
-              <source
-                type="image/webp"
-                srcSet={`${HERO_PORTRAIT.pathBase}-640.webp 640w, ${HERO_PORTRAIT.pathBase}.webp 1024w`}
-                sizes="100vw"
-              />
               <img
                 src={`${HERO_PORTRAIT.pathBase}.png`}
-                srcSet={`${HERO_PORTRAIT.pathBase}.png ${HERO_PORTRAIT.width}w`}
-                sizes="100vw"
                 width={HERO_PORTRAIT.width}
                 height={HERO_PORTRAIT.height}
                 alt={HERO_PORTRAIT.altDe}
@@ -642,8 +632,7 @@ export default function HomeDynamic() {
                 style={{
                   transform: `scale(${1.008 + scrollY * 0.00006})`,
                   transition: 'transform 0.1s linear',
-                  transformOrigin: '54% 38%',
-                  filter: 'contrast(1.09) saturate(1.05) brightness(1.02)'
+                  transformOrigin: '54% 38%'
                 }}
               />
             </picture>
@@ -1003,7 +992,7 @@ export default function HomeDynamic() {
                       fontFamily: FONT_BODY
                     }}
                     onClick={() => {
-                      window.location.hash = '#booking';
+                      navigate('/erstgespraech');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
                   >
@@ -1028,6 +1017,22 @@ export default function HomeDynamic() {
                       />
                     </span>
                   </button>
+
+                  <Link
+                    to="/quiz"
+                    className="mt-2.5 sm:mt-3 text-[rgba(214,188,152,0.58)] hover:text-[rgba(238,226,206,0.78)] outline-none transition-[color] duration-300 focus-visible:ring-2 focus-visible:ring-amber-500/35 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm focus-visible:no-underline"
+                    style={{
+                      fontFamily: FONT_BODY,
+                      fontSize: 'clamp(0.75rem, 0.71rem + 0.22vw, 0.84375rem)',
+                      fontWeight: 400,
+                      letterSpacing: '0.06em',
+                      textDecoration: 'underline',
+                      textUnderlineOffset: '0.26em',
+                      textDecorationThickness: '0.05em'
+                    }}
+                  >
+                    Oder zuerst Orientierung erhalten →
+                  </Link>
 
                   {/* Micro-trust unter CTA — Mobil (eine Zeile) */}
                   <div className="flex sm:hidden flex-col items-start gap-2 mt-0.5 w-full max-w-[min(17.75rem,100%)]">
@@ -1136,6 +1141,215 @@ export default function HomeDynamic() {
           </div>
         </div>
 
+      </section>
+
+      {/* Erste Orientierung — Klarcheck & Anamnese (editorial, vor Transformation) */}
+      <section
+        aria-labelledby="home-orientierung-heading"
+        className="relative w-full overflow-hidden border-t border-transparent"
+        data-section
+        data-section-id="orientierung-erster-schritt"
+      >
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden max-md:min-h-[100%]" aria-hidden>
+          <img
+            src="/images/home/orientierung-berg-hintergrund.png"
+            alt=""
+            className="absolute inset-0 h-full min-h-[100%] w-full scale-[1.02] object-cover object-[74%_42%] sm:object-[78%_40%]"
+            loading="lazy"
+            decoding="async"
+          />
+          {/* Lesefläche links — Bild rechts zeigt Licht & Tiefe */}
+          <div
+            className="absolute inset-0 md:hidden"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(4,4,5,0.85) 0%, rgba(4,4,5,0.55) 38%, rgba(4,4,5,0.72) 100%)'
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden md:block"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(5,4,3,0.96) 0%, rgba(5,4,3,0.88) min(42%,22rem), rgba(5,4,3,0.42) min(72%,54rem), rgba(5,4,3,0.08) 88%, transparent 100%)'
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(3,3,4,0.38) 0%, transparent min(42%,380px), transparent 72%, rgba(2,2,3,0.55) 100%)'
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.09]"
+            style={{
+              background: 'linear-gradient(125deg, rgba(214,168,94,0.12) 0%, transparent 45%)'
+            }}
+          />
+        </div>
+
+        <div className="relative z-[1] mx-auto max-w-[1600px] px-6 pb-14 pt-[2.875rem] sm:px-8 sm:pb-[3.25rem] sm:pt-[3.25rem] md:px-12 lg:min-h-[min(52svh,520px)] lg:px-16 lg:flex lg:flex-col lg:justify-center lg:pb-16 lg:pt-14">
+          <div className="mx-auto max-w-[40rem] text-center lg:mx-0 lg:max-w-[44rem] lg:text-left">
+            <p
+              className="m-0 uppercase"
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: 'clamp(0.625rem, 0.58rem + 0.15vw, 0.703125rem)',
+                fontWeight: 500,
+                letterSpacing: '0.28em',
+                color: 'rgba(222, 198, 164, 0.78)'
+              }}
+            >
+              Erster Schritt
+            </p>
+            <h2
+              id="home-orientierung-heading"
+              className="mt-[1.125rem] m-0 font-medium tracking-[-0.034em] antialiased"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontSize: 'clamp(1.3125rem, 0.94rem + 1.12vw, 1.9375rem)',
+                lineHeight: 1.22,
+                color: 'rgba(252, 246, 236, 0.98)',
+                textShadow:
+                  '0 1px 0 rgba(0,0,0,0.55), 0 22px 52px rgba(0,0,0,0.5), 0 0 56px rgba(0,0,0,0.25)'
+              }}
+            >
+              Nicht jede Situation braucht sofort eine Entscheidung.
+            </h2>
+            <p
+              className="m-0 mt-[1.125rem] max-w-[28rem] text-balance lg:max-w-[30rem]"
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: 'clamp(0.9375rem, 0.88rem + 0.2vw, 1.0625rem)',
+                fontWeight: 400,
+                lineHeight: 1.62,
+                letterSpacing: '-0.012em',
+                color: 'rgba(228, 218, 202, 0.9)',
+                textShadow: '0 10px 36px rgba(0,0,0,0.45), 0 1px 12px rgba(0,0,0,0.35)'
+              }}
+            >
+              Manchmal hilft zuerst ein klarer Blick auf die eigene Situation.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 sm:mt-11 sm:gap-[1.125rem] lg:mx-0 lg:max-w-[52rem] lg:grid-cols-2">
+            <Link
+              to="/quiz"
+              className="group relative block rounded-[13px] border border-[rgba(214,168,94,0.22)] px-5 py-[1.1875rem] no-underline outline-none transition-[border-color,box-shadow,background-color] duration-300 sm:px-[1.25rem] sm:py-5 backdrop-blur-[12px] focus-visible:border-[rgba(214,168,94,0.32)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/80 hover:border-[rgba(214,168,94,0.28)] hover:shadow-[0_0_42px_-18px_rgba(185,130,63,0.12)]"
+              style={{
+                background:
+                  'linear-gradient(165deg, rgba(12,11,10,0.78) 0%, rgba(5,5,6,0.86) 100%)',
+                boxShadow:
+                  'inset 0 1px 0 rgba(255, 248, 238, 0.045), 0 1px 0 rgba(0,0,0,0.5), 0 28px 56px -30px rgba(0,0,0,0.75)'
+              }}
+            >
+              <span
+                className="pointer-events-none absolute inset-px rounded-[12px] opacity-[0.45]"
+                aria-hidden
+                style={{
+                  background:
+                    'linear-gradient(145deg, rgba(255, 250, 242, 0.034) 0%, transparent 55%)'
+                }}
+              />
+              <div className="relative">
+                <h3
+                  className="m-0 font-semibold tracking-[-0.022em]"
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontSize: 'clamp(1.03125rem, 0.95rem + 0.28vw, 1.2rem)',
+                    letterSpacing: '-0.022em',
+                    lineHeight: 1.3,
+                    color: 'rgba(252, 247, 236, 0.96)'
+                  }}
+                >
+                  Klarcheck
+                </h3>
+                <p
+                  className="m-0 mt-2"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.828125rem, 0.79rem + 0.13vw, 0.890625rem)',
+                    lineHeight: 1.56,
+                    fontWeight: 400,
+                    letterSpacing: '-0.008em',
+                    color: 'rgba(234, 224, 206, 0.9)'
+                  }}
+                >
+                  Eine ruhige erste Orientierung für aktuelle Herausforderungen und innere Unklarheit.
+                </p>
+                <span
+                  className="mt-[1.0625rem] inline-flex font-medium transition-colors duration-300 group-hover:text-[rgba(240,226,196,0.92)]"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.796875rem, 0.765rem + 0.09vw, 0.84375rem)',
+                    letterSpacing: '0.05em',
+                    color: 'rgba(208, 182, 144, 0.82)'
+                  }}
+                >
+                  Orientierung starten →
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              to="/anamnesis"
+              className="group relative block rounded-[13px] border border-[rgba(214,168,94,0.22)] px-5 py-[1.1875rem] no-underline outline-none transition-[border-color,box-shadow,background-color] duration-300 sm:px-[1.25rem] sm:py-5 backdrop-blur-[12px] focus-visible:border-[rgba(214,168,94,0.32)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/80 hover:border-[rgba(214,168,94,0.28)] hover:shadow-[0_0_42px_-18px_rgba(185,130,63,0.12)]"
+              style={{
+                background:
+                  'linear-gradient(165deg, rgba(12,11,10,0.78) 0%, rgba(5,5,6,0.86) 100%)',
+                boxShadow:
+                  'inset 0 1px 0 rgba(255, 248, 238, 0.045), 0 1px 0 rgba(0,0,0,0.5), 0 28px 56px -30px rgba(0,0,0,0.75)'
+              }}
+            >
+              <span
+                className="pointer-events-none absolute inset-px rounded-[12px] opacity-[0.45]"
+                aria-hidden
+                style={{
+                  background:
+                    'linear-gradient(145deg, rgba(255, 250, 242, 0.034) 0%, transparent 55%)'
+                }}
+              />
+              <div className="relative">
+                <h3
+                  className="m-0 font-semibold tracking-[-0.022em]"
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontSize: 'clamp(1.03125rem, 0.95rem + 0.28vw, 1.2rem)',
+                    letterSpacing: '-0.022em',
+                    lineHeight: 1.3,
+                    color: 'rgba(252, 247, 236, 0.96)'
+                  }}
+                >
+                  Anamnese
+                </h3>
+                <p
+                  className="m-0 mt-2"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.828125rem, 0.79rem + 0.13vw, 0.890625rem)',
+                    lineHeight: 1.56,
+                    fontWeight: 400,
+                    letterSpacing: '-0.008em',
+                    color: 'rgba(234, 224, 206, 0.9)'
+                  }}
+                >
+                  Ein strukturierter Einstieg zur tieferen Analyse Ihrer aktuellen Situation.
+                </p>
+                <span
+                  className="mt-[1.0625rem] inline-flex font-medium transition-colors duration-300 group-hover:text-[rgba(240,226,196,0.92)]"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.796875rem, 0.765rem + 0.09vw, 0.84375rem)',
+                    letterSpacing: '0.05em',
+                    color: 'rgba(208, 182, 144, 0.82)'
+                  }}
+                >
+                  Analyse beginnen →
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* 2️⃣ TRUST + PROBLEM */}
@@ -2395,8 +2609,8 @@ export default function HomeDynamic() {
                 <button
                   type="button"
                   onClick={() => {
-                    const bookingSection = document.querySelector('[data-section="booking"]');
-                    if (bookingSection) bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navigate('/erstgespraech');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                   className="metallic-bronze-button btn-bronze group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[0.95rem]"
                 >

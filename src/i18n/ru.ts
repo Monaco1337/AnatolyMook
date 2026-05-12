@@ -463,22 +463,23 @@ export default {
 
   blog: {
     title: 'Блог и инсайты',
-    subtitle: 'Мысли, идеи и вдохновение для вашей личной и профессиональной трансформации',
-    insightsInspiration: 'Инсайты и вдохновение',
-    featured: 'Избранное',
-    allArticles: 'Все статьи',
-    searchPlaceholder: 'Поиск статей, тем или тегов...',
-    readMore: 'Читать далее',
+    subtitle:
+      'Тексты о ясности, решениях и внутренней собранности — спокойно, без обещаний быстрых результатов.',
+    insightsInspiration: 'Журнал',
+    featured: 'Подборка',
+    allArticles: 'Ещё материалы',
+    searchPlaceholder: 'Заголовок, тема или тег…',
+    readMore: 'Читать дальше',
     read: 'Читать',
     minutes: 'мин',
-    readingTime: 'мин чтения',
+    readingTime: 'мин. чтения',
     published: 'Опубликовано',
     author: 'Автор',
-    authorCoach: 'Автор и коуч',
-    noArticlesFound: 'Статьи не найдены',
-    adjustFilters: 'Попробуйте изменить поиск или фильтры',
+    authorCoach: 'Автор',
+    noArticlesFound: 'Ничего не найдено',
+    adjustFilters: 'Измените запрос или категорию — или зайдите позже.',
     categories: {
-      all: 'Все статьи',
+      all: 'Все',
       consciousness: 'Сознание',
       transformation: 'Трансформация',
       leadership: 'Лидерство',
@@ -498,7 +499,14 @@ export default {
     inquiry: 'Запрос',
     sendMessage: 'Отправить сообщение',
     successMessage: 'Спасибо за ваше сообщение! Я свяжусь с вами в ближайшее время.',
-    errorMessage: 'Произошла ошибка. Пожалуйста, попробуйте снова или свяжитесь со мной напрямую.'
+    errorMessage: 'Произошла ошибка. Пожалуйста, попробуйте снова или свяжитесь со мной напрямую.',
+    locationLabel: 'Локация',
+    anamnesisCardLabel: 'Анамнез',
+    anamnesisCardTitle: 'Персональный опросник',
+    anamnesisCardHint:
+      'Структурированные вопросы · конфиденциально · без претензии на медицинский диагноз.',
+    anamnesisCardAction: 'К форме',
+    orBookAppointment: 'Или сразу запросить встречу'
   },
 
   booking: {
@@ -531,6 +539,7 @@ export default {
       corporate: 'Корпоративным клиентам',
       products: 'Продукты',
       about: 'Об Анатолии',
+      dieArbeit: 'Работа',
       blog: 'Блог',
       faq: 'FAQ',
       booking: 'Записаться на встречу',

@@ -30,17 +30,16 @@ const serviceLabels: Record<string, { de: string; en: string; ru: string }> = {
   coaching: { de: 'Coaching & Mentoring', en: 'Coaching & Mentoring', ru: 'Коучинг' },
   keynotes: { de: 'Keynote-Vorträge', en: 'Keynote Speaking', ru: 'Ки-ноуты' },
   corporate: { de: 'Corporate-Programme', en: 'Corporate Programs', ru: 'Корпоративные' },
-  transformation: { de: 'Transformation', en: 'Transformation', ru: 'Трансформация' },
+  transformation: { de: 'Die Arbeit', en: 'The Work', ru: 'Работа' },
 };
 
 const mainPages = [
-  { slug: 'about', de: 'Über Anatoly Mook', en: 'About Anatoly Mook', ru: 'Об Анатолии' },
+  { slug: 'die-arbeit', de: 'Die Arbeit', en: 'The Work', ru: 'Работа' },
   { slug: 'booking', de: 'Termin buchen', en: 'Book Appointment', ru: 'Записаться' },
   { slug: 'faq', de: 'Häufige Fragen', en: 'FAQ', ru: 'Частые вопросы' },
   { slug: 'blog', de: 'Blog & Insights', en: 'Blog & Insights', ru: 'Блог' },
   { slug: 'kontakt', de: 'Kontakt', en: 'Contact', ru: 'Контакт' },
   { slug: 'events', de: 'Events', en: 'Events', ru: 'Мероприятия' },
-  { slug: 'resources', de: 'Ressourcen', en: 'Resources', ru: 'Ресурсы' },
   { slug: 'produkte', de: 'Shop', en: 'Shop', ru: 'Магазин' },
 ];
 

@@ -25,7 +25,7 @@ export default function GlossaryPage() {
   const related = glossaryEntries.filter(e => entry.relatedTerms.includes(e.slug)).slice(0, 8);
   const schema = definedTermSchema({ name: entry.term[lang], description: entry.definition[lang], url: `/glossar/${termSlug}` });
   const crumbs = breadcrumbSchema([
-    { name: lang === 'en' ? 'Glossary' : lang === 'ru' ? 'Глоссарий' : 'Glossar', url: '/resources' },
+    { name: lang === 'en' ? 'Glossary' : lang === 'ru' ? 'Глоссарий' : 'Glossar', url: '/blog' },
     { name: entry.term[lang], url: `/glossar/${termSlug}` }
   ]);
 
@@ -35,7 +35,7 @@ export default function GlossaryPage() {
         title={`${entry.term[lang]} – ${lang === 'en' ? 'Glossary' : lang === 'ru' ? 'Глоссарий' : 'Glossar'} | Anatoly Mook`}
         description={entry.definition[lang].substring(0, 155)}
         path={`/glossar/${termSlug}`}
-        section="resources"
+        section="blog"
         customSchema={{ '@context': 'https://schema.org', '@graph': [schema, crumbs] }}
       />
 
@@ -44,7 +44,7 @@ export default function GlossaryPage() {
           <nav className="flex items-center gap-2 text-sm" style={{ color: colors.text.tertiary }}>
             <Link to="/" className="hover:text-amber-500">Home</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="hover:text-amber-500">{lang === 'en' ? 'Glossary' : lang === 'ru' ? 'Глоссарий' : 'Glossar'}</span>
+            <Link to="/blog" className="hover:text-amber-500">{lang === 'en' ? 'Glossary' : lang === 'ru' ? 'Глоссарий' : 'Glossar'}</Link>
             <ChevronRight className="w-3 h-3" />
             <span style={{ color: colors.text.primary }}>{entry.term[lang]}</span>
           </nav>

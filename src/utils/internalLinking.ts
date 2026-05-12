@@ -12,18 +12,34 @@ export interface LinkGroup {
 
 const routes = [
   { path: '/', name: 'Home', keywords: ['Startseite', 'Home', 'Hauptseite', 'Willkommen', 'Anatoly Mook', 'Bewusstsein', 'Klarheit', 'Meisterschaft'] },
-  { path: '/about', name: 'Über mich', keywords: ['Über Anatoly', 'Über mich', 'Profil', 'Biographie', 'Werdegang', 'Geschichte', 'Hintergrund', 'Philosophie'] },
+  {
+    path: '/die-arbeit',
+    name: 'Die Arbeit',
+    keywords: [
+      'Die Arbeit',
+      'Klarheit',
+      'Führung',
+      'Orientierung',
+      'Verantwortung',
+      'Über Anatoly',
+      'Über mich',
+      'Profil',
+      'Biographie',
+      'Zielgruppen',
+      'Methodik',
+      'Lebensbereiche',
+      'Ressourcen',
+      'Arbeitsweise'
+    ]
+  },
   { path: '/seminare', name: 'Seminare', keywords: ['Seminare', 'Workshops', 'Kurse', 'Trainings', 'Intensiv-Seminare', 'Bewusstseins-Seminare', 'Transformations-Seminare', 'Entwicklungs-Seminare'] },
   { path: '/coaching', name: 'Coaching', keywords: ['Coaching', 'Mentoring', '1:1 Coaching', 'Persönliches Coaching', 'Executive Coaching', 'Transformations-Coaching', 'Bewusstseins-Coaching', 'Führungskräfte-Coaching'] },
   { path: '/keynotes', name: 'Keynotes', keywords: ['Keynotes', 'Vorträge', 'Speaker', 'Präsentationen', 'Impulsvorträge', 'Rednerdienste', 'Inspirations-Vorträge', 'Motivations-Reden'] },
   { path: '/events', name: 'Events', keywords: ['Events', 'Termine', 'Veranstaltungen', 'Kalender', 'Aktuelle Events', 'Kommende Termine', 'Veranstaltungskalender', 'Event-Übersicht'] },
   { path: '/corporate', name: 'Corporate', keywords: ['Corporate', 'Geschäftskunden', 'Unternehmen', 'B2B', 'Firmen', 'Organisationen', 'Führungskräfte-Entwicklung', 'Team-Coaching'] },
-  { path: '/transformation', name: 'Transformation', keywords: ['Transformation', 'Veränderung', 'Wandel', 'Entwicklung', 'Persönliche Transformation', 'Bewusstseins-Transformation', 'Transformations-Prozess', 'Transformations-Weg'] },
   { path: '/bewusstsein', name: 'Neues Bewusstsein', keywords: ['Neues Bewusstsein', 'Bewusstsein', 'Selbstführung', 'Angsttransparenz', 'Meisterschaft', 'Paradigma', 'Bewusstsein ist kein Konzept'] },
-  { path: '/methodik', name: 'Methodik', keywords: ['Methodik', 'Achtsamkeitslehre', 'Bewusstseinstraining', 'drei Ebenen', 'Prozess', 'Dimensionen', 'Transformation drei Dimensionen'] },
   { path: '/blog', name: 'Blog', keywords: ['Blog', 'Artikel', 'Insights', 'Wissen', 'Beiträge', 'Perspektiven', 'Gedanken', 'Reflexionen'] },
   { path: '/produkte', name: 'Produkte', keywords: ['Produkte', 'Shop', 'Angebote', 'Leistungen', 'Digitale Produkte', 'Online-Kurse', 'E-Learning', 'Downloads'] },
-  { path: '/resources', name: 'Ressourcen', keywords: ['Ressourcen', 'Downloads', 'Tools', 'Materialien', 'Werkzeuge', 'Hilfsmittel', 'Guides', 'Anleitungen'] },
   { path: '/faq', name: 'FAQ', keywords: ['FAQ', 'Fragen', 'Hilfe', 'Support', 'Häufige Fragen', 'Antworten', 'Unterstützung', 'Assistance'] },
   { path: '/kontakt', name: 'Kontakt', keywords: ['Kontakt', 'Anfrage', 'Erreichbarkeit', 'Nachricht', 'Kontaktformular', 'E-Mail', 'Kommunikation', 'Beratung'] },
   { path: '/booking', name: 'Termin buchen', keywords: ['Termin buchen', 'Booking', 'Terminvereinbarung', 'Buchen', 'Online-Buchung', 'Termin-Tool', 'Kalender-Buchung', 'Erstgespräch'] },
@@ -200,48 +216,48 @@ export function generateFooterLinks(): LinkGroup[] {
       title: 'Inhalte',
       links: [
         { url: `${baseUrl}/blog`, text: 'Blog & Artikel', title: 'Blog lesen' },
-        { url: `${baseUrl}/resources`, text: 'Ressourcen', title: 'Downloads' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Ressourcen', title: 'Downloads' },
         { url: `${baseUrl}/faq`, text: 'Häufige Fragen', title: 'FAQ durchsuchen' },
         { url: `${baseUrl}/quiz`, text: 'Bewusstseins-Quiz', title: 'Quiz starten' },
-        { url: `${baseUrl}/transformation`, text: 'Transformations-Weg', title: 'Transformation verstehen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Transformations-Weg', title: 'Transformation verstehen' },
         { url: `${baseUrl}/events`, text: 'Aktuelle Events', title: 'Events ansehen' },
         { url: `${baseUrl}/blog`, text: 'Insights & Perspektiven', title: 'Artikel entdecken' },
-        { url: `${baseUrl}/resources`, text: 'Tools & Materialien', title: 'Ressourcen herunterladen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Tools & Materialien', title: 'Ressourcen herunterladen' },
         { url: `${baseUrl}/blog`, text: 'Beiträge', title: 'Beiträge lesen' },
-        { url: `${baseUrl}/transformation`, text: 'Transformations-Prozess', title: 'Prozess verstehen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Transformations-Prozess', title: 'Prozess verstehen' },
         { url: `${baseUrl}/quiz`, text: 'Selbsteinschätzung', title: 'Selbst einschätzen' },
         { url: `${baseUrl}/events`, text: 'Veranstaltungen', title: 'Veranstaltungskalender' },
         { url: `${baseUrl}/blog`, text: 'Wissen', title: 'Wissensartikel' },
-        { url: `${baseUrl}/resources`, text: 'Downloads', title: 'Dateien herunterladen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Downloads', title: 'Dateien herunterladen' },
         { url: `${baseUrl}/faq`, text: 'Antworten', title: 'Antworten finden' },
-        { url: `${baseUrl}/transformation`, text: 'Entwicklung', title: 'Entwicklungsweg' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Entwicklung', title: 'Entwicklungsweg' },
         { url: `${baseUrl}/quiz`, text: 'Test', title: 'Test durchführen' },
         { url: `${baseUrl}/events`, text: 'Termine', title: 'Termine finden' },
         { url: `${baseUrl}/blog`, text: 'Reflexionen', title: 'Reflexionen lesen' },
-        { url: `${baseUrl}/resources`, text: 'Guides', title: 'Anleitungen lesen' }
+        { url: `${baseUrl}/die-arbeit`, text: 'Guides', title: 'Anleitungen lesen' }
       ]
     },
     {
       title: 'Über Anatoly Mook',
       links: [
-        { url: `${baseUrl}/about`, text: 'Über mich', title: 'Mehr erfahren' },
-        { url: `${baseUrl}/about`, text: 'Mein Ansatz', title: 'Philosophie' },
-        { url: `${baseUrl}/about`, text: 'Hintergrund', title: 'Biographie' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Über mich', title: 'Mehr erfahren' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Mein Ansatz', title: 'Philosophie' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Hintergrund', title: 'Biographie' },
         { url: `${baseUrl}/kontakt`, text: 'Kontakt aufnehmen', title: 'Nachricht senden' },
         { url: `${baseUrl}/booking`, text: 'Termin vereinbaren', title: 'Jetzt buchen' },
-        { url: `${baseUrl}/about`, text: 'Meine Geschichte', title: 'Werdegang' },
-        { url: `${baseUrl}/about`, text: 'Expertise', title: 'Kompetenzen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Meine Geschichte', title: 'Werdegang' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Expertise', title: 'Kompetenzen' },
         { url: `${baseUrl}/kontakt`, text: 'Anfrage stellen', title: 'Kontakt' },
-        { url: `${baseUrl}/about`, text: 'Profil', title: 'Persönliches Profil' },
-        { url: `${baseUrl}/about`, text: 'Philosophie', title: 'Meine Philosophie' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Profil', title: 'Persönliches Profil' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Philosophie', title: 'Meine Philosophie' },
         { url: `${baseUrl}/kontakt`, text: 'Beratung', title: 'Beratungsgespräch' },
         { url: `${baseUrl}/booking`, text: 'Erstgespräch', title: 'Kennenlern-Termin' },
-        { url: `${baseUrl}/about`, text: 'Werdegang', title: 'Beruflicher Weg' },
-        { url: `${baseUrl}/about`, text: 'Vision', title: 'Meine Vision' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Werdegang', title: 'Beruflicher Weg' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Vision', title: 'Meine Vision' },
         { url: `${baseUrl}/kontakt`, text: 'Kontaktmöglichkeiten', title: 'Wege zum Kontakt' },
         { url: `${baseUrl}/booking`, text: 'Online-Buchung', title: 'Termin online buchen' },
-        { url: `${baseUrl}/about`, text: 'Werte', title: 'Meine Werte' },
-        { url: `${baseUrl}/about`, text: 'Mission', title: 'Meine Mission' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Werte', title: 'Meine Werte' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Mission', title: 'Meine Mission' },
         { url: `${baseUrl}/kontakt`, text: 'Erreichbarkeit', title: 'Wie Sie mich erreichen' },
         { url: `${baseUrl}/booking`, text: 'Kalenderbuchung', title: 'Im Kalender buchen' }
       ]
@@ -303,21 +319,20 @@ export function generateBreadcrumbs(currentPath: string): InternalLink[] {
 export function generateRelatedLinks(currentPath: string): LinkGroup {
   const baseUrl = 'https://www.anatoly-mook.de';
   const relatedMap: Record<string, string[]> = {
-    '/': ['/about', '/seminare', '/coaching', '/events', '/blog', '/transformation', '/produkte', '/keynotes', '/corporate', '/resources'],
-    '/about': ['/', '/coaching', '/kontakt', '/booking', '/transformation', '/seminare', '/keynotes', '/blog', '/corporate', '/resources'],
-    '/seminare': ['/coaching', '/events', '/booking', '/transformation', '/produkte', '/keynotes', '/about', '/corporate', '/resources', '/blog'],
-    '/coaching': ['/seminare', '/about', '/booking', '/transformation', '/corporate', '/keynotes', '/events', '/produkte', '/resources', '/blog'],
-    '/keynotes': ['/events', '/corporate', '/booking', '/about', '/seminare', '/coaching', '/transformation', '/blog', '/resources', '/produkte'],
-    '/events': ['/seminare', '/keynotes', '/booking', '/blog', '/', '/coaching', '/transformation', '/resources', '/corporate', '/produkte'],
-    '/corporate': ['/coaching', '/keynotes', '/seminare', '/booking', '/about', '/transformation', '/events', '/produkte', '/resources', '/blog'],
-    '/transformation': ['/seminare', '/coaching', '/blog', '/resources', '/quiz', '/about', '/events', '/produkte', '/keynotes', '/corporate'],
-    '/blog': ['/resources', '/transformation', '/seminare', '/coaching', '/events', '/about', '/produkte', '/quiz', '/keynotes', '/corporate'],
-    '/produkte': ['/seminare', '/resources', '/booking', '/coaching', '/transformation', '/events', '/blog', '/about', '/keynotes', '/corporate'],
-    '/resources': ['/blog', '/produkte', '/seminare', '/transformation', '/faq', '/coaching', '/about', '/quiz', '/events', '/keynotes'],
-    '/faq': ['/kontakt', '/booking', '/resources', '/about', '/', '/seminare', '/coaching', '/blog', '/transformation', '/produkte'],
-    '/kontakt': ['/booking', '/about', '/faq', '/corporate', '/coaching', '/seminare', '/keynotes', '/events', '/', '/transformation'],
-    '/booking': ['/kontakt', '/coaching', '/seminare', '/events', '/corporate', '/keynotes', '/about', '/transformation', '/produkte', '/faq'],
-    '/quiz': ['/transformation', '/seminare', '/coaching', '/resources', '/blog', '/about', '/events', '/produkte', '/booking', '/keynotes']
+    '/': ['/die-arbeit', '/seminare', '/coaching', '/events', '/blog', '/produkte', '/keynotes', '/corporate'],
+    '/die-arbeit': ['/', '/coaching', '/kontakt', '/booking', '/seminare', '/keynotes', '/blog', '/corporate', '/quiz'],
+    '/seminare': ['/coaching', '/events', '/booking', '/die-arbeit', '/produkte', '/keynotes', '/corporate', '/blog'],
+    '/coaching': ['/seminare', '/die-arbeit', '/booking', '/corporate', '/keynotes', '/events', '/produkte', '/blog'],
+    '/keynotes': ['/events', '/corporate', '/booking', '/die-arbeit', '/seminare', '/coaching', '/blog', '/produkte'],
+    '/events': ['/seminare', '/keynotes', '/booking', '/blog', '/', '/coaching', '/die-arbeit', '/corporate', '/produkte'],
+    '/corporate': ['/coaching', '/keynotes', '/seminare', '/booking', '/die-arbeit', '/events', '/produkte', '/blog'],
+    '/blog': ['/die-arbeit', '/seminare', '/coaching', '/events', '/produkte', '/quiz', '/keynotes', '/corporate'],
+    '/produkte': ['/seminare', '/die-arbeit', '/booking', '/coaching', '/events', '/blog', '/keynotes', '/corporate'],
+    '/faq': ['/kontakt', '/booking', '/die-arbeit', '/', '/seminare', '/coaching', '/blog', '/produkte'],
+    '/kontakt': ['/booking', '/die-arbeit', '/faq', '/corporate', '/coaching', '/seminare', '/keynotes', '/events', '/'],
+    '/booking': ['/kontakt', '/coaching', '/seminare', '/events', '/corporate', '/keynotes', '/die-arbeit', '/produkte', '/faq'],
+    '/quiz': ['/die-arbeit', '/seminare', '/coaching', '/blog', '/events', '/produkte', '/booking', '/keynotes'],
+    '/bewusstsein': ['/', '/die-arbeit', '/seminare', '/coaching', '/blog']
   };
 
   const relatedPaths = relatedMap[currentPath] || [];
@@ -367,29 +382,29 @@ export function generateContextualLinks(): LinkGroup[] {
       links: [
         { url: `${baseUrl}/seminare`, text: 'Bewusstseins-Seminare', title: 'Seminare zur Bewusstseinsentwicklung' },
         { url: `${baseUrl}/coaching`, text: 'Bewusstseins-Coaching', title: 'Coaching für mehr Bewusstsein' },
-        { url: `${baseUrl}/transformation`, text: 'Bewusstseins-Transformation', title: 'Transformations-Prozess' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Bewusstseins-Transformation', title: 'Transformations-Prozess' },
         { url: `${baseUrl}/quiz`, text: 'Bewusstseins-Test', title: 'Bewusstseinsstand ermitteln' },
         { url: `${baseUrl}/blog`, text: 'Bewusstseins-Artikel', title: 'Artikel über Bewusstsein' },
-        { url: `${baseUrl}/resources`, text: 'Bewusstseins-Ressourcen', title: 'Materialien zur Bewusstseinsentwicklung' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Bewusstseins-Ressourcen', title: 'Materialien zur Bewusstseinsentwicklung' },
         { url: `${baseUrl}/seminare`, text: 'Bewusstsein erweitern', title: 'Bewusstsein durch Seminare erweitern' },
         { url: `${baseUrl}/coaching`, text: 'Bewusstes Leben', title: 'Bewusst leben lernen' },
-        { url: `${baseUrl}/transformation`, text: 'Bewusstseins-Wachstum', title: 'Bewusstsein wachsen lassen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Bewusstseins-Wachstum', title: 'Bewusstsein wachsen lassen' },
         { url: `${baseUrl}/quiz`, text: 'Bewusstseins-Analyse', title: 'Bewusstsein analysieren' }
       ]
     },
     {
       title: 'Persönliche Meisterschaft',
       links: [
-        { url: `${baseUrl}/transformation`, text: 'Weg zur Meisterschaft', title: 'Meisterschaft entwickeln' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Weg zur Meisterschaft', title: 'Meisterschaft entwickeln' },
         { url: `${baseUrl}/coaching`, text: 'Meisterschafts-Coaching', title: 'Coaching für Meisterschaft' },
         { url: `${baseUrl}/seminare`, text: 'Meisterschafts-Seminare', title: 'Seminare für Meisterschaft' },
-        { url: `${baseUrl}/resources`, text: 'Meisterschafts-Tools', title: 'Tools und Ressourcen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Meisterschafts-Tools', title: 'Tools und Ressourcen' },
         { url: `${baseUrl}/blog`, text: 'Meisterschafts-Insights', title: 'Artikel über Meisterschaft' },
         { url: `${baseUrl}/produkte`, text: 'Meisterschafts-Programme', title: 'Programme zur Meisterschaft' },
-        { url: `${baseUrl}/transformation`, text: 'Persönliche Exzellenz', title: 'Exzellenz erreichen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Persönliche Exzellenz', title: 'Exzellenz erreichen' },
         { url: `${baseUrl}/coaching`, text: 'Meisterschafts-Mentoring', title: 'Mentoring für Meisterschaft' },
         { url: `${baseUrl}/seminare`, text: 'Meisterschafts-Workshops', title: 'Workshops zur Meisterschaft' },
-        { url: `${baseUrl}/resources`, text: 'Meisterschafts-Guides', title: 'Anleitungen zur Meisterschaft' }
+        { url: `${baseUrl}/die-arbeit`, text: 'Meisterschafts-Guides', title: 'Anleitungen zur Meisterschaft' }
       ]
     },
     {
@@ -410,16 +425,16 @@ export function generateContextualLinks(): LinkGroup[] {
     {
       title: 'Transformation & Veränderung',
       links: [
-        { url: `${baseUrl}/transformation`, text: 'Transformations-Prozess', title: 'Transformation verstehen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Transformations-Prozess', title: 'Transformation verstehen' },
         { url: `${baseUrl}/coaching`, text: 'Transformations-Coaching', title: 'Coaching für Transformation' },
         { url: `${baseUrl}/seminare`, text: 'Transformations-Seminare', title: 'Seminare für Veränderung' },
         { url: `${baseUrl}/blog`, text: 'Transformations-Insights', title: 'Artikel über Transformation' },
-        { url: `${baseUrl}/resources`, text: 'Transformations-Ressourcen', title: 'Tools für Veränderung' },
-        { url: `${baseUrl}/transformation`, text: 'Persönliche Transformation', title: 'Sich selbst transformieren' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Transformations-Ressourcen', title: 'Tools für Veränderung' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Persönliche Transformation', title: 'Sich selbst transformieren' },
         { url: `${baseUrl}/coaching`, text: 'Transformations-Mentoring', title: 'Mentoring für Veränderung' },
         { url: `${baseUrl}/seminare`, text: 'Transformations-Workshops', title: 'Workshops für Wandel' },
         { url: `${baseUrl}/blog`, text: 'Transformations-Artikel', title: 'Artikel über Veränderung' },
-        { url: `${baseUrl}/resources`, text: 'Transformations-Tools', title: 'Werkzeuge für Transformation' }
+        { url: `${baseUrl}/die-arbeit`, text: 'Transformations-Tools', title: 'Werkzeuge für Transformation' }
       ]
     },
     {
@@ -427,14 +442,14 @@ export function generateContextualLinks(): LinkGroup[] {
       links: [
         { url: `${baseUrl}/coaching`, text: 'Klarheits-Coaching', title: 'Coaching für Klarheit' },
         { url: `${baseUrl}/seminare`, text: 'Klarheits-Seminare', title: 'Seminare für Klarheit' },
-        { url: `${baseUrl}/transformation`, text: 'Klarheits-Prozess', title: 'Klarheit finden' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Klarheits-Prozess', title: 'Klarheit finden' },
         { url: `${baseUrl}/blog`, text: 'Klarheits-Artikel', title: 'Artikel über Klarheit' },
-        { url: `${baseUrl}/resources`, text: 'Klarheits-Tools', title: 'Tools für Klarheit' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Klarheits-Tools', title: 'Tools für Klarheit' },
         { url: `${baseUrl}/coaching`, text: 'Entscheidungs-Coaching', title: 'Coaching für Entscheidungen' },
         { url: `${baseUrl}/seminare`, text: 'Entscheidungs-Seminare', title: 'Seminare für Entscheidungsstärke' },
-        { url: `${baseUrl}/transformation`, text: 'Entscheidungs-Kompetenz', title: 'Entscheidungen treffen lernen' },
+        { url: `${baseUrl}/die-arbeit`, text: 'Entscheidungs-Kompetenz', title: 'Entscheidungen treffen lernen' },
         { url: `${baseUrl}/blog`, text: 'Entscheidungs-Insights', title: 'Insights über Entscheidungen' },
-        { url: `${baseUrl}/resources`, text: 'Entscheidungs-Guides', title: 'Guides für Entscheidungen' }
+        { url: `${baseUrl}/die-arbeit`, text: 'Entscheidungs-Guides', title: 'Guides für Entscheidungen' }
       ]
     }
   ];

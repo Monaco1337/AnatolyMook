@@ -5,6 +5,7 @@ import {
   BarChart3, ChevronRight, LogOut, Package, ShoppingBag, BookOpen, MessageCircle, Star, Brain, Sparkles, Home as HomeIcon, Zap, Globe, CheckCircle2
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { clearLocalDevAdminLoggedIn } from '../lib/adminSession';
 import SeminarsManager from './SeminarsManager';
 import Calendar from './Calendar';
 import ProductsManager from './ProductsManager';
@@ -195,6 +196,8 @@ export default function Dashboard() {
 
   const handleLogout = () => {
     sessionStorage.removeItem('adminAuth');
+    clearLocalDevAdminLoggedIn();
+    void supabase.auth.signOut();
     window.location.href = '/';
   };
 

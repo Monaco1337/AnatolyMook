@@ -1,6 +1,10 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
+import {
+  isLocalDevAdminLoginEnabled,
+  isLocalDevAdminLoggedIn,
+} from './lib/adminSession';
 import { useTheme } from './contexts/ThemeContext';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -9,13 +13,13 @@ import SEOHead from './components/SEOHead';
 import { CartItem, Product } from './types';
 
 const HomeDynamic = lazy(() => import('./sections/HomeDynamic'));
-const About = lazy(() => import('./sections/About'));
+const DieArbeit = lazy(() => import('./sections/DieArbeit'));
+const FormatePage = lazy(() => import('./sections/FormatePage'));
 const Seminare = lazy(() => import('./sections/Seminare'));
 const Coaching = lazy(() => import('./sections/Coaching'));
 const Keynotes = lazy(() => import('./sections/Keynotes'));
 const Events = lazy(() => import('./sections/Events'));
 const Corporate = lazy(() => import('./sections/Corporate'));
-const Resources = lazy(() => import('./sections/Resources'));
 const Shop = lazy(() => import('./sections/Shop'));
 const Blog = lazy(() => import('./sections/Blog'));
 const FAQ = lazy(() => import('./sections/FAQ'));
@@ -25,9 +29,9 @@ const Impressum = lazy(() => import('./sections/Impressum'));
 const Datenschutz = lazy(() => import('./sections/Datenschutz'));
 const ConsciousnessQuiz = lazy(() => import('./sections/ConsciousnessQuiz'));
 const Anamnesis = lazy(() => import('./sections/Anamnesis'));
-const Transformation = lazy(() => import('./sections/Transformation'));
 const Bewusstsein = lazy(() => import('./sections/Bewusstsein'));
-const Methodik = lazy(() => import('./sections/Methodik'));
+const Erstgespraech = lazy(() => import('./sections/Erstgespraech'));
+const BookingPremium = lazy(() => import('./sections/BookingPremium'));
 const Dashboard = lazy(() => import('./admin/Dashboard'));
 const Login = lazy(() => import('./admin/Login'));
 
@@ -95,12 +99,23 @@ function AppContent() {
   const removeFromCart = (productId: string) => saveCart(cart.filter(item => item.product.id !== productId));
   const clearCart = () => saveCart([]);
 
+  const hasAdminSession = async (): Promise<boolean> => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) return true;
+      return isLocalDevAdminLoginEnabled() && isLocalDevAdminLoggedIn();
+    } catch {
+      return isLocalDevAdminLoginEnabled() && isLocalDevAdminLoggedIn();
+    }
+  };
+
   useEffect(() => {
     checkAuth();
     try {
       const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-        setIsAdminAuthenticated(!!session);
-        if (!session && currentSection === 'admin') {
+        const ok = Boolean(session) || (isLocalDevAdminLoginEnabled() && isLocalDevAdminLoggedIn());
+        setIsAdminAuthenticated(ok);
+        if (!ok && currentSection === 'admin') {
           setShowAdminLogin(true);
           navigate('/');
         }
@@ -113,9 +128,12 @@ function AppContent() {
     const checkRoute = async () => {
       if (location.pathname === '/admin') {
         try {
-          const { data: { session } } = await supabase.auth.getSession();
-          if (session) { setIsAdminAuthenticated(true); setShowAdminLogin(false); }
-          else setShowAdminLogin(true);
+          if (await hasAdminSession()) {
+            setIsAdminAuthenticated(true);
+            setShowAdminLogin(false);
+          } else {
+            setShowAdminLogin(true);
+          }
         } catch { setShowAdminLogin(true); }
       } else {
         setShowAdminLogin(false);
@@ -126,15 +144,17 @@ function AppContent() {
 
   const checkAuth = async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      setIsAdminAuthenticated(!!session);
+      setIsAdminAuthenticated(await hasAdminSession());
     } catch { setIsAdminAuthenticated(false); }
   };
 
   const handleAdminLogin = async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) { setIsAdminAuthenticated(true); setShowAdminLogin(false); navigate('/admin'); }
+      if (await hasAdminSession()) {
+        setIsAdminAuthenticated(true);
+        setShowAdminLogin(false);
+        navigate('/admin');
+      }
     } catch { /* Supabase not configured */ }
   };
 
@@ -144,7 +164,14 @@ function AppContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const showNavAndFooter = !showAdminLogin && currentSection !== 'admin' && currentSection !== 'quiz' && currentSection !== 'anamnesis';
+  const showNavAndFooter =
+    !showAdminLogin &&
+    currentSection !== 'admin' &&
+    currentSection !== 'quiz' &&
+    currentSection !== 'anamnesis' &&
+    currentSection !== 'booking' &&
+    currentSection !== 'erstgespraech' &&
+    currentSection !== 'erstgesprach';
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const shopElement = (
@@ -154,22 +181,27 @@ function AppContent() {
   const mainRoutes = (
     <>
       <Route path="/" element={<HomeDynamic />} />
-      <Route path="/about" element={<About />} />
+      <Route path="/die-arbeit" element={<DieArbeit />} />
+      <Route path="/about" element={<Navigate to="/die-arbeit" replace />} />
+      <Route path="/formate" element={<FormatePage />} />
       <Route path="/seminare" element={<Seminare />} />
       <Route path="/coaching" element={<Coaching />} />
       <Route path="/keynotes" element={<Keynotes />} />
       <Route path="/events" element={<Events />} />
       <Route path="/corporate" element={<Corporate />} />
       <Route path="/geschaeftskunden" element={<Corporate />} />
-      <Route path="/transformation" element={<Transformation />} />
+      <Route path="/transformation" element={<Navigate to="/die-arbeit" replace />} />
       <Route path="/bewusstsein" element={<Bewusstsein />} />
-      <Route path="/methodik" element={<Methodik />} />
+      <Route path="/methodik" element={<Navigate to="/die-arbeit" replace />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/produkte" element={shopElement} />
-      <Route path="/resources" element={<Resources />} />
+      <Route path="/resources" element={<Navigate to="/die-arbeit" replace />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/kontakt" element={<Contact />} />
-      <Route path="/booking" element={<Booking />} />
+      <Route path="/booking" element={<BookingPremium />} />
+      <Route path="/booking-legacy" element={<Booking />} />
+      <Route path="/erstgespraech" element={<Erstgespraech />} />
+      <Route path="/erstgesprach" element={<Erstgespraech />} />
       <Route path="/quiz" element={<ConsciousnessQuiz />} />
       <Route path="/anamnesis" element={<Anamnesis />} />
       <Route path="/impressum" element={<Impressum />} />
@@ -200,18 +232,20 @@ function AppContent() {
       <Route path={`/${langPrefix}/tema/:topic`} element={<TopicClusterPage />} />
       <Route path={`/${langPrefix}/glossarij/:term`} element={<GlossaryPage />} />
 
-      <Route path={`/${langPrefix}/about`} element={<About />} />
+      <Route path={`/${langPrefix}/die-arbeit`} element={<DieArbeit />} />
+      <Route path={`/${langPrefix}/about`} element={<Navigate to={`/${langPrefix}/die-arbeit`} replace />} />
+      <Route path={`/${langPrefix}/formate`} element={<FormatePage />} />
       <Route path={`/${langPrefix}/seminare`} element={<Seminare />} />
       <Route path={`/${langPrefix}/coaching`} element={<Coaching />} />
       <Route path={`/${langPrefix}/keynotes`} element={<Keynotes />} />
       <Route path={`/${langPrefix}/events`} element={<Events />} />
       <Route path={`/${langPrefix}/corporate`} element={<Corporate />} />
-      <Route path={`/${langPrefix}/transformation`} element={<Transformation />} />
+      <Route path={`/${langPrefix}/transformation`} element={<Navigate to={`/${langPrefix}/die-arbeit`} replace />} />
       <Route path={`/${langPrefix}/bewusstsein`} element={<Bewusstsein />} />
-      <Route path={`/${langPrefix}/methodik`} element={<Methodik />} />
+      <Route path={`/${langPrefix}/methodik`} element={<Navigate to={`/${langPrefix}/die-arbeit`} replace />} />
       <Route path={`/${langPrefix}/blog`} element={<Blog />} />
       <Route path={`/${langPrefix}/produkte`} element={shopElement} />
-      <Route path={`/${langPrefix}/resources`} element={<Resources />} />
+      <Route path={`/${langPrefix}/resources`} element={<Navigate to={`/${langPrefix}/die-arbeit`} replace />} />
       <Route path={`/${langPrefix}/faq`} element={<FAQ />} />
       <Route path={`/${langPrefix}/kontakt`} element={<Contact />} />
       <Route path={`/${langPrefix}/booking`} element={<Booking />} />
@@ -230,6 +264,13 @@ function AppContent() {
             {mainRoutes}
             {programmaticRoutes}
 
+            {/* Admin — vor /:city, sonst wird „admin“ als Stadt-Slug interpretiert */}
+            <Route path="/admin" element={
+              showAdminLogin ? <Login onLogin={handleAdminLogin} /> :
+              isAdminAuthenticated ? <Dashboard /> :
+              <Login onLogin={handleAdminLogin} />
+            } />
+
             {/* City overview pages (must come after service routes) */}
             <Route path="/:city" element={<CityOverviewPage />} />
 
@@ -238,13 +279,6 @@ function AppContent() {
 
             {/* Russian locale */}
             {localeRoutes('ru')}
-
-            {/* Admin */}
-            <Route path="/admin" element={
-              showAdminLogin ? <Login onLogin={handleAdminLogin} /> :
-              isAdminAuthenticated ? <Dashboard /> :
-              <Login onLogin={handleAdminLogin} />
-            } />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

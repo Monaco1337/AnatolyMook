@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import {
+  getLocalDevAdminCredentials,
+  isLocalDevAdminLoginEnabled,
+  setLocalDevAdminLoggedIn,
+} from '../lib/adminSession';
 
 interface LoginProps {
   onLogin: () => void;
@@ -20,6 +25,16 @@ export default function Login({ onLogin }: LoginProps) {
     setIsLoading(true);
 
     try {
+      if (isLocalDevAdminLoginEnabled()) {
+        const { email: devEmail, password: devPassword } = getLocalDevAdminCredentials();
+        if (email.trim().toLowerCase() === devEmail.toLowerCase() && password === devPassword) {
+          setLocalDevAdminLoggedIn();
+          setIsLoading(false);
+          onLogin();
+          return;
+        }
+      }
+
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -32,7 +47,10 @@ export default function Login({ onLogin }: LoginProps) {
       }
 
       if (data.session) {
+        setIsLoading(false);
         onLogin();
+      } else {
+        setIsLoading(false);
       }
     } catch (err) {
       console.error('Login error:', err);
@@ -41,31 +59,110 @@ export default function Login({ onLogin }: LoginProps) {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-6 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-500/[0.03] rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-400/[0.03] rounded-full blur-3xl" />
-      </div>
+  const inputBase =
+    'w-full px-5 py-4 rounded-[14px] text-[16px] transition-all duration-300 outline-none ' +
+    'bg-[rgba(14,12,10,0.55)] border text-[rgba(248,243,232,0.92)] placeholder-[rgba(238,230,216,0.38)] ' +
+    'focus:border-[rgba(214,168,94,0.45)] focus:shadow-[0_0_0_1px_rgba(214,168,94,0.12)]';
 
-      <div className="max-w-[400px] w-full relative z-10">
-        <div className="text-center mb-16">
-          <div className="relative inline-flex items-center justify-center mb-10">
-            <div className="absolute inset-0 bg-blue-500/10 rounded-[24px] blur-xl" />
-            <div className="relative w-20 h-20 rounded-[20px] bg-white border border-gray-200/50 shadow-xl flex items-center justify-center">
-              <Lock className="text-gray-900" size={36} strokeWidth={1.5} />
+  return (
+    <div
+      className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"
+      style={{ backgroundColor: '#050505' }}
+    >
+      {/* Stein — wie Footer */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden
+        style={{
+          backgroundImage: 'url(/images/manifest/footer-stone-granite-bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden
+        style={{
+          background:
+            'radial-gradient(120% 85% at 50% 35%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.72) 100%)',
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden
+        style={{
+          background:
+            'radial-gradient(50% 45% at 50% 28%, rgba(214,168,94,0.06) 0%, rgba(0,0,0,0) 62%)',
+        }}
+      />
+
+      <div className="relative z-[1] w-full max-w-[420px]">
+        {/* Obere Linie — dezenter Bronze-Akzent */}
+        <div
+          className="mx-auto mb-10 h-px w-24"
+          aria-hidden
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.35) 50%, rgba(214,168,94,0) 100%)',
+          }}
+        />
+
+        <div className="text-center mb-12">
+          <div className="relative inline-flex items-center justify-center mb-8">
+            <div
+              className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-[18px]"
+              style={{
+                background: 'linear-gradient(165deg, rgba(36,28,22,0.85) 0%, rgba(12,10,8,0.92) 100%)',
+                border: '1px solid rgba(214,168,94,0.22)',
+                boxShadow: '0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)',
+              }}
+            >
+              <Lock className="text-[#C99B62]" size={30} strokeWidth={1.35} aria-hidden />
             </div>
           </div>
 
-          <h1 className="text-[48px] font-semibold text-gray-900 mb-2 tracking-[-0.03em] leading-none">
+          <h1
+            className="mb-3 text-[clamp(2rem,5vw,2.75rem)] font-extralight tracking-[0.18em] uppercase"
+            style={{
+              fontFamily: "'Montserrat', system-ui, sans-serif",
+              color: '#B98452',
+              textShadow: '0 1px 0 rgba(20,12,6,0.5), 0 0 1px rgba(201,155,98,0.25)',
+            }}
+          >
             Admin Portal
           </h1>
-          <p className="text-[15px] text-gray-500 font-normal">
+          <p
+            className="text-[15px] font-light leading-relaxed"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              color: 'rgba(244,239,230,0.58)',
+            }}
+          >
             Melden Sie sich an, um fortzufahren
           </p>
+          {isLocalDevAdminLoginEnabled() && (
+            <p
+              className="mt-4 text-[12px] font-medium tracking-wide"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                color: 'rgba(214,168,94,0.55)',
+              }}
+            >
+              Lokaler Test-Login aktiv
+            </p>
+          )}
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5 rounded-[20px] p-8 sm:p-9"
+          style={{
+            background: 'linear-gradient(180deg, rgba(18,16,14,0.72) 0%, rgba(8,7,6,0.78) 100%)',
+            border: '1px solid rgba(214,168,94,0.12)',
+            boxShadow: '0 24px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)',
+          }}
+        >
           <div>
             <input
               type="email"
@@ -75,7 +172,8 @@ export default function Login({ onLogin }: LoginProps) {
                 setError('');
               }}
               placeholder="E-Mail"
-              className="w-full px-5 py-4 rounded-[16px] bg-white border border-gray-200/80 text-gray-900 placeholder-gray-400 text-[17px] focus:outline-none focus:border-blue-500/60 focus:shadow-lg focus:shadow-blue-500/5 transition-all duration-300"
+              autoComplete="email"
+              className={`${inputBase} border-[rgba(214,168,94,0.14)]`}
             />
           </div>
 
@@ -91,29 +189,33 @@ export default function Login({ onLogin }: LoginProps) {
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 placeholder="Passwort"
-                className={`w-full px-5 py-4 rounded-[16px] bg-white border ${
+                autoComplete="current-password"
+                className={`${inputBase} pr-12 ${
                   error
-                    ? 'border-red-500/40 bg-red-50/30'
+                    ? 'border-[rgba(220,90,70,0.45)] bg-[rgba(40,14,12,0.35)]'
                     : isFocused
-                      ? 'border-blue-500/60 shadow-lg shadow-blue-500/5'
-                      : 'border-gray-200/80'
-                } text-gray-900 placeholder-gray-400 text-[17px] focus:outline-none transition-all duration-300`}
+                      ? 'border-[rgba(214,168,94,0.38)]'
+                      : 'border-[rgba(214,168,94,0.14)]'
+                }`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-all duration-200 flex items-center justify-center"
+                className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-[10px] text-[rgba(238,230,216,0.45)] transition-colors duration-200 hover:bg-[rgba(214,168,94,0.08)] hover:text-[rgba(214,168,94,0.8)]"
                 tabIndex={-1}
+                aria-label={showPassword ? 'Passwort verbergen' : 'Passwort anzeigen'}
               >
-                {showPassword ? (
-                  <EyeOff size={18} strokeWidth={2} />
-                ) : (
-                  <Eye size={18} strokeWidth={2} />
-                )}
+                {showPassword ? <EyeOff size={18} strokeWidth={1.75} /> : <Eye size={18} strokeWidth={1.75} />}
               </button>
             </div>
             {error && (
-              <p className="mt-3 text-red-600 text-[13px] font-medium animate-in fade-in slide-in-from-top-1 duration-300">
+              <p
+                className="mt-3 text-[13px] font-medium"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  color: 'rgba(248, 180, 168, 0.92)',
+                }}
+              >
                 {error}
               </p>
             )}
@@ -122,31 +224,49 @@ export default function Login({ onLogin }: LoginProps) {
           <button
             type="submit"
             disabled={isLoading || !password || !email}
-            className="w-full py-4 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-[16px] text-[17px] font-semibold flex items-center justify-center gap-2 transition-all duration-300 active:scale-[0.98] shadow-lg shadow-gray-900/10 hover:shadow-xl hover:shadow-gray-900/20 disabled:shadow-none"
+            className="group mt-2 flex w-full items-center justify-center gap-2 rounded-[14px] py-4 text-[16px] font-semibold tracking-wide transition-all duration-300 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-45"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              background:
+                'linear-gradient(180deg, rgba(214,168,94,0.95) 0%, rgba(166,116,60,0.92) 48%, rgba(120,78,40,0.95) 100%)',
+              color: 'rgba(12, 8, 6, 0.92)',
+              border: '1px solid rgba(255,230,200,0.22)',
+              boxShadow: '0 8px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.18)',
+            }}
           >
             {isLoading ? (
               <>
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                <span>Anmelden...</span>
+                <div
+                  className="h-4 w-4 animate-spin rounded-full border-2 border-t-transparent"
+                  style={{ borderColor: 'rgba(12,8,6,0.25)', borderTopColor: 'rgba(12,8,6,0.85)' }}
+                />
+                <span>Anmelden…</span>
               </>
             ) : (
               <>
                 <span>Anmelden</span>
-                <ArrowRight size={18} strokeWidth={2.5} />
+                <ArrowRight size={18} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
               </>
             )}
           </button>
         </form>
 
         <div className="mt-12 text-center">
-          <p className="text-gray-400 text-[13px] font-medium mb-5">
+          <p
+            className="mb-5 text-[12px] font-medium uppercase tracking-[0.22em]"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              color: 'rgba(238,230,216,0.35)',
+            }}
+          >
             Geschützter Bereich
           </p>
           <a
             href="/"
-            className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 text-[15px] font-medium transition-colors duration-200 group"
+            className="group inline-flex items-center gap-2 text-[15px] font-medium text-[rgba(214,168,94,0.55)] transition-colors duration-300 hover:text-[rgba(244,239,230,0.88)]"
+            style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            <span className="group-hover:-translate-x-0.5 transition-transform duration-200">←</span>
+            <span className="transition-transform duration-300 group-hover:-translate-x-0.5">←</span>
             <span>Zurück zur Website</span>
           </a>
         </div>

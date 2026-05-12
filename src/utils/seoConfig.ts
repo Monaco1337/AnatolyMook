@@ -23,10 +23,26 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
     ogImageType: 'image/png',
     schemaType: 'WebPage'
   },
+  'die-arbeit': {
+    title: 'Die Arbeit – Klarheit, Führung & ruhige Beratung | Anatoly Mook',
+    description:
+      'Wie die Zusammenarbeit aufgebaut ist: Präsenz, Ordnung, Führungskraft — und wo Klarheit im Leben wieder wirken darf. Ruhige Beratung, keine laute Oberfläche.',
+    keywords: ['Anatoly Mook', 'Die Arbeit', 'Klarheit', 'Führung', 'Beratung', 'Executive', 'Orientierung'],
+    ogImage: HERO_PORTRAIT.absPng,
+    ogImageWidth: HERO_PORTRAIT.width,
+    ogImageHeight: HERO_PORTRAIT.height,
+    ogImageType: 'image/png',
+    schemaType: 'WebPage'
+  },
   about: {
-    title: 'Über Anatoly Mook – Mentor für Bewusstsein & persönliche Meisterschaft',
-    description: 'Erfahren Sie mehr über Anatoly Mook, seinen Ansatz für Bewusstseinsarbeit und wie er Menschen auf ihrem Weg zu Klarheit, Entscheidungsstärke und persönlicher Meisterschaft begleitet.',
-    keywords: ['Anatoly Mook', 'Über mich', 'Mentor', 'Bewusstsein', 'Persönlichkeitsentwicklung', 'Lebensgeschichte'],
+    title: 'Methode – Klarheit, Führungsstabilität & präzise Umsetzung | Anatoly Mook',
+    description:
+      'Wie die Arbeit aufgebaut ist: Wahrnehmung, Ordnung und Umsetzung — ruhige Analyse, keine Oberflächlichkeit, tragfähige Stabilität für Unternehmer und Führungskräfte.',
+    keywords: ['Anatoly Mook', 'Methode', 'Klarheit', 'Führung', 'Executive Beratung', 'Entscheidungsfindung'],
+    ogImage: HERO_PORTRAIT.absPng,
+    ogImageWidth: HERO_PORTRAIT.width,
+    ogImageHeight: HERO_PORTRAIT.height,
+    ogImageType: 'image/png',
     schemaType: 'WebPage'
   },
   seminare: {
@@ -60,9 +76,14 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
     schemaType: 'Service'
   },
   transformation: {
-    title: 'Transformation – Bewusstsein im Alltag vertiefen',
-    description: 'Zwei Arten zu leben: unbewusst und bewusst – plus Transformations-Karten und vertiefende Einblicke in den Wandel.',
-    keywords: ['Transformation', 'bewusst leben', 'Bewusstsein', 'Persönlichkeitsentwicklung', 'Unbewusst vs. bewusst'],
+    title: 'Zielgruppen – Verantwortung, Druck & klare Führung | Anatoly Mook',
+    description:
+      'Für Menschen mit Führungslast und mentaler Belastung: ruhige executive Einordnung — ohne Coaching-Funnel, mit Klarheit, Stabilität und Präzision.',
+    keywords: ['Zielgruppen', 'Führungskräfte', 'Unternehmer', 'mental load', 'Executive', 'klare Führung', 'Anatoly Mook'],
+    ogImage: HERO_PORTRAIT.absPng,
+    ogImageWidth: HERO_PORTRAIT.width,
+    ogImageHeight: HERO_PORTRAIT.height,
+    ogImageType: 'image/png',
     schemaType: 'WebPage'
   },
   bewusstsein: {
@@ -72,9 +93,14 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
     schemaType: 'WebPage'
   },
   methodik: {
-    title: 'Methodik – Drei Ebenen, Achtsamkeit & Bewusstseinstraining',
-    description: 'Die Arbeit in drei Dimensionen: Achtsamkeitslehre, Bewusstseinstraining und Transformation – Prozess, Journey und konkrete Entwicklungsebenen.',
-    keywords: ['Methodik', 'Achtsamkeitslehre', 'Bewusstseinstraining', 'drei Ebenen', 'Entwicklungsebenen', 'Prozess'],
+    title: 'Methodik – Wahrnehmung, Ordnung & Umsetzung | Anatoly Mook',
+    description:
+      'Editorial erklärt: wie Anatoly Mook Wahrnehmung, Selbstführung und präzise Umsetzung verbindet — ohne Funnel-Coaching, mit ruhiger Begleitung und tragfähiger Stabilität.',
+    keywords: ['Methodik', 'Anatoly Mook', 'Klarheit', 'Führungskräfte', 'Unternehmer', 'Beratung', 'Entscheidungsfindung'],
+    ogImage: HERO_PORTRAIT.absPng,
+    ogImageWidth: HERO_PORTRAIT.width,
+    ogImageHeight: HERO_PORTRAIT.height,
+    ogImageType: 'image/png',
     schemaType: 'WebPage'
   },
   blog: {
@@ -146,5 +172,12 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
 };
 
 export function getSectionSEO(section: string): SectionSEO {
-  return sectionSEOConfig[section] || sectionSEOConfig.home;
+  const canonical =
+    section === 'about' ||
+    section === 'transformation' ||
+    section === 'resources' ||
+    section === 'methodik'
+      ? 'die-arbeit'
+      : section;
+  return sectionSEOConfig[canonical] || sectionSEOConfig.home;
 }

@@ -1,5 +1,5 @@
-import { useState, useEffect, memo, useCallback, useRef } from 'react';
-import { ShoppingCart, Search, X, Plus, Minus, Check, Star, Sparkles, BookOpen, Flower2, Flame, Gem, Watch, Trash2 } from 'lucide-react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { ShoppingCart, Search, X, Plus, Minus, Check, Star, Trash2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { Product, CartItem } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -27,6 +27,113 @@ interface DeleteConfirmation {
   show: boolean;
   productId: string;
   productName: string;
+}
+
+/** Demos wenn die Datenbank noch leer ist — immer zusätzlich angezeigt, dedupliziert nach id. */
+const SHOP_DUMMY_PRODUCTS: Product[] = [
+  {
+    id: 'demo-weisser-salbei',
+    category_id: '__demo__',
+    name: 'Weißer Salbei',
+    slug: 'weisser-salbei',
+    description: 'Reiner Krautbund — für einen ruhigen, klaren Raum.',
+    long_description:
+      'Hochwertig gebündelter Weißer Salbei. Zum sorgsamen Reinigen eines Raumes — ohne esoterischen Schnörkel.',
+    price: 24.9,
+    compare_at_price: null,
+    image_url:
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=85&w=900&auto=format&fit=crop',
+    gallery_images: [],
+    stock_quantity: 24,
+    is_featured: false,
+    tags: ['Ruhe'],
+    sku: 'DEMO-WS01',
+  },
+  {
+    id: 'demo-rauecherstaecbchen',
+    category_id: '__demo__',
+    name: 'Räucherstäbchen',
+    slug: 'raeucherstaebchen',
+    description: 'Feiner, zurückhaltender Duft — sanft und klar.',
+    long_description:
+      'Kuratierte Mischung, dezentes Räucherbild. Ideal für konzentrierte Momente oder den Abend nach dem Arbeitstag.',
+    price: 18.5,
+    compare_at_price: null,
+    image_url:
+      'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=85&w=900&auto=format&fit=crop',
+    gallery_images: [],
+    stock_quantity: 40,
+    is_featured: false,
+    tags: [],
+    sku: 'DEMO-RS02',
+  },
+  {
+    id: 'demo-duftoel',
+    category_id: '__demo__',
+    name: 'Duftöl',
+    slug: 'duftoel',
+    description: 'Sanfter Raum-Akzent — wenige Tropfen reichen.',
+    long_description:
+      'Konzentriertes Duftöl in schlichter Aufmachung. Für Diffuser oder ein feines Ritual zwischendurch.',
+    price: 32,
+    compare_at_price: null,
+    image_url:
+      'https://images.unsplash.com/photo-1608571423912-ed9f836b7e90?q=85&w=900&auto=format&fit=crop',
+    gallery_images: [],
+    stock_quantity: 18,
+    is_featured: false,
+    tags: [],
+    sku: 'DEMO-DO03',
+  },
+  {
+    id: 'demo-fokus-journal',
+    category_id: '__demo__',
+    name: 'Fokus Journal',
+    slug: 'fokus-journal',
+    description: 'Strukturiert Gedanken und Prioritäten — ohne Ballast.',
+    long_description:
+      'Matte Oberfläche, edles Papier. Zum täglichen Fokus — ein Blatt nach dem anderen.',
+    price: 38,
+    compare_at_price: null,
+    image_url:
+      'https://images.unsplash.com/photo-1544716278-ca5e356fadf8?q=85&w=900&auto=format&fit=crop',
+    gallery_images: [],
+    stock_quantity: 30,
+    is_featured: false,
+    tags: [],
+    sku: 'DEMO-FJ04',
+  },
+  {
+    id: 'demo-kerzen',
+    category_id: '__demo__',
+    name: 'Kerzen',
+    slug: 'kerzen',
+    description: 'Warmes Licht für ruhige Abende.',
+    long_description:
+      'Soja- oder Rapsbasis mit natürlichem Docht. Gedämpfte Farben — keine grellen Dekore.',
+    price: 22,
+    compare_at_price: null,
+    image_url:
+      'https://images.unsplash.com/photo-1602619056574-ae7f5ea6c872?q=85&w=900&auto=format&fit=crop',
+    gallery_images: [],
+    stock_quantity: 22,
+    is_featured: false,
+    tags: [],
+    sku: 'DEMO-KR05',
+  },
+];
+
+function mergeCatalog(demos: Product[], fromDb: Product[]): Product[] {
+  const seen = new Set<string>();
+  const out: Product[] = [];
+  for (const p of demos) {
+    seen.add(p.id);
+    out.push(p);
+  }
+  for (const p of fromDb) {
+    if (!seen.has(p.id)) out.push(p);
+  }
+  return out;
 }
 
 export default function Shop({
@@ -99,10 +206,21 @@ export default function Shop({
     }
   };
 
-  const filteredProducts = products.filter(product => {
-    const matchesCategory = selectedCategory === 'all' || product.category_id === selectedCategory;
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchQuery.toLowerCase());
+  const catalogProducts = useMemo(
+    () => mergeCatalog(SHOP_DUMMY_PRODUCTS, products),
+    [products]
+  );
+
+  const filteredProducts = catalogProducts.filter((product) => {
+    const isDemo = product.category_id === '__demo__';
+    const matchesCategory =
+      selectedCategory === 'all' || (!isDemo && product.category_id === selectedCategory);
+    const q = searchQuery.toLowerCase().trim();
+    const matchesSearch =
+      q === '' ||
+      product.name.toLowerCase().includes(q) ||
+      product.description.toLowerCase().includes(q) ||
+      product.tags.some((tag) => tag.toLowerCase().includes(q));
     return matchesCategory && matchesSearch;
   });
 
@@ -116,7 +234,7 @@ export default function Shop({
   }, [onAddToCart]);
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#050505' }}>
       <style>{`
         html {
           scroll-behavior: smooth;
@@ -152,18 +270,12 @@ export default function Shop({
         .animate-glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
         .animate-slide-in { animation: slide-in-bottom 0.3s ease-out; }
         .luxury-gradient {
-          background: linear-gradient(135deg,
-            #FDFAF5 0%,
-            #F8F3EB 25%,
-            #FFF9F0 50%,
-            #F5EFE7 75%,
-            #FAF6F1 100%
-          );
+          background: #050505;
         }
         .glass-card {
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(212, 175, 55, 0.1);
+          background: linear-gradient(180deg, rgba(20,17,14,0.74) 0%, rgba(8,7,6,0.84) 100%);
+          backdrop-filter: blur(14px);
+          border: 1px solid rgba(214, 168, 94, 0.14);
         }
         .gold-glow {
           box-shadow: 0 0 40px rgba(212, 175, 55, 0.15),
@@ -179,9 +291,9 @@ export default function Shop({
           contain: layout style paint;
         }
         .product-card:hover {
-          transform: translate3d(0, -12px, 0);
-          box-shadow: 0 20px 60px rgba(212, 175, 55, 0.25),
-                      0 10px 30px rgba(0, 0, 0, 0.08);
+          transform: translate3d(0, -3px, 0);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42),
+                      0 0 24px rgba(214, 168, 94, 0.06);
         }
         .product-image {
           transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -190,7 +302,7 @@ export default function Shop({
           image-rendering: -webkit-optimize-contrast;
         }
         .product-card:hover .product-image {
-          transform: translate3d(0, 0, 0) scale(1.1);
+          transform: translate3d(0, 0, 0) scale(1.04);
         }
         @media (prefers-reduced-motion: reduce) {
           .product-card,
@@ -217,36 +329,25 @@ export default function Shop({
         .category-pill:hover::before {
           left: 100%;
         }
-        .search-glow:focus {
-          box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2),
-                      0 4px 20px rgba(212, 175, 55, 0.15);
+        .search-input:focus-visible {
+          border-color: rgba(214, 168, 94, 0.38);
+          box-shadow: 0 0 0 1px rgba(214, 168, 94, 0.12),
+                      0 0 20px rgba(214, 168, 94, 0.05);
         }
         .floating-cart {
           position: fixed;
-          bottom: 32px;
-          right: 32px;
+          bottom: 22px;
+          right: 20px;
           z-index: 85;
-          animation: float 6s ease-in-out infinite;
         }
         .cart-glow {
-          background: linear-gradient(135deg, #D4AF37 0%, #F5E6D3 100%);
-          box-shadow: 0 8px 32px rgba(212, 175, 55, 0.4),
-                      0 4px 16px rgba(212, 175, 55, 0.3),
-                      inset 0 2px 4px rgba(255, 255, 255, 0.5);
+          background: rgba(14,12,11,0.94);
+          color: rgba(201,155,98,0.95);
+          border: 1px solid rgba(214,168,94,0.22);
+          box-shadow: 0 8px 28px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04);
         }
         .shimmer-text {
-          background: linear-gradient(90deg,
-            #8B7355 0%,
-            #D4AF37 25%,
-            #F5E6D3 50%,
-            #D4AF37 75%,
-            #8B7355 100%
-          );
-          background-size: 200% auto;
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: shimmer 3s linear infinite;
+          color: rgba(248, 243, 232, 0.96);
         }
         .luxury-border {
           position: relative;
@@ -269,150 +370,186 @@ export default function Shop({
         }
       `}</style>
 
-      <div className="luxury-gradient min-h-screen">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl animate-glow-pulse" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-glow-pulse" style={{ animationDelay: '1.5s' }} />
-        </div>
+      <div className="luxury-gradient min-h-screen relative">
+        {/* Stein-Hintergrund + Vignette + sehr subtiler Bronze-Schein */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          aria-hidden
+          style={{
+            backgroundImage: 'url(/images/manifest/footer-stone-granite-bg.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center top',
+            backgroundRepeat: 'no-repeat',
+            opacity: 0.95,
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          aria-hidden
+          style={{
+            background:
+              'radial-gradient(120% 80% at 50% 25%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.84) 100%)',
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          aria-hidden
+          style={{
+            background:
+              'radial-gradient(46% 36% at 50% 14%, rgba(214,168,94,0.07) 0%, rgba(0,0,0,0) 65%)',
+          }}
+        />
 
-        <div className="relative z-10 max-w-[2000px] mx-auto px-6 lg:px-16 pt-32 pb-32">
-          <div className="text-center mb-20">
-            <h1 className="text-6xl md:text-7xl font-light mb-6 tracking-tight">
-              <span className="shimmer-text">{t.shop.title}</span>
+        <div
+          className="relative z-10 mx-auto w-full max-w-[1200px] px-6 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-24 md:pt-28 pb-28"
+          style={{
+            fontFamily:
+              "'Avenir Next','Avenir','Nunito Sans','Inter',system-ui,-apple-system,sans-serif",
+          }}
+        >
+          <header className="mx-auto mb-10 max-w-[640px] text-center">
+            <h1
+              className="m-0 mb-3 text-[1.875rem] sm:text-[2.125rem] font-light leading-tight tracking-[-0.02em]"
+              style={{
+                fontFamily: "'Montserrat', system-ui, -apple-system, sans-serif",
+                color: 'rgba(248,243,232,0.96)',
+              }}
+            >
+              {t.shop.title}
             </h1>
-            <p className="text-lg text-stone-600 max-w-2xl mx-auto font-light leading-relaxed">
-              {t.shop.subtitle}
+            <p
+              className="mx-auto m-0 max-w-[520px] text-[14.5px] font-light leading-[1.6]"
+              style={{ color: 'rgba(244,239,230,0.62)' }}
+            >
+              Produktwahl, Details und Bestellung an einem Ort. Öffnen Sie ein Produkt, lesen Sie
+              nach — und legen Sie es bei Bedarf in den Warenkorb.
             </p>
-          </div>
+          </header>
 
-          <div className="mb-20">
-            <div className="relative w-full max-w-4xl mx-auto mb-12">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/30 via-amber-500/30 to-amber-600/30 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative flex items-center">
-                  <Sparkles className="absolute left-7 text-amber-600/60 group-hover:text-amber-600 transition-colors duration-300" size={24} />
-                  <input
-                    type="text"
-                    placeholder={t.shop.searchPlaceholder}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full h-20 pl-20 pr-20 glass-card rounded-3xl text-lg text-stone-800 placeholder-stone-400/80 border-0 focus:outline-none search-glow transition-all duration-500 hover:shadow-2xl font-light tracking-wide"
-                  />
-                  <Search className="absolute right-7 text-amber-600/40 group-hover:text-amber-600/60 transition-colors duration-300" size={24} />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-4 max-w-6xl mx-auto">
-              <button
-                onClick={() => setSelectedCategory('all')}
-                className={`group relative px-6 py-4 rounded-2xl font-medium text-sm transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 ${
-                  selectedCategory === 'all'
-                    ? 'bg-gradient-to-br from-amber-600 via-amber-500 to-amber-600 text-white shadow-xl shadow-amber-500/50'
-                    : 'glass-card text-stone-700 hover:shadow-lg'
-                }`}
-              >
-                {selectedCategory === 'all' && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 to-amber-600/20 rounded-2xl blur-md" />
-                )}
-                <div className="relative flex items-center gap-2.5">
-                  <Sparkles
-                    size={18}
-                    className={`transition-all duration-300 ${
-                      selectedCategory === 'all'
-                        ? 'text-white'
-                        : 'text-amber-600/70 group-hover:text-amber-600 group-hover:scale-110'
-                    }`}
-                  />
-                  <span className="tracking-wide">{t.shop.categories.all}</span>
-                </div>
-              </button>
-              {categories.map(category => {
-                const iconMap: Record<string, any> = {
-                  'spiritual-bracelets': Watch,
-                  'books': BookOpen,
-                  'meditation-yoga': Flower2,
-                  'incense': Flame,
-                  'crystals': Gem,
-                  'accessories': Star
-                };
-                const Icon = iconMap[category.slug] || Star;
-                const isActive = selectedCategory === category.id;
-                return (
-                  <button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`group relative px-6 py-4 rounded-2xl font-medium text-sm transition-all duration-300 transform hover:scale-105 hover:-translate-y-0.5 ${
-                      isActive
-                        ? 'bg-gradient-to-br from-amber-600 via-amber-500 to-amber-600 text-white shadow-xl shadow-amber-500/50'
-                        : 'glass-card text-stone-700 hover:shadow-lg'
-                    }`}
-                  >
-                    {isActive && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 to-amber-600/20 rounded-2xl blur-md" />
-                    )}
-                    <div className="relative flex items-center gap-2.5">
-                      <Icon
-                        size={18}
-                        className={`transition-all duration-300 ${
-                          isActive
-                            ? 'text-white'
-                            : 'text-amber-600/70 group-hover:text-amber-600 group-hover:scale-110'
-                        }`}
-                      />
-                      <span className="tracking-wide">{category.name}</span>
-                    </div>
-                  </button>
-                );
-              })}
+          <div className="mx-auto mb-10 w-full max-w-[720px]">
+            <label htmlFor="shop-search" className="sr-only">
+              Wonach suchen Sie?
+            </label>
+            <div className="relative">
+              <Search
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 opacity-65"
+                size={17}
+                strokeWidth={1.35}
+                style={{ color: '#C99B62' }}
+                aria-hidden
+              />
+              <input
+                id="shop-search"
+                type="search"
+                autoComplete="off"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Wonach suchen Sie?"
+                className="search-input h-11 w-full rounded-xl border bg-[rgba(10,9,8,0.72)] px-11 py-2.5 text-[14px] font-light outline-none backdrop-blur-md transition-colors duration-200"
+                style={{
+                  borderColor: 'rgba(214,168,94,0.18)',
+                  color: 'rgba(248,243,232,0.92)',
+                  boxShadow: 'none',
+                  WebkitBackdropFilter: 'blur(14px)',
+                }}
+              />
             </div>
           </div>
 
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-            style={{
-              transform: 'translateZ(0)',
-              perspective: '1000px'
-            }}
+          {/* Filter */}
+          <nav
+            aria-label="Kategorien"
+            className="relative mx-auto mb-10 max-w-[1100px]"
           >
-            {loading ? (
-              Array.from({ length: 8 }).map((_, idx) => (
-                <ProductSkeleton key={idx} />
-              ))
-            ) : (
-              filteredProducts.map((product, idx) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  priority={idx < 4}
-                  onAddToCart={handleAddToCart}
-                  onViewDetails={setSelectedProduct}
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
+              aria-hidden
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.2) 50%, rgba(214,168,94,0) 100%)',
+              }}
+            />
+            <ul className="m-0 flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-9 gap-y-2 p-0 pb-4 list-none">
+              <li>
+                <FilterTab
+                  active={selectedCategory === 'all'}
+                  onClick={() => setSelectedCategory('all')}
+                  label={t.shop.categories.all}
                 />
-              ))
-            )}
-          </div>
+              </li>
+              {categories.map((category) => (
+                <li key={category.id}>
+                  <FilterTab
+                    active={selectedCategory === category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    label={category.name}
+                  />
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-          {filteredProducts.length === 0 && products.length > 0 && (
-            <div className="text-center py-32">
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full glass-card gold-glow mb-6">
-                <Search size={32} className="text-amber-600" />
+          <section className="mx-auto max-w-[1100px]">
+            {loading ? (
+              <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                {Array.from({ length: 6 }).map((_, idx) => (
+                  <BoutiqueSkeleton key={idx} />
+                ))}
               </div>
-              <h3 className="text-2xl font-light text-stone-800 mb-3">{t.shop.noProducts}</h3>
-              <p className="text-stone-600">{t.shop.noProductsDesc}</p>
-            </div>
-          )}
+            ) : filteredProducts.length === 0 ? (
+              <div
+                className="rounded-2xl px-6 py-14 text-center"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(18,16,14,0.55) 0%, rgba(8,7,6,0.76) 100%)',
+                  border: '1px solid rgba(214,168,94,0.12)',
+                }}
+              >
+                <p className="m-0 mb-2 text-[15px]" style={{ color: 'rgba(248,243,232,0.88)' }}>
+                  Keine Treffer
+                </p>
+                <p
+                  className="mx-auto m-0 max-w-[400px] text-[13.5px] leading-[1.62]"
+                  style={{ color: 'rgba(238,230,216,0.52)' }}
+                >
+                  Probieren Sie eine andere Suche oder wählen Sie „Alle“. Unter „Alle“ sind auch unsere einfachen Produkt‑Beispiele sichtbar.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredProducts.map((product, idx) => (
+                  <BoutiqueCard
+                    key={product.id}
+                    product={product}
+                    priority={idx < 6}
+                    onViewDetails={setSelectedProduct}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
         </div>
       </div>
 
       <div className="floating-cart">
         <button
+          type="button"
+          aria-label={`Warenkorb${cartItemCount > 0 ? ` (${cartItemCount})` : ''}`}
           onClick={() => onCartOpenChange(true)}
-          className="cart-glow w-16 h-16 rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform duration-300 relative"
+          className="cart-glow relative flex h-11 w-11 items-center justify-center rounded-full outline-none ring-offset-2 ring-offset-[#050505] transition-all duration-200 hover:-translate-y-px focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.35)] active:translate-y-0"
         >
-          <ShoppingCart size={24} strokeWidth={2} />
+          <ShoppingCart size={17} strokeWidth={1.65} aria-hidden />
           {cartItemCount > 0 && (
-            <span className="absolute -top-2 -right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">
-              {cartItemCount}
+            <span
+              className="absolute -right-0.5 -top-0.5 flex min-h-[17px] min-w-[17px] items-center justify-center rounded-full border px-[4px] text-[10px] font-semibold tabular-nums leading-none"
+              style={{
+                borderColor: 'rgba(214,168,94,0.28)',
+                background: 'rgba(35,26,22,0.98)',
+                color: 'rgba(244,239,232,0.95)',
+                boxShadow: '0 0 12px rgba(0,0,0,0.35)',
+              }}
+            >
+              {cartItemCount > 9 ? '9+' : cartItemCount}
             </span>
           )}
         </button>
@@ -483,186 +620,186 @@ export default function Shop({
   );
 }
 
-function ProductSkeleton() {
+/* -------------------- Boutique UI -------------------- */
+
+function FilterTab({
+  active,
+  onClick,
+  label,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+}) {
   return (
-    <div className="glass-card rounded-3xl overflow-hidden">
-      <div className="aspect-[4/5] bg-gradient-to-br from-amber-100/30 to-stone-100/30 animate-pulse" />
-      <div className="p-6 space-y-3">
-        <div className="h-5 bg-amber-100/40 rounded animate-pulse" />
-        <div className="h-4 bg-stone-100/40 rounded w-3/4 animate-pulse" />
-        <div className="h-6 bg-amber-100/40 rounded w-1/3 animate-pulse" />
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex flex-col items-center gap-1 px-1 py-1 transition-colors duration-300"
+      style={{
+        color: active ? 'rgba(248,243,232,0.96)' : 'rgba(238,230,216,0.52)',
+      }}
+    >
+      <span className="text-[10.5px] font-medium uppercase tracking-[0.26em]">{label}</span>
+      <span
+        aria-hidden
+        className="block h-px transition-all duration-300"
+        style={{
+          width: active ? '100%' : '0%',
+          background:
+            'linear-gradient(90deg, rgba(214,168,94,0) 0%, #C99B62 50%, rgba(214,168,94,0) 100%)',
+          opacity: active ? 1 : 0,
+        }}
+      />
+    </button>
+  );
+}
+
+function BoutiqueCard({
+  product,
+  priority,
+  onViewDetails,
+}: {
+  product: Product;
+  priority?: boolean;
+  onViewDetails: (product: Product) => void;
+}) {
+  const [loaded, setLoaded] = useState(false);
+
+  const priceLabel = product.price.toLocaleString('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+  });
+
+  return (
+    <article
+      role="button"
+      tabIndex={0}
+      onClick={() => onViewDetails(product)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onViewDetails(product);
+        }
+      }}
+      className="product-card group cursor-pointer overflow-hidden rounded-xl"
+      style={{
+        background:
+          'linear-gradient(180deg, rgba(20,17,14,0.78) 0%, rgba(10,9,8,0.88) 100%)',
+        border: '1px solid rgba(214,168,94,0.14)',
+      }}
+    >
+      <div
+        className="relative overflow-hidden"
+        style={{ aspectRatio: '4 / 5' }}
+      >
+        {!loaded && (
+          <div
+            className="absolute inset-0 animate-pulse"
+            style={{
+              background: 'linear-gradient(180deg, rgba(30,26,22,0.5), rgba(12,11,10,0.7))',
+            }}
+          />
+        )}
+        <img
+          src={product.image_url}
+          alt={product.name}
+          draggable={false}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchPriority={priority ? 'high' : undefined}
+          width={480}
+          height={600}
+          className={`product-image absolute inset-0 h-full w-full object-cover ${
+            loaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ transition: 'opacity 0.45s ease' }}
+          onLoad={() => setLoaded(true)}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.35) 100%)',
+          }}
+        />
+      </div>
+
+      <div className="px-4 pb-5 pt-4">
+        <h3
+          className="m-0 mb-2 font-light leading-snug"
+          style={{
+            fontFamily: "'Montserrat', system-ui, sans-serif",
+            fontSize: 'clamp(1.05rem, 1vw, 1.15rem)',
+            color: 'rgba(248,243,232,0.95)',
+          }}
+        >
+          {product.name}
+        </h3>
+        <p
+          className="m-0 mb-4 line-clamp-2 text-[13.5px] font-light leading-[1.55]"
+          style={{ color: 'rgba(238,230,216,0.58)' }}
+        >
+          {product.description}
+        </p>
+
+        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <span
+            className="text-[12.5px] font-normal tabular-nums"
+            style={{ color: 'rgba(214,168,94,0.85)' }}
+          >
+            {priceLabel}
+          </span>
+          {product.stock_quantity === 0 && (
+            <span className="text-[11px] font-medium" style={{ color: 'rgba(238,230,216,0.35)' }}>
+              Ausverkauft
+            </span>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onViewDetails(product);
+          }}
+          className="inline-flex cursor-pointer items-center gap-2 border-none bg-transparent p-0 text-[11.5px] font-semibold uppercase tracking-[0.2em]"
+          style={{
+            fontFamily:
+              "'Avenir Next','Avenir','Nunito Sans','Inter',system-ui,sans-serif",
+            color: '#C99B62',
+          }}
+        >
+          Details ansehen
+          <span aria-hidden className="-mt-px text-[13px]">
+            →
+          </span>
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function BoutiqueSkeleton() {
+  return (
+    <div
+      className="overflow-hidden rounded-xl"
+      style={{
+        background:
+          'linear-gradient(180deg, rgba(20,17,14,0.55) 0%, rgba(10,9,8,0.72) 100%)',
+        border: '1px solid rgba(214,168,94,0.1)',
+      }}
+    >
+      <div style={{ aspectRatio: '4/5' }} className="animate-pulse bg-[rgba(238,230,216,0.04)]" />
+      <div className="space-y-2 px-4 py-4">
+        <div className="h-4 w-2/3 rounded bg-[rgba(238,230,216,0.06)] animate-pulse" />
+        <div className="h-3 w-full rounded bg-[rgba(238,230,216,0.04)] animate-pulse" />
+        <div className="h-3 w-1/3 rounded bg-[rgba(214,168,94,0.12)] animate-pulse" />
       </div>
     </div>
   );
 }
-
-const ProductCard = memo(({ product, priority = false, onAddToCart, onViewDetails }: {
-  product: Product;
-  priority?: boolean;
-  onAddToCart: (product: Product, quantity?: number) => void;
-  onViewDetails: (product: Product) => void;
-}) => {
-  const { t } = useLanguage();
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  const [isVisible, setIsVisible] = useState(priority);
-  const [isAdding, setIsAdding] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (priority) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { rootMargin: '200px' }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [priority]);
-
-  const handleImageLoad = useCallback(() => {
-    setImageLoaded(true);
-  }, []);
-
-  const handleImageError = useCallback(() => {
-    setImageError(true);
-    setImageLoaded(true);
-  }, []);
-
-  const handleCardClick = useCallback(() => {
-    onViewDetails(product);
-  }, [onViewDetails, product]);
-
-  return (
-    <div
-      ref={cardRef}
-      onClick={handleCardClick}
-      className="product-card glass-card rounded-3xl overflow-hidden cursor-pointer luxury-border group"
-    >
-      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-amber-50/50 to-stone-50/50">
-        {!imageLoaded && isVisible && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-full h-full bg-gradient-to-br from-amber-100/30 to-stone-100/30 animate-pulse">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-12 h-12 border-3 border-amber-300/30 border-t-amber-500/50 rounded-full animate-spin" />
-              </div>
-            </div>
-          </div>
-        )}
-        {isVisible && !imageError && (
-          <img
-            src={product.image_url}
-            alt={product.name}
-            loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
-            {...(priority ? { fetchpriority: 'high' as any } : {})}
-            width="400"
-            height="500"
-            className={`product-image w-full h-full object-cover ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{
-              imageRendering: '-webkit-optimize-contrast',
-              contentVisibility: 'auto',
-              transition: 'opacity 0.5s ease-in-out'
-            }}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-          />
-        )}
-        {imageError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-amber-50 to-stone-50">
-            <div className="text-center p-4">
-              <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-amber-100 flex items-center justify-center">
-                <Sparkles className="text-amber-600" size={28} />
-              </div>
-              <p className="text-sm text-stone-500">{t.shop.imageNotAvailable}</p>
-            </div>
-          </div>
-        )}
-        {product.is_featured && (
-          <div className="absolute top-4 right-4 px-4 py-2 rounded-full bg-gradient-to-r from-amber-600 to-amber-500 text-white text-xs font-semibold flex items-center gap-1.5 shadow-lg pointer-events-none">
-            <Star size={12} fill="currentColor" />
-{t.shop.featured}
-          </div>
-        )}
-        {product.compare_at_price && (
-          <div className="absolute top-4 left-4 px-4 py-2 rounded-full bg-red-500 text-white text-xs font-semibold shadow-lg pointer-events-none">
-            {t.shop.sale}
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
-          <div className="absolute bottom-6 left-6 right-6">
-            {product.stock_quantity > 0 && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsAdding(true);
-                  onAddToCart(product, 1);
-                  setTimeout(() => setIsAdding(false), 1500);
-                }}
-                disabled={isAdding}
-                className={`w-full py-3.5 backdrop-blur-sm rounded-xl font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2 relative z-10 ${
-                  isAdding
-                    ? 'bg-green-500 text-white'
-                    : 'bg-white/95 text-amber-900 hover:bg-white hover:scale-105'
-                }`}
-              >
-                {isAdding ? (
-                  <>
-                    <Check size={18} strokeWidth={2.5} className="animate-pulse" />
-                    {t.shop.added}
-                  </>
-                ) : (
-                  <>
-                    <Plus size={18} strokeWidth={2.5} />
-                    {t.shop.addToCart}
-                  </>
-                )}
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="p-6 space-y-3">
-        <h3 className="text-lg font-medium text-stone-900 group-hover:text-amber-800 transition-colors line-clamp-2 leading-snug">
-          {product.name}
-        </h3>
-        <p className="text-sm text-stone-600 line-clamp-2 leading-relaxed">
-          {product.description}
-        </p>
-        <div className="flex items-center justify-between pt-2">
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-semibold text-amber-900">€{product.price.toFixed(2)}</span>
-            {product.compare_at_price && (
-              <span className="text-sm text-stone-400 line-through">€{product.compare_at_price.toFixed(2)}</span>
-            )}
-          </div>
-          {product.stock_quantity === 0 && (
-            <span className="text-xs text-red-500 font-medium">{t.shop.outOfStock}</span>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}, (prevProps, nextProps) => {
-  return prevProps.product.id === nextProps.product.id &&
-         prevProps.product.image_url === nextProps.product.image_url &&
-         prevProps.product.price === nextProps.product.price &&
-         prevProps.product.stock_quantity === nextProps.product.stock_quantity;
-});
 
 function CartSidebar({ cart, onClose, onUpdateQuantity, onRemove, total, onCheckout }: {
   cart: CartItem[];

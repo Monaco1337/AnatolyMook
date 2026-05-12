@@ -1,7 +1,58 @@
-import { useState, useEffect } from 'react';
-import { Plus, Minus, CheckCircle2, Sparkles, Brain, ArrowRight, User, Heart, Target, Zap } from 'lucide-react';
+import { useState, type CSSProperties, type ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { Plus, Minus, CheckCircle2, Brain, ArrowRight, Target } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { calculateTypology, type AnamnesisData, type TypologyResult } from '../utils/typologyCalculator';
+
+const FONT_HEAD = "'Montserrat', system-ui, -apple-system, sans-serif";
+const FONT_BODY =
+  "'Avenir Next', 'Avenir', 'Nunito Sans', 'Inter', system-ui, -apple-system, sans-serif";
+const BRONZE = 'rgba(201, 155, 98, 0.95)';
+const BRONZE_MUTED = 'rgba(214, 168, 94, 0.72)';
+const BRONZE_LINE = 'rgba(214, 168, 94, 0.18)';
+const BRONZE_SOFT = 'rgba(214, 168, 94, 0.1)';
+
+function Hl({ children }: { children: ReactNode }) {
+  return <span style={{ color: BRONZE }}>{children}</span>;
+}
+
+function PremiumBackdrop() {
+  return (
+    <>
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden
+        style={{
+          backgroundImage: 'url(/images/manifest/footer-stone-granite-bg.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          opacity: 0.35,
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        aria-hidden
+        style={{
+          background:
+            'radial-gradient(120% 76% at 50% 20%, rgba(214,168,94,0.05) 0%, transparent 52%), radial-gradient(120% 85% at 50% 100%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.82) 100%)',
+        }}
+      />
+    </>
+  );
+}
+
+/** Anamnese: gleiche Premium-Input-Logik wie Klarcheck — Lesbarkeit & Kontrast */
+const INPUT_FIELD =
+  'w-full rounded-[12px] border antialiased px-4 py-3.5 text-[16px] sm:text-[15px] font-normal tracking-[0.012em] leading-[1.45] outline-none transition-[border-color,box-shadow,background-color] duration-200 ' +
+  'bg-[rgba(17,15,13,0.82)] shadow-[inset_0_1px_0_rgba(255,245,228,0.055)] ' +
+  'border-[rgba(214,168,94,0.2)] text-[rgba(251,246,237,0.97)] caret-[rgba(201,155,98,0.92)] placeholder-[rgba(230,215,188,0.48)] ' +
+  'focus:border-[rgba(214,168,94,0.48)] focus:shadow-[inset_0_1px_0_rgba(255,242,226,0.07),0_0_0_1px_rgba(214,168,94,0.12)] ' +
+  'focus-visible:outline-none';
+
+const CARD_GLASS =
+  'rounded-[16px] border backdrop-blur-[10px] ' +
+  'bg-[linear-gradient(180deg,rgba(18,16,14,0.76)_0%,rgba(8,7,6,0.88)_100%)] ' +
+  'border-[rgba(214,168,94,0.14)] shadow-[0_18px_48px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.03)]';
 
 interface AnamnesisFormData {
   email: string;
@@ -89,30 +140,30 @@ export default function Anamnesis() {
     seeking_clarity: 5,
     what_should_change: '',
     what_must_not_stay: '',
-    readiness_to_examine: 5
+    readiness_to_examine: 5,
   });
 
   const sections: QuestionSection[] = [
     {
       id: 'section1',
-      title: 'Kontext & Orientierung',
-      category: 'Einordnung',
+      title: 'Kontext — wo du gerade stehst',
+      category: 'Orientierung',
       fields: [
         {
           id: 'inquiry_type',
-          question: 'Art der Anfrage',
+          question: 'Wobei soll ich dich zuerst einordnen?',
           type: 'single_choice',
           options: [
             { value: 'coaching', label: 'Coaching' },
             { value: 'seminar', label: 'Seminar' },
             { value: 'business', label: 'Business' },
-            { value: 'orientation', label: 'Orientierung' }
+            { value: 'orientation', label: 'Orientierung' },
           ],
-          required: true
+          required: true,
         },
         {
           id: 'life_situation',
-          question: 'Aktuelle Lebenssituation (Mehrfachauswahl)',
+          question: 'Was beschreibt deine Situation am ehesten? (Mehrfach möglich)',
           type: 'multi_select',
           options: [
             { value: 'career_transition', label: 'Berufliche Neuorientierung' },
@@ -122,103 +173,103 @@ export default function Anamnesis() {
             { value: 'meaning_search', label: 'Sinnsuche' },
             { value: 'burnout_prevention', label: 'Burnout-Prävention' },
             { value: 'personal_growth', label: 'Persönliche Entwicklung' },
-            { value: 'entrepreneurship', label: 'Selbstständigkeit' }
+            { value: 'entrepreneurship', label: 'Selbstständigkeit' },
           ],
-          required: true
+          required: true,
         },
         {
           id: 'primary_role',
-          question: 'Aktuelle Hauptrolle',
+          question: 'Deine Hauptrolle im Moment',
           type: 'single_choice',
           options: [
             { value: 'executive', label: 'Geschäftsführung / C-Level' },
             { value: 'manager', label: 'Führungskraft' },
             { value: 'self_employed', label: 'Selbstständig / Unternehmer' },
-            { value: 'employee', label: 'Angestellter' },
+            { value: 'employee', label: 'Angestellt' },
             { value: 'private', label: 'Privatperson' },
-            { value: 'in_transition', label: 'In Übergangsphase' }
+            { value: 'in_transition', label: 'In Übergangsphase' },
           ],
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     },
     {
       id: 'section2',
-      title: 'Innerer Zustand',
-      category: 'Baseline-Matrix',
+      title: 'Inneres Bild — Klarheit & Energie',
+      category: 'Präsenz',
       fields: [
         {
           id: 'inner_clarity',
-          question: 'Wie klar sehe ich gerade?',
+          question: 'Wie klar nimmst du dich und deine Situation gerade wahr?',
           type: 'scale',
           min: 1,
           max: 10,
           minLabel: 'Nebel',
-          maxLabel: 'Glasklar'
+          maxLabel: 'Glasklar',
         },
         {
           id: 'inner_stability',
-          question: 'Wie stabil fühle ich mich?',
+          question: 'Wie stabil fühlt sich dein innerer Boden an?',
           type: 'scale',
           min: 1,
           max: 10,
-          minLabel: 'Wackelig',
-          maxLabel: 'Sehr stabil'
+          minLabel: 'Wankend',
+          maxLabel: 'Sehr tragfähig',
         },
         {
           id: 'decision_capability',
-          question: 'Wie gut kann ich Entscheidungen treffen?',
+          question: 'Wie leicht fällt es dir gerade zu entscheiden?',
           type: 'scale',
           min: 1,
           max: 10,
           minLabel: 'Schwer',
-          maxLabel: 'Leicht'
+          maxLabel: 'Leicht',
         },
         {
           id: 'energy_level',
-          question: 'Wie ist mein Energielevel?',
+          question: 'Wie zugänglich ist dir gerade Kraft und Lebendigkeit?',
           type: 'scale',
           min: 1,
           max: 10,
-          minLabel: 'Erschöpft',
-          maxLabel: 'Voller Energie'
-        }
-      ]
+          minLabel: 'Leer',
+          maxLabel: 'Vital',
+        },
+      ],
     },
     {
       id: 'section3',
-      title: 'Stress- & Reaktionsmuster',
-      category: 'Mustererkennung',
+      title: 'Druck — wie du reagierst',
+      category: 'Stabilität',
       fields: [
         {
           id: 'stress_reaction',
-          question: 'Wenn ich unter Druck bin, dann...',
+          question: 'Wenn es eng wird und Druck aufkommt …',
           type: 'single_choice',
           options: [
-            { value: 'withdraw', label: 'Ich ziehe mich zurück' },
-            { value: 'attack', label: 'Ich werde kämpferisch' },
-            { value: 'freeze', label: 'Ich erstarre / blockiere' },
-            { value: 'function', label: 'Ich funktioniere einfach weiter' },
-            { value: 'seek_control', label: 'Ich versuche alles zu kontrollieren' }
+            { value: 'withdraw', label: 'Ziehe mich zurück' },
+            { value: 'attack', label: 'Werde kämpferisch' },
+            { value: 'freeze', label: 'Erstarre / blockiere' },
+            { value: 'function', label: 'Funktioniere einfach weiter' },
+            { value: 'seek_control', label: 'Versuche alles zu kontrollieren' },
           ],
-          required: true
+          required: true,
         },
         {
           id: 'conflict_experience',
-          question: 'In Konflikten erlebe ich mich als...',
+          question: 'In Konflikt erlebe ich mich eher als …',
           type: 'single_choice',
           options: [
-            { value: 'aggressive', label: 'Aggressiv' },
+            { value: 'aggressive', label: 'Durchsetzend' },
             { value: 'avoidant', label: 'Vermeidend' },
-            { value: 'diplomatic', label: 'Diplomatisch' },
+            { value: 'diplomatic', label: 'Vermittelnd' },
             { value: 'defensive', label: 'Defensiv' },
-            { value: 'overwhelmed', label: 'Überwältigt' }
+            { value: 'overwhelmed', label: 'Überfordert' },
           ],
-          required: true
+          required: true,
         },
         {
           id: 'daily_feelings',
-          question: 'Was fühle ich im Alltag am häufigsten? (Mehrfachauswahl)',
+          question: 'Was beschreibt deinen Alltag am häufigsten? (Mehrfach möglich)',
           type: 'multi_select',
           options: [
             { value: 'pressure', label: 'Druck' },
@@ -228,183 +279,180 @@ export default function Anamnesis() {
             { value: 'dissatisfaction', label: 'Unzufriedenheit' },
             { value: 'joy', label: 'Freude' },
             { value: 'peace', label: 'Frieden' },
-            { value: 'uncertainty', label: 'Unsicherheit' }
+            { value: 'uncertainty', label: 'Unsicherheit' },
           ],
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     },
     {
       id: 'section4',
-      title: 'Entscheidungs- & Handlungslogik',
-      category: 'Zentral für Typisierung',
+      title: 'Entscheiden & Handlung',
+      category: 'Klarheit',
       fields: [
         {
           id: 'decision_style',
-          question: 'Wie treffe ich wichtige Entscheidungen?',
+          question: 'Wichtige Entscheidungen triffst du eher …',
           type: 'single_choice',
           options: [
             { value: 'rational', label: 'Rational / aus dem Kopf' },
             { value: 'intuitive', label: 'Intuitiv / aus dem Bauch' },
-            { value: 'external', label: 'Basierend auf Meinungen anderer' },
-            { value: 'delayed', label: 'Ich schiebe sie auf' },
-            { value: 'impulsive', label: 'Schnell und impulsiv' }
+            { value: 'external', label: 'Angelehnt an andere Meinungen' },
+            { value: 'delayed', label: 'Schiebe sie auf' },
+            { value: 'impulsive', label: 'Schnell und impulsiv' },
           ],
-          required: true
+          required: true,
         },
         {
           id: 'self_trust_level',
-          question: 'Wie sehr vertraue ich mir selbst?',
+          question: 'Wie sehr vertraust du dir gerade?',
           type: 'scale',
           min: 1,
           max: 10,
           minLabel: 'Kaum',
-          maxLabel: 'Voll und ganz'
+          maxLabel: 'Vollständig',
         },
         {
           id: 'uncertainty_reaction',
-          question: 'Wenn ich nicht weiß, was richtig ist...',
+          question: 'Wenn du nicht weißt, was richtig ist …',
           type: 'single_choice',
           options: [
-            { value: 'research', label: 'Ich recherchiere / sammle Infos' },
-            { value: 'ask_others', label: 'Ich frage andere' },
-            { value: 'wait', label: 'Ich warte ab' },
-            { value: 'panic', label: 'Ich gerate in Panik' },
-            { value: 'trust_feeling', label: 'Ich vertraue meinem Gefühl' }
+            { value: 'research', label: 'Recherchiere / sammle Infos' },
+            { value: 'ask_others', label: 'Frage andere' },
+            { value: 'wait', label: 'Warte ab' },
+            { value: 'panic', label: 'Gerate in Stress' },
+            { value: 'trust_feeling', label: 'Vertraue dem Gefühl' },
           ],
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     },
     {
       id: 'section5',
-      title: 'Beziehung & Außenwirkung',
-      category: 'Soziale Dynamik',
+      title: 'Nähe & Nach außen',
+      category: 'Beziehung',
       fields: [
         {
           id: 'closeness_difficulty',
-          question: 'Nähe zu anderen fällt mir...',
+          question: 'Nähe zu Menschen empfinde ich oft als …',
           type: 'single_choice',
           options: [
             { value: 'easy', label: 'Leicht' },
             { value: 'difficult', label: 'Schwer' },
             { value: 'context_dependent', label: 'Situationsabhängig' },
-            { value: 'scary', label: 'Macht mir Angst' },
-            { value: 'natural', label: 'Sehr natürlich' }
+            { value: 'scary', label: 'Eher angespannt' },
+            { value: 'natural', label: 'Selbstverständlich' },
           ],
-          required: true
+          required: true,
         },
         {
           id: 'external_appearance',
-          question: 'Nach außen wirke ich...',
+          question: 'Nach außen wirkst du für andere eher …',
           type: 'single_choice',
           options: [
             { value: 'strong', label: 'Stark / souverän' },
             { value: 'friendly', label: 'Freundlich / offen' },
             { value: 'reserved', label: 'Zurückhaltend / kühl' },
             { value: 'insecure', label: 'Unsicher' },
-            { value: 'authentic', label: 'Authentisch' }
+            { value: 'authentic', label: 'Authentisch' },
           ],
-          required: true
+          required: true,
         },
         {
           id: 'feedback_from_others',
-          question: 'Menschen sagen über mich... (Mehrfachauswahl)',
+          question: 'So höre ich es von anderen häufiger … (Mehrfach möglich)',
           type: 'multi_select',
           options: [
-            { value: 'strong', label: 'Du bist stark' },
-            { value: 'sensitive', label: 'Du bist sensibel' },
-            { value: 'closed', label: 'Du bist verschlossen' },
-            { value: 'intense', label: 'Du bist intensiv' },
-            { value: 'distant', label: 'Du bist distanziert' },
-            { value: 'warm', label: 'Du bist herzlich' },
-            { value: 'confusing', label: 'Ich verstehe dich nicht' }
+            { value: 'strong', label: '"Du bist stark"' },
+            { value: 'sensitive', label: '"Du bist sensibel"' },
+            { value: 'closed', label: '"Du wirfst verschlossen"' },
+            { value: 'intense', label: '"Du bist intensiv"' },
+            { value: 'distant', label: '"Du bist distanziert"' },
+            { value: 'warm', label: '"Du bist herzlich"' },
+            { value: 'confusing', label: '"Ich verstehe dich nicht"' },
           ],
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     },
     {
       id: 'section6',
-      title: 'Sinn, Wahrheit, Ausrichtung',
-      category: 'Tiefe Ebene',
+      title: 'Sinn — Ausrichtung & Tiefe',
+      category: 'Wahrheit',
       fields: [
         {
           id: 'on_my_path',
-          question: 'Ich bin auf meinem Weg',
+          question: '"Ich bin auf meinem Weg." — wie trifft das zu?',
           type: 'scale',
           min: 1,
           max: 10,
-          minLabel: 'Nein',
-          maxLabel: 'Voll und ganz'
+          minLabel: 'Kaum',
+          maxLabel: 'Vollständig',
         },
         {
           id: 'change_is_coming',
-          question: 'Ich spüre, dass eine Veränderung kommt',
+          question: 'Ich spüre, dass sich etwas verändern will.',
           type: 'scale',
           min: 1,
           max: 10,
-          minLabel: 'Nein',
-          maxLabel: 'Sehr stark'
+          minLabel: 'Kaum',
+          maxLabel: 'Sehr stark',
         },
         {
           id: 'functioning_vs_living',
-          question: 'Ich funktioniere mehr, als dass ich lebe',
+          question: '"Ich funktioniere mehr, als ich wirklich lebe."',
           type: 'scale',
           min: 1,
           max: 10,
           minLabel: 'Trifft nicht zu',
-          maxLabel: 'Trifft voll zu'
+          maxLabel: 'Trifft voll zu',
         },
         {
           id: 'seeking_clarity',
-          question: 'Ich suche nach Klarheit über mein Leben',
+          question: 'Ich verlange gerade nach Klarheit über mein Leben.',
           type: 'scale',
           min: 1,
           max: 10,
           minLabel: 'Nein',
-          maxLabel: 'Ja, dringend'
-        }
-      ]
+          maxLabel: 'Ja, sehr',
+        },
+      ],
     },
     {
       id: 'section7',
-      title: 'Bereitschaft & Ziel',
-      category: 'Abschluss',
+      title: 'Bereitschaft — dein nächster Schritt',
+      category: 'Offenheit',
       fields: [
         {
           id: 'what_should_change',
-          question: 'Was soll sich verändern?',
+          question: 'Was darf sich — behutsam und ehrlich — verändern?',
           type: 'text',
-          required: true
+          required: true,
         },
         {
           id: 'what_must_not_stay',
-          question: 'Was darf nicht mehr so bleiben?',
+          question: 'Was darf nicht unverändert bleiben, wenn du ehrlich bist?',
           type: 'text',
-          required: true
+          required: true,
         },
         {
           id: 'readiness_to_examine',
-          question: 'Wie bereit bin ich, mich wirklich zu betrachten?',
+          question: 'Wie bereit bist du, dich dem anzuschauen, ohne dich zu beschämen?',
           type: 'scale',
           min: 1,
           max: 10,
-          minLabel: 'Unsicher',
-          maxLabel: 'Voll bereit'
-        }
-      ]
-    }
+          minLabel: 'Zögerlich',
+          maxLabel: 'Sehr bereit',
+        },
+      ],
+    },
   ];
 
   const toggleSection = (sectionId: string) => {
-    setExpandedSections(prev => {
+    setExpandedSections((prev) => {
       const next = new Set(prev);
-      if (next.has(sectionId)) {
-        next.delete(sectionId);
-      } else {
-        next.add(sectionId);
-      }
+      if (next.has(sectionId)) next.delete(sectionId);
+      else next.add(sectionId);
       return next;
     });
   };
@@ -414,7 +462,7 @@ export default function Anamnesis() {
       e.preventDefault();
       e.stopPropagation();
     }
-    setFormData(prev => ({ ...prev, [fieldId]: value }));
+    setFormData((prev) => ({ ...prev, [fieldId]: value }));
   };
 
   const toggleMultiSelect = (fieldId: keyof AnamnesisFormData, value: string, e?: React.MouseEvent) => {
@@ -424,7 +472,7 @@ export default function Anamnesis() {
     }
     const currentArray = formData[fieldId] as string[];
     if (currentArray.includes(value)) {
-      handleAnswer(fieldId, currentArray.filter(v => v !== value));
+      handleAnswer(fieldId, currentArray.filter((v) => v !== value));
     } else {
       handleAnswer(fieldId, [...currentArray, value]);
     }
@@ -432,40 +480,35 @@ export default function Anamnesis() {
 
   const handleStartAnamnesis = () => {
     if (!userInfo.first_name || !userInfo.last_name || !userInfo.email) {
-      alert('Bitte geben Sie Ihre Daten ein.');
+      alert('Bitte trag Name und E-Mail ein — damit ich deine Auswertung zuordnen kann.');
       return;
     }
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       first_name: userInfo.first_name,
       last_name: userInfo.last_name,
-      email: userInfo.email
+      email: userInfo.email,
     }));
     setShowWelcome(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const isSectionComplete = (section: QuestionSection): boolean => {
-    return section.fields.every(field => {
+  const isSectionComplete = (section: QuestionSection): boolean =>
+    section.fields.every((field) => {
       const value = formData[field.id];
       if (!field.required) return true;
-      if (field.type === 'multi_select') {
-        return Array.isArray(value) && value.length > 0;
-      }
-      if (field.type === 'text') {
-        return typeof value === 'string' && value.trim().length > 0;
-      }
+      if (field.type === 'multi_select') return Array.isArray(value) && value.length > 0;
+      if (field.type === 'text') return typeof value === 'string' && value.trim().length > 0;
       return value !== '' && value !== undefined;
     });
-  };
 
-  const allSectionsComplete = sections.every(section => isSectionComplete(section));
-  const completedSectionsCount = sections.filter(section => isSectionComplete(section)).length;
+  const allSectionsComplete = sections.every((section) => isSectionComplete(section));
+  const completedSectionsCount = sections.filter((section) => isSectionComplete(section)).length;
   const progressPercentage = (completedSectionsCount / sections.length) * 100;
 
   const handleSubmit = async () => {
     if (!allSectionsComplete) {
-      alert('Bitte beantworten Sie alle erforderlichen Fragen.');
+      alert('Bitte fülle noch alle Bereiche aus, die mit * gekennzeichnet sind.');
       return;
     }
 
@@ -481,12 +524,10 @@ export default function Anamnesis() {
         secondary_type: typology.secondary_type,
         tension_profile: typology.tension_profile,
         coaching_focus: typology.coaching_focus,
-        typology_scores: typology.typology_scores
+        typology_scores: typology.typology_scores,
       };
 
-      const { error } = await supabase
-        .from('anamnesis_submissions')
-        .insert([submissionData]);
+      const { error } = await supabase.from('anamnesis_submissions').insert([submissionData]);
 
       if (error) throw error;
 
@@ -494,7 +535,7 @@ export default function Anamnesis() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error('Error submitting anamnesis:', error);
-      alert('Fehler beim Senden. Bitte versuchen Sie es erneut.');
+      alert('Das Senden ist fehlgeschlagen. Bitte versuch es noch einmal.');
     } finally {
       setIsSubmitting(false);
     }
@@ -502,140 +543,126 @@ export default function Anamnesis() {
 
   if (showResults && typologyResult) {
     return (
-      <div className="min-h-screen bg-black relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-orange-400/10" />
-          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-amber-400/20 rounded-full blur-[160px] animate-pulse" />
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-[160px] animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-300/10 rounded-full blur-[200px] animate-pulse" style={{ animationDelay: '2s' }} />
-        </div>
+      <div className="relative min-h-screen overflow-hidden text-white" style={{ backgroundColor: '#050505' }}>
+        <PremiumBackdrop />
 
-        <div className="relative z-10 py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-8 sm:mb-12 md:mb-16">
-              <div className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-xs font-bold tracking-widest uppercase backdrop-blur-sm mb-6 sm:mb-8 animate-fade-in">
-                <CheckCircle2 size={16} />
-                Profiling abgeschlossen
-              </div>
-
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 sm:mb-8 leading-tight animate-fade-in px-4" style={{ fontFamily: "'Inter', sans-serif", animationDelay: '0.1s' }}>
-                Ihr persönliches Profil
-              </h1>
-
-              <div className="relative max-w-3xl mx-auto mb-8 sm:mb-12 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                <div className="absolute inset-0 rounded-2xl sm:rounded-3xl blur-2xl" style={{ background: `linear-gradient(to right, ${typologyResult.primary_type_color}20, ${typologyResult.primary_type_color}20)` }} />
-                <div className="relative backdrop-blur-xl rounded-2xl sm:rounded-3xl border-2 p-6 sm:p-8 md:p-10 lg:p-12" style={{
-                  background: `linear-gradient(to bottom right, ${typologyResult.primary_type_color}10, ${typologyResult.primary_type_color}05)`,
-                  borderColor: `${typologyResult.primary_type_color}30`
-                }}>
-                  <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl flex items-center justify-center shadow-2xl" style={{
-                      background: `linear-gradient(to bottom right, ${typologyResult.primary_type_color}, ${typologyResult.primary_type_color}CC)`
-                    }}>
-                      <Brain className="w-8 h-8 sm:w-10 sm:h-10 text-white" strokeWidth={2.5} />
-                    </div>
-                  </div>
-
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 sm:mb-4" style={{ fontFamily: "'Inter', sans-serif", color: typologyResult.primary_type_color }}>
-                    {typologyResult.primary_type_label}
-                  </h2>
-
-                  <p className="text-lg sm:text-xl md:text-2xl text-white/80 leading-relaxed font-medium px-2">
-                    {typologyResult.primary_type_description}
-                  </p>
-
-                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-50" style={{
-                    background: `linear-gradient(to right, ${typologyResult.primary_type_color}00, ${typologyResult.primary_type_color}50, ${typologyResult.primary_type_color}00)`,
-                    maskImage: 'linear-gradient(90deg, transparent, black 20%, black 80%, transparent)',
-                    WebkitMaskImage: 'linear-gradient(90deg, transparent, black 20%, black 80%, transparent)'
-                  }} />
-                </div>
-              </div>
+        <div
+          className="relative z-[1] mx-auto max-w-xl px-5 pb-14 pt-[4.5rem] sm:pt-24 md:max-w-2xl md:px-8"
+          style={{ fontFamily: FONT_BODY }}
+        >
+          <div className="mb-7 text-center sm:mb-8">
+            <div
+              className="mb-3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5"
+              style={{ borderColor: BRONZE_LINE, background: 'rgba(12,11,10,0.55)' }}
+            >
+              <CheckCircle2 size={14} strokeWidth={1.65} style={{ color: BRONZE }} aria-hidden />
+              <span
+                className="text-[10px] font-medium uppercase tracking-[0.22em]"
+                style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
+              >
+                Fertig
+              </span>
             </div>
+            <h1
+              className="m-0 mb-2 text-[1.5rem] font-light tracking-[-0.02em] sm:text-[1.7rem]"
+              style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.96)' }}
+            >
+              Deine erste <Hl>Orientierung</Hl>
+            </h1>
+            <p className="m-0 text-[13.5px] font-light leading-[1.55]" style={{ color: 'rgba(244,239,230,0.54)' }}>
+              Ich lese diese Einordnung bewusst — als Startpunkt, nicht als Etikett. Es geht um <Hl>Klarheit</Hl> vor
+              Schnelligkeit.
+            </p>
+          </div>
 
-            {typologyResult.secondary_type && (
-              <div className="mb-8 sm:mb-12 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-                <div className="relative">
-                  <div className="absolute inset-0 bg-white/5 rounded-2xl sm:rounded-3xl blur-xl" />
-                  <div className="relative p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/10 backdrop-blur-sm">
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3">Sekundärer Einfluss</h3>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/70">{typologyResult.secondary_type_label}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="relative mb-8 sm:mb-12 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="absolute inset-0 rounded-2xl sm:rounded-3xl blur-2xl" style={{ background: `linear-gradient(135deg, ${typologyResult.primary_type_color}10, transparent)` }} />
-              <div className="relative p-6 sm:p-8 md:p-10 lg:p-12 rounded-2xl sm:rounded-3xl border backdrop-blur-sm" style={{
-                background: `linear-gradient(135deg, ${typologyResult.primary_type_color}06, transparent)`,
-                borderColor: `${typologyResult.primary_type_color}20`
-              }}>
-                <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mb-6 sm:mb-8">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0" style={{
-                    background: `${typologyResult.primary_type_color}20`,
-                    border: `2px solid ${typologyResult.primary_type_color}40`
-                  }}>
-                    <Target className="w-7 h-7 sm:w-8 sm:h-8" style={{ color: typologyResult.primary_type_color }} strokeWidth={2} />
-                  </div>
-                  <div>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      Ihr Coaching-Fokus
-                    </h3>
-                    <p className="text-white/50 text-xs sm:text-sm">Empfohlener Transformationsweg</p>
-                  </div>
-                </div>
-                <p className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed">
-                  {typologyResult.coaching_focus}
-                </p>
-              </div>
+          <div className={`${CARD_GLASS} mb-4 px-5 py-5 text-center sm:px-6`}>
+            <div className="mb-3 flex justify-center">
+              <span
+                className="inline-flex h-11 w-11 items-center justify-center rounded-[11px] border"
+                style={{ borderColor: BRONZE_LINE, background: BRONZE_SOFT, color: BRONZE }}
+              >
+                <Brain size={22} strokeWidth={1.65} aria-hidden />
+              </span>
             </div>
+            <p
+              className="m-0 mb-1 text-[10px] font-medium uppercase tracking-[0.2em]"
+              style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
+            >
+              Muster-Einordnung
+            </p>
+            <h2 className="m-0 mb-3 text-[1.25rem] font-normal leading-tight sm:text-[1.35rem]" style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.95)' }}>
+              {typologyResult.primary_type_label}
+            </h2>
+            <p className="m-0 text-left text-[13.75px] font-light leading-[1.6]" style={{ color: 'rgba(244,239,230,0.62)' }}>
+              {typologyResult.primary_type_description}
+            </p>
+          </div>
 
-            <div className="relative mb-8 sm:mb-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl border backdrop-blur-sm" style={{
-                background: `linear-gradient(to right, ${typologyResult.primary_type_color}05, ${typologyResult.primary_type_color}10, ${typologyResult.primary_type_color}05)`,
-                borderColor: `${typologyResult.primary_type_color}20`
-              }}>
-                <div className="text-center">
-                  <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">Hallo {userInfo.first_name},</h4>
-                  <p className="text-white/70 text-base sm:text-lg leading-relaxed">
-                    Ihre vollständige Analyse wurde gespeichert und wird an <span className="font-semibold" style={{ color: typologyResult.primary_type_color }}>{userInfo.email}</span> gesendet.
-                  </p>
-                </div>
-              </div>
+          {typologyResult.secondary_type && (
+            <div className={`${CARD_GLASS} mb-4 px-5 py-4 sm:px-6`}>
+              <p
+                className="m-0 mb-2 text-[10px] font-medium uppercase tracking-[0.2em]"
+                style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
+              >
+                Zweite Linie
+              </p>
+              <p className="m-0 text-[14px] font-normal" style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.86)' }}>
+                {typologyResult.secondary_type_label}
+              </p>
             </div>
+          )}
 
-            <div className="relative text-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <div className="absolute inset-0 rounded-2xl sm:rounded-3xl blur-2xl" style={{ background: `linear-gradient(to right, transparent, ${typologyResult.primary_type_color}05, transparent)` }} />
-              <div className="relative p-8 sm:p-10 md:p-12 rounded-2xl sm:rounded-3xl bg-white/[0.02] border border-white/10 backdrop-blur-sm">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-6 sm:mb-8" style={{
-                  background: `${typologyResult.primary_type_color}20`,
-                  border: `2px solid ${typologyResult.primary_type_color}40`
-                }}>
-                  <Sparkles className="w-8 h-8 sm:w-10 sm:h-10" style={{ color: typologyResult.primary_type_color }} strokeWidth={2} />
-                </div>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 px-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-                  Bereit für Ihre Transformation?
+          <div className={`${CARD_GLASS} mb-6 px-5 py-5 sm:px-6`}>
+            <div className="mb-3 flex items-start gap-3">
+              <span
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border"
+                style={{ borderColor: BRONZE_LINE, background: BRONZE_SOFT, color: BRONZE }}
+              >
+                <Target size={17} strokeWidth={1.65} aria-hidden />
+              </span>
+              <div>
+                <h3 className="m-0 mb-1 text-[0.95rem] font-normal" style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.94)' }}>
+                  Worauf ich für dich schaue
                 </h3>
-                <p className="text-base sm:text-lg text-white/70 leading-relaxed mb-8 sm:mb-10 max-w-2xl mx-auto px-4">
-                  Erfahren Sie in einem persönlichen Gespräch, wie Sie Ihr volles Potenzial entfalten können.
+                <p className="m-0 text-[11.5px] font-light leading-relaxed" style={{ color: 'rgba(238,230,216,0.42)' }}>
+                  Gemeinsamer Fokus – wenn du weitergehen willst.
                 </p>
-                <button
-                  onClick={() => window.location.href = '/#booking'}
-                  className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 h-14 sm:h-16 px-8 sm:px-10 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 active:scale-95 text-white"
-                  style={{
-                    background: `linear-gradient(to right, ${typologyResult.primary_type_color}, ${typologyResult.primary_type_color}CC)`,
-                    boxShadow: `0 8px 32px ${typologyResult.primary_type_color}40`
-                  }}
-                >
-                  <Brain className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
-                  <span>Persönliches Coaching anfragen</span>
-                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" strokeWidth={2.5} />
-
-                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                </button>
               </div>
             </div>
+            <p className="m-0 text-[14px] font-light leading-[1.62]" style={{ color: 'rgba(244,239,230,0.68)' }}>
+              {typologyResult.coaching_focus}
+            </p>
+          </div>
+
+          <div className={`${CARD_GLASS} mb-8 px-5 py-5 text-center sm:text-left`}>
+            <p className="m-0 mb-2 text-[14px] font-light" style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.9)' }}>
+              Hallo {userInfo.first_name},
+            </p>
+            <p className="m-0 text-[13.25px] font-light leading-[1.58]" style={{ color: 'rgba(244,239,230,0.58)' }}>
+              Ich habe deine Antworten gesichert — die Zusammenfassung nutze ich, um dich bewusst zu verorten. Für den{' '}
+              <Hl>nächsten stabilen Schritt</Hl> reicht oft ein Gespräch: dort vertiefen wir, was dich wirklich bewegt.
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center gap-3 text-center">
+            <Link
+              to="/kontakt"
+              className="inline-flex items-center justify-center gap-2 rounded-[13px] border px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em]"
+              style={{
+                fontFamily: FONT_HEAD,
+                borderColor: 'rgba(214,168,94,0.32)',
+                color: 'rgba(12,8,6,0.9)',
+                background: 'linear-gradient(180deg, rgba(214,168,94,0.92) 0%, rgba(150,104,56,0.88) 100%)',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,228,196,0.18)',
+              }}
+            >
+              <Brain size={15} strokeWidth={1.9} aria-hidden />
+              Schreib mir
+              <ArrowRight size={14} strokeWidth={2} aria-hidden />
+            </Link>
+            <Link to="/booking" className="text-[12px] font-light underline-offset-4" style={{ color: BRONZE_MUTED }}>
+              Oder einen Termin wählen →
+            </Link>
           </div>
         </div>
       </div>
@@ -644,91 +671,131 @@ export default function Anamnesis() {
 
   if (showWelcome) {
     return (
-      <div className="min-h-screen bg-black relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-transparent to-orange-400/10" />
-          <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-amber-400/20 rounded-full blur-[160px] animate-pulse" />
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-[160px] animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-300/10 rounded-full blur-[200px] animate-pulse" style={{ animationDelay: '2s' }} />
-        </div>
+      <div className="relative min-h-screen overflow-hidden text-white" style={{ backgroundColor: '#050505' }}>
+        <PremiumBackdrop />
+        <div
+          className="relative z-[1] mx-auto flex min-h-screen max-w-xl flex-col justify-center px-5 py-10 sm:max-w-[26rem] sm:py-14 md:max-w-[28rem]"
+          style={{ fontFamily: FONT_BODY }}
+        >
+          <div className="mb-6 text-center sm:mb-7">
+            <div className="mb-4 flex justify-center">
+              <span
+                className="inline-flex h-11 w-11 items-center justify-center rounded-[12px] border sm:h-12 sm:w-12"
+                style={{
+                  borderColor: BRONZE_LINE,
+                  background: BRONZE_SOFT,
+                  color: BRONZE,
+                  boxShadow: '0 14px 36px rgba(0,0,0,0.35)',
+                }}
+              >
+                <Brain size={22} strokeWidth={1.65} aria-hidden />
+              </span>
+            </div>
 
-        <div className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20">
-          <div className="max-w-4xl w-full">
-            <div className="relative">
-              <div className="text-center mb-10 sm:mb-16">
-                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-amber-400 to-orange-500 mb-8 sm:mb-10 shadow-[0_20px_60px_rgba(251,146,60,0.4)] animate-pulse">
-                  <Brain className="w-10 h-10 sm:w-12 sm:h-12 text-black" strokeWidth={2.5} />
-                </div>
+            <p
+              className="m-0 mb-2 text-[10px] font-medium uppercase tracking-[0.26em]"
+              style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
+            >
+              Persönlicher Bogen
+            </p>
 
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text mb-4 sm:mb-6 leading-tight px-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-                  Persönlicher Anamnesebogen
-                </h1>
+            <h1
+              className="m-0 mb-3 text-[1.575rem] font-light leading-snug tracking-[-0.02em] sm:text-[1.75rem]"
+              style={{
+                fontFamily: FONT_HEAD,
+                color: 'rgba(248,243,232,0.96)',
+                textShadow: '0 1px 0 rgba(20,12,6,0.45)',
+              }}
+            >
+              Persönlicher Anamnesebogen
+            </h1>
 
-                <p className="text-lg sm:text-xl md:text-2xl text-white/70 leading-relaxed max-w-3xl mx-auto mb-10 sm:mb-16 px-4">
-                  Ein strukturiertes Profiling für Menschen, die wirklich verstanden werden wollen. Grundlage für ein klares, passendes Coaching.
-                </p>
+            <p className="m-0 text-[13.75px] font-light leading-[1.56] sm:text-[14px]" style={{ color: 'rgba(244,239,230,0.56)' }}>
+              Ich möchte zuerst verstehen, was dich aktuell wirklich bewegt — ruhig, strukturiert, ohne Klinikton. Die
+              Antworten helfen mir, deine Situation <Hl>bewusst</Hl> einzuordnen, damit schon vor einem Gespräch mehr{' '}
+              <Hl>Klarheit</Hl> da ist — und du dich sicher kannst zurücklehnen.
+            </p>
+          </div>
+
+          <div className={`${CARD_GLASS} px-5 py-6 sm:px-6 sm:py-6`}>
+            <h2
+              className="m-0 mb-4 text-center text-[1rem] font-normal sm:text-[1.05rem]"
+              style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.94)' }}
+            >
+              Deine Kontaktdaten
+            </h2>
+
+            <div className="mb-5 space-y-3.5">
+              <div>
+                <label
+                  className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.2em]"
+                  style={{ fontFamily: FONT_BODY, color: BRONZE_MUTED }}
+                >
+                  Vorname
+                </label>
+                <input
+                  type="text"
+                  value={userInfo.first_name}
+                  onChange={(e) => setUserInfo((prev) => ({ ...prev, first_name: e.target.value }))}
+                  className={INPUT_FIELD}
+                  placeholder="Dein Vorname"
+                  autoComplete="given-name"
+                />
               </div>
-
-              <div className="relative max-w-2xl mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 via-orange-300/20 to-amber-400/20 rounded-2xl sm:rounded-3xl blur-2xl" />
-                <div className="relative p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/20 backdrop-blur-xl">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 sm:mb-8 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
-                    Ihre Daten
-                  </h2>
-
-                  <div className="space-y-5 sm:space-y-6 mb-8 sm:mb-10">
-                    <div>
-                      <label className="block text-white/90 text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wide">Vorname</label>
-                      <input
-                        type="text"
-                        value={userInfo.first_name}
-                        onChange={(e) => setUserInfo(prev => ({ ...prev, first_name: e.target.value }))}
-                        className="w-full h-14 sm:h-16 px-5 sm:px-6 rounded-xl sm:rounded-2xl bg-black/30 border-2 border-white/10 text-white text-base sm:text-lg placeholder-white/30 focus:border-amber-400/50 focus:bg-black/50 transition-all outline-none"
-                        placeholder="Ihr Vorname"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-white/90 text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wide">Nachname</label>
-                      <input
-                        type="text"
-                        value={userInfo.last_name}
-                        onChange={(e) => setUserInfo(prev => ({ ...prev, last_name: e.target.value }))}
-                        className="w-full h-14 sm:h-16 px-5 sm:px-6 rounded-xl sm:rounded-2xl bg-black/30 border-2 border-white/10 text-white text-base sm:text-lg placeholder-white/30 focus:border-amber-400/50 focus:bg-black/50 transition-all outline-none"
-                        placeholder="Ihr Nachname"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-white/90 text-xs sm:text-sm font-bold mb-2 sm:mb-3 uppercase tracking-wide">E-Mail</label>
-                      <input
-                        type="email"
-                        value={userInfo.email}
-                        onChange={(e) => setUserInfo(prev => ({ ...prev, email: e.target.value }))}
-                        className="w-full h-14 sm:h-16 px-5 sm:px-6 rounded-xl sm:rounded-2xl bg-black/30 border-2 border-white/10 text-white text-base sm:text-lg placeholder-white/30 focus:border-amber-400/50 focus:bg-black/50 transition-all outline-none"
-                        placeholder="ihre.email@beispiel.de"
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={handleStartAnamnesis}
-                    disabled={!userInfo.first_name || !userInfo.last_name || !userInfo.email}
-                    className="group relative w-full h-14 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-black font-bold text-lg sm:text-xl transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-95 shadow-[0_8px_32px_rgba(251,146,60,0.3)] hover:shadow-[0_12px_48px_rgba(251,146,60,0.5)] overflow-hidden"
-                  >
-                    <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
-                      Profiling starten
-                      <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" strokeWidth={2.5} />
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  </button>
-
-                  <p className="text-white/50 text-xs sm:text-sm text-center mt-5 sm:mt-6 leading-relaxed px-2">
-                    3–6 Minuten · Vertraulich · Strukturiert · Keine medizinische Diagnose
-                  </p>
-                </div>
+              <div>
+                <label
+                  className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.2em]"
+                  style={{ fontFamily: FONT_BODY, color: BRONZE_MUTED }}
+                >
+                  Nachname
+                </label>
+                <input
+                  type="text"
+                  value={userInfo.last_name}
+                  onChange={(e) => setUserInfo((prev) => ({ ...prev, last_name: e.target.value }))}
+                  className={INPUT_FIELD}
+                  placeholder="Dein Nachname"
+                  autoComplete="family-name"
+                />
+              </div>
+              <div>
+                <label
+                  className="mb-1.5 block text-[10px] font-medium uppercase tracking-[0.2em]"
+                  style={{ fontFamily: FONT_BODY, color: BRONZE_MUTED }}
+                >
+                  E-Mail
+                </label>
+                <input
+                  type="email"
+                  value={userInfo.email}
+                  onChange={(e) => setUserInfo((prev) => ({ ...prev, email: e.target.value }))}
+                  className={INPUT_FIELD}
+                  placeholder="deine@adresse.de"
+                  autoComplete="email"
+                />
               </div>
             </div>
+
+            <button
+              type="button"
+              onClick={handleStartAnamnesis}
+              disabled={!userInfo.first_name || !userInfo.last_name || !userInfo.email}
+              className="flex w-full items-center justify-center gap-2 rounded-[13px] border px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-35"
+              style={{
+                fontFamily: FONT_HEAD,
+                borderColor: 'rgba(214,168,94,0.32)',
+                color: 'rgba(12,8,6,0.9)',
+                background: 'linear-gradient(180deg, rgba(214,168,94,0.94) 0%, rgba(150,104,56,0.88) 100%)',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,228,196,0.18)',
+              }}
+            >
+              Weiter zum Bogen
+              <ArrowRight size={14} strokeWidth={2} aria-hidden />
+            </button>
+
+            <p className="m-0 mt-3.5 text-center text-[11px] font-light leading-[1.45]" style={{ color: 'rgba(238,230,216,0.4)' }}>
+              Ca. 3–6 Minuten · vertraulich · keine medizinische Diagnose · du kannst in Ruhe formulieren
+            </p>
           </div>
         </div>
       </div>
@@ -736,141 +803,168 @@ export default function Anamnesis() {
   }
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
-      <div className="absolute inset-0">
-        <img
-          src="/bildschirmfoto_2026-01-02_um_22.35.10.png"
-          alt="Anatoly Mook – Persönliches Profiling"
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
-      </div>
+    <div className="relative min-h-screen overflow-hidden text-white" style={{ backgroundColor: '#050505' }}>
+      <PremiumBackdrop />
 
-      <div className="relative z-10 py-8 sm:py-12 md:py-16 lg:py-24 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <div className="mb-4 sm:mb-6">
-              <span className="inline-block px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-xs font-bold tracking-widest uppercase backdrop-blur-sm">
-                Premium Profiling
-              </span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight px-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-              Persönlicher <span className="bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent">Anamnesebogen</span>
-            </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/70 leading-relaxed max-w-3xl mx-auto px-4">
-              Beantworten Sie die folgenden Fragen, um Ihr persönliches Profil zu erhalten
-            </p>
-
-            <div className="mt-6 sm:mt-8 max-w-xl mx-auto px-4">
-              <div className="flex items-center justify-between text-xs sm:text-sm text-white/60 mb-2 sm:mb-3">
-                <span>Fortschritt</span>
-                <span className="font-bold text-amber-400">{completedSectionsCount} von {sections.length} Bereiche</span>
-              </div>
-              <div className="relative w-full h-2.5 sm:h-3 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm">
-                <div
-                  className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-500 ease-out rounded-full shadow-[0_0_20px_rgba(251,146,60,0.5)]"
-                  style={{ width: `${progressPercentage}%` }}
-                />
-              </div>
-            </div>
+      <div
+        className="relative z-[1] mx-auto max-w-xl px-5 pb-12 pt-[4rem] md:max-w-[40rem] md:px-8"
+        style={{ fontFamily: FONT_BODY }}
+      >
+        <header className="mb-6 text-center sm:mb-7">
+          <div className="mb-3 flex justify-center">
+            <span
+              className="rounded-full border px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.2em]"
+              style={{ fontFamily: FONT_HEAD, borderColor: BRONZE_LINE, color: BRONZE_MUTED, background: 'rgba(12,11,10,0.5)' }}
+            >
+              Persönlicher Bogen
+            </span>
           </div>
 
-          <div className="space-y-5 sm:space-y-6 mb-8 sm:mb-12">
-            {sections.map((section, sectionIndex) => {
-              const isExpanded = expandedSections.has(section.id);
-              const isComplete = isSectionComplete(section);
+          <h1
+            className="m-0 mb-2 text-[1.42rem] font-light leading-snug tracking-[-0.02em] sm:text-[1.55rem] md:text-[1.62rem]"
+            style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.96)' }}
+          >
+            Ruhige Fragen für mehr <Hl>Orientierung</Hl>
+          </h1>
 
-              return (
-                <div
-                  key={section.id}
-                  className="group relative"
-                  style={{
-                    animation: `fadeInUp 0.6s ease-out ${sectionIndex * 0.05}s both`
-                  }}
+          <p className="mx-auto m-0 max-w-lg text-[13.35px] font-light leading-[1.53] sm:text-[13.75px]" style={{ color: 'rgba(244,239,230,0.52)' }}>
+            Arbeit die Bereiche in dem Tempo durch, das für dich passt. Ich halte diese Struktur bewusst klar —
+            ohne Urteil, ohne Druck.
+          </p>
+
+          <div className="mx-auto mt-5 max-w-md">
+            <div className="mb-1.5 flex items-center justify-between text-[11px]" style={{ color: 'rgba(238,230,216,0.44)' }}>
+              <span>Fortschritt</span>
+              <span className="font-medium uppercase tracking-[0.1em] tabular-nums" style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}>
+                {completedSectionsCount} / {sections.length}
+              </span>
+            </div>
+            <div className="h-1 overflow-hidden rounded-full bg-[rgba(255,255,255,0.06)]">
+              <div className="h-full rounded-full transition-all duration-500 ease-out" style={{ width: `${progressPercentage}%`, background: BRONZE }} />
+            </div>
+          </div>
+        </header>
+
+        <div className="mb-6 space-y-2.5 sm:mb-8 sm:space-y-3">
+          {sections.map((section, sectionIndex) => {
+            const isExpanded = expandedSections.has(section.id);
+            const isComplete = isSectionComplete(section);
+
+            return (
+              <div key={section.id} style={{ animation: `anamFadeUp 0.45s ease-out ${sectionIndex * 0.04}s both` }}>
+                <button
+                  type="button"
+                  onClick={() => toggleSection(section.id)}
+                  className="w-full text-left touch-manipulation"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
-                  <button
-                    onClick={() => toggleSection(section.id)}
-                    className="w-full text-left touch-manipulation"
-                    style={{ WebkitTapHighlightColor: 'transparent' }}
+                  <div
+                    className="overflow-hidden rounded-[14px] border backdrop-blur-[10px] transition-[border-color,background] duration-200"
+                    style={{
+                      borderColor: isExpanded ? 'rgba(214,168,94,0.28)' : BRONZE_LINE,
+                      background: isExpanded ? 'rgba(18,16,14,0.62)' : 'rgba(12,11,10,0.4)',
+                      boxShadow: isExpanded ? '0 12px 32px rgba(0,0,0,0.28)' : 'none',
+                    }}
                   >
-                    <div className={`relative backdrop-blur-xl bg-white/5 border rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.01] active:scale-[0.99] ${
-                      isExpanded
-                        ? 'border-amber-400/40 shadow-2xl'
-                        : 'border-white/10 hover:border-white/20'
-                    }`}>
-                      <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 md:p-6">
-                        <div className={`flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center text-base sm:text-lg font-bold shadow-lg transition-all duration-300 ${
-                          isComplete
-                            ? 'bg-gradient-to-br from-green-400 to-green-500 text-black'
-                            : 'bg-gradient-to-br from-amber-400/20 to-orange-500/10 text-amber-400'
-                        }`}>
-                          {isComplete ? <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.5} /> : (sectionIndex + 1)}
-                        </div>
+                    <div className="flex items-start gap-2.5 p-3.5 sm:gap-3 sm:p-4">
+                      <span
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] border text-[13px] font-medium sm:h-[2.6rem] sm:w-[2.6rem]"
+                        style={{
+                          fontFamily: FONT_HEAD,
+                          borderColor: isComplete ? 'rgba(214,168,94,0.35)' : BRONZE_LINE,
+                          background: isComplete ? BRONZE_SOFT : 'rgba(0,0,0,0.22)',
+                          color: isComplete ? BRONZE : 'rgba(248,243,232,0.4)',
+                        }}
+                      >
+                        {isComplete ? <CheckCircle2 className="h-5 w-5" strokeWidth={1.7} aria-hidden /> : sectionIndex + 1}
+                      </span>
 
-                        <div className="flex-1 min-w-0 pr-2">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">
-                              {section.category}
-                            </span>
-                          </div>
-                          <h3 className="text-base sm:text-lg md:text-xl font-bold text-white leading-snug">
-                            {section.title}
-                          </h3>
-                        </div>
-
-                        <div className={`flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 flex items-center justify-center transition-all duration-300 ${
-                          isExpanded ? 'rotate-180 bg-amber-400/20 border-amber-400/40' : 'group-hover:bg-white/15'
-                        }`}>
-                          {isExpanded ? (
-                            <Minus className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" strokeWidth={2.5} />
-                          ) : (
-                            <Plus className="w-5 h-5 sm:w-6 sm:h-6 text-white/60" strokeWidth={2.5} />
-                          )}
-                        </div>
+                      <div className="min-w-0 flex-1 pr-5">
+                        <p
+                          className="mb-1 text-[9.5px] font-medium uppercase tracking-[0.2em]"
+                          style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
+                        >
+                          {section.category}
+                        </p>
+                        <p className="m-0 text-[14px] font-normal leading-snug sm:text-[14.75px]" style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.94)' }}>
+                          {section.title}
+                        </p>
                       </div>
-                    </div>
-                  </button>
 
-                  {isExpanded && (
-                    <div className="mt-3 sm:mt-4">
-                      <div className="bg-gradient-to-br from-white/[0.08] to-white/[0.03] backdrop-blur-xl rounded-xl sm:rounded-2xl border border-white/10 p-4 sm:p-5 md:p-6 space-y-6 sm:space-y-8">
+                      <span
+                        className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-transform duration-200"
+                        style={{
+                          borderColor: BRONZE_LINE,
+                          background: 'rgba(0,0,0,0.2)',
+                          color: BRONZE_MUTED,
+                          transform: isExpanded ? 'rotate(180deg)' : 'none',
+                        }}
+                      >
+                        {isExpanded ? <Minus className="h-4 w-4" strokeWidth={1.85} aria-hidden /> : <Plus className="h-4 w-4" strokeWidth={1.85} aria-hidden />}
+                      </span>
+                    </div>
+                  </div>
+                </button>
+
+                {isExpanded && (
+                  <div className="mt-2">
+                    <div
+                      className="rounded-[14px] border px-4 py-4 backdrop-blur-[10px] sm:px-5 sm:py-[1.125rem]"
+                      style={{
+                        borderColor: BRONZE_LINE,
+                        background: 'linear-gradient(180deg, rgba(14,13,11,0.9) 0%, rgba(8,7,6,0.92) 100%)',
+                      }}
+                    >
+                      <div className="space-y-5 sm:space-y-5">
                         {section.fields.map((field) => {
                           const value = formData[field.id];
 
                           if (field.type === 'single_choice' && field.options) {
                             return (
                               <div key={field.id}>
-                                <label className="block text-base sm:text-lg font-bold text-white mb-4">
-                                  {field.question} {field.required && <span className="text-amber-400">*</span>}
+                                <label
+                                  className="mb-3 block text-[13.75px] font-normal leading-snug tracking-[0.01em] sm:text-[14px]"
+                                  style={{ fontFamily: FONT_BODY, color: 'rgba(251,246,237,0.94)' }}
+                                >
+                                  {field.question}{' '}
+                                  {field.required && (
+                                    <span style={{ color: BRONZE_MUTED }} aria-hidden>
+                                      *
+                                    </span>
+                                  )}
                                 </label>
-                                <div className="space-y-3">
+                                <div className="space-y-2">
                                   {field.options.map((option) => {
                                     const isSelected = value === option.value;
                                     return (
                                       <button
                                         key={option.value}
                                         type="button"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          e.stopPropagation();
-                                          handleAnswer(field.id, option.value, e);
+                                        onClick={(e) => handleAnswer(field.id, option.value, e)}
+                                        className="w-full rounded-[11px] border px-3.5 py-2.75 text-left transition-[border-color,background] duration-200 touch-manipulation sm:py-3"
+                                        style={{
+                                          WebkitTapHighlightColor: 'transparent',
+                                          borderColor: isSelected ? 'rgba(214,168,94,0.36)' : 'rgba(214,168,94,0.12)',
+                                          background: isSelected ? 'rgba(214,168,94,0.07)' : 'rgba(10,9,8,0.55)',
                                         }}
-                                        className={`w-full p-4 sm:p-5 rounded-xl text-left transition-all duration-300 touch-manipulation active:scale-[0.98] ${
-                                          isSelected
-                                            ? 'bg-amber-400/20 border-2 border-amber-400/60 scale-[1.01]'
-                                            : 'bg-black/40 border-2 border-white/20 hover:bg-black/60 hover:border-white/30 backdrop-blur-xl'
-                                        }`}
-                                        style={{ WebkitTapHighlightColor: 'transparent' }}
                                       >
-                                        <div className="flex items-start gap-3 sm:gap-4">
-                                          <div className={`flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center mt-0.5 transition-all ${
-                                            isSelected ? 'border-amber-400 bg-amber-400/20' : 'border-white/40'
-                                          }`}>
-                                            {isSelected && <div className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-amber-400" />}
-                                          </div>
-                                          <span className={`text-sm sm:text-base md:text-lg leading-relaxed ${
-                                            isSelected ? 'text-white font-semibold' : 'text-white/90'
-                                          }`}>
+                                        <div className="flex items-start gap-2.5">
+                                          <span
+                                            className="mt-0.5 flex h-[17px] w-[17px] shrink-0 items-center justify-center rounded-full border"
+                                            style={{
+                                              borderColor: isSelected ? BRONZE : 'rgba(255,255,255,0.18)',
+                                              background: isSelected ? BRONZE_SOFT : 'transparent',
+                                            }}
+                                          >
+                                            {isSelected ? <span className="h-1.5 w-1.5 rounded-full" style={{ background: BRONZE }} /> : null}
+                                          </span>
+                                          <span
+                                            className="text-[13.25px] font-light leading-[1.48]"
+                                            style={{
+                                              fontFamily: FONT_BODY,
+                                              color: isSelected ? 'rgba(248,243,232,0.94)' : 'rgba(244,239,230,0.74)',
+                                            }}
+                                          >
                                             {option.label}
                                           </span>
                                         </div>
@@ -885,10 +979,14 @@ export default function Anamnesis() {
                           if (field.type === 'multi_select' && field.options) {
                             return (
                               <div key={field.id}>
-                                <label className="block text-base sm:text-lg font-bold text-white mb-4">
-                                  {field.question} {field.required && <span className="text-amber-400">*</span>}
+                                <label
+                                  className="mb-3 block text-[13.75px] font-normal leading-snug tracking-[0.01em] sm:text-[14px]"
+                                  style={{ fontFamily: FONT_BODY, color: 'rgba(251,246,237,0.94)' }}
+                                >
+                                  {field.question}{' '}
+                                  {field.required && <span style={{ color: BRONZE_MUTED }}>*</span>}
                                 </label>
-                                <div className="space-y-3">
+                                <div className="space-y-2">
                                   {field.options.map((option) => {
                                     const currentAnswers = (value as string[]) || [];
                                     const isSelected = currentAnswers.includes(option.value);
@@ -901,22 +999,30 @@ export default function Anamnesis() {
                                           e.stopPropagation();
                                           toggleMultiSelect(field.id, option.value, e);
                                         }}
-                                        className={`w-full p-4 sm:p-5 rounded-xl text-left transition-all duration-300 touch-manipulation active:scale-[0.98] ${
-                                          isSelected
-                                            ? 'bg-amber-400/20 border-2 border-amber-400/60 scale-[1.01]'
-                                            : 'bg-black/40 border-2 border-white/20 hover:bg-black/60 hover:border-white/30 backdrop-blur-xl'
-                                        }`}
-                                        style={{ WebkitTapHighlightColor: 'transparent' }}
+                                        className="w-full rounded-[11px] border px-3.5 py-2.75 text-left transition-[border-color,background] duration-200 touch-manipulation sm:py-3"
+                                        style={{
+                                          WebkitTapHighlightColor: 'transparent',
+                                          borderColor: isSelected ? 'rgba(214,168,94,0.36)' : 'rgba(214,168,94,0.12)',
+                                          background: isSelected ? 'rgba(214,168,94,0.07)' : 'rgba(10,9,8,0.55)',
+                                        }}
                                       >
-                                        <div className="flex items-start gap-3 sm:gap-4">
-                                          <div className={`flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-lg border-2 flex items-center justify-center mt-0.5 transition-all ${
-                                            isSelected ? 'bg-amber-400 border-amber-400' : 'border-white/40'
-                                          }`}>
-                                            {isSelected && <CheckCircle2 size={16} className="text-black" strokeWidth={3} />}
-                                          </div>
-                                          <span className={`text-sm sm:text-base md:text-lg leading-relaxed ${
-                                            isSelected ? 'text-white font-semibold' : 'text-white/90'
-                                          }`}>
+                                        <div className="flex items-start gap-2.5">
+                                          <span
+                                            className="mt-0.5 flex h-[17px] w-[17px] shrink-0 items-center justify-center rounded-[5px] border"
+                                            style={{
+                                              borderColor: isSelected ? BRONZE : 'rgba(255,255,255,0.18)',
+                                              background: isSelected ? BRONZE_SOFT : 'transparent',
+                                            }}
+                                          >
+                                            {isSelected ? <CheckCircle2 className="h-3 w-3" strokeWidth={2.2} style={{ color: BRONZE }} aria-hidden /> : null}
+                                          </span>
+                                          <span
+                                            className="text-[13.25px] font-light leading-[1.48]"
+                                            style={{
+                                              fontFamily: FONT_BODY,
+                                              color: isSelected ? 'rgba(248,243,232,0.94)' : 'rgba(244,239,230,0.74)',
+                                            }}
+                                          >
                                             {option.label}
                                           </span>
                                         </div>
@@ -930,27 +1036,38 @@ export default function Anamnesis() {
 
                           if (field.type === 'scale') {
                             const numValue = typeof value === 'number' ? value : 5;
+                            const mn = field.min ?? 1;
+                            const mx = field.max ?? 10;
+                            const pct = ((numValue - mn) / (mx - mn)) * 100;
                             return (
                               <div key={field.id}>
-                                <label className="block text-base sm:text-lg font-bold text-white mb-4">
+                                <label
+                                  className="mb-2.5 block text-[13.75px] font-normal leading-snug tracking-[0.01em] sm:text-[14px]"
+                                  style={{ fontFamily: FONT_BODY, color: 'rgba(251,246,237,0.94)' }}
+                                >
                                   {field.question}
                                 </label>
-                                <div className="space-y-4">
-                                  <div className="flex items-center justify-between text-sm text-white/60">
+                                <div className="space-y-2">
+                                  <div className="flex items-center justify-between text-[11px] font-light" style={{ color: 'rgba(238,230,216,0.45)' }}>
                                     <span>{field.minLabel}</span>
-                                    <span className="text-2xl font-bold text-amber-400">{numValue}</span>
+                                    <span className="text-[17px] font-normal tabular-nums tracking-tight" style={{ fontFamily: FONT_BODY, color: BRONZE_MUTED }}>
+                                      {numValue}
+                                    </span>
                                     <span>{field.maxLabel}</span>
                                   </div>
                                   <input
                                     type="range"
-                                    min={field.min || 1}
-                                    max={field.max || 10}
+                                    min={mn}
+                                    max={mx}
                                     value={numValue}
-                                    onChange={(e) => handleAnswer(field.id, parseInt(e.target.value))}
-                                    className="w-full h-3 rounded-full appearance-none cursor-pointer"
-                                    style={{
-                                      background: `linear-gradient(to right, rgb(251, 146, 60) 0%, rgb(251, 146, 60) ${((numValue - (field.min || 1)) / ((field.max || 10) - (field.min || 1))) * 100}%, rgba(255,255,255,0.1) ${((numValue - (field.min || 1)) / ((field.max || 10) - (field.min || 1))) * 100}%, rgba(255,255,255,0.1) 100%)`
-                                    }}
+                                    aria-label={field.question}
+                                    onChange={(e) => handleAnswer(field.id, parseInt(e.target.value, 10))}
+                                    className="anam-range w-full cursor-pointer rounded-full"
+                                    style={
+                                      {
+                                        '--fill': `${pct}%`,
+                                      } as CSSProperties & { '--fill': string }
+                                    }
                                   />
                                 </div>
                               </div>
@@ -960,15 +1077,19 @@ export default function Anamnesis() {
                           if (field.type === 'text') {
                             return (
                               <div key={field.id}>
-                                <label className="block text-base sm:text-lg font-bold text-white mb-4">
-                                  {field.question} {field.required && <span className="text-amber-400">*</span>}
+                                <label
+                                  className="mb-2.5 block text-[13.75px] font-normal leading-snug tracking-[0.01em] sm:text-[14px]"
+                                  style={{ fontFamily: FONT_BODY, color: 'rgba(251,246,237,0.94)' }}
+                                >
+                                  {field.question}{' '}
+                                  {field.required && <span style={{ color: BRONZE_MUTED }}>*</span>}
                                 </label>
                                 <textarea
-                                  value={value as string || ''}
+                                  value={(value as string) || ''}
                                   onChange={(e) => handleAnswer(field.id, e.target.value)}
-                                  rows={4}
-                                  className="w-full px-5 py-4 rounded-xl bg-black/40 border-2 border-white/20 text-white text-base placeholder-white/30 focus:border-amber-400/50 focus:bg-black/60 transition-all outline-none resize-none"
-                                  placeholder="Ihre Antwort..."
+                                  rows={3}
+                                  placeholder="In Ruhe formulieren …"
+                                  className={`${INPUT_FIELD} resize-none py-4 leading-[1.58]`}
                                 />
                               </div>
                             );
@@ -978,84 +1099,81 @@ export default function Anamnesis() {
                         })}
                       </div>
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
 
-          <div className="relative max-w-2xl mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 via-orange-300/20 to-amber-400/20 rounded-2xl sm:rounded-3xl blur-2xl" />
-            <div className="relative p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-amber-400/10 to-transparent border-2 border-amber-400/30 backdrop-blur-xl text-center">
-              <button
-                onClick={handleSubmit}
-                disabled={!allSectionsComplete || isSubmitting}
-                className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 h-14 sm:h-16 px-8 sm:px-10 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 text-black font-bold text-base sm:text-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_8px_32px_rgba(251,146,60,0.3)] hover:shadow-[0_12px_48px_rgba(251,146,60,0.5)] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 touch-manipulation"
-                style={{ WebkitTapHighlightColor: 'transparent' }}
-              >
-                <Zap className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.5} />
-                <span>{isSubmitting ? 'Wird analysiert...' : 'Auswertung anzeigen'}</span>
-                <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover:translate-x-1" strokeWidth={2.5} />
-
-                <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              </button>
-
-              <p className="text-white/60 text-xs sm:text-sm mt-5 sm:mt-6 px-4">
-                {allSectionsComplete
-                  ? 'Alle Bereiche ausgefüllt - bereit für Ihre Analyse'
-                  : `Bitte beantworten Sie alle ${sections.length} Bereiche`
-                }
-              </p>
-            </div>
-          </div>
+        <div className={`${CARD_GLASS} px-5 py-5 text-center sm:px-6`}>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={!allSectionsComplete || isSubmitting}
+            className="inline-flex items-center justify-center gap-2 rounded-[13px] border px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] transition-opacity duration-200 disabled:cursor-not-allowed disabled:opacity-35 touch-manipulation"
+            style={{
+              WebkitTapHighlightColor: 'transparent',
+              fontFamily: FONT_HEAD,
+              borderColor: 'rgba(214,168,94,0.32)',
+              color: 'rgba(12,8,6,0.9)',
+              background: 'linear-gradient(180deg, rgba(214,168,94,0.94) 0%, rgba(150,104,56,0.88) 100%)',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,228,196,0.18)',
+            }}
+          >
+            {isSubmitting ? (
+              'Wird gespeichert …'
+            ) : (
+              <>
+                Auswertung ansehen
+                <ArrowRight size={14} strokeWidth={2} aria-hidden />
+              </>
+            )}
+          </button>
+          <p className="m-0 mt-3.5 text-[11px] font-light leading-relaxed sm:max-w-none" style={{ color: 'rgba(238,230,216,0.42)' }}>
+            {allSectionsComplete
+              ? 'Alle Bereiche vollständig — ich erstelle aus deinen Antworten die Einordnung.'
+              : `${sections.length - completedSectionsCount} Bereich${sections.length - completedSectionsCount === 1 ? '' : 'e'} noch offen`}
+          </p>
         </div>
       </div>
 
       <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        @keyframes anamFadeUp {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="anamFadeUp"] { animation: none !important; }
         }
-
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out forwards;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
+        .anam-range {
+          height: 6px;
+          -webkit-appearance: none;
           appearance: none;
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: linear-gradient(to bottom right, rgb(251, 146, 60), rgb(249, 115, 22));
-          cursor: pointer;
-          box-shadow: 0 4px 12px rgba(251, 146, 60, 0.5);
+          background: linear-gradient(to right,
+            rgba(201, 155, 98, 0.85) var(--fill, 45%),
+            rgba(255,255,255,0.07) var(--fill, 45%)
+          );
         }
-
-        input[type="range"]::-moz-range-thumb {
-          width: 24px;
-          height: 24px;
+        .anam-range::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 17px;
+          height: 17px;
           border-radius: 50%;
-          background: linear-gradient(to bottom right, rgb(251, 146, 60), rgb(249, 115, 22));
+          border: 1px solid rgba(214, 168, 94, 0.45);
+          background: radial-gradient(circle at 30% 30%, rgba(255,238,218,0.35), rgba(150,104,56,0.95));
           cursor: pointer;
-          border: none;
-          box-shadow: 0 4px 12px rgba(251, 146, 60, 0.5);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+        }
+        .anam-range::-moz-range-thumb {
+          width: 17px;
+          height: 17px;
+          border-radius: 50%;
+          border: 1px solid rgba(214, 168, 94, 0.45);
+          background: radial-gradient(circle at 30% 30%, rgba(255,238,218,0.35), rgba(150,104,56,0.95));
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.35);
         }
       `}</style>
     </div>

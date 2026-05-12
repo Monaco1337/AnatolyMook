@@ -1,5 +1,40 @@
 # Admin Setup Anleitung
 
+## Schnell: Ersten Admin per Script anlegen (empfohlen)
+
+1. `.env` aus `.env.example` anlegen und `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY` eintragen.
+2. Im [Supabase Dashboard](https://supabase.com/dashboard) → **Project Settings → API** den **`service_role`** Secret Key kopieren und in `.env` als `SUPABASE_SERVICE_ROLE_KEY=` einfügen (**niemals** committen oder im Frontend nutzen).
+3. Im Projektroot ausführen:
+
+   ```bash
+   npm run create-admin
+   ```
+
+4. Ausgabe: **E-Mail** und **Passwort** erscheinen in der Konsole und zusätzlich in `admin-credentials.local.txt` (Datei ist per `.gitignore` ausgeschlossen).
+5. Im Browser **`/admin`** öffnen und mit dieser **E-Mail + Passwort** anmelden.
+
+### Nur lokal ohne Supabase-User (Test)
+
+Wenn du nur die Oberfläche testen willst (`npm run dev`):
+
+1. In `.env` oder `.env.local` setzen: `VITE_LOCAL_ADMIN_LOGIN=true`
+2. Optional: `VITE_LOCAL_ADMIN_EMAIL` / `VITE_LOCAL_ADMIN_PASSWORD` (Standard: `admin@anatoly-mook.de` / `admin123`)
+3. Dev-Server neu starten, unter `/admin` anmelden.
+
+**Wichtig:** In Production-Builds ist `import.meta.env.DEV` immer `false` — der lokale Bypass greift dort nicht.
+
+**Standard-E-Mail** (wenn du `ADMIN_EMAIL` nicht setzt): `admin@anatoly-mook.de`  
+**Benutzername:** Es gibt keinen separaten Benutzernamen – Login ist **nur E-Mail + Passwort** (wie in `src/admin/Login.tsx`).
+
+Optional in `.env` vor dem Script-Lauf:
+
+```env
+ADMIN_EMAIL=deine@email.de
+ADMIN_PASSWORD=DeinSicheresPasswort123!
+```
+
+---
+
 ## Admin-Benutzer erstellen
 
 Um das Admin-Panel verwenden zu können, müssen Sie einen Admin-Benutzer in Supabase erstellen:

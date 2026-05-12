@@ -31,7 +31,7 @@ export default function TopicClusterPage() {
     coaching: { de: 'Coaching & Mentoring', en: 'Coaching & Mentoring', path: '/coaching' },
     keynotes: { de: 'Keynote-Vorträge', en: 'Keynote Speaking', path: '/keynotes' },
     corporate: { de: 'Corporate-Programme', en: 'Corporate Programs', path: '/corporate' },
-    transformation: { de: 'Transformation', en: 'Transformation', path: '/transformation' },
+    transformation: { de: 'Die Arbeit', en: 'The Work', path: '/die-arbeit' },
   };
 
   return (

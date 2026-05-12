@@ -12,9 +12,10 @@ interface FooterProps {
 const getSectionUrl = (section: string): string => {
   const urlMap: { [key: string]: string } = {
     home: '/',
-    about: '/about',
-    transformation: '/transformation',
-    resources: '/resources',
+    'die-arbeit': '/die-arbeit',
+    about: '/die-arbeit',
+    transformation: '/die-arbeit',
+    resources: '/die-arbeit',
     seminare: '/seminare',
     coaching: '/coaching',
     keynotes: '/keynotes',
@@ -62,10 +63,9 @@ export default function Footer({ onNavigate }: FooterProps) {
     {
       label: t('footer.sections.discover'),
       items: [
-        { label: t('footer.links.about'), section: 'about' },
+        { label: t('footer.links.dieArbeit'), section: 'die-arbeit' },
         { label: t('footer.links.blog'), section: 'blog' },
-        { label: t('footer.links.faq'), section: 'faq' },
-        { label: 'Transformation', section: 'transformation' }
+        { label: t('footer.links.faq'), section: 'faq' }
       ]
     },
     {
@@ -131,7 +131,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
       `}</style>
 
-      {/* Stein-Hintergrund — gestochen scharf, kein Blur */}
+      {/* Stein-Hintergrund — vollflächig, ein Layer, ohne sichtbare Blöcke */}
       <div
         className="pointer-events-none absolute inset-0 z-0"
         aria-hidden
@@ -143,75 +143,124 @@ export default function Footer({ onNavigate }: FooterProps) {
         }}
       />
 
-      {/* Subtile warme Bronze-/Gold-Reflexionen ÜBER dem Stein (Lesbarkeit + Atmosphäre) */}
+      {/* Tiefe Vignette ringsum — cineastisch, nahtlos */}
       <div
         className="pointer-events-none absolute inset-0 z-0"
         aria-hidden
         style={{
           background:
-            'radial-gradient(60% 42% at 26% 18%, rgba(166, 116, 60, 0.10) 0%, rgba(120, 78, 36, 0.04) 38%, rgba(0,0,0,0) 72%), radial-gradient(45% 38% at 86% 90%, rgba(214, 168, 94, 0.06) 0%, rgba(0,0,0,0) 70%), radial-gradient(120% 80% at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 70%, rgba(0,0,0,0.55) 100%)'
+            'radial-gradient(130% 90% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.55) 90%, rgba(0,0,0,0.78) 100%)'
         }}
       />
 
-      {/* Dünne goldene Separator-Line oberhalb des Footers */}
+      {/* Sehr feiner, ruhiger Lichtkegel hoch oben hinter dem Logo */}
+      <div
+        className="pointer-events-none absolute z-0"
+        aria-hidden
+        style={{
+          top: '-6%',
+          left: '50%',
+          width: 'min(820px, 86%)',
+          height: '520px',
+          transform: 'translateX(-50%)',
+          background:
+            'radial-gradient(50% 60% at 50% 50%, rgba(214,168,94,0.10) 0%, rgba(166,116,60,0.05) 40%, rgba(0,0,0,0) 78%)',
+          mixBlendMode: 'screen',
+          opacity: 0.85
+        }}
+      />
+
+      {/* Hauchfeine Separator-Linie oben — knapp sichtbar, kein Block */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-px"
         aria-hidden
         style={{
           background:
-            'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.18) 18%, rgba(231,192,138,0.55) 50%, rgba(214,168,94,0.18) 82%, rgba(214,168,94,0) 100%)'
+            'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.10) 22%, rgba(231,192,138,0.32) 50%, rgba(214,168,94,0.10) 78%, rgba(214,168,94,0) 100%)'
         }}
       />
 
-      <div className="relative z-[2] mx-auto max-w-[1320px] px-6 sm:px-8 md:px-12 lg:px-16 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-10">
+      <div className="relative z-[2] mx-auto max-w-[1320px] px-6 sm:px-8 md:px-12 lg:px-16 pt-10 sm:pt-12 md:pt-14 lg:pt-16 pb-10">
 
-        {/* SIGNATUR-BLOCK — ruhig, editorial, Logo als visuelles Zentrum */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-20 sm:gap-y-24 md:gap-y-0 md:gap-x-12 lg:gap-x-16 mb-24 sm:mb-28 md:mb-32">
-          <div className="md:col-span-5 flex flex-col items-center md:items-start">
-            {/* Logo (Bronze, ohne eingebetteten Stein-Kasten — echtes Alpha über Footer-Hintergrund) */}
+        {/* SIGNATUR-BLOCK — Logo frei im Raum, integriert in die Stein-Textur */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 sm:gap-y-20 md:gap-y-0 md:gap-x-12 lg:gap-x-16 mb-24 sm:mb-28 md:mb-32">
+          <div className="md:col-span-5 flex flex-col items-start">
+            {/* Logo (frei stehend, ohne Container — Stein-Textur verschmilzt mit Footer-BG) */}
             <a
               href="/"
               onClick={(e) => onNavigate && handleLinkClick(e, 'home')}
-              className="group/ftlogo inline-block outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-offset-[#070707] focus-visible:ring-[rgba(214,168,94,0.45)]"
+              className="group/ftlogo inline-block outline-none focus-visible:outline-none"
               aria-label={t('footer.logoHomeAria')}
+              style={{ marginTop: 'clamp(-176px, -10vw, -124px)', marginLeft: 'clamp(-72px, -5vw, -32px)' }}
             >
-              <div className="relative isolate w-[clamp(300px,46vw,440px)]">
+              <div
+                className="relative isolate w-[clamp(360px,46vw,560px)] aspect-square"
+              >
                 <img
-                  src="/images/brand/anatoly-mook-logo.png"
+                  src="/images/brand/anatoly-mook-logo-hero.png"
                   width={1024}
-                  height={435}
+                  height={1024}
                   alt=""
                   draggable={false}
                   decoding="async"
                   loading="lazy"
-                  className="relative z-[1] block h-auto w-full select-none"
+                  className="relative z-[1] block h-full w-full select-none"
                   style={{ imageRendering: 'auto' }}
                 />
+
+                {/* Wortmarke ANATOLY MOOK — Montserrat Ultra Light, exakt Bronze der Strahlen */}
+                <span
+                  className="pointer-events-none absolute z-[2] select-none whitespace-nowrap"
+                  style={{
+                    left: 'calc(50% + 7px)',
+                    top: '54.5%',
+                    transform: 'translate(-50%, 0)',
+                    fontFamily: "'Montserrat', system-ui, -apple-system, sans-serif",
+                    fontWeight: 200,
+                    fontSynthesis: 'none',
+                    letterSpacing: '0.22em',
+                    wordSpacing: '-0.12em',
+                    textTransform: 'uppercase',
+                    fontSize: 'clamp(1.4rem, 3.6vw, 2.25rem)',
+                    lineHeight: 1,
+                    color: '#B98452',
+                    textShadow:
+                      '0 1px 0 rgba(20,12,6,0.55), 0 0 1px rgba(201,150,86,0.35)',
+                    WebkitFontSmoothing: 'antialiased',
+                    MozOsxFontSmoothing: 'grayscale',
+                    textRendering: 'geometricPrecision'
+                  }}
+                  aria-hidden
+                >
+                  ANATOLY MOOK
+                </span>
               </div>
             </a>
 
             <p
-              className="m-0 mt-7 max-w-[26rem]"
+              className="relative z-[2] m-0 -mt-[5.25rem] sm:-mt-[6rem] md:-mt-[6.75rem] max-w-[28rem]"
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: 'clamp(0.875rem, 0.82rem + 0.18vw, 0.95rem)',
-                fontWeight: 300,
+                fontSize: 'clamp(0.9rem, 0.84rem + 0.2vw, 1rem)',
+                fontWeight: 400,
                 lineHeight: 1.62,
                 letterSpacing: '-0.002em',
-                color: 'rgba(244,239,230,0.72)'
+                color: 'rgba(248,243,232,0.92)',
+                textShadow: '0 1px 8px rgba(0,0,0,0.55)'
               }}
             >
               {t('footer.tagline')}
             </p>
 
             <p
-              className="m-0 mt-3 max-w-[26rem]"
+              className="relative z-[2] m-0 mt-3 max-w-[28rem]"
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '0.8125rem',
+                fontSize: '0.8438rem',
                 fontWeight: 300,
                 lineHeight: 1.7,
-                color: 'rgba(238,230,216,0.5)'
+                color: 'rgba(238,230,216,0.78)',
+                textShadow: '0 1px 6px rgba(0,0,0,0.45)'
               }}
             >
               {t('footer.description')}

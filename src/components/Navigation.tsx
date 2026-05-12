@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import DropdownPortal from './DropdownPortal';
 import BrandWordmark from './BrandWordmark';
 
 interface NavigationProps {
@@ -14,9 +13,11 @@ interface NavigationProps {
 const getSectionUrl = (section: string): string => {
   const urlMap: { [key: string]: string } = {
     'home': '/',
-    'about': '/about',
-    'transformation': '/transformation',
-    'resources': '/resources',
+    'die-arbeit': '/die-arbeit',
+    'about': '/die-arbeit',
+    'transformation': '/die-arbeit',
+    'resources': '/die-arbeit',
+    'formate': '/formate',
     'seminare': '/seminare',
     'coaching': '/coaching',
     'keynotes': '/keynotes',
@@ -38,103 +39,22 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
   const { t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeIndicatorStyle, setActiveIndicatorStyle] = useState<{left: number; width: number} | null>(null);
-  const navRefs = useRef<{[key: string]: HTMLButtonElement | null}>({});
-  const navContainerRef = useRef<HTMLDivElement | null>(null);
-  const rafRef = useRef<number | null>(null);
-  const dropdownButtonRefs = useRef<{[key: string]: HTMLButtonElement | null}>({});
-  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-
-  const handleDropdownOpen = (menuId: string) => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-    setOpenDropdown(menuId);
-  };
-
-  const handleDropdownClose = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-    }
-    closeTimeoutRef.current = setTimeout(() => {
-      setOpenDropdown(null);
-    }, 150);
-  };
-
-  const handleDropdownEnter = () => {
-    if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current);
-      closeTimeoutRef.current = null;
-    }
-  };
-
-  const menuStructure = [
-    {
-      id: 'akademie',
-      label: 'AKADEMIE',
-      hasDropdown: true,
-      items: [
-        { id: 'about', label: 'Methode' },
-        { id: 'transformation', label: 'Zielgruppen' },
-        { id: 'resources', label: 'Lebensbereiche' }
-      ]
-    },
-    {
-      id: 'formate',
-      label: 'FORMATE',
-      hasDropdown: true,
-      items: [
-        { id: 'seminare', label: 'Seminare' },
-        { id: 'coaching', label: 'Coaching' },
-        { id: 'keynotes', label: 'Keynotes' }
-      ]
-    },
-    {
-      id: 'corporate',
-      label: 'BUSINESS',
-      hasDropdown: false,
-      targetId: 'corporate'
-    },
-    {
-      id: 'produkte',
-      label: 'SHOP',
-      hasDropdown: false,
-      targetId: 'produkte'
-    },
-    {
-      id: 'kontakt',
-      label: 'KONTAKT',
-      hasDropdown: true,
-      items: [
-        { id: 'kontakt', label: 'Kontakt' },
-        { id: 'quiz', label: 'Klarcheck' },
-        { id: 'anamnesis', label: 'Anamnese' },
-        { id: 'blog', label: 'Blog' },
-        { id: 'faq', label: 'FAQ' }
-      ]
-    }
+  type MenuItem = { id: string; label: string; targetId: string };
+  const menuStructure: MenuItem[] = [
+    { id: 'die-arbeit', label: 'Die Arbeit', targetId: 'die-arbeit' },
+    { id: 'formate', label: 'Formate', targetId: 'formate' },
+    { id: 'corporate', label: 'Business', targetId: 'corporate' },
+    { id: 'kontakt', label: 'Kontakt', targetId: 'kontakt' }
   ];
 
-  const sections = [
-    { id: 'seminare', label: t.nav.seminare },
-    { id: 'coaching', label: t.nav.coaching },
-    { id: 'geschaeftskunden', label: t.nav.business },
-    { id: 'produkte', label: t.nav.shop },
-    { id: 'blog', label: t.nav.blog },
-    { id: 'faq', label: t.nav.faq },
-    { id: 'kontakt', label: t.nav.kontakt }
+  const secondaryLinks: MenuItem[] = [
+    { id: 'quiz', label: 'Klarcheck', targetId: 'quiz' },
+    { id: 'anamnesis', label: 'Anamnese', targetId: 'anamnesis' },
+    { id: 'blog', label: 'Blog', targetId: 'blog' },
+    { id: 'faq', label: 'FAQ', targetId: 'faq' },
+    { id: 'produkte', label: 'Shop', targetId: 'produkte' }
   ];
-
-  useEffect(() => {
-    return () => {
-      if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     let ticking = false;
@@ -167,38 +87,6 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
     };
   }, [isMobileMenuOpen]);
 
-  const updateIndicator = useCallback(() => {
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
-    rafRef.current = requestAnimationFrame(() => {
-      const activeRef = navRefs.current[currentSection];
-      const container = navContainerRef.current;
-      if (activeRef && container) {
-        const containerRect = container.getBoundingClientRect();
-        const buttonRect = activeRef.getBoundingClientRect();
-        const newLeft = buttonRect.left - containerRect.left;
-        const newWidth = buttonRect.width;
-        setActiveIndicatorStyle(prev => {
-          if (prev && Math.abs(prev.left - newLeft) < 0.5 && Math.abs(prev.width - newWidth) < 0.5) {
-            return prev;
-          }
-          return { left: newLeft, width: newWidth };
-        });
-      }
-    });
-  }, [currentSection]);
-
-  useEffect(() => {
-    updateIndicator();
-    window.addEventListener('resize', updateIndicator);
-    return () => {
-      window.removeEventListener('resize', updateIndicator);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, [updateIndicator]);
 
   const navBg = theme === 'dark'
     ? 'rgba(29, 29, 31, 0.72)'
@@ -224,14 +112,6 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
   const textSecondary = theme === 'dark' ? 'text-white/65' : 'text-stone-600';
   const textActive = theme === 'dark' ? 'text-white' : 'text-stone-900';
   const hoverBg = theme === 'dark' ? 'hover:bg-white/[0.08]' : 'hover:bg-black/[0.04]';
-
-  const indicatorBg = theme === 'dark'
-    ? 'rgba(255, 255, 255, 0.15)'
-    : 'rgba(0, 0, 0, 0.06)';
-
-  const pillBg = theme === 'dark'
-    ? 'rgba(0, 0, 0, 0.3)'
-    : 'rgba(0, 0, 0, 0.04)';
 
   return (
     <>
@@ -293,7 +173,7 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                   }}
                 />
 
-                <div className="flex items-center justify-between h-[60px] px-4 relative">
+                <div className="flex items-center justify-between h-[56px] px-3 sm:px-4 relative">
                   <a
                     href="/"
                     onClick={(e) => {
@@ -310,88 +190,29 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                     </span>
                   </a>
 
-                  <div className="hidden lg:flex items-center gap-1">
+                  <div className="hidden lg:flex items-center gap-0.5">
                     {menuStructure.map((menu) => {
-                      if (!menu.hasDropdown && menu.targetId) {
-                        return (
-                          <a
-                            key={menu.id}
-                            href={getSectionUrl(menu.targetId)}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              onNavigate(menu.targetId);
-                            }}
-                            className={`h-9 px-4 rounded-[9px] inline-flex items-center transition-all duration-300 ${hoverBg}`}
-                          >
-                            <span className={`text-[13px] font-[550] tracking-[0.01em] leading-none ${textSecondary} hover:${textActive} transition-colors`}>
-                              {menu.label}
-                            </span>
-                          </a>
-                        );
-                      }
-
+                      const isActive = currentSection === menu.targetId;
                       return (
-                        <div
+                        <a
                           key={menu.id}
-                          className="relative"
-                          onMouseEnter={() => handleDropdownOpen(menu.id)}
-                          onMouseLeave={handleDropdownClose}
+                          href={getSectionUrl(menu.targetId)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            onNavigate(menu.targetId);
+                          }}
+                          className={`h-8 px-3.5 rounded-[8px] inline-flex items-center transition-all duration-300 ${hoverBg}`}
                         >
-                          <button
-                            ref={(el) => (dropdownButtonRefs.current[menu.id] = el)}
-                            className={`h-9 px-4 rounded-[9px] transition-all duration-300 inline-flex items-center gap-1.5 ${hoverBg}`}
+                          <span
+                            className={`text-[12.5px] leading-none transition-colors ${isActive ? textActive : textSecondary} hover:${textActive}`}
+                            style={{
+                              fontWeight: 450,
+                              letterSpacing: '0.04em'
+                            }}
                           >
-                            <span className={`text-[13px] font-[550] tracking-[0.01em] leading-none ${textSecondary} hover:${textActive} transition-colors`}>
-                              {menu.label}
-                            </span>
-                            <svg
-                              width="12"
-                              height="12"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                              className={`transition-transform duration-300 ${openDropdown === menu.id ? 'rotate-180' : ''}`}
-                            >
-                              <path
-                                d="M3 4.5L6 7.5L9 4.5"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className={textSecondary}
-                              />
-                            </svg>
-                          </button>
-
-                          {menu.items && (
-                            <DropdownPortal
-                              isOpen={openDropdown === menu.id}
-                              buttonRef={{ current: dropdownButtonRefs.current[menu.id] }}
-                              onClose={() => setOpenDropdown(null)}
-                              onMouseEnter={handleDropdownEnter}
-                              onMouseLeave={handleDropdownClose}
-                              navBg={navBg}
-                              navBorder={navBorder}
-                              navShadow={navShadow}
-                            >
-                              {menu.items.map((item) => (
-                                <a
-                                  key={item.id}
-                                  href={getSectionUrl(item.id)}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    onNavigate(item.id);
-                                    setOpenDropdown(null);
-                                  }}
-                                  className={`block w-full text-left px-4 py-2.5 transition-all duration-300 ${hoverBg}`}
-                                >
-                                  <span className={`text-[13px] font-[510] tracking-[0.01em] ${textSecondary} hover:${textActive} transition-colors`}>
-                                    {item.label}
-                                  </span>
-                                </a>
-                              ))}
-                            </DropdownPortal>
-                          )}
-                        </div>
+                            {menu.label}
+                          </span>
+                        </a>
                       );
                     })}
                   </div>
@@ -403,7 +224,7 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                         e.preventDefault();
                         onNavigate('booking');
                       }}
-                      className="nav-booking-cta group/cta relative inline-flex items-center justify-center px-5 py-2.5 rounded-[11px] overflow-hidden"
+                      className="nav-booking-cta group/cta relative inline-flex items-center justify-center px-4 py-2 rounded-[10px] overflow-hidden"
                       style={{
                         background:
                           'linear-gradient(180deg, rgba(28,18,10,0.92) 0%, rgba(20,12,6,0.95) 100%)',
@@ -462,8 +283,10 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                         }}
                       />
                       <span
-                        className="relative text-[13px] font-[500] tracking-[0.02em] leading-none transition-colors duration-400"
+                        className="relative text-[12.5px] leading-none transition-colors duration-400"
                         style={{
+                          fontWeight: 500,
+                          letterSpacing: '0.05em',
                           backgroundImage:
                             'linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%)',
                           WebkitBackgroundClip: 'text',
@@ -563,58 +386,25 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
         >
           <div className="overflow-y-auto max-h-[calc(100vh-84px)]">
             <div className="py-3 px-2">
-              {menuStructure.map((menu, idx) => {
-                if (!menu.hasDropdown && menu.targetId) {
-                  return (
-                    <a
-                      key={menu.id}
-                      href={getSectionUrl(menu.targetId)}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        onNavigate(menu.targetId);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="block relative w-full text-left px-4 py-2.5 rounded-[10px] mb-1 transition-all duration-300"
-                      style={{
-                        transitionDelay: isMobileMenuOpen ? `${idx * 20}ms` : '0ms'
-                      }}
-                    >
-                      <span className={`text-[13px] font-[550] tracking-[0.01em] ${textSecondary}`}>
-                        {menu.label}
-                      </span>
-                    </a>
-                  );
-                }
-
-                return (
-                  <div key={menu.id} className="mb-1">
-                    <div className="px-4 py-2 mb-1">
-                      <span className={`text-[11px] font-[600] uppercase tracking-[0.1em] ${textSecondary} opacity-60`}>
-                        {menu.label}
-                      </span>
-                    </div>
-                    {menu.items && menu.items.map((item) => (
-                      <a
-                        key={item.id}
-                        href={getSectionUrl(item.id)}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          onNavigate(item.id);
-                          setIsMobileMenuOpen(false);
-                        }}
-                        className="block relative w-full text-left px-6 py-2 rounded-[10px] mb-0.5 transition-all duration-300"
-                        style={{
-                          background: 'transparent'
-                        }}
-                      >
-                        <span className={`text-[13px] font-[500] tracking-[0.01em] ${textSecondary}`}>
-                          {item.label}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                );
-              })}
+              {menuStructure.map((menu, idx) => (
+                <a
+                  key={menu.id}
+                  href={getSectionUrl(menu.targetId)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigate(menu.targetId);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="block relative w-full text-left px-4 py-2.5 rounded-[10px] mb-1 transition-all duration-300"
+                  style={{
+                    transitionDelay: isMobileMenuOpen ? `${idx * 20}ms` : '0ms'
+                  }}
+                >
+                  <span className={`text-[13px] font-[550] tracking-[0.01em] ${currentSection === menu.targetId ? textActive : textSecondary}`}>
+                    {menu.label}
+                  </span>
+                </a>
+              ))}
             </div>
 
             <div
@@ -623,6 +413,34 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
               style={{
                 background:
                   'linear-gradient(90deg, rgba(166,124,82,0) 0%, rgba(166,124,82,0.32) 50%, rgba(166,124,82,0) 100%)'
+              }}
+            />
+
+            <div className="py-2 px-2">
+              {secondaryLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={getSectionUrl(link.targetId)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigate(link.targetId);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="block relative w-full text-left px-4 py-2 rounded-[10px] mb-0.5 transition-all duration-300"
+                >
+                  <span className={`text-[12px] font-[500] tracking-[0.02em] ${textSecondary} opacity-80`}>
+                    {link.label}
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <div
+              className="mx-4 my-2 h-px"
+              aria-hidden
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(166,124,82,0) 0%, rgba(166,124,82,0.18) 50%, rgba(166,124,82,0) 100%)'
               }}
             />
 

@@ -502,22 +502,23 @@ export default {
 
   blog: {
     title: 'Blog & Insights',
-    subtitle: 'Gedanken, Erkenntnisse und Inspiration für Ihre persönliche und berufliche Transformation',
-    insightsInspiration: 'Insights & Inspiration',
-    featured: 'Featured',
-    allArticles: 'Alle Artikel',
-    searchPlaceholder: 'Suche nach Artikeln, Themen oder Tags...',
+    subtitle:
+      'Texte und Perspektiven zu Bewusstsein, Entscheiden und gelebter Klarheit — ruhig formuliert, ohne Schnellnutzen.',
+    insightsInspiration: 'Journal',
+    featured: 'Auswahl',
+    allArticles: 'Weitere Texte',
+    searchPlaceholder: 'Titel, Thema oder Tag …',
     readMore: 'Weiterlesen',
     read: 'Lesen',
-    minutes: 'Min',
-    readingTime: 'Min Lesezeit',
+    minutes: 'Min.',
+    readingTime: 'Min. Lesezeit',
     published: 'Veröffentlicht',
     author: 'Autor',
-    authorCoach: 'Author & Coach',
-    noArticlesFound: 'Keine Artikel gefunden',
-    adjustFilters: 'Versuchen Sie, Ihre Suche oder Filter anzupassen',
+    authorCoach: 'Autor',
+    noArticlesFound: 'Kein Treffer',
+    adjustFilters: 'Suchbegriff oder Kategorie ändern — oder einen anderen Moment wählen.',
     categories: {
-      all: 'Alle Artikel',
+      all: 'Alle',
       consciousness: 'Bewusstsein',
       transformation: 'Transformation',
       leadership: 'Führung',
@@ -538,7 +539,14 @@ export default {
     inquiry: 'Anfrage',
     sendMessage: 'Nachricht senden',
     successMessage: 'Vielen Dank für deine Nachricht! Ich melde mich in Kürze bei dir.',
-    errorMessage: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut oder kontaktiere mich direkt.'
+    errorMessage: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut oder kontaktiere mich direkt.',
+    locationLabel: 'Standort',
+    anamnesisCardLabel: 'Anamnese',
+    anamnesisCardTitle: 'Persönlicher Anamnesebogen',
+    anamnesisCardHint:
+      'Strukturierte Fragen · vertraulich · ohne Anspruch auf medizinische Diagnose.',
+    anamnesisCardAction: 'Zum Bogen',
+    orBookAppointment: 'Oder gleich einen Termin anfragen'
   },
 
   booking: {
@@ -571,6 +579,7 @@ export default {
       corporate: 'Geschäftskunden',
       products: 'Produkte',
       about: 'Über Anatoly',
+      dieArbeit: 'Die Arbeit',
       blog: 'Blog',
       faq: 'FAQ',
       booking: 'Termin buchen',

@@ -12,7 +12,7 @@ const serviceList = [
   { slug: 'coaching', de: 'Coaching & Mentoring', en: 'Coaching & Mentoring', ru: 'Коучинг', icon: '🎯' },
   { slug: 'keynotes', de: 'Keynote-Vorträge', en: 'Keynote Speaking', ru: 'Ки-ноуты', icon: '🎤' },
   { slug: 'corporate', de: 'Corporate-Programme', en: 'Corporate Programs', ru: 'Корпоративные', icon: '🏢' },
-  { slug: 'transformation', de: 'Transformation', en: 'Transformation', ru: 'Трансформация', icon: '✨' },
+  { slug: 'transformation', de: 'Die Arbeit', en: 'The Work', ru: 'Работа', icon: '✨' },
 ];
 
 export default function CityOverviewPage() {

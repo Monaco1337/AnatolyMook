@@ -8,7 +8,8 @@
     "build": "node scripts/generate-sitemaps.js && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "create-admin": "node scripts/create-admin-user.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",

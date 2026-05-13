@@ -402,12 +402,12 @@ export default function FormatePage() {
                 'linear-gradient(180deg, rgba(2,2,2,0.99) 0%, rgba(2,2,2,0.74) 32%, rgba(2,2,2,0.34) 64%, rgba(2,2,2,0.1) 86%, transparent 100%)'
             }}
           />
-          {/* Soft bottom — atmosphärische Brücke zur Verdichtung/CTA */}
+          {/* Soft bottom — atmosphärische Brücke direkt in die vereinte Resolution-Sequenz */}
           <div
-            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+            className="absolute inset-x-0 bottom-0 h-48 sm:h-64"
             style={{
               background:
-                'linear-gradient(0deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.6) 38%, rgba(2,2,2,0.18) 78%, transparent 100%)'
+                'linear-gradient(0deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.7) 32%, rgba(2,2,2,0.32) 64%, rgba(2,2,2,0.1) 86%, transparent 100%)'
             }}
           />
           {/* Bronze-Säulenlicht links + rechts — als atmosphärische Tiefe, nicht als Effekt */}
@@ -578,82 +578,20 @@ export default function FormatePage() {
       </section>
 
       {/* ──────────────────────────────────────────────
-         VERDICHTUNG — emotionale Zwischenebene vor CTA
-         (transparenter Stille-Raum: vereint Formate & CTA atmosphärisch)
+         CINEMATIC RESOLUTION — Verdichtung + CTA als EINE Sequenz
+         Reflexion → Klärung → Einladung · ein durchgehender Lichtraum (Bild 3)
          ────────────────────────────────────────────── */}
       <section
-        className="relative isolate overflow-hidden pb-[clamp(2.25rem,5vw,3.25rem)] pt-[clamp(2.25rem,5vw,3.25rem)]"
-        aria-label="Verdichtung"
-        style={{ backgroundColor: '#020202' }}
-      >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 52% 42% at 50% 50%, rgba(214,168,94,0.045) 0%, transparent 64%)'
-          }}
-        />
-        {/* Cinematic Brücke — vereinheitlicht die Schwarzwerte zwischen Formate-Bottom und CTA-Top */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-24"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(2,2,2,0.6) 0%, rgba(2,2,2,0.2) 60%, transparent 100%)'
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
-          style={{
-            background:
-              'linear-gradient(0deg, rgba(2,2,2,0.6) 0%, rgba(2,2,2,0.2) 60%, transparent 100%)'
-          }}
-        />
-        <div
-          className="relative z-[2] mx-auto w-full max-w-[640px] px-6 text-center sm:px-10 md:px-14"
-          data-reveal
-        >
-          <HairLine className="mx-auto max-w-[1.75rem]" opacity={0.55} />
-          <p
-            className="m-0 mt-7 max-w-[28ch] mx-auto text-pretty leading-[1.32] tracking-[-0.022em]"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: 200,
-              fontSize: 'clamp(1.1rem, 0.92rem + 0.85vw, 1.5rem)',
-              color: 'rgba(250,247,240,0.9)'
-            }}
-          >
-            Die Frage ist nicht, welches Format <Accent>besser</Accent> ist.
-          </p>
-          <p
-            className="m-0 mt-4 max-w-[34ch] mx-auto text-pretty leading-[1.55]"
-            style={{
-              fontFamily: FONT_BODY,
-              fontSize: 'clamp(0.88rem, 0.85rem + 0.1vw, 0.95rem)',
-              color: 'rgba(229,226,219,0.6)'
-            }}
-          >
-            Sondern: welcher Rahmen Ihrer aktuellen Situation gerecht wird.
-          </p>
-        </div>
-      </section>
-
-      {/* ──────────────────────────────────────────────
-         CTA — Cinematic Öffnung (Bild 3)
-         „Ein Gespräch klärt mehr als ein Katalog."
-         Emotionaler Abschluss · Licht durch die Tür · Mitte ruhig für Typo
-         ────────────────────────────────────────────── */}
-      <section
-        className="relative isolate overflow-hidden pb-[clamp(5rem,11vw,7.5rem)] pt-[clamp(2.25rem,5vw,3.5rem)]"
+        className="relative isolate overflow-hidden pb-[clamp(5rem,11vw,7.5rem)] pt-[clamp(3rem,7vw,5rem)]"
         aria-labelledby="fp-cta-heading"
         style={{ backgroundColor: '#020202' }}
       >
+        {/* Ein einziger atmosphärischer Stack — derselbe Lichtraum für beide Inhaltsblöcke */}
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden style={{ backgroundColor: '#020202' }}>
-          {/* Foto-Layer — Lichtöffnung im Zentrum, Bild darf hier am stärksten wirken */}
+          {/* Foto-Layer — Lichtöffnung wandert visuell zum unteren Drittel,
+              oben bleibt es introspektiv-dunkel, unten öffnet sich die Klärung */}
           <div
-            className="fp-cta-bg-img absolute inset-0 scale-[1.03]"
+            className="fp-cta-bg-img absolute inset-0 scale-[1.05]"
             style={{
               backgroundImage: `url('${PORTFOLIO_BG_CTA}')`,
               backgroundSize: 'cover',
@@ -662,46 +600,62 @@ export default function FormatePage() {
               filter: 'saturate(0.99) contrast(1.04)'
             }}
           />
-          {/* Zentrale Lese-Lasur — schützt Headline + Button, lässt Lichtöffnung darunter atmen */}
+          {/* Asymmetrische Lese-Lasur — oben mehr Stille (Reflexion), unten freier (Einladung) */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                'radial-gradient(64% 76% at 50% 46%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 42%, rgba(0,0,0,0.12) 76%, rgba(0,0,0,0) 100%)'
+                'radial-gradient(78% 86% at 50% 62%, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.32) 42%, rgba(0,0,0,0.12) 76%, rgba(0,0,0,0) 100%)'
             }}
           />
-          {/* Gleiche cinematic Lasur wie alle Sections */}
-          <div className="absolute inset-0" style={{ background: 'rgba(2,2,3,0.18)' }} />
-          {/* Soft top — nahtlos aus Verdichtung */}
+          {/* Sanfte vertikale Dramaturgie — von dunkler Reflexion oben zu warmem Licht unten */}
           <div
-            className="absolute inset-x-0 top-0 h-44 sm:h-56"
+            className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(180deg, rgba(2,2,2,0.97) 0%, rgba(2,2,2,0.62) 38%, rgba(2,2,2,0.2) 74%, rgba(2,2,2,0) 100%)'
+                'linear-gradient(180deg, rgba(2,2,2,0.5) 0%, rgba(2,2,2,0.32) 24%, rgba(2,2,2,0.12) 52%, rgba(2,2,2,0) 70%, rgba(2,2,2,0) 100%)'
             }}
           />
-          {/* Soft bottom — schwerer, getragener Übergang zum Footer (architektonischer Schluss) */}
+          {/* Cinematic Lasur — gleicher Schwarzwert wie alle Sections */}
+          <div className="absolute inset-0" style={{ background: 'rgba(2,2,3,0.18)' }} />
+          {/* Soft top — nahtloser Eintritt aus den Formate-Reihen */}
           <div
-            className="absolute inset-x-0 bottom-0 h-48 sm:h-64"
+            className="absolute inset-x-0 top-0 h-52 sm:h-64"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.78) 28%, rgba(2,2,2,0.42) 56%, rgba(2,2,2,0.14) 82%, rgba(2,2,2,0) 100%)'
+            }}
+          />
+          {/* Soft bottom — getragener architektonischer Abschluss zum Footer */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-52 sm:h-72"
             style={{
               background:
                 'linear-gradient(0deg, #020202 0%, rgba(2,2,2,0.92) 24%, rgba(2,2,2,0.62) 52%, rgba(2,2,2,0.22) 80%, transparent 100%)'
             }}
           />
-          {/* Bronze-Atem der Lichtöffnung — emotionale Wärme, kontrolliert */}
+          {/* Bronze-Atem — folgt der Lichtöffnung im unteren Drittel (emotionale Auflösung) */}
           <div
             className="absolute inset-0 mix-blend-screen opacity-[0.7]"
             style={{
               background:
-                'radial-gradient(48% 56% at 50% 60%, rgba(214,168,94,0.085) 0%, rgba(160,108,58,0.035) 44%, transparent 72%)'
+                'radial-gradient(48% 50% at 50% 70%, rgba(214,168,94,0.085) 0%, rgba(160,108,58,0.035) 44%, transparent 72%)'
             }}
           />
-          {/* Champagne-Höhepunkt unten Mitte — pickt das durchscheinende Licht aus Bild 3 auf */}
+          {/* Champagne-Höhepunkt unten Mitte — wärmt die CTA-Zone, kontrolliert */}
           <div
-            className="absolute inset-x-0 bottom-0 h-[42%] mix-blend-soft-light opacity-80"
+            className="absolute inset-x-0 bottom-0 h-[44%] mix-blend-soft-light opacity-80"
             style={{
               background:
-                'radial-gradient(70% 56% at 50% 96%, rgba(230,193,138,0.085) 0%, rgba(90,60,32,0.03) 46%, transparent 74%)'
+                'radial-gradient(72% 58% at 50% 100%, rgba(230,193,138,0.095) 0%, rgba(90,60,32,0.035) 48%, transparent 76%)'
+            }}
+          />
+          {/* Subtiler Champagne-Hauch oben — verbindet Reflexion mit demselben Lichtsystem */}
+          <div
+            className="absolute inset-x-0 top-0 h-[44%] mix-blend-soft-light opacity-60"
+            style={{
+              background:
+                'radial-gradient(56% 42% at 50% 16%, rgba(230,193,138,0.038) 0%, transparent 64%)'
             }}
           />
           {/* Innere Vignette — gleiche Schattenkurve wie Intro & Formate */}
@@ -719,52 +673,88 @@ export default function FormatePage() {
           />
         </div>
         <style>{`
-          .fp-cta-bg-img { background-position: center 48%; }
+          .fp-cta-bg-img { background-position: center 56%; }
           @media (max-width: 639px) {
-            .fp-cta-bg-img { background-position: center 44%; }
+            .fp-cta-bg-img { background-position: center 54%; }
           }
           @media (min-width: 1024px) {
-            .fp-cta-bg-img { background-position: center 50%; }
+            .fp-cta-bg-img { background-position: center 60%; }
           }
         `}</style>
-        <div
-          className="relative z-[2] mx-auto w-full max-w-[640px] px-6 text-center sm:px-10 md:px-14"
-          data-reveal
-        >
-          <h2
-            id="fp-cta-heading"
-            className="m-0 max-w-[20ch] mx-auto text-pretty leading-[1.12] tracking-[-0.026em]"
-            style={{
-              fontFamily: FONT_DISPLAY,
-              fontWeight: 100,
-              fontSize: 'clamp(1.3rem, 0.94rem + 1.3vw, 1.75rem)',
-              color: 'rgba(250,247,240,0.94)'
-            }}
-          >
-            Ein Gespräch klärt <Accent>mehr</Accent> als ein Katalog.
-          </h2>
-          {/* Premium-CTA — identisch zur Startseite („Erstgespräch vereinbaren"):
-              metallic-bronze-button hero-cta aus premium-system.css */}
-          <Link
-            to="/erstgespraech"
-            className="metallic-bronze-button hero-cta mt-7 inline-flex items-center justify-center whitespace-nowrap"
-            style={{
-              padding: 'clamp(14px, 1.35vw, 18px) clamp(26px, 3.2vw, 36px)',
-              minHeight: 'clamp(48px, 5.2vw, 56px)',
-              fontFamily: FONT_BODY
-            }}
-          >
-            <span
-              className="leading-none whitespace-nowrap"
+
+        {/* Eine einzige typografische Sequenz — gemeinsamer Rhythmus, atmender Übergang */}
+        <div className="relative z-[2] mx-auto w-full max-w-[640px] px-6 text-center sm:px-10 md:px-14">
+          {/* 1. Reflexion */}
+          <div data-reveal>
+            <HairLine className="mx-auto max-w-[1.75rem]" opacity={0.55} />
+            <p
+              className="m-0 mt-7 max-w-[28ch] mx-auto text-pretty leading-[1.32] tracking-[-0.022em]"
               style={{
-                fontSize: 'clamp(0.875rem, 0.8rem + 0.24vw, 1.02rem)',
-                fontWeight: 600,
-                letterSpacing: '-0.006em'
+                fontFamily: FONT_DISPLAY,
+                fontWeight: 200,
+                fontSize: 'clamp(1.1rem, 0.92rem + 0.85vw, 1.5rem)',
+                color: 'rgba(250,247,240,0.9)'
               }}
             >
-              Erstgespräch vereinbaren
-            </span>
-          </Link>
+              Die Frage ist nicht, welches Format <Accent>besser</Accent> ist.
+            </p>
+            <p
+              className="m-0 mt-4 max-w-[34ch] mx-auto text-pretty leading-[1.55]"
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: 'clamp(0.88rem, 0.85rem + 0.1vw, 0.95rem)',
+                color: 'rgba(229,226,219,0.62)'
+              }}
+            >
+              Sondern: welcher Rahmen Ihrer aktuellen Situation gerecht wird.
+            </p>
+          </div>
+
+          {/* Atmender Übergang — kein Trenner, nur eine kalibrierte Pause */}
+          <div
+            aria-hidden
+            className="mx-auto mt-[clamp(2.5rem,6vw,4rem)] mb-[clamp(2rem,5vw,3rem)] h-px w-[min(2.25rem,18vw)] opacity-[0.55]"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(214,168,94,0.45) 50%, transparent 100%)'
+            }}
+          />
+
+          {/* 2. Klärung & Einladung — emotionale Auflösung desselben Moments */}
+          <div data-reveal style={{ ['--rev-delay' as never]: '160ms' }}>
+            <h2
+              id="fp-cta-heading"
+              className="m-0 max-w-[20ch] mx-auto text-pretty leading-[1.12] tracking-[-0.026em]"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontWeight: 100,
+                fontSize: 'clamp(1.3rem, 0.94rem + 1.3vw, 1.75rem)',
+                color: 'rgba(250,247,240,0.94)'
+              }}
+            >
+              Ein Gespräch klärt <Accent>mehr</Accent> als ein Katalog.
+            </h2>
+            <Link
+              to="/erstgespraech"
+              className="metallic-bronze-button hero-cta mt-7 inline-flex items-center justify-center whitespace-nowrap"
+              style={{
+                padding: 'clamp(14px, 1.35vw, 18px) clamp(26px, 3.2vw, 36px)',
+                minHeight: 'clamp(48px, 5.2vw, 56px)',
+                fontFamily: FONT_BODY
+              }}
+            >
+              <span
+                className="leading-none whitespace-nowrap"
+                style={{
+                  fontSize: 'clamp(0.875rem, 0.8rem + 0.24vw, 1.02rem)',
+                  fontWeight: 600,
+                  letterSpacing: '-0.006em'
+                }}
+              >
+                Erstgespräch vereinbaren
+              </span>
+            </Link>
+          </div>
         </div>
       </section>
 

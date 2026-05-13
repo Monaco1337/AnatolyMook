@@ -869,13 +869,6 @@ export default function HomeDynamic() {
                     >
                       {hero.ctaText || 'Erstgespräch vereinbaren'}
                     </span>
-                    <span
-                      aria-hidden="true"
-                      className="ml-3 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-[2px]"
-                      style={{ width: 22, height: 22 }}
-                    >
-                      <ChevronsRight size={20} strokeWidth={2.35} />
-                    </span>
                   </button>
 
                   <p
@@ -4270,11 +4263,10 @@ export default function HomeDynamic() {
                   const bookingSection = document.querySelector('[data-section="booking"]');
                   if (bookingSection) bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
-                className="metallic-bronze-button btn-bronze group inline-flex items-center gap-2 px-6 py-3 text-sm"
+                className="metallic-bronze-button btn-bronze inline-flex items-center gap-2 px-6 py-3 text-sm"
               >
                 <Calendar className="w-4 h-4" strokeWidth={2.2} />
                 Erstgespräch vereinbaren
-                <ChevronsRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" strokeWidth={2.2} />
               </button>
               <button
                 type="button"

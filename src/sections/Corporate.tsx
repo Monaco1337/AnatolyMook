@@ -1,7 +1,9 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Users, Clock, MapPin, Briefcase, TrendingUp, Sparkles, CheckCircle2, ChevronsRight, Target, Zap, Building2, Lightbulb, Award, ChevronDown } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useMobileSliderIndex } from '../hooks/useMobileSliderIndex';
+import MobileSliderDots from '../components/MobileSliderDots';
 
 const FONT_DISPLAY =
   "'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif" as const;
@@ -281,6 +283,11 @@ export default function Corporate() {
   const filteredOffers = selectedCategory === 'all'
     ? offers
     : offers.filter(offer => offer.category === selectedCategory);
+
+  const mobileEntryRoomsRef = useRef<HTMLDivElement>(null);
+  const mobileOffersRef = useRef<HTMLDivElement>(null);
+  const activeEntryRoomsIndex = useMobileSliderIndex(mobileEntryRoomsRef, ENTRY_CARDS.length, 768);
+  const activeOffersIndex = useMobileSliderIndex(mobileOffersRef, filteredOffers.length, 768);
 
   const scrollToOffers = (categoryId: typeof ENTRY_CARDS[number]['category']) => {
     setSelectedCategory(categoryId);
@@ -577,11 +584,18 @@ export default function Corporate() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
+            <div
+              ref={mobileEntryRoomsRef}
+              className="-mx-4 flex scrollbar-hide snap-x snap-mandatory overflow-x-auto scroll-px-4 px-4 pb-3 sm:-mx-6 sm:scroll-px-6 sm:px-6 md:mx-0 md:grid md:grid-cols-2 xl:grid-cols-4 md:gap-4 md:overflow-visible md:pb-0 md:px-0 md:snap-none gap-3 sm:gap-4"
+              style={{
+                scrollPaddingInline: '1rem',
+                WebkitOverflowScrolling: 'touch'
+              }}
+            >
               {ENTRY_CARDS.map((card) => (
                 <div
                   key={card.id}
-                  className="relative flex min-h-0 rounded-[14px] transition-[border-color,background-color,box-shadow] duration-[700ms]"
+                  className="relative flex min-h-0 shrink-0 basis-[86%] max-w-[22rem] snap-center rounded-[14px] transition-[border-color,background-color,box-shadow] duration-[700ms] md:max-w-none md:basis-auto md:shrink"
                   style={{
                     background:
                       'linear-gradient(180deg, rgba(15, 13, 11, 0.88) 0%, rgba(10, 10, 11, 0.92) 100%)',
@@ -649,6 +663,7 @@ export default function Corporate() {
                 </div>
               ))}
             </div>
+            <MobileSliderDots count={ENTRY_CARDS.length} active={activeEntryRoomsIndex} hideAt="md" />
           </div>
 
           {/* Category Filter — monochrome Editorial Pills */}
@@ -730,15 +745,23 @@ export default function Corporate() {
             </p>
           </div>
         ) : (
-          <div className="grid gap-6 lg:gap-7 md:grid-cols-2">
-            {filteredOffers.map((offer, offerIdx) => {
+          <>
+            <div
+              ref={mobileOffersRef}
+              className="-mx-4 flex scrollbar-hide snap-x snap-mandatory gap-6 overflow-x-auto scroll-px-4 px-4 pb-4 sm:-mx-6 sm:scroll-px-6 sm:px-6 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:pb-0 md:px-0 md:snap-none lg:gap-7"
+              style={{ WebkitOverflowScrolling: 'touch', scrollPaddingInline: '1rem' }}
+            >
+              {filteredOffers.map((offer, offerIdx) => {
               const isExpanded = expandedOffer === offer.id;
               const categoryLabel = categories.find(c => c.id === offer.category)?.label;
               const orderNumber = String(offer.order_index ?? offerIdx + 1).padStart(2, '0');
               const detailsId = `offer-details-${offer.id}`;
 
               return (
-                <div key={offer.id} className="relative">
+                <div
+                  key={offer.id}
+                  className="relative w-full max-w-[26rem] shrink-0 basis-[88%] snap-center md:max-w-none md:basis-auto md:shrink md:snap-none"
+                >
                   {/* Card — kompakt, aufklappbar, editorial */}
                   <div
                     className="relative overflow-hidden rounded-[18px] transition-[border-color,box-shadow] duration-[700ms]"
@@ -1284,56 +1307,105 @@ export default function Corporate() {
                 </div>
               );
             })}
-          </div>
+            </div>
+            <MobileSliderDots count={filteredOffers.length} active={activeOffersIndex} hideAt="md" />
+          </>
         )}
       </div>
 
-      {/* CTA Section — ruhige Executive-Schlusszone, kein farbiger Glow */}
-      <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-10 py-20 sm:py-28 text-center">
-        <div
-          className="relative px-8 sm:px-12 lg:px-16 py-14 sm:py-16 lg:py-20 rounded-[18px]"
-          style={{
-            background: 'linear-gradient(180deg, rgba(13, 12, 11, 0.78) 0%, rgba(10, 10, 11, 0.82) 100%)',
-            border: `1px solid ${SURFACE_HAIRLINE}`,
-            boxShadow:
-              '0 28px 70px -36px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 248, 238, 0.035)'
-          }}
-        >
-          <span
-            className="inline-block mb-7"
+      {/* CTA — full-bleed, kinematisch: kein Card-Chassis, Wings/Horizon-Background + Lesbarkeit */}
+      <section
+        className="relative isolate overflow-hidden pb-[clamp(5.25rem,12vw,7.75rem)] pt-[clamp(4.75rem,11vw,7.25rem)] text-center"
+        style={{ backgroundColor: '#070605' }}
+        aria-labelledby="corporate-cta-heading"
+      >
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+          <div
+            className="absolute inset-0 scale-[1.02]"
+            style={{
+              backgroundImage: "url('/images/portfolio/portfolio-intro-horizon-wings-bg.png')",
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center 42%',
+              opacity: 0.86,
+              filter: 'saturate(0.98) contrast(1.03)'
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(62% 72% at 50% 48%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.36) 45%, rgba(0,0,0,0.12) 72%, rgba(0,0,0,0) 100%)'
+            }}
+          />
+          <div className="absolute inset-0 bg-[rgba(4,4,5,0.22)]" />
+          <div
+            className="absolute inset-x-0 top-0 h-36 sm:h-44"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.5) 48%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-36 sm:h-44"
+            style={{
+              background:
+                'linear-gradient(0deg, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.52) 45%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.55]"
+            style={{
+              boxShadow: 'inset 0 0 min(72vw, 520px) rgba(0,0,0,0.52)'
+            }}
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-32 mix-blend-screen sm:h-40"
+            style={{
+              background:
+                'radial-gradient(62% 100% at 50% 100%, rgba(214,168,94,0.06) 0%, rgba(120,92,54,0.02) 42%, transparent 72%)'
+            }}
+          />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(214,168,94,0.16)] to-transparent" />
+        </div>
+
+        <div className="relative z-[1] mx-auto w-full max-w-xl px-6 sm:px-8 lg:max-w-[34rem] lg:px-10">
+          <div
+            className="mx-auto mb-[clamp(1.75rem,3.5vw,2.35rem)] h-px w-[min(52%,14rem)]"
             aria-hidden
             style={{
-              height: 1,
-              width: 56,
               background:
-                'linear-gradient(90deg, rgba(214, 168, 94, 0.55) 0%, rgba(214, 168, 94, 0) 100%)'
+                'linear-gradient(90deg, transparent 0%, rgba(214, 168, 94, 0.48) 50%, transparent 100%)'
             }}
           />
 
           <h2
-            className="mb-5"
+            id="corporate-cta-heading"
+            className="m-0 text-balance px-1 sm:px-0"
             style={{
               fontFamily: FONT_DISPLAY,
-              fontWeight: 200,
-              fontSize: 'clamp(1.875rem, 2vw + 1.2rem, 2.5rem)',
-              letterSpacing: '-0.035em',
-              lineHeight: 1.12,
-              color: TEXT_PRIMARY
+              fontWeight: 100,
+              fontSize: 'clamp(1.65rem, 1.1rem + 1.85vw, 2.375rem)',
+              letterSpacing: '-0.036em',
+              lineHeight: 1.08,
+              color: TEXT_PRIMARY,
+              textShadow:
+                '0 2px 28px rgba(0,0,0,0.65), 0 1px 0 rgba(0,0,0,0.55), 0 0 1px rgba(0,0,0,0.8)'
             }}
           >
             {t.corporate.ctaTitle}
           </h2>
 
           <p
-            className="mb-10 mx-auto"
+            className="mx-auto mb-[clamp(2rem,4vw,2.65rem)] mt-5 max-w-[28rem] text-pretty px-2 sm:px-0 sm:mt-6"
             style={{
               fontFamily: FONT_BODY,
               fontWeight: 400,
-              fontSize: 'clamp(0.9375rem, 0.4vw + 0.85rem, 1.0625rem)',
-              lineHeight: 1.7,
-              color: TEXT_WARM,
-              maxWidth: '32rem',
-              letterSpacing: '-0.005em'
+              fontSize: 'clamp(0.90625rem, 0.35vw + 0.84rem, 1rem)',
+              lineHeight: 1.68,
+              color: `${TEXT_WARM}ee`,
+              letterSpacing: '-0.006em',
+              textShadow: '0 1px 18px rgba(0,0,0,0.55), 0 0 1px rgba(0,0,0,0.75)'
             }}
           >
             {t.corporate.ctaDescription}
@@ -1341,38 +1413,23 @@ export default function Corporate() {
 
           <a
             href="#contact"
-            className="group/cta inline-flex items-center gap-3 px-9 py-4 rounded-[12px] transition-[transform,background-color,box-shadow] duration-[700ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(10,10,11,0.9)]"
+            className="group/cta-executive hover:-translate-y-px hover:shadow-[0_28px_64px_-30px_rgba(0,0,0,0.9)] active:translate-y-0 inline-flex min-h-[52px] items-center justify-center rounded-[11px] px-[clamp(1.65rem,3.5vw,2.125rem)] py-3 transition-[transform,box-shadow,border-color,background-color] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.4)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(6,6,7,0.95)]"
             style={{
               fontFamily: FONT_BODY,
               fontWeight: 500,
-              fontSize: '0.9375rem',
+              fontSize: '0.8125rem',
               letterSpacing: '0.05em',
               background: '#F4F4F4',
               color: '#0A0A0A',
+              border: '1px solid rgba(255, 252, 245, 0.38)',
               boxShadow:
-                '0 18px 48px -20px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.55)'
+                '0 22px 52px -26px rgba(0, 0, 0, 0.88), inset 0 1px 0 rgba(255, 255, 255, 0.72), inset 0 -1px 0 rgba(0, 0, 0, 0.05)'
             }}
           >
             <span>{t.corporate.ctaButton}</span>
-            <ChevronsRight
-              size={16}
-              strokeWidth={1.8}
-              className="transition-transform duration-[600ms] group-hover/cta:translate-x-0.5"
-              style={{ opacity: 0.8 }}
-            />
           </a>
-
-          <div
-            className="mt-10 mx-auto h-px"
-            aria-hidden
-            style={{
-              maxWidth: '8rem',
-              background:
-                'linear-gradient(90deg, transparent 0%, rgba(214, 168, 94, 0.28) 50%, transparent 100%)'
-            }}
-          />
         </div>
-      </div>
+      </section>
     </div>
   );
 }

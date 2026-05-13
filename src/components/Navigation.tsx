@@ -180,12 +180,33 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                       e.preventDefault();
                       onNavigate('home');
                     }}
-                    className={`relative group -ml-1 px-4 py-2.5 rounded-[12px] transition-all duration-400`}
+                    aria-label={t('footer.logoHomeAria')}
+                    className="group/logo relative -ml-1 rounded-[12px] px-4 py-2.5 outline-none transition-[transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.38)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                   >
+                    {/* Transparente Leiste: mikroskopisches Lesefeld + Hairline — Wortmarke bleibt geschärft */}
+                    {!isScrolled && theme === 'dark' && (
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 overflow-hidden rounded-[12px]"
+                      >
+                        <span
+                          className="absolute left-1/2 top-[44%] h-[230%] min-h-[3.35rem] w-[min(142%,12rem)] -translate-x-1/2 -translate-y-1/2"
+                          style={{
+                            background:
+                              'radial-gradient(ellipse 52% 46% at 50% 50%, rgba(3,3,5,0.62) 0%, rgba(8,7,10,0.28) 44%, rgba(14,11,14,0.06) 70%, transparent 100%)'
+                          }}
+                        />
+                        <span className="absolute inset-x-4 top-[2px] h-px bg-gradient-to-r from-transparent via-[rgba(214,168,94,0.14)] to-transparent opacity-75" />
+                      </span>
+                    )}
                     <div
-                      className={`absolute inset-0 rounded-[12px] ${theme === 'dark' ? 'bg-white/[0.08]' : 'bg-black/[0.04]'} opacity-0 group-hover:opacity-100 transition-all duration-400`}
+                      className={`absolute inset-0 z-[1] rounded-[12px] ${theme === 'dark' ? 'bg-white/[0.07]' : 'bg-black/[0.04]'} opacity-0 transition-opacity duration-500 group-hover/logo:opacity-100`}
+                      style={{
+                        boxShadow:
+                          'inset 0 1px 0 rgba(255,248,238,0.06), inset 0 0 0 1px rgba(214,168,94,0.06)'
+                      }}
                     />
-                    <span className="relative transition-all duration-400 group-hover:opacity-[0.98]">
+                    <span className="relative z-[2] block origin-left transition-[transform,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:scale-[1.012] motion-reduce:transform-none">
                       <BrandWordmark variant="nav" theme={theme} />
                     </span>
                   </a>

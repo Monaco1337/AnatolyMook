@@ -2,10 +2,13 @@ import { useState, useEffect, useMemo, useRef, useId, type ReactNode } from 'rea
 import { useNavigate, Link } from 'react-router-dom';
 import { ChevronsRight, ChevronDown, Sparkles, Award, Users, Star, TrendingUp, Check, Target, Brain, Heart, Shield, Play, Calendar, Zap, Book, ChevronLeft, ChevronRight, Plus, Minus, AlertCircle, Eye, Repeat, Crown, TrendingDown, Waves, Puzzle, Pause, X, Compass, Lightbulb, Cog, MousePointerClick, Activity, Diamond } from 'lucide-react';
 import { useThemeStyles } from '../hooks/useThemeStyles';
+import { useMobileSliderIndex } from '../hooks/useMobileSliderIndex';
 import { useLanguage } from '../contexts/LanguageContext';
 import PremiumSlider from '../components/PremiumSlider';
 import NewsSlider from '../components/NewsSlider';
 import NewsDetailModal from '../components/NewsDetailModal';
+import MobileSliderDots from '../components/MobileSliderDots';
+import BrandWordmark from '../components/BrandWordmark';
 import EventDetailModal from '../components/EventDetailModal';
 import { supabase } from '../lib/supabase';
 import { HERO_PORTRAIT } from '../constants/brandAssets';
@@ -221,114 +224,6 @@ interface HomeEvent {
   overlay_opacity?: number;
   show_author_badge?: boolean;
   custom_css_classes?: string;
-}
-
-/**
- * Mobile-only horizontal slider — bestimmt anhand der Scroll-Position des Containers,
- * welche Karte aktuell zentriert ist (closest-to-center). Wird ausschließlich für
- * Pagination-Dots auf kleinen Viewports verwendet; auf Desktop läuft kein Listener.
- */
-function useMobileSliderIndex(
-  ref: React.RefObject<HTMLElement | null>,
-  count: number,
-  /** Maximaler Viewport in px, bei dem der Slider aktiv ist (sm = 640, md = 768). */
-  maxViewport: number = 768
-) {
-  const [idx, setIdx] = useState(0);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const el = ref.current;
-    if (!el) return;
-
-    let raf = 0;
-    let active = window.innerWidth < maxViewport;
-
-    const compute = () => {
-      raf = 0;
-      const containerRect = el.getBoundingClientRect();
-      const center = containerRect.left + containerRect.width / 2;
-      const children = Array.from(el.children) as HTMLElement[];
-      if (!children.length) return;
-      let best = 0;
-      let bestDist = Number.POSITIVE_INFINITY;
-      for (let i = 0; i < children.length; i++) {
-        const r = children[i].getBoundingClientRect();
-        const c = r.left + r.width / 2;
-        const d = Math.abs(c - center);
-        if (d < bestDist) {
-          bestDist = d;
-          best = i;
-        }
-      }
-      setIdx(best);
-    };
-
-    const onScroll = () => {
-      if (!active) return;
-      if (raf) return;
-      raf = requestAnimationFrame(compute);
-    };
-
-    const onResize = () => {
-      active = window.innerWidth < maxViewport;
-      if (active) compute();
-    };
-
-    compute();
-    el.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize);
-    return () => {
-      if (raf) cancelAnimationFrame(raf);
-      el.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onResize);
-    };
-  }, [ref, count, maxViewport]);
-
-  return idx;
-}
-
-/** Dezente Bronze-Pagination, nur auf Mobile sichtbar. */
-function MobileSliderDots({
-  count,
-  active,
-  hideAt = 'md'
-}: {
-  count: number;
-  active: number;
-  hideAt?: 'sm' | 'md' | 'lg';
-}) {
-  const hiddenClass =
-    hideAt === 'sm' ? 'sm:hidden' : hideAt === 'lg' ? 'lg:hidden' : 'md:hidden';
-  return (
-    <div
-      role="tablist"
-      aria-label="Slider Navigation"
-      className={`mt-6 flex items-center justify-center gap-2 ${hiddenClass}`}
-    >
-      {Array.from({ length: count }).map((_, i) => {
-        const isActive = i === active;
-        return (
-          <span
-            key={i}
-            role="tab"
-            aria-selected={isActive}
-            aria-hidden
-            className="block h-1 rounded-full transition-all duration-500 ease-out"
-            style={{
-              width: isActive ? '22px' : '6px',
-              backgroundColor: isActive
-                ? 'rgba(214, 168, 94, 0.85)'
-                : 'rgba(234, 221, 203, 0.20)',
-              boxShadow: isActive
-                ? '0 0 12px rgba(214, 168, 94, 0.45)'
-                : 'none'
-            }}
-          />
-        );
-      })}
-    </div>
-  );
 }
 
 export default function HomeDynamic() {
@@ -835,6 +730,17 @@ export default function HomeDynamic() {
               <div
                 className="hero-content-wrap w-full sm:w-auto max-w-[min(100%,17.75rem)] sm:max-w-[min(26rem,min(92vw,420px))] md:max-w-[min(28rem,min(44vw,440px))] lg:max-w-[min(30rem,min(42vw,460px))] xl:max-w-[min(31rem,min(40vw,480px))] 2xl:max-w-[min(32rem,min(38vw,500px))]"
               >
+                {/* Wortmarke — gleiche Metall-Sprache wie Navbar, Editorial-Lockup */}
+                <div
+                  className="mb-3 max-[639px]:mb-2.5 sm:mb-4 md:mb-5"
+                  style={{ opacity: Math.max(0, 1 - scrollY * 0.001) }}
+                >
+                  <BrandWordmark variant="hero" theme="dark" />
+                  <div
+                    aria-hidden
+                    className="mt-2 h-px w-[min(4.85rem,32%)] bg-gradient-to-r from-[rgba(214,168,94,0.42)] via-[rgba(214,168,94,0.12)] to-transparent sm:mt-2.5 md:mt-3"
+                  />
+                </div>
                 {/* Main heading */}
                 <h1
                     className="hero-headline mb-4 max-[639px]:mb-4 sm:mb-6 md:mb-7"

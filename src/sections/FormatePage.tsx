@@ -558,7 +558,7 @@ export default function FormatePage() {
               metallic-bronze-button hero-cta aus premium-system.css */}
           <Link
             to="/erstgespraech"
-            className="metallic-bronze-button hero-cta group mt-7 inline-flex items-center justify-center whitespace-nowrap"
+            className="metallic-bronze-button hero-cta mt-7 inline-flex items-center justify-center whitespace-nowrap"
             style={{
               padding: 'clamp(14px, 1.35vw, 18px) clamp(26px, 3.2vw, 36px)',
               minHeight: 'clamp(48px, 5.2vw, 56px)',
@@ -574,13 +574,6 @@ export default function FormatePage() {
               }}
             >
               Erstgespräch vereinbaren
-            </span>
-            <span
-              aria-hidden="true"
-              className="ml-3 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-[2px]"
-              style={{ width: 22, height: 22 }}
-            >
-              <ChevronsRight size={20} strokeWidth={2.35} />
             </span>
           </Link>
         </div>

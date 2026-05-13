@@ -35,7 +35,7 @@ const getSectionUrl = (section: string): string => {
 };
 
 export default function Footer({ onNavigate }: FooterProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -208,9 +208,9 @@ export default function Footer({ onNavigate }: FooterProps) {
                   style={{ imageRendering: 'auto' }}
                 />
 
-                {/* Wortmarke ANATOLY MOOK — Montserrat Ultra Light, exakt Bronze der Strahlen */}
+                {/* Wortmarke — metallisch wie Sonnenkern/Strahlen, enger gesetzt */}
                 <span
-                  className="pointer-events-none absolute z-[2] select-none whitespace-nowrap"
+                  className="pointer-events-none absolute z-[2] inline-block transform-gpu select-none whitespace-nowrap"
                   style={{
                     left: 'calc(50% + 7px)',
                     top: '54.5%',
@@ -218,21 +218,35 @@ export default function Footer({ onNavigate }: FooterProps) {
                     fontFamily: "'Montserrat', system-ui, -apple-system, sans-serif",
                     fontWeight: 200,
                     fontSynthesis: 'none',
-                    letterSpacing: '0.22em',
-                    wordSpacing: '-0.12em',
+                    letterSpacing: language === 'ru' ? '0.065em' : '0.1em',
+                    wordSpacing: '0.06em',
                     textTransform: 'uppercase',
                     fontSize: 'clamp(1.4rem, 3.6vw, 2.25rem)',
-                    lineHeight: 1,
-                    color: '#B98452',
-                    textShadow:
-                      '0 1px 0 rgba(20,12,6,0.55), 0 0 1px rgba(201,150,86,0.35)',
+                    lineHeight: 1.02,
+                    backgroundImage: `linear-gradient(
+                      148deg,
+                      rgba(255, 252, 244, 1) 0%,
+                      rgba(255, 236, 198, 0.99) 14%,
+                      rgba(246, 210, 140, 0.97) 32%,
+                      rgba(226, 168, 78, 0.95) 50%,
+                      rgba(206, 142, 64, 0.94) 64%,
+                      rgba(248, 222, 170, 0.98) 88%,
+                      rgba(255, 248, 232, 1) 100%
+                    )`,
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    color: 'transparent',
+                    filter:
+                      'drop-shadow(0 0 1px rgba(40,24,12,0.35)) drop-shadow(0 1px 2px rgba(0,0,0,0.65)) drop-shadow(0 0 14px rgba(255,220,168,0.42)) drop-shadow(0 0 28px rgba(214,168,94,0.38)) drop-shadow(0 0 52px rgba(185,130,63,0.22))',
+                    isolation: 'isolate',
                     WebkitFontSmoothing: 'antialiased',
                     MozOsxFontSmoothing: 'grayscale',
                     textRendering: 'geometricPrecision'
                   }}
                   aria-hidden
                 >
-                  ANATOLY MOOK
+                  {t.nav.logo}
                 </span>
               </div>
             </a>

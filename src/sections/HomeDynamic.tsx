@@ -1081,37 +1081,84 @@ export default function HomeDynamic() {
 
       </section>
 
-      {/* Neue Wege zur Meisterschaft — drei kuratierte Einstiege unter dem Hero (still, editorial) */}
+      {/* Neue Wege zur Meisterschaft — drei kuratierte Einstiege unter dem Hero (still, editorial).
+          Cinematic Wings-Background: dunkles Zentrum für Card-Lesbarkeit, Flügel rahmen seitlich. */}
       <section
         aria-labelledby="home-meisterschaft-heading"
         className="relative w-full overflow-hidden border-t border-transparent"
-        style={{ backgroundColor: colors.bg.primary }}
+        style={{ backgroundColor: '#000000' }}
         data-section
         data-section-id="neue-wege-meisterschaft"
       >
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
+        {/* Background-Bild + atmosphärische Layers (analog Klarheit-/Voices-Pattern) */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
           <div
-            className="absolute inset-x-0 -top-[8%] h-[min(48vh,440px)] w-full"
+            className="meisterschaft-bg-img absolute inset-0"
             style={{
-              background:
-                'radial-gradient(ellipse 95% 90% at 50% -2%, rgba(214,168,94,0.07) 0%, rgba(32,26,18,0.08) 35%, transparent 68%)'
+              backgroundImage: 'url(/images/manifest/meisterschaft-wings-bg.png)',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.78,
+              filter: 'saturate(0.96) contrast(1.02)'
             }}
           />
-          <div
-            className="absolute inset-x-0 bottom-0 h-[min(40%,340px)]"
-            style={{
-              background:
-                'radial-gradient(ellipse 115% 90% at 50% 100%, rgba(185,130,63,0.045) 0%, transparent 58%)'
-            }}
-          />
+          {/* Dunkler Mittenwash — sichert Card-Lesbarkeit ohne das Bild zu erschlagen */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(180deg, rgba(4,4,5,0.22) 0%, transparent min(52%,460px), rgba(10,10,11,0.25) 100%)'
+                'radial-gradient(60% 70% at 50% 56%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.32) 48%, rgba(0,0,0,0) 80%)'
+            }}
+          />
+          {/* Matte Tiefen-Lasur — nimmt dem Bild die Direktheit, behält die Materialität */}
+          <div
+            className="absolute inset-0"
+            style={{ background: 'rgba(0,0,0,0.18)' }}
+          />
+          {/* Top-Fade — weicher Übergang vom Hero-Saum in die Wings-Atmosphäre */}
+          <div
+            className="absolute inset-x-0 top-0 h-44 sm:h-56"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 40%, rgba(10,10,10,0.22) 74%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          {/* Bottom-Fade — dunkle Brücke zur nächsten Section (Trust + Manifest Kapitel I) */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+            style={{
+              background:
+                'linear-gradient(0deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.22) 76%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          {/* Subtiler Bronze-Atem unten Mitte — pickt das warme Licht des Bildes auf */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-32 sm:h-40 mix-blend-screen"
+            style={{
+              background:
+                'radial-gradient(60% 100% at 50% 100%, rgba(214,168,94,0.07) 0%, rgba(185,130,63,0.03) 38%, rgba(0,0,0,0) 70%)'
+            }}
+          />
+          {/* Atmosphärischer Hairline-Top — feiner Bronze-Saum als visueller Anker */}
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.18) 50%, transparent 100%)'
             }}
           />
         </div>
+
+        {/* Responsives Background-Positioning — Flügel beidseitig im Frame */}
+        <style>{`
+          .meisterschaft-bg-img { background-position: center center; }
+          @media (min-width: 768px) {
+            .meisterschaft-bg-img { background-position: center 48%; }
+          }
+          @media (min-width: 1280px) {
+            .meisterschaft-bg-img { background-position: center 50%; }
+          }
+        `}</style>
 
         <div className="relative z-[1] mx-auto max-w-[1600px] px-6 pb-[2.875rem] pt-[2.875rem] sm:px-8 sm:pb-14 sm:pt-12 md:px-12 lg:px-16 lg:pb-16 lg:pt-14">
           <header className="mx-auto mb-10 max-w-[42rem] text-center lg:mx-0 lg:mb-11 lg:max-w-[46rem] lg:text-left">

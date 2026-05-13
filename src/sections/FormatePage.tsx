@@ -139,20 +139,79 @@ export default function FormatePage() {
       <AtmosphereGrain className="fixed z-[40]" opacity={0.035} />
 
       {/* ──────────────────────────────────────────────
-         HERO — kompakt, typografisch
+         HERO — kompakt, typografisch · Cinematic Wings-Background
          ────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden pb-[clamp(2rem,4.5vw,3rem)] pt-[clamp(6.5rem,11vw,8.5rem)]"
+        className="relative overflow-hidden pb-[clamp(3rem,6vw,4.5rem)] pt-[clamp(7rem,12vw,9.5rem)]"
         aria-labelledby="fp-hero-heading"
+        style={{ backgroundColor: '#020202' }}
       >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 55% 42% at 50% 22%, rgba(214,168,94,0.06) 0%, transparent 60%)'
-          }}
-        />
+        {/* Wings-Background + atmosphärische Layer (analog Homepage-Meisterschaft).
+            Dunkles Zentrum trägt die zentrierte Typografie, Flügel rahmen seitlich. */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: 'url(/images/portfolio/portfolio-wings-hero-bg.png)',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center center',
+              opacity: 0.82,
+              filter: 'saturate(0.96) contrast(1.02)'
+            }}
+          />
+          {/* Dunkler Mittenwash — sichert Typografie-Lesbarkeit */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(58% 68% at 50% 50%, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.28) 48%, rgba(0,0,0,0) 80%)'
+            }}
+          />
+          {/* Matte Tiefen-Lasur — nimmt dem Bild die Direktheit */}
+          <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.18)' }} />
+          {/* Top-Fade — Verschmelzung mit Navbar-Saum, kein harter Cut */}
+          <div
+            className="absolute inset-x-0 top-0 h-32 sm:h-44"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(2,2,2,0.96) 0%, rgba(2,2,2,0.62) 42%, rgba(2,2,2,0.22) 74%, rgba(2,2,2,0) 100%)'
+            }}
+          />
+          {/* Bottom-Fade — atmosphärischer Übergang in die Intro-Section */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-32 sm:h-44"
+            style={{
+              background:
+                'linear-gradient(0deg, rgba(2,2,2,0.96) 0%, rgba(2,2,2,0.62) 42%, rgba(2,2,2,0.22) 76%, rgba(2,2,2,0) 100%)'
+            }}
+          />
+          {/* Subtiler Bronze-Atem unten Mitte — pickt das warme Licht des Bildes auf */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-28 sm:h-36 mix-blend-screen"
+            style={{
+              background:
+                'radial-gradient(60% 100% at 50% 100%, rgba(214,168,94,0.07) 0%, rgba(185,130,63,0.03) 38%, rgba(0,0,0,0) 70%)'
+            }}
+          />
+          {/* Bestehender warmer Punkt-Glow — Premium-Akzent oben mittig */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse 55% 42% at 50% 22%, rgba(214,168,94,0.08) 0%, transparent 60%)'
+            }}
+          />
+          {/* Atmosphärischer Hairline-Top — feiner Bronze-Saum als visueller Anker */}
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.18) 50%, transparent 100%)'
+            }}
+          />
+        </div>
+
         <div className="relative z-[2] mx-auto w-full max-w-[860px] px-6 sm:px-10 md:px-14">
           <div className="flex flex-col items-center text-center" data-reveal>
             <span
@@ -161,7 +220,8 @@ export default function FormatePage() {
                 fontFamily: FONT_BODY,
                 fontSize: '0.625rem',
                 letterSpacing: '0.44em',
-                color: 'rgba(214,188,152,0.55)'
+                color: 'rgba(230,202,168,0.68)',
+                textShadow: '0 2px 14px rgba(0,0,0,0.65)'
               }}
             >
               Formate
@@ -173,12 +233,14 @@ export default function FormatePage() {
                 fontFamily: FONT_DISPLAY,
                 fontWeight: 100,
                 fontSize: 'clamp(1.9rem, 1rem + 3.2vw, 2.95rem)',
-                color: 'rgba(250,247,240,0.96)'
+                color: 'rgba(250,247,240,0.98)',
+                textShadow:
+                  '0 12px 44px rgba(0,0,0,0.62), 0 2px 14px rgba(0,0,0,0.5)'
               }}
             >
               Sechs Wege in <Accent>dieselbe Wirkung</Accent>.
             </h1>
-            <HairLine className="mx-auto mt-6 max-w-[2rem]" />
+            <HairLine className="mx-auto mt-7 max-w-[2.25rem]" />
           </div>
         </div>
       </section>

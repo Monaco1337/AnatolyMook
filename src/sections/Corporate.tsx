@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Users, Clock, MapPin, Briefcase, TrendingUp, Sparkles, CheckCircle2, ChevronsRight, Star, Target, Zap, Building2, Lightbulb, Award, ChevronDown, Check } from 'lucide-react';
+import { Users, Clock, MapPin, Briefcase, TrendingUp, Sparkles, CheckCircle2, ChevronsRight, Target, Zap, Building2, Lightbulb, Award, ChevronDown } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -292,93 +292,356 @@ export default function Corporate() {
     });
   };
 
-  const categoryColors: Record<string, { from: string; to: string }> = {
-    workshop: { from: '#8A5528', to: '#f97316' },
-    'training-series': { from: '#10b981', to: '#14b8a6' },
-    'team-retreat': { from: '#8b5cf6', to: '#a78bfa' },
-    leadership: { from: '#06b6d4', to: '#0ea5e9' },
-    transformation: { from: '#f97316', to: '#fb923c' }
-  };
+  // Monochrome Premium-Palette — alle Kategorien tragen dieselbe ruhige Editorial-Sprache.
+  // Bronze ausschließlich als statische Hairline. Keine bunten UI-Farben.
+  const ACCENT_BRONZE = 'rgba(214, 168, 94, 0.85)';
+  const ACCENT_HAIRLINE = 'rgba(214, 168, 94, 0.35)';
+  const TEXT_PRIMARY = '#F4F4F4';
+  const TEXT_WARM = '#EADDCB';
+  const TEXT_GRANITE = 'rgba(140, 138, 135, 0.92)';
+  const SURFACE_CARD = 'rgba(13, 12, 11, 0.72)';
+  const SURFACE_INSET = 'rgba(18, 16, 14, 0.55)';
+  const SURFACE_HAIRLINE = 'rgba(244, 239, 231, 0.06)';
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-stone-950/80 via-[#070708] to-[#050506]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_80%_at_50%_0%,rgba(185,130,63,0.06),transparent_55%)]" />
+    <div
+      className="min-h-screen text-white"
+      style={{ backgroundColor: '#0A0A0A', color: TEXT_PRIMARY }}
+    >
+      {/* HERO SECTION — Premium-Architektur-Background, edge-to-edge.
+          Bild als integrierter Raum, kein Banner. Mehrere Atmosphäre-Layer
+          + Mask-Fade nach unten → organischer Übergang in die Cards-Section. */}
+      <section
+        className="relative isolate flex flex-col overflow-hidden"
+        style={{
+          minHeight: 'clamp(620px, 92svh, 940px)',
+          backgroundColor: '#050403'
+        }}
+        aria-labelledby="corporate-hero-heading"
+      >
+        {/* Foto-Layer — voll abdeckend */}
+        <div className="absolute inset-0 z-0" aria-hidden>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "url('/images/corporate/corporate-hero-architecture.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center 56%',
+              backgroundRepeat: 'no-repeat'
+            }}
+          />
+          {/* Tiefen-Vignette — bringt Bildränder weich in den Raum */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(155% 110% at 50% 50%, rgba(0,0,0,0) 36%, rgba(0,0,0,0.30) 72%, rgba(0,0,0,0.72) 100%)'
+            }}
+          />
+          {/* Lese-Lasur — dezent, hält Headline glasklar ohne Bild zu schwärzen */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(95% 70% at 50% 45%, rgba(4,4,5,0.40) 0%, rgba(4,4,5,0.25) 45%, rgba(4,4,5,0.05) 85%)'
+            }}
+          />
+          {/* Bronze-Ambient — folgt der natürlichen Horizont-Lichtkante im Bild */}
+          <div
+            className="absolute inset-0 mix-blend-screen"
+            style={{
+              background:
+                'radial-gradient(70% 22% at 62% 58%, rgba(214,168,94,0.10) 0%, rgba(185,130,63,0.04) 40%, rgba(0,0,0,0) 72%)'
+            }}
+          />
+          {/* Top-Fade — sauber unter die Nav blendend */}
+          <div
+            className="absolute inset-x-0 top-0 h-32 sm:h-40"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.34) 45%, rgba(0,0,0,0.10) 78%, rgba(0,0,0,0) 100%)'
+            }}
+          />
+          {/* Bottom-Mask-Fade — organischer Übergang zur Cards-Section,
+              endet exakt im Obsidian-Ton der nächsten Section (#0A0A0A) */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-48 sm:h-60"
+            style={{
+              background:
+                'linear-gradient(0deg, #0A0A0A 0%, rgba(10,10,10,0.92) 18%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.28) 70%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+        </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 lg:py-[4.25rem]">
-          <div className="text-center mb-8 sm:mb-10">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-[rgba(214,168,94,0.16)] mb-5">
-              <Briefcase size={15} className="text-[#c9a878]" strokeWidth={2} />
+        <div className="relative z-[1] flex flex-1 items-center w-full mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-24 sm:py-28 lg:py-[7.5rem]">
+          <div className="text-center w-full">
+            {/* Editorial Eyebrow — kein Pill, freistehend mit feiner Bronze-Hairline */}
+            <div className="flex flex-col items-center gap-4 mb-9 sm:mb-10">
               <span
-                className="text-[11px] uppercase tracking-[0.22em] text-[rgba(234,221,203,0.85)]"
-                style={{ fontFamily: FONT_BODY, fontWeight: 500 }}
+                className="uppercase"
+                style={{
+                  fontFamily: FONT_BODY,
+                  fontWeight: 500,
+                  fontSize: '0.6875rem',
+                  letterSpacing: '0.42em',
+                  color: 'rgba(234, 221, 203, 0.78)',
+                  textShadow:
+                    '0 1px 14px rgba(0,0,0,0.78), 0 0 22px rgba(0,0,0,0.5)'
+                }}
               >
                 {t.corporate.badge}
               </span>
+              <span
+                aria-hidden
+                className="block h-px"
+                style={{
+                  width: '2.25rem',
+                  background:
+                    'linear-gradient(90deg, transparent 0%, rgba(214, 168, 94, 0.55) 50%, transparent 100%)'
+                }}
+              />
             </div>
 
             <h1
-              className="text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-5xl mb-5 leading-[1.12] tracking-[-0.03em]"
-              style={{ fontFamily: FONT_DISPLAY, fontWeight: 300, color: '#F4F4F4' }}
+              id="corporate-hero-heading"
+              className="mb-8 mx-auto"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontWeight: 200,
+                fontSize: 'clamp(2.05rem, 3vw + 1.45rem, 3.55rem)',
+                lineHeight: 1.06,
+                letterSpacing: '-0.036em',
+                color: TEXT_PRIMARY,
+                maxWidth: '20ch',
+                textShadow:
+                  '0 2px 22px rgba(0,0,0,0.78), 0 0 38px rgba(0,0,0,0.48)'
+              }}
             >
               <span>{t.corporate.heroTitle}</span>
               <br />
-              <span style={{ color: '#EADDCB', fontWeight: 300 }}>{t.corporate.heroSubtitle}</span>
+              <span style={{ color: TEXT_WARM, fontWeight: 200 }}>
+                {(() => {
+                  const sub = t.corporate.heroSubtitle ?? '';
+                  const accent = (t.corporate as { heroAccent?: string }).heroAccent;
+                  if (!accent || !sub.includes(accent)) {
+                    return <span>{sub}</span>;
+                  }
+                  const [before, after] = sub.split(accent);
+                  return (
+                    <>
+                      <span>{before}</span>
+                      <span
+                        style={{
+                          color: TEXT_WARM,
+                          fontStyle: 'italic',
+                          fontWeight: 200,
+                          letterSpacing: '-0.006em'
+                        }}
+                      >
+                        {accent}
+                      </span>
+                      <span>{after}</span>
+                    </>
+                  );
+                })()}
+              </span>
             </h1>
 
             <p
-              className="text-[15px] sm:text-base max-w-2xl mx-auto leading-[1.6]"
-              style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'rgba(140, 138, 135, 0.92)' }}
+              className="mx-auto"
+              style={{
+                fontFamily: FONT_BODY,
+                fontWeight: 400,
+                fontSize: 'clamp(0.9375rem, 0.4vw + 0.85rem, 1.0625rem)',
+                lineHeight: 1.75,
+                color: 'rgba(234, 226, 215, 0.86)',
+                maxWidth: '40rem',
+                letterSpacing: '-0.005em',
+                textShadow:
+                  '0 2px 18px rgba(0,0,0,0.78), 0 0 28px rgba(0,0,0,0.42)'
+              }}
             >
               {t.corporate.heroDescription}
             </p>
-          </div>
 
+            <div
+              className="mx-auto mt-14 h-px"
+              aria-hidden
+              style={{
+                maxWidth: '6rem',
+                background:
+                  'linear-gradient(90deg, transparent 0%, rgba(214, 168, 94, 0.42) 50%, transparent 100%)'
+              }}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* CARDS + FILTER SECTION — Premium-Atmosphäre-Bild als Hintergrund.
+          Bild deutlich subtiler als im Hero, dunkle Mitte bleibt für Card-Lesbarkeit erhalten.
+          Übergang aus Hero (Bottom-Fade endet in #0A0A0A) ist organisch. */}
+      <section
+        className="relative overflow-hidden"
+        style={{ backgroundColor: '#0A0A0A' }}
+        aria-label="Vier Räume und Angebotskategorien"
+      >
+        {/* Foto-Layer — sehr gedämpft, nur als Tiefen-Atmosphäre */}
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "url('/images/corporate/corporate-cards-atmosphere.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center 70%',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.55
+            }}
+          />
+          {/* Dunkle Mitten-Lasur — Karten bleiben visuell dominant,
+              schwarze Tiefe in der Mitte bewusst erhalten */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(95% 70% at 50% 50%, rgba(8,8,9,0.82) 0%, rgba(8,8,9,0.62) 38%, rgba(8,8,9,0.32) 72%, rgba(8,8,9,0.08) 100%)'
+            }}
+          />
+          {/* Top-Fade — sauber aus Hero-Bottom (#0A0A0A) blendend */}
+          <div
+            className="absolute inset-x-0 top-0 h-32 sm:h-44"
+            style={{
+              background:
+                'linear-gradient(180deg, #0A0A0A 0%, rgba(10,10,10,0.78) 35%, rgba(10,10,10,0.32) 70%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          {/* Bottom-Fade — weicher Atemzug in den Offers-Bereich */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-32 sm:h-44"
+            style={{
+              background:
+                'linear-gradient(0deg, #0A0A0A 0%, rgba(10,10,10,0.78) 35%, rgba(10,10,10,0.32) 70%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          {/* Bronze-Ambient — folgt der natürlichen Lichtkante im Bild
+              (rechte Hälfte / unteres Drittel), sehr fein */}
+          <div
+            className="absolute inset-0 mix-blend-screen"
+            style={{
+              background:
+                'radial-gradient(60% 38% at 78% 72%, rgba(214,168,94,0.06) 0%, rgba(185,130,63,0.025) 40%, rgba(0,0,0,0) 72%)'
+            }}
+          />
+        </div>
+
+        <div className="relative z-[1] max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-14 lg:pb-16">
           {/* Einstieg: vier Zielgruppen-Räume */}
-          <div className="mb-8 sm:mb-10">
-            <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6">
+          <div className="mb-12 sm:mb-14">
+            <div className="text-center max-w-2xl mx-auto mb-9 sm:mb-11">
+              <span
+                aria-hidden
+                className="inline-block mb-5"
+                style={{
+                  height: 1,
+                  width: 40,
+                  background:
+                    'linear-gradient(90deg, rgba(214, 168, 94, 0.45) 0%, rgba(214, 168, 94, 0) 100%)'
+                }}
+              />
               <h2
-                className="text-xl sm:text-2xl tracking-[-0.03em] mb-2.5"
-                style={{ fontFamily: FONT_DISPLAY, fontWeight: 300, color: '#F4F4F4' }}
+                className="mb-4"
+                style={{
+                  fontFamily: FONT_DISPLAY,
+                  fontWeight: 300,
+                  fontSize: 'clamp(1.5rem, 1.4vw + 1rem, 1.9rem)',
+                  letterSpacing: '-0.03em',
+                  color: TEXT_PRIMARY,
+                  lineHeight: 1.18
+                }}
               >
                 Vier Räume für bewusste Wirkung.
               </h2>
               <p
-                className="text-[13px] sm:text-sm leading-relaxed px-1"
-                style={{ fontFamily: FONT_BODY, fontWeight: 400, color: '#EADDCB' }}
+                className="px-2"
+                style={{
+                  fontFamily: FONT_BODY,
+                  fontWeight: 400,
+                  fontSize: 'clamp(0.875rem, 0.4vw + 0.8rem, 0.9375rem)',
+                  lineHeight: 1.6,
+                  color: TEXT_GRANITE,
+                  letterSpacing: '-0.005em'
+                }}
               >
                 Kultur, Führung und Teamdynamik verändern sich nicht durch mehr Druck — sondern durch klare Ausrichtung.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-3.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
               {ENTRY_CARDS.map((card) => (
                 <div
                   key={card.id}
-                  className="relative flex min-h-0 rounded-[14px] border border-[rgba(185,130,63,0.14)] bg-[rgba(10,10,11,0.78)] backdrop-blur-[20px] shadow-[inset_0_1px_0_rgba(255,248,238,0.06)] transition-[border-color,background-color] duration-300 hover:border-[rgba(185,130,63,0.22)] hover:bg-[rgba(12,12,13,0.82)]"
+                  className="relative flex min-h-0 rounded-[14px] transition-[border-color,background-color,box-shadow] duration-[700ms]"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, rgba(15, 13, 11, 0.88) 0%, rgba(10, 10, 11, 0.92) 100%)',
+                    border: '1px solid rgba(244, 239, 231, 0.06)',
+                    boxShadow:
+                      'inset 0 1px 0 rgba(255, 248, 238, 0.04), 0 18px 48px -28px rgba(0, 0, 0, 0.85)',
+                    backdropFilter: 'blur(8px) saturate(1.06)',
+                    WebkitBackdropFilter: 'blur(8px) saturate(1.06)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(214, 168, 94, 0.22)';
+                    e.currentTarget.style.boxShadow =
+                      'inset 0 1px 0 rgba(255, 248, 238, 0.06), 0 22px 56px -26px rgba(0, 0, 0, 0.92), 0 0 0 1px rgba(214, 168, 94, 0.06) inset';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(244, 239, 231, 0.06)';
+                    e.currentTarget.style.boxShadow =
+                      'inset 0 1px 0 rgba(255, 248, 238, 0.04), 0 18px 48px -28px rgba(0, 0, 0, 0.85)';
+                  }}
                 >
-                  <div className="flex min-h-[220px] sm:min-h-[240px] flex-col p-4 sm:p-[1.125rem] w-full">
+                  <div className="flex min-h-[220px] sm:min-h-[240px] flex-col px-5 py-6 sm:px-6 sm:py-7 w-full">
                     <h3
-                      className="text-[17px] sm:text-[1.05rem] tracking-[-0.02em] mb-2"
-                      style={{ fontFamily: FONT_DISPLAY, fontWeight: 300, color: '#F4F4F4', lineHeight: 1.2 }}
+                      className="mb-3"
+                      style={{
+                        fontFamily: FONT_DISPLAY,
+                        fontWeight: 300,
+                        fontSize: 'clamp(1rem, 0.4vw + 0.95rem, 1.0625rem)',
+                        letterSpacing: '-0.02em',
+                        color: TEXT_PRIMARY,
+                        lineHeight: 1.25
+                      }}
                     >
                       {card.title}
                     </h3>
                     <p
-                      className="flex-1 text-[13px] sm:text-[13.5px] leading-[1.55] mb-4"
-                      style={{ fontFamily: FONT_BODY, fontWeight: 400, color: '#F4F4F4' }}
+                      className="flex-1 mb-5"
+                      style={{
+                        fontFamily: FONT_BODY,
+                        fontWeight: 400,
+                        fontSize: 'clamp(0.8125rem, 0.3vw + 0.78rem, 0.875rem)',
+                        lineHeight: 1.6,
+                        color: 'rgba(234, 221, 203, 0.78)',
+                        letterSpacing: '-0.005em'
+                      }}
                     >
                       {card.body}
                     </p>
                     <button
                       type="button"
                       onClick={() => scrollToOffers(card.category)}
-                      className="mt-auto inline-flex items-center gap-1.5 self-start border-0 bg-transparent p-0 cursor-pointer group/cta focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.35)] rounded-sm"
-                      style={{ fontFamily: FONT_BODY }}
+                      className="mt-auto inline-flex items-center gap-1.5 self-start border-0 bg-transparent p-0 cursor-pointer group/cta focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.32)] rounded-sm transition-[color] duration-[600ms]"
+                      style={{
+                        fontFamily: FONT_BODY,
+                        fontWeight: 500,
+                        fontSize: '0.75rem',
+                        letterSpacing: '0.06em',
+                        color: TEXT_WARM
+                      }}
                     >
-                      <span className="text-[12px] sm:text-[12.5px] tracking-[0.04em] text-[#EADDCB] group-hover/cta:text-[#F4F4F4] transition-colors duration-300">
+                      <span className="group-hover/cta:text-[#F4F4F4] transition-colors duration-[600ms]">
                         {card.cta}
                       </span>
                     </button>
@@ -388,8 +651,8 @@ export default function Corporate() {
             </div>
           </div>
 
-          {/* Category Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-10 pt-1 border-t border-white/[0.05]">
+          {/* Category Filter — monochrome Editorial Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-6 sm:pt-7 mb-10 border-t border-[rgba(244,239,231,0.05)]">
             {categories.map((category) => {
               const Icon = category.icon;
               const isActive = selectedCategory === category.id;
@@ -398,22 +661,32 @@ export default function Corporate() {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`relative px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
-                    isActive
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/30 scale-105'
-                      : 'bg-gray-900/50 text-gray-400 hover:text-white hover:bg-gray-800/50 border border-gray-800'
-                  }`}
+                  className="relative inline-flex items-center gap-2 px-4 py-2.5 rounded-full transition-[border-color,background-color,color] duration-[600ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.32)]"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontWeight: 500,
+                    fontSize: '0.75rem',
+                    letterSpacing: '0.04em',
+                    border: `1px solid ${isActive ? 'rgba(214, 168, 94, 0.26)' : 'rgba(244, 239, 231, 0.08)'}`,
+                    background: isActive
+                      ? 'linear-gradient(180deg, rgba(22, 19, 16, 0.88) 0%, rgba(14, 13, 12, 0.92) 100%)'
+                      : 'rgba(12, 12, 13, 0.7)',
+                    color: isActive ? TEXT_PRIMARY : 'rgba(234, 221, 203, 0.7)',
+                    boxShadow: isActive
+                      ? 'inset 0 1px 0 rgba(255, 248, 238, 0.05), 0 8px 22px -14px rgba(0,0,0,0.7)'
+                      : '0 4px 14px -10px rgba(0,0,0,0.6)',
+                    backdropFilter: 'blur(6px)',
+                    WebkitBackdropFilter: 'blur(6px)'
+                  }}
                 >
-                  <div className="flex items-center gap-2">
-                    <Icon size={16} strokeWidth={2.5} />
-                    <span>{category.label}</span>
-                  </div>
+                  <Icon size={13} strokeWidth={1.6} style={{ opacity: isActive ? 0.9 : 0.55 }} />
+                  <span>{category.label}</span>
                 </button>
               );
             })}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Offers Grid */}
       <div
@@ -421,176 +694,352 @@ export default function Corporate() {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16 scroll-mt-[4.5rem]"
       >
         {loading ? (
-          <div className="text-center py-20">
-            <div className="w-16 h-16 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-gray-400">{t.corporate.loading}</p>
+          <div className="text-center py-24">
+            <div
+              className="w-10 h-10 rounded-full animate-spin mx-auto mb-5 border-[1.5px] border-solid border-t-transparent"
+              style={{ borderColor: 'rgba(214, 168, 94, 0.55)', borderTopColor: 'transparent', animationDuration: '1.6s' }}
+            />
+            <p
+              style={{ fontFamily: FONT_BODY, fontWeight: 400, color: TEXT_GRANITE, fontSize: '0.875rem', letterSpacing: '0.04em' }}
+            >
+              {t.corporate.loading}
+            </p>
           </div>
         ) : filteredOffers.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 mb-6">
-              <Briefcase className="w-10 h-10 text-cyan-400" strokeWidth={1.5} />
+          <div className="text-center py-24">
+            <div
+              className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-7"
+              style={{
+                background: 'rgba(18, 16, 14, 0.55)',
+                border: '1px solid rgba(214, 168, 94, 0.18)'
+              }}
+            >
+              <Briefcase className="w-5 h-5" strokeWidth={1.4} style={{ color: ACCENT_BRONZE }} />
             </div>
-            <h3 className="text-2xl font-bold mb-4 text-gray-300">{t.corporate.noOffersFound}</h3>
-            <p className="text-gray-500">
+            <h3
+              className="mb-3"
+              style={{ fontFamily: FONT_DISPLAY, fontWeight: 300, fontSize: 'clamp(1.25rem, 1vw + 1rem, 1.6rem)', color: TEXT_PRIMARY, letterSpacing: '-0.025em' }}
+            >
+              {t.corporate.noOffersFound}
+            </h3>
+            <p
+              className="max-w-md mx-auto"
+              style={{ fontFamily: FONT_BODY, fontWeight: 400, color: TEXT_GRANITE, fontSize: '0.9375rem', lineHeight: 1.6 }}
+            >
               {t.corporate.noOffersDescription}
             </p>
           </div>
         ) : (
-          <div className="grid gap-6 lg:gap-8 md:grid-cols-2">
-            {filteredOffers.map((offer) => {
+          <div className="grid gap-6 lg:gap-7 md:grid-cols-2">
+            {filteredOffers.map((offer, offerIdx) => {
               const isExpanded = expandedOffer === offer.id;
-              const colors = categoryColors[offer.category];
+              const categoryLabel = categories.find(c => c.id === offer.category)?.label;
+              const orderNumber = String(offer.order_index ?? offerIdx + 1).padStart(2, '0');
+              const detailsId = `offer-details-${offer.id}`;
 
               return (
-                <div
-                  key={offer.id}
-                  className="relative group"
-                >
-                  {/* Outer glow */}
+                <div key={offer.id} className="relative">
+                  {/* Card — kompakt, aufklappbar, editorial */}
                   <div
-                    className="absolute -inset-[1px] rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"
+                    className="relative overflow-hidden rounded-[18px] transition-[border-color,box-shadow] duration-[700ms]"
                     style={{
-                      background: `linear-gradient(135deg, ${colors.from}30, ${colors.to}30)`
+                      background: 'linear-gradient(180deg, rgba(13, 12, 11, 0.78) 0%, rgba(10, 10, 11, 0.82) 100%)',
+                      border: `1px solid ${isExpanded ? 'rgba(214,168,94,0.18)' : SURFACE_HAIRLINE}`,
+                      boxShadow:
+                        '0 28px 70px -36px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 248, 238, 0.035)'
                     }}
-                  />
-
-                  {/* Card */}
-                  <div className="relative bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-3xl overflow-hidden">
-                    {/* Image Header */}
-                    <div
-                      className="relative h-48 sm:h-56 bg-cover"
-                      style={{
-                        backgroundImage: `url(${offer.image})`,
-                        backgroundPosition: 'center 28%'
-                      }}
+                  >
+                    {/* ── COMPACT HEAD — der ganze obere Bereich ist der Toggle ── */}
+                    <button
+                      type="button"
+                      onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}
+                      aria-expanded={isExpanded}
+                      aria-controls={detailsId}
+                      className="block w-full text-left px-7 sm:px-9 lg:px-10 pt-8 sm:pt-9 pb-7 sm:pb-8 transition-colors duration-[500ms] hover:bg-[rgba(18,16,14,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[rgba(214,168,94,0.32)] cursor-pointer"
                     >
+                      {/* Top Row — Kategorie + Highlight (links) | Order + Toggle (rechts) */}
+                      <div className="flex items-start justify-between gap-5">
+                        <div className="flex items-center flex-wrap gap-x-3 gap-y-1.5 min-w-0">
+                          <span
+                            className="uppercase"
+                            style={{
+                              fontFamily: FONT_BODY,
+                              fontWeight: 500,
+                              fontSize: '0.6875rem',
+                              letterSpacing: '0.24em',
+                              color: 'rgba(234, 221, 203, 0.72)'
+                            }}
+                          >
+                            {categoryLabel}
+                          </span>
+
+                          {offer.highlight && (
+                            <>
+                              <span
+                                aria-hidden
+                                className="block h-px w-4"
+                                style={{
+                                  background:
+                                    'linear-gradient(90deg, rgba(214,168,94,0.4) 0%, rgba(214,168,94,0) 100%)'
+                                }}
+                              />
+                              <span
+                                className="uppercase"
+                                style={{
+                                  fontFamily: FONT_BODY,
+                                  fontWeight: 500,
+                                  fontSize: '0.625rem',
+                                  letterSpacing: '0.26em',
+                                  color: ACCENT_BRONZE
+                                }}
+                              >
+                                {t.corporate.popular}
+                              </span>
+                            </>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-4 flex-shrink-0">
+                          <span
+                            aria-hidden
+                            style={{
+                              fontFamily: FONT_DISPLAY,
+                              fontWeight: 200,
+                              fontSize: 'clamp(0.78rem, 0.9vw, 0.875rem)',
+                              color: 'rgba(234, 221, 203, 0.4)',
+                              letterSpacing: '0.18em',
+                              fontFeatureSettings: '"tnum","lnum"'
+                            }}
+                          >
+                            {orderNumber}
+                          </span>
+
+                          <span
+                            aria-hidden
+                            className="inline-flex items-center justify-center h-9 w-9 rounded-full transition-[border-color,background-color,transform] duration-[500ms]"
+                            style={{
+                              border: `1px solid ${isExpanded ? 'rgba(214,168,94,0.34)' : 'rgba(244,239,231,0.10)'}`,
+                              background: isExpanded
+                                ? 'rgba(214, 168, 94, 0.06)'
+                                : 'rgba(18, 16, 14, 0.5)'
+                            }}
+                          >
+                            <ChevronDown
+                              size={14}
+                              strokeWidth={1.5}
+                              className={`transition-transform duration-[600ms] ease-out ${isExpanded ? 'rotate-180' : ''}`}
+                              style={{ color: isExpanded ? ACCENT_BRONZE : 'rgba(234, 221, 203, 0.62)' }}
+                            />
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Hairline */}
                       <div
-                        className="absolute inset-x-0 bottom-0 top-[18%] pointer-events-none"
+                        className="mt-6 h-px w-full"
+                        aria-hidden
                         style={{
                           background:
-                            'linear-gradient(to top, rgba(17,24,39,0.94) 0%, rgba(17,24,39,0.35) min(62%,340px), transparent 100%)'
+                            'linear-gradient(90deg, rgba(214, 168, 94, 0.32) 0%, rgba(244, 239, 231, 0.04) 32%, rgba(244, 239, 231, 0) 100%)'
                         }}
                       />
 
-                      {/* Category Badge */}
-                      <div className="absolute top-4 left-4">
-                        <div
-                          className="px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg"
+                      {/* Title + Subtitle */}
+                      <div className="mt-7">
+                        <h3
+                          className="mb-3"
                           style={{
-                            background: `linear-gradient(135deg, ${colors.from}, ${colors.to})`,
-                            color: 'white'
+                            fontFamily: FONT_DISPLAY,
+                            fontWeight: 300,
+                            fontSize: 'clamp(1.5rem, 1.1vw + 1rem, 1.875rem)',
+                            letterSpacing: '-0.03em',
+                            lineHeight: 1.12,
+                            color: TEXT_PRIMARY
                           }}
                         >
-                          {categories.find(c => c.id === offer.category)?.label}
-                        </div>
-                      </div>
-
-                      {/* Highlight Badge */}
-                      {offer.highlight && (
-                        <div className="absolute top-4 right-4">
-                          <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 shadow-lg">
-                            <span className="text-white text-xs font-bold uppercase tracking-wider">
-                              {t.corporate.popular}
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6 sm:p-8">
-                      {/* Title Section */}
-                      <div className="mb-6">
-                        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
                           {offer.title}
                         </h3>
-                        <p className="text-gray-400 text-sm">
+                        <p
+                          style={{
+                            fontFamily: FONT_BODY,
+                            fontWeight: 400,
+                            fontSize: '0.875rem',
+                            lineHeight: 1.55,
+                            color: TEXT_GRANITE,
+                            letterSpacing: '-0.005em'
+                          }}
+                        >
                           {offer.subtitle}
                         </p>
                       </div>
+                    </button>
 
-                      {/* Tagline Quote */}
-                      <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-l-4 border-cyan-500">
-                        <p className="text-gray-300 italic text-sm">
-                          "{offer.tagline}"
-                        </p>
-                      </div>
-
-                      {/* Info Grid */}
-                      <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="flex items-start gap-3">
-                          <Clock size={18} className="text-cyan-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
-                          <div>
-                            <div className="text-xs text-gray-500 mb-1">{t.corporate.duration}</div>
-                            <div className="text-sm font-semibold text-white">{offer.duration}</div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3">
-                          <Users size={18} className="text-cyan-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
-                          <div>
-                            <div className="text-xs text-gray-500 mb-1">{t.corporate.participants}</div>
-                            <div className="text-sm font-semibold text-white">{offer.participants}</div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3">
-                          <MapPin size={18} className="text-cyan-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
-                          <div>
-                            <div className="text-xs text-gray-500 mb-1">{t.corporate.format}</div>
-                            <div className="text-sm font-semibold text-white">{offer.format}</div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-start gap-3">
-                          <Zap size={18} className="text-cyan-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
-                          <div>
-                            <div className="text-xs text-gray-500 mb-1">{t.seminare.availability}</div>
-                            <div className="text-sm font-semibold text-white">{offer.availability}</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                        {offer.description}
-                      </p>
-
-                      {/* Essence Quote */}
-                      <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-cyan-900/20 to-blue-900/20 border border-cyan-500/20">
-                        <p className="text-cyan-300 italic text-sm text-center">
-                          {offer.essence}
-                        </p>
-                      </div>
-
-                      {/* Expandable Details */}
-                      <div className="space-y-4">
-                        <button
-                          onClick={() => setExpandedOffer(isExpanded ? null : offer.id)}
-                          className="w-full px-6 py-3 bg-gray-800/50 hover:bg-gray-800 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-colors border border-gray-700"
+                    {/* ── EXPANDABLE BODY — sanftes Auf- und Zuklappen ── */}
+                    <div
+                      id={detailsId}
+                      className="grid transition-[grid-template-rows] duration-[700ms] ease-out motion-reduce:transition-none"
+                      style={{ gridTemplateRows: isExpanded ? '1fr' : '0fr' }}
+                      aria-hidden={!isExpanded}
+                    >
+                      <div className="overflow-hidden">
+                        <div
+                          className="px-7 sm:px-9 lg:px-10 pb-2 transition-opacity duration-[500ms]"
+                          style={{ opacity: isExpanded ? 1 : 0 }}
                         >
-                          <span>{t.corporate.learnMore}</span>
-                          <ChevronDown
-                            size={18}
-                            strokeWidth={2.5}
-                            className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
-                          />
-                        </button>
+                          {/* Tagline Quote */}
+                          <div className="mt-2 mb-8 pl-6 sm:pl-7 py-2 relative">
+                            <span
+                              aria-hidden
+                              className="absolute left-0 top-1 bottom-1 w-px"
+                              style={{
+                                background:
+                                  'linear-gradient(180deg, rgba(214,168,94,0.45) 0%, rgba(214,168,94,0.10) 100%)'
+                              }}
+                            />
+                            <p
+                              style={{
+                                fontFamily: FONT_DISPLAY,
+                                fontWeight: 300,
+                                fontStyle: 'italic',
+                                fontSize: 'clamp(0.9375rem, 0.6vw + 0.85rem, 1.05rem)',
+                                lineHeight: 1.5,
+                                color: TEXT_WARM,
+                                letterSpacing: '-0.005em'
+                              }}
+                            >
+                              {`„${offer.tagline}"`}
+                            </p>
+                          </div>
 
-                        {/* Expanded Content */}
-                        {isExpanded && (
-                          <div className="space-y-6 animate-in fade-in duration-300">
-                            {/* Includes */}
+                          {/* Info Grid */}
+                          <div
+                            className="grid grid-cols-2 gap-x-5 gap-y-4 mb-8 pb-8"
+                            style={{ borderBottom: `1px solid ${SURFACE_HAIRLINE}` }}
+                          >
+                            {[
+                              { icon: Clock, label: t.corporate.duration, value: offer.duration },
+                              { icon: Users, label: t.corporate.participants, value: offer.participants },
+                              { icon: MapPin, label: t.corporate.format, value: offer.format },
+                              { icon: Zap, label: t.seminare.availability, value: offer.availability }
+                            ].map(({ icon: Icon, label, value }) => (
+                              <div key={label} className="flex items-start gap-3">
+                                <Icon
+                                  size={14}
+                                  strokeWidth={1.4}
+                                  className="mt-0.5 flex-shrink-0"
+                                  style={{ color: 'rgba(234, 221, 203, 0.55)' }}
+                                />
+                                <div className="min-w-0">
+                                  <div
+                                    className="uppercase mb-1"
+                                    style={{
+                                      fontFamily: FONT_BODY,
+                                      fontWeight: 500,
+                                      fontSize: '0.625rem',
+                                      letterSpacing: '0.2em',
+                                      color: 'rgba(140, 138, 135, 0.7)'
+                                    }}
+                                  >
+                                    {label}
+                                  </div>
+                                  <div
+                                    style={{
+                                      fontFamily: FONT_BODY,
+                                      fontWeight: 500,
+                                      fontSize: '0.875rem',
+                                      color: TEXT_PRIMARY,
+                                      letterSpacing: '-0.005em',
+                                      lineHeight: 1.4
+                                    }}
+                                  >
+                                    {value}
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Description */}
+                          <p
+                            className="mb-8"
+                            style={{
+                              fontFamily: FONT_BODY,
+                              fontWeight: 400,
+                              fontSize: '0.9375rem',
+                              lineHeight: 1.7,
+                              color: 'rgba(234, 221, 203, 0.78)',
+                              letterSpacing: '-0.005em'
+                            }}
+                          >
+                            {offer.description}
+                          </p>
+
+                          {/* Essence */}
+                          <div
+                            className="mb-9 px-6 py-5 rounded-[12px] text-center"
+                            style={{
+                              background: SURFACE_INSET,
+                              border: `1px solid ${SURFACE_HAIRLINE}`
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontFamily: FONT_DISPLAY,
+                                fontWeight: 300,
+                                fontStyle: 'italic',
+                                fontSize: 'clamp(0.875rem, 0.4vw + 0.85rem, 0.9375rem)',
+                                lineHeight: 1.6,
+                                color: TEXT_WARM,
+                                letterSpacing: '-0.005em'
+                              }}
+                            >
+                              {offer.essence}
+                            </p>
+                          </div>
+
+                          {/* Includes / Benefits / Ideal-For / Outline */}
+                          <div className="space-y-10">
                             {offer.includes.length > 0 && (
                               <div>
-                                <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                                  <Check size={18} className="text-green-400" strokeWidth={2.5} />
+                                <h4
+                                  className="uppercase mb-5 flex items-center gap-2.5"
+                                  style={{
+                                    fontFamily: FONT_BODY,
+                                    fontWeight: 500,
+                                    fontSize: '0.6875rem',
+                                    letterSpacing: '0.24em',
+                                    color: ACCENT_BRONZE
+                                  }}
+                                >
+                                  <span
+                                    aria-hidden
+                                    className="block h-px w-8"
+                                    style={{
+                                      background:
+                                        'linear-gradient(90deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0) 100%)'
+                                    }}
+                                  />
                                   <span>{t.corporate.includedTitle}</span>
                                 </h4>
-                                <div className="space-y-2">
+                                <div className="space-y-3">
                                   {offer.includes.map((item, index) => (
-                                    <div key={index} className="flex items-start gap-3 text-sm text-gray-300">
-                                      <CheckCircle2 size={16} className="text-green-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
+                                    <div
+                                      key={index}
+                                      className="flex items-start gap-3"
+                                      style={{
+                                        fontFamily: FONT_BODY,
+                                        fontWeight: 400,
+                                        fontSize: '0.875rem',
+                                        lineHeight: 1.6,
+                                        color: 'rgba(234, 221, 203, 0.85)'
+                                      }}
+                                    >
+                                      <CheckCircle2
+                                        size={14}
+                                        className="mt-1 flex-shrink-0"
+                                        strokeWidth={1.4}
+                                        style={{ color: 'rgba(234, 221, 203, 0.55)' }}
+                                      />
                                       <span>{item}</span>
                                     </div>
                                   ))}
@@ -598,20 +1047,62 @@ export default function Corporate() {
                               </div>
                             )}
 
-                            {/* Benefits */}
                             {offer.benefits.length > 0 && (
                               <div>
-                                <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                                  <Star size={18} className="text-cyan-400" strokeWidth={2.5} />
+                                <h4
+                                  className="uppercase mb-5 flex items-center gap-2.5"
+                                  style={{
+                                    fontFamily: FONT_BODY,
+                                    fontWeight: 500,
+                                    fontSize: '0.6875rem',
+                                    letterSpacing: '0.24em',
+                                    color: ACCENT_BRONZE
+                                  }}
+                                >
+                                  <span
+                                    aria-hidden
+                                    className="block h-px w-8"
+                                    style={{
+                                      background:
+                                        'linear-gradient(90deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0) 100%)'
+                                    }}
+                                  />
                                   <span>{t.corporate.benefitsTitle}</span>
                                 </h4>
-                                <div className="space-y-3">
+                                <div className="space-y-4">
                                   {offer.benefits.map((benefit, index) => (
-                                    <div key={index} className="p-4 rounded-xl bg-gray-800/50 border border-gray-700">
-                                      <div className="font-semibold text-white mb-1 text-sm">
+                                    <div key={index} className="pl-5 py-2 relative">
+                                      <span
+                                        aria-hidden
+                                        className="absolute left-0 top-1 bottom-1 w-px"
+                                        style={{
+                                          background:
+                                            'linear-gradient(180deg, rgba(214,168,94,0.32) 0%, rgba(214,168,94,0.06) 100%)'
+                                        }}
+                                      />
+                                      <div
+                                        className="mb-1.5"
+                                        style={{
+                                          fontFamily: FONT_DISPLAY,
+                                          fontWeight: 400,
+                                          fontSize: '0.9375rem',
+                                          letterSpacing: '-0.015em',
+                                          color: TEXT_PRIMARY,
+                                          lineHeight: 1.35
+                                        }}
+                                      >
                                         {benefit.title}
                                       </div>
-                                      <div className="text-xs text-gray-400">
+                                      <div
+                                        style={{
+                                          fontFamily: FONT_BODY,
+                                          fontWeight: 400,
+                                          fontSize: '0.8125rem',
+                                          lineHeight: 1.6,
+                                          color: 'rgba(234, 221, 203, 0.7)',
+                                          letterSpacing: '-0.005em'
+                                        }}
+                                      >
                                         {benefit.description}
                                       </div>
                                     </div>
@@ -620,17 +1111,47 @@ export default function Corporate() {
                               </div>
                             )}
 
-                            {/* Ideal For */}
                             {offer.ideal_for.length > 0 && (
                               <div>
-                                <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                                  <Target size={18} className="text-cyan-400" strokeWidth={2.5} />
+                                <h4
+                                  className="uppercase mb-5 flex items-center gap-2.5"
+                                  style={{
+                                    fontFamily: FONT_BODY,
+                                    fontWeight: 500,
+                                    fontSize: '0.6875rem',
+                                    letterSpacing: '0.24em',
+                                    color: ACCENT_BRONZE
+                                  }}
+                                >
+                                  <span
+                                    aria-hidden
+                                    className="block h-px w-8"
+                                    style={{
+                                      background:
+                                        'linear-gradient(90deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0) 100%)'
+                                    }}
+                                  />
                                   <span>{t.corporate.idealForTitle}</span>
                                 </h4>
-                                <div className="space-y-2">
+                                <div className="space-y-3">
                                   {offer.ideal_for.map((item, index) => (
-                                    <div key={index} className="flex items-start gap-3 text-sm text-gray-300">
-                                      <ChevronsRight size={16} className="text-cyan-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
+                                    <div
+                                      key={index}
+                                      className="flex items-start gap-3"
+                                      style={{
+                                        fontFamily: FONT_BODY,
+                                        fontWeight: 400,
+                                        fontSize: '0.875rem',
+                                        lineHeight: 1.6,
+                                        color: 'rgba(234, 221, 203, 0.85)'
+                                      }}
+                                    >
+                                      <ChevronsRight
+                                        size={14}
+                                        className="mt-1 flex-shrink-0"
+                                        strokeWidth={1.6}
+                                        style={{ color: 'rgba(214, 168, 94, 0.62)' }}
+                                      />
                                       <span>{item}</span>
                                     </div>
                                   ))}
@@ -638,49 +1159,124 @@ export default function Corporate() {
                               </div>
                             )}
 
-                            {/* Program Outline */}
                             {offer.program_outline.length > 0 && (
                               <div>
-                                <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                                  <Award size={18} className="text-cyan-400" strokeWidth={2.5} />
+                                <h4
+                                  className="uppercase mb-5 flex items-center gap-2.5"
+                                  style={{
+                                    fontFamily: FONT_BODY,
+                                    fontWeight: 500,
+                                    fontSize: '0.6875rem',
+                                    letterSpacing: '0.24em',
+                                    color: ACCENT_BRONZE
+                                  }}
+                                >
+                                  <span
+                                    aria-hidden
+                                    className="block h-px w-8"
+                                    style={{
+                                      background:
+                                        'linear-gradient(90deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0) 100%)'
+                                    }}
+                                  />
                                   <span>{t.corporate.programOutline}</span>
                                 </h4>
-                                <div className="space-y-2">
+                                <div className="space-y-3.5">
                                   {offer.program_outline.map((item, index) => (
-                                    <div key={index} className="flex items-start gap-3 text-sm text-gray-300">
-                                      <div className="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                        <span className="text-xs font-bold text-cyan-400">{index + 1}</span>
-                                      </div>
-                                      <span>{item}</span>
+                                    <div key={index} className="flex items-start gap-4">
+                                      <span
+                                        aria-hidden
+                                        className="flex-shrink-0 mt-0.5"
+                                        style={{
+                                          fontFamily: FONT_DISPLAY,
+                                          fontWeight: 300,
+                                          fontSize: '0.75rem',
+                                          letterSpacing: '0.1em',
+                                          color: 'rgba(214, 168, 94, 0.6)',
+                                          fontFeatureSettings: '"tnum","lnum"',
+                                          minWidth: '1.5rem'
+                                        }}
+                                      >
+                                        {String(index + 1).padStart(2, '0')}
+                                      </span>
+                                      <span
+                                        style={{
+                                          fontFamily: FONT_BODY,
+                                          fontWeight: 400,
+                                          fontSize: '0.875rem',
+                                          lineHeight: 1.6,
+                                          color: 'rgba(234, 221, 203, 0.85)',
+                                          letterSpacing: '-0.005em'
+                                        }}
+                                      >
+                                        {item}
+                                      </span>
                                     </div>
                                   ))}
                                 </div>
                               </div>
                             )}
                           </div>
-                        )}
+                        </div>
                       </div>
+                    </div>
 
-                      {/* Price & CTA */}
-                      <div className="mt-6 pt-6 border-t border-gray-800">
-                        <div className="flex items-center justify-between mb-4">
-                          <div>
-                            <div className="text-xs text-gray-500 mb-1">{t.corporate.price}</div>
-                            <div className="text-3xl font-bold text-[#E8FBFF]">
-                              {offer.price}
-                            </div>
+                    {/* ── PRICE + CTA — immer sichtbar, der „direkte Einstieg" ── */}
+                    <div
+                      className="px-7 sm:px-9 lg:px-10 pt-6 pb-7 sm:pb-8"
+                      style={{ borderTop: `1px solid ${SURFACE_HAIRLINE}` }}
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 sm:gap-6">
+                        <div className="min-w-0">
+                          <div
+                            className="uppercase mb-1.5"
+                            style={{
+                              fontFamily: FONT_BODY,
+                              fontWeight: 500,
+                              fontSize: '0.625rem',
+                              letterSpacing: '0.24em',
+                              color: 'rgba(140, 138, 135, 0.7)'
+                            }}
+                          >
+                            {t.corporate.price}
+                          </div>
+                          <div
+                            style={{
+                              fontFamily: FONT_DISPLAY,
+                              fontWeight: 300,
+                              fontSize: 'clamp(1.375rem, 1vw + 0.95rem, 1.6875rem)',
+                              letterSpacing: '-0.03em',
+                              color: TEXT_PRIMARY,
+                              lineHeight: 1.1,
+                              whiteSpace: 'nowrap'
+                            }}
+                          >
+                            {offer.price}
                           </div>
                         </div>
 
                         <a
                           href="#contact"
-                          className="block w-full py-4 rounded-xl font-bold text-center transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                          onClick={(e) => e.stopPropagation()}
+                          className="group/cta inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[11px] transition-[transform,background-color,box-shadow] duration-[700ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(10,10,11,0.9)] flex-shrink-0"
                           style={{
-                            background: `linear-gradient(135deg, ${colors.from}, ${colors.to})`,
-                            color: 'white'
+                            fontFamily: FONT_BODY,
+                            fontWeight: 500,
+                            fontSize: '0.8125rem',
+                            letterSpacing: '0.05em',
+                            background: '#F4F4F4',
+                            color: '#0A0A0A',
+                            boxShadow:
+                              '0 12px 30px -16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
                           }}
                         >
-                          {t.corporate.requestOffer}
+                          <span>{t.corporate.requestOffer}</span>
+                          <ChevronsRight
+                            size={14}
+                            strokeWidth={1.8}
+                            className="transition-transform duration-[600ms] group-hover/cta:translate-x-0.5"
+                            style={{ opacity: 0.8 }}
+                          />
                         </a>
                       </div>
                     </div>
@@ -692,25 +1288,89 @@ export default function Corporate() {
         )}
       </div>
 
-      {/* CTA Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center">
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-teal-500/20 rounded-3xl blur-3xl" />
-          <div className="relative bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 sm:p-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              {t.corporate.ctaTitle}
-            </h2>
-            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
-              {t.corporate.ctaDescription}
-            </p>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:scale-105"
-            >
-              <span>{t.corporate.ctaButton}</span>
-              <ChevronsRight size={20} strokeWidth={2.5} />
-            </a>
-          </div>
+      {/* CTA Section — ruhige Executive-Schlusszone, kein farbiger Glow */}
+      <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-10 py-20 sm:py-28 text-center">
+        <div
+          className="relative px-8 sm:px-12 lg:px-16 py-14 sm:py-16 lg:py-20 rounded-[18px]"
+          style={{
+            background: 'linear-gradient(180deg, rgba(13, 12, 11, 0.78) 0%, rgba(10, 10, 11, 0.82) 100%)',
+            border: `1px solid ${SURFACE_HAIRLINE}`,
+            boxShadow:
+              '0 28px 70px -36px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 248, 238, 0.035)'
+          }}
+        >
+          <span
+            className="inline-block mb-7"
+            aria-hidden
+            style={{
+              height: 1,
+              width: 56,
+              background:
+                'linear-gradient(90deg, rgba(214, 168, 94, 0.55) 0%, rgba(214, 168, 94, 0) 100%)'
+            }}
+          />
+
+          <h2
+            className="mb-5"
+            style={{
+              fontFamily: FONT_DISPLAY,
+              fontWeight: 200,
+              fontSize: 'clamp(1.875rem, 2vw + 1.2rem, 2.5rem)',
+              letterSpacing: '-0.035em',
+              lineHeight: 1.12,
+              color: TEXT_PRIMARY
+            }}
+          >
+            {t.corporate.ctaTitle}
+          </h2>
+
+          <p
+            className="mb-10 mx-auto"
+            style={{
+              fontFamily: FONT_BODY,
+              fontWeight: 400,
+              fontSize: 'clamp(0.9375rem, 0.4vw + 0.85rem, 1.0625rem)',
+              lineHeight: 1.7,
+              color: TEXT_WARM,
+              maxWidth: '32rem',
+              letterSpacing: '-0.005em'
+            }}
+          >
+            {t.corporate.ctaDescription}
+          </p>
+
+          <a
+            href="#contact"
+            className="group/cta inline-flex items-center gap-3 px-9 py-4 rounded-[12px] transition-[transform,background-color,box-shadow] duration-[700ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(10,10,11,0.9)]"
+            style={{
+              fontFamily: FONT_BODY,
+              fontWeight: 500,
+              fontSize: '0.9375rem',
+              letterSpacing: '0.05em',
+              background: '#F4F4F4',
+              color: '#0A0A0A',
+              boxShadow:
+                '0 18px 48px -20px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.55)'
+            }}
+          >
+            <span>{t.corporate.ctaButton}</span>
+            <ChevronsRight
+              size={16}
+              strokeWidth={1.8}
+              className="transition-transform duration-[600ms] group-hover/cta:translate-x-0.5"
+              style={{ opacity: 0.8 }}
+            />
+          </a>
+
+          <div
+            className="mt-10 mx-auto h-px"
+            aria-hidden
+            style={{
+              maxWidth: '8rem',
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(214, 168, 94, 0.28) 50%, transparent 100%)'
+            }}
+          />
         </div>
       </div>
     </div>

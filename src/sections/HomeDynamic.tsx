@@ -223,6 +223,114 @@ interface HomeEvent {
   custom_css_classes?: string;
 }
 
+/**
+ * Mobile-only horizontal slider — bestimmt anhand der Scroll-Position des Containers,
+ * welche Karte aktuell zentriert ist (closest-to-center). Wird ausschließlich für
+ * Pagination-Dots auf kleinen Viewports verwendet; auf Desktop läuft kein Listener.
+ */
+function useMobileSliderIndex(
+  ref: React.RefObject<HTMLElement | null>,
+  count: number,
+  /** Maximaler Viewport in px, bei dem der Slider aktiv ist (sm = 640, md = 768). */
+  maxViewport: number = 768
+) {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const el = ref.current;
+    if (!el) return;
+
+    let raf = 0;
+    let active = window.innerWidth < maxViewport;
+
+    const compute = () => {
+      raf = 0;
+      const containerRect = el.getBoundingClientRect();
+      const center = containerRect.left + containerRect.width / 2;
+      const children = Array.from(el.children) as HTMLElement[];
+      if (!children.length) return;
+      let best = 0;
+      let bestDist = Number.POSITIVE_INFINITY;
+      for (let i = 0; i < children.length; i++) {
+        const r = children[i].getBoundingClientRect();
+        const c = r.left + r.width / 2;
+        const d = Math.abs(c - center);
+        if (d < bestDist) {
+          bestDist = d;
+          best = i;
+        }
+      }
+      setIdx(best);
+    };
+
+    const onScroll = () => {
+      if (!active) return;
+      if (raf) return;
+      raf = requestAnimationFrame(compute);
+    };
+
+    const onResize = () => {
+      active = window.innerWidth < maxViewport;
+      if (active) compute();
+    };
+
+    compute();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      el.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [ref, count, maxViewport]);
+
+  return idx;
+}
+
+/** Dezente Bronze-Pagination, nur auf Mobile sichtbar. */
+function MobileSliderDots({
+  count,
+  active,
+  hideAt = 'md'
+}: {
+  count: number;
+  active: number;
+  hideAt?: 'sm' | 'md' | 'lg';
+}) {
+  const hiddenClass =
+    hideAt === 'sm' ? 'sm:hidden' : hideAt === 'lg' ? 'lg:hidden' : 'md:hidden';
+  return (
+    <div
+      role="tablist"
+      aria-label="Slider Navigation"
+      className={`mt-6 flex items-center justify-center gap-2 ${hiddenClass}`}
+    >
+      {Array.from({ length: count }).map((_, i) => {
+        const isActive = i === active;
+        return (
+          <span
+            key={i}
+            role="tab"
+            aria-selected={isActive}
+            aria-hidden
+            className="block h-1 rounded-full transition-all duration-500 ease-out"
+            style={{
+              width: isActive ? '22px' : '6px',
+              backgroundColor: isActive
+                ? 'rgba(214, 168, 94, 0.85)'
+                : 'rgba(234, 221, 203, 0.20)',
+              boxShadow: isActive
+                ? '0 0 12px rgba(214, 168, 94, 0.45)'
+                : 'none'
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 export default function HomeDynamic() {
   const { theme, colors, text, bg } = useThemeStyles();
   const { t, language } = useLanguage();
@@ -239,9 +347,16 @@ export default function HomeDynamic() {
   const [expandedPanels, setExpandedPanels] = useState<Record<string, boolean>>({});
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [deepDiveTab, setDeepDiveTab] = useState(0);
-  const [transformExpanded, setTransformExpanded] = useState(false);
-  const [transformPeek, setTransformPeek] = useState(false);
   const [expandedClarityAreaId, setExpandedClarityAreaId] = useState<string | null>(null);
+
+  // Mobile-Only Aufklapp-State für Manifest-Kapitel (Desktop ignoriert diesen State)
+  const [manifestK1Expanded, setManifestK1Expanded] = useState(false);
+  const [manifestK2Expanded, setManifestK2Expanded] = useState(false);
+
+  // Mobile-Only Slider-Refs (Premium Swipe Carousels für drei Home-Sections)
+  const mobileWaysRef = useRef<HTMLDivElement>(null);
+  const mobileClarityRef = useRef<HTMLDivElement>(null);
+  const mobileVoicesRef = useRef<HTMLDivElement>(null);
   const trustWirkStrokeGradId = useId();
 
   useEffect(() => {
@@ -349,6 +464,11 @@ export default function HomeDynamic() {
       ] as const,
     [t]
   );
+
+  // Mobile-Slider Indizes (nur < md / < sm aktiv — auf Desktop ohne Overhead)
+  const activeWaysIndex = useMobileSliderIndex(mobileWaysRef, HOME_MEISTERSCHAFT_WAYS.length, 768);
+  const activeClarityIndex = useMobileSliderIndex(mobileClarityRef, woKlarheitAreas.length, 640);
+  const activeVoicesIndex = useMobileSliderIndex(mobileVoicesRef, 4, 640);
 
   if (loading) {
     return (
@@ -607,14 +727,14 @@ export default function HomeDynamic() {
                 width={HERO_PORTRAIT.width}
                 height={HERO_PORTRAIT.height}
                 alt={HERO_PORTRAIT.altDe}
-                className="hero-portrait-img absolute inset-0 h-full w-full object-cover max-[639px]:object-[48%_44%] sm:object-[50%_40%] md:object-[52%_36%] lg:object-[52%_34%] xl:object-[54%_32%] 2xl:object-[54%_30%]"
+                className="hero-portrait-img absolute inset-0 h-full w-full object-cover max-[639px]:object-[58%_30%] sm:object-[60%_30%] md:object-[60%_30%] lg:object-[62%_30%] xl:object-[63%_30%] 2xl:object-[64%_30%]"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
                 style={{
                   transform: `scale(${1.008 + scrollY * 0.00006})`,
                   transition: 'transform 0.1s linear',
-                  transformOrigin: '54% 38%'
+                  transformOrigin: '62% 32%'
                 }}
               />
             </picture>
@@ -1033,7 +1153,14 @@ export default function HomeDynamic() {
             />
           </header>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 md:gap-6 xl:gap-7">
+          <div
+            ref={mobileWaysRef}
+            className="flex md:grid scrollbar-hide snap-x snap-mandatory md:snap-none overflow-x-auto md:overflow-visible scroll-px-6 -mx-6 sm:-mx-8 md:mx-0 px-6 sm:px-8 md:px-0 pb-3 md:pb-0 gap-5 md:gap-6 xl:gap-7 md:grid-cols-2 xl:grid-cols-3"
+            style={{
+              scrollPaddingInline: '1.5rem',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
             {HOME_MEISTERSCHAFT_WAYS.map((way, idx) => (
               <Link
                 key={way.to}
@@ -1041,8 +1168,8 @@ export default function HomeDynamic() {
                 aria-label={`${way.label}: ${way.body} — ${way.cta}`}
                 className={
                   idx === 2
-                    ? 'home-mastery-way-card group md:col-span-2 md:max-w-[min(100%,24rem)] md:justify-self-center xl:col-span-1 xl:max-w-none xl:justify-self-stretch'
-                    : 'home-mastery-way-card group'
+                    ? 'home-mastery-way-card group snap-center shrink-0 basis-[86%] max-w-[22rem] md:basis-auto md:shrink md:max-w-[min(100%,24rem)] md:col-span-2 md:justify-self-center xl:col-span-1 xl:max-w-none xl:justify-self-stretch'
+                    : 'home-mastery-way-card group snap-center shrink-0 basis-[86%] max-w-[22rem] md:basis-auto md:shrink md:max-w-none'
                 }
               >
                 <div className="home-mastery-way-card__media relative">
@@ -1116,6 +1243,12 @@ export default function HomeDynamic() {
               </Link>
             ))}
           </div>
+
+          <MobileSliderDots
+            count={HOME_MEISTERSCHAFT_WAYS.length}
+            active={activeWaysIndex}
+            hideAt="md"
+          />
         </div>
       </section>
 
@@ -1280,15 +1413,19 @@ export default function HomeDynamic() {
             </div>
           </div>
 
-          {/* CINEMATIC TENSION SECTION — Luxury Editorial */}
+          {/* CINEMATIC TENSION SECTION — Luxury Editorial · Fullscreen-Hintergrund.
+              w-screen + translate-Pattern bricht aus dem max-w-[1600px] Container aus
+              und garantiert echtes Vollbild auf allen Viewports (auch >1600px). */}
           <div
             data-home-problem-intro
-            className="relative isolate overflow-hidden -mx-6 sm:-mx-8 md:-mx-12 lg:-mx-16 flex items-center mt-0"
+            data-section
+            data-section-id="manifest-kapitel-1"
+            className="relative isolate overflow-hidden flex items-center mt-0 w-screen left-1/2 -translate-x-1/2"
             style={{
               backgroundColor: '#000000',
-              minHeight: 'min(80svh, 720px)',
-              paddingTop: 'clamp(1.35rem, 3.2vw, 2.35rem)',
-              paddingBottom: '0'
+              minHeight: '100svh',
+              paddingTop: 'clamp(4rem, 9vw, 7rem)',
+              paddingBottom: 'clamp(4rem, 9vw, 7rem)'
             }}
           >
             <style>{`
@@ -1352,17 +1489,26 @@ export default function HomeDynamic() {
               {/* Linkes Tiefen-Wash — hält Headline ruhig und lesbar, ohne das Bild zu glätten */}
               <div
                 className="absolute inset-y-0 left-0 w-full lg:w-[62%]"
-               
+                style={{
+                  background:
+                    'linear-gradient(90deg, rgba(4,4,6,0.78) 0%, rgba(6,6,8,0.55) 30%, rgba(8,8,10,0.28) 62%, rgba(10,10,12,0.06) 100%)'
+                }}
               />
               {/* Top-Fade: weicher Anschluss an die Section darüber */}
               <div
                 className="absolute inset-x-0 top-0 h-40 sm:h-52"
-               
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 78%, rgba(0,0,0,0) 100%)'
+                }}
               />
               {/* Bottom-Fade: dunkle Brücke zu Kapitel II, leichte warme Reflexion am Saum */}
               <div
                 className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
-               
+                style={{
+                  background:
+                    'linear-gradient(0deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 78%, rgba(0,0,0,0) 100%)'
+                }}
               />
               {/* Warmer Bronze-Atem (sehr fein) — verbindet die Lichtquelle visuell mit dem Footer-Saum */}
               <div
@@ -1390,7 +1536,10 @@ export default function HomeDynamic() {
                 <span
                   aria-hidden
                   className="block h-px w-7 sm:w-9"
-                 
+                  style={{
+                    background:
+                      'linear-gradient(90deg, rgba(214,168,94,0.85) 0%, rgba(214,168,94,0.15) 100%)'
+                  }}
                 />
                 <span
                   className="block uppercase"
@@ -1485,9 +1634,14 @@ export default function HomeDynamic() {
                   </span>
                 </h2>
 
-                {/* RECHTS — Manifest, nur feine Bronze-Striche */}
+                {/* RECHTS — Manifest, nur feine Bronze-Striche.
+                    Mobile: per Toggle aufklappbar (siehe unten), default geschlossen. */}
                 <ul
-                  className="m-0 p-0 list-none flex flex-col gap-y-4 sm:gap-y-5 lg:gap-y-[1.35rem] lg:col-span-5 lg:pt-2"
+                  id="manifest-k1-bullets"
+                  aria-hidden={!manifestK1Expanded ? true : undefined}
+                  className={`m-0 p-0 list-none flex-col gap-y-4 sm:gap-y-5 lg:gap-y-[1.35rem] lg:col-span-5 lg:pt-2 ${
+                    manifestK1Expanded ? 'flex max-lg:mt-4' : 'hidden lg:flex'
+                  }`}
                 >
                   {[
                     'Nach außen wirkt es rund — innen bleibt Spannung.',
@@ -1531,45 +1685,91 @@ export default function HomeDynamic() {
                 </ul>
               </div>
 
-              {/* Closing (Mobil) — schließt die Section */}
-              <p
-                className="tension-fade-in lg:hidden m-0 mt-8 sm:mt-9 text-left"
-                style={{
-                  animationDelay: '0.7s',
-                  fontFamily: FONT_BODY,
-                  fontSize: 'clamp(0.68rem, 0.6rem + 0.22vw, 0.78rem)',
-                  lineHeight: 1.7,
-                  fontWeight: 400,
-                  letterSpacing: '0.28em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(214, 188, 152, 0.6)'
-                }}
-              >
-                Das Spannungsfeld liegt selten im Tun — sondern in der{' '}
-                <span
+              {/* Mobile-only Block — Closing + Aufklapp-Toggle für die Bullet-Points.
+                  Auf Desktop unsichtbar; Bullet-Liste oben rechts ist dort immer sichtbar. */}
+              <div className="lg:hidden">
+                {/* Closing (Mobil) — atmosphärischer Premium-Schluss vor dem Toggle */}
+                <p
+                  className="tension-fade-in m-0 mt-8 sm:mt-9 text-left"
                   style={{
-                    fontWeight: 500,
-                    letterSpacing: '0.2em',
-                    color: '#EADDCB'
+                    animationDelay: '0.5s',
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.68rem, 0.6rem + 0.22vw, 0.78rem)',
+                    lineHeight: 1.7,
+                    fontWeight: 400,
+                    letterSpacing: '0.28em',
+                    textTransform: 'uppercase',
+                    color: 'rgba(214, 188, 152, 0.62)'
                   }}
                 >
-                  Führung
-                </span>
-                .
-              </p>
+                  Das Spannungsfeld liegt selten im Tun — sondern in der{' '}
+                  <span
+                    style={{
+                      fontWeight: 500,
+                      letterSpacing: '0.2em',
+                      color: '#EADDCB'
+                    }}
+                  >
+                    Führung
+                  </span>
+                  .
+                </p>
+
+                {/* Aufklapp-Toggle — editorial, kein Button-Look */}
+                <button
+                  type="button"
+                  aria-expanded={manifestK1Expanded}
+                  aria-controls="manifest-k1-bullets"
+                  onClick={() => setManifestK1Expanded(v => !v)}
+                  className="group mt-7 inline-flex items-center gap-3 transition-colors duration-300"
+                >
+                  <span
+                    aria-hidden
+                    className="block h-px shrink-0 transition-all duration-500"
+                    style={{
+                      width: '1.75rem',
+                      background:
+                        'linear-gradient(90deg, rgba(214,168,94,0.78) 0%, rgba(214,168,94,0.18) 100%)'
+                    }}
+                  />
+                  <span
+                    className="block uppercase"
+                    style={{
+                      fontFamily: FONT_DISPLAY,
+                      fontSize: 'clamp(0.6rem, 0.55rem + 0.12vw, 0.7rem)',
+                      letterSpacing: '0.36em',
+                      fontWeight: 500,
+                      color: manifestK1Expanded
+                        ? 'rgba(234, 221, 203, 0.92)'
+                        : 'rgba(214, 168, 94, 0.78)',
+                      transition: 'color 400ms ease'
+                    }}
+                  >
+                    {manifestK1Expanded ? 'Weniger' : 'Spannungsfelder sehen'}
+                  </span>
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 transition-transform duration-500 ease-out ${
+                      manifestK1Expanded ? 'rotate-180' : ''
+                    }`}
+                    strokeWidth={1.4}
+                    style={{ color: 'rgba(214,168,94,0.7)' }}
+                    aria-hidden
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3️⃣ VOM REAGIEREN ZUR KLAREN FÜHRUNG — Luxury Editorial */}
+      {/* 3️⃣ VOM REAGIEREN ZUR KLAREN FÜHRUNG — Luxury Editorial · Fullscreen-Hintergrund */}
       <section
         className="relative w-full overflow-hidden isolate flex items-center"
         style={{
           backgroundColor: '#000000',
-          minHeight: 'min(80svh, 720px)',
-          paddingTop: '0',
-          paddingBottom: 'clamp(1.2rem, 2.8vw, 2.15rem)'
+          minHeight: '100svh',
+          paddingTop: 'clamp(4rem, 9vw, 7rem)',
+          paddingBottom: 'clamp(4rem, 9vw, 7rem)'
         }}
         data-section
         data-section-id="respond-to-shape"
@@ -1590,73 +1790,67 @@ export default function HomeDynamic() {
           }
         `}</style>
 
-        {/* Hintergrund — Kapitel II: Dawn-Plateau mit Bronze-Lichtportal
-            Bild schwebt im selben 1600-Rahmen wie Kapitel I; nahtloser Anschluss
-            an die dunkle Brücke darüber. Schärfe + Tiefe bleiben unangetastet. */}
+        {/* Hintergrund — Kapitel II: Dawn-Plateau mit Bronze-Lichtportal · Fullscreen edge-to-edge,
+            kein 1600-Rahmen mehr (verhindert harten Cut rechts auf breiten Viewports).
+            Schärfe + Tiefe des Bildes bleiben unangetastet — nur sanfte Lese-Atmosphäre. */}
         <div className="pointer-events-none absolute inset-0 z-0 bg-black" aria-hidden>
-          <div className="relative mx-auto h-full max-w-[1600px] px-6 sm:px-8 md:px-12 lg:px-16">
-            <div
-              className="absolute inset-y-0 overflow-hidden -left-6 -right-6 sm:-left-8 sm:-right-8 md:-left-12 md:-right-12 lg:-left-16 lg:-right-16 xl:-left-[5.5rem] xl:-right-[5.5rem]"
-            >
-              <div
-                className="kapitel-2-bg-img absolute inset-0"
-                style={{
-                  backgroundImage: 'url(/images/manifest/manifest-kapitel-2-horizon-light.png)',
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat'
-                }}
-              />
-              {/* Globale matte Tiefen-Vignette — verbindet Bild ohne Detailverlust mit der Section */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'radial-gradient(150% 100% at 50% 52%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.38) 72%, rgba(0,0,0,0.78) 100%)'
-                }}
-              />
-              {/* Linkes Lesefeld — Editorial-Kolumnen bleiben hochwertig lesbar ohne das Bildportal zu zerstören */}
-              <div
-                className="absolute inset-y-0 left-0 w-full lg:w-[58%]"
-                style={{
-                  background:
-                    'linear-gradient(90deg, rgba(5,7,11,0.93) 0%, rgba(7,9,13,0.78) min(52%,740px), rgba(12,13,17,0.48) min(88%,980px), rgba(14,14,17,0.12) 100%)'
-                }}
-              />
-              {/* Top-Fade — Anschluss aus Kapitel I */}
-              <div
-                className="absolute inset-x-0 top-0 h-44 sm:h-56"
-                style={{
-                  background:
-                    'linear-gradient(180deg, rgba(5,7,13,0.62) 0%, rgba(5,7,13,0.22) min(72%,460px), transparent 100%)'
-                }}
-              />
-              {/* Bottom-Fade */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
-                style={{
-                  background:
-                    'linear-gradient(0deg, rgba(8,10,16,0.48) 0%, rgba(8,10,16,0.12) min(72%,460px), transparent 100%)'
-                }}
-              />
-              {/* Warmer Bronze-Atem unten rechts — verlängert das Lichtportal sanft in die nächste Section */}
-              <div
-                className="absolute right-0 bottom-0 w-[78%] h-32 sm:h-40 mix-blend-screen"
-                style={{
-                  background:
-                    'radial-gradient(70% 100% at 72% 100%, rgba(214,168,94,0.10) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
-                }}
-              />
-              {/* Rechtes Feld — sehr dezent, Liste bleibt lesbar ohne Portal zu zerstören */}
-              <div
-                className="pointer-events-none absolute inset-y-0 right-0 hidden w-[min(48%,620px)] lg:block"
-                style={{
-                  background:
-                    'linear-gradient(270deg, rgba(14,13,17,0.38) 0%, rgba(12,12,14,0.14) min(92%,780px), transparent 100%)'
-                }}
-                aria-hidden
-              />
-            </div>
-          </div>
+          <div
+            className="kapitel-2-bg-img absolute inset-0"
+            style={{
+              backgroundImage: 'url(/images/manifest/manifest-kapitel-2-horizon-light.png)',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat'
+            }}
+          />
+          {/* Globale matte Tiefen-Vignette — sehr sanft, kein Detailverlust */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(155% 105% at 50% 50%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.28) 76%, rgba(0,0,0,0.62) 100%)'
+            }}
+          />
+          {/* Linkes Lesefeld — sanfter Wash, blendet weich ins Bild über. Mobile etwas stärker
+              für Lesbarkeit, Desktop ruhiger damit das Bronze-Portal sichtbar bleibt. */}
+          <div
+            className="absolute inset-y-0 left-0 w-full lg:w-[58%]"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(4,6,10,0.78) 0%, rgba(6,8,12,0.55) 32%, rgba(8,10,14,0.28) 64%, rgba(10,12,16,0.06) 100%)'
+            }}
+          />
+          {/* Mobile-only: zusätzlicher dezenter vertikaler Wash, hält Headline ruhig */}
+          <div
+            className="absolute inset-0 lg:hidden"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(4,6,10,0.18) 0%, rgba(4,6,10,0.32) 45%, rgba(4,6,10,0.55) 100%)'
+            }}
+          />
+          {/* Top-Fade — sanfter Übergang aus Kapitel I (dunkler Saum oben) */}
+          <div
+            className="absolute inset-x-0 top-0 h-44 sm:h-56"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 45%, rgba(0,0,0,0.15) 78%, rgba(0,0,0,0) 100%)'
+            }}
+          />
+          {/* Bottom-Fade — Brücke in die nächste Section */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+            style={{
+              background:
+                'linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.12) 78%, rgba(0,0,0,0) 100%)'
+            }}
+          />
+          {/* Warmer Bronze-Atem unten rechts — verlängert das Lichtportal sanft */}
+          <div
+            className="absolute right-0 bottom-0 w-[78%] h-32 sm:h-40 mix-blend-screen"
+            style={{
+              background:
+                'radial-gradient(70% 100% at 72% 100%, rgba(214,168,94,0.10) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
+            }}
+          />
         </div>
 
         {/* Bildposition responsiv — auf Mobile rückt das Bronze-Portal etwas
@@ -1743,8 +1937,8 @@ export default function HomeDynamic() {
                       style={{
                         fontWeight: 500,
                         letterSpacing: '-0.032em',
-
-                        }}
+                        color: '#EADDCB'
+                      }}
                     >
                       klaren Führung
                     </span>
@@ -1777,48 +1971,61 @@ export default function HomeDynamic() {
                   Was sich verändert, wenn Klarheit zurückkehrt.
                 </p>
 
-                {/* Feiner Toggle — editorial, kein Button-Look */}
+                {/* Mobile-only Aufklapp-Toggle — Editorial, kein Button-Look.
+                    Auf Desktop unsichtbar; UL rechts ist dort permanent. */}
                 <button
                   type="button"
-                  onClick={() => {
-                    setTransformExpanded(!transformExpanded);
-                    setTransformPeek(false);
-                  }}
-                  onMouseEnter={() => !transformExpanded && setTransformPeek(true)}
-                  onMouseLeave={() => setTransformPeek(false)}
-                  className="group inline-flex items-center gap-3 mt-8 sm:mt-9 lg:mt-10 transition-colors duration-300"
+                  aria-expanded={manifestK2Expanded}
+                  aria-controls="manifest-k2-bullets"
+                  onClick={() => setManifestK2Expanded(v => !v)}
+                  className="group lg:hidden mt-7 sm:mt-8 inline-flex items-center gap-3 transition-colors duration-300"
                 >
                   <span
                     aria-hidden
-                    className="block h-px shrink-0 transition-all duration-500 group-hover:w-12 max-w-[3rem]"
+                    className="block h-px shrink-0 transition-all duration-500"
                     style={{
                       width: '1.75rem',
                       background:
-                        'linear-gradient(90deg, rgba(214,168,94,0.75) 0%, rgba(214,168,94,0.2) 100%)'
+                        'linear-gradient(90deg, rgba(214,168,94,0.78) 0%, rgba(214,168,94,0.18) 100%)'
                     }}
                   />
                   <span
-                    className="block uppercase transition-colors duration-300"
+                    className="block uppercase"
                     style={{
                       fontFamily: FONT_DISPLAY,
                       fontSize: 'clamp(0.6rem, 0.55rem + 0.12vw, 0.7rem)',
                       letterSpacing: '0.36em',
                       fontWeight: 500,
-                      color: 'rgba(214, 168, 94, 0.72)'
+                      color: manifestK2Expanded
+                        ? 'rgba(234, 221, 203, 0.92)'
+                        : 'rgba(214, 168, 94, 0.78)',
+                      transition: 'color 400ms ease'
                     }}
                   >
-                    {transformExpanded ? 'Schließen' : 'Weitere Bewegungen'}
+                    {manifestK2Expanded ? 'Weniger' : 'Bewegungen sehen'}
                   </span>
+                  <ChevronDown
+                    className={`h-4 w-4 shrink-0 transition-transform duration-500 ease-out ${
+                      manifestK2Expanded ? 'rotate-180' : ''
+                    }`}
+                    strokeWidth={1.4}
+                    style={{ color: 'rgba(214,168,94,0.7)' }}
+                    aria-hidden
+                  />
                 </button>
+
               </div>
 
-              {/* RECHTS — Manifest (kein Pfeil, kein Vorher/Nachher-Grid, nur feine Bronze-Striche) */}
+              {/* RECHTS — Manifest (kein Pfeil, kein Vorher/Nachher-Grid, nur feine Bronze-Striche).
+                  Mobile: aufklappbar via Toggle oben; default geschlossen. */}
               <ul
-                className="m-0 p-0 list-none flex flex-col gap-y-4 sm:gap-y-5 lg:gap-y-[1.35rem] lg:col-span-5 lg:pt-2"
+                id="manifest-k2-bullets"
+                aria-hidden={!manifestK2Expanded ? true : undefined}
+                className={`m-0 p-0 list-none flex-col gap-y-4 sm:gap-y-5 lg:gap-y-[1.35rem] lg:col-span-5 lg:pt-2 ${
+                  manifestK2Expanded ? 'flex max-lg:mt-2' : 'hidden lg:flex'
+                }`}
               >
-                {(() => {
-                  const visibleRows = transformExpanded || transformPeek ? TRANSFORM_ROWS : TRANSFORM_ROWS.slice(0, 3);
-                  return visibleRows.map((row, i) => (
+                {TRANSFORM_ROWS.map((row, i) => (
                     <li
                       key={`tl-${row.from}-${i}`}
                       className="tl-row relative flex items-center gap-5 sm:gap-6"
@@ -1874,8 +2081,7 @@ export default function HomeDynamic() {
                         </span>
                       </p>
                     </li>
-                  ));
-                })()}
+                  ))}
               </ul>
             </div>
           </div>
@@ -2712,9 +2918,10 @@ export default function HomeDynamic() {
         </div>
       </section>
 
-      {/* Wo Klarheit wirkt — Editorial Premium Cards (matched to „Präzision trifft Tiefe“) */}
+      {/* Wo Klarheit wirkt — Editorial Premium Cards · Fullscreen-Hintergrund auf Desktop.
+          Hintergrundbild trägt den ganzen Viewport; Content vertikal zentriert. */}
       <section
-        className="relative isolate overflow-hidden"
+        className="relative isolate overflow-hidden lg:flex lg:flex-col lg:justify-center lg:min-h-[100svh]"
         style={{ backgroundColor: '#000000' }}
         data-section
         data-section-id="clarity-areas"
@@ -2762,7 +2969,10 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px z-[2]"
           aria-hidden
-         
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.18) 50%, transparent 100%)'
+          }}
         />
 
         {/* Background-Bild — Dawn-Horizont mit Gräser-Vordergrund.
@@ -2798,12 +3008,18 @@ export default function HomeDynamic() {
                   wie ein langsamer Atemzug ins Licht wirkt. */}
               <div
                 className="absolute inset-x-0 top-0 h-44 sm:h-56"
-               
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.6) 38%, rgba(10,10,10,0.22) 72%, rgba(10,10,10,0) 100%)'
+                }}
               />
               {/* Bottom-Fade — dunkle Brücke zur nächsten Section */}
               <div
                 className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
-               
+                style={{
+                  background:
+                    'linear-gradient(0deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.22) 76%, rgba(10,10,10,0) 100%)'
+                }}
               />
               {/* Warmer Bronze-Atem unten links — verbindet den Sonnen-Horizont visuell
                   mit dem unteren Sektionsrand, ohne harten Cut. */}
@@ -2823,7 +3039,10 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-y-0 left-0 right-0 lg:right-[35%] z-[1]"
           aria-hidden
-         
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.38) 38%, rgba(8,8,10,0.12) 72%, rgba(8,8,10,0) 100%)'
+          }}
         />
 
         {/* Bildposition responsiv — Horizontlinie bleibt auf allen Größen im oberen
@@ -2850,7 +3069,10 @@ export default function HomeDynamic() {
               <span
                 aria-hidden
                 className="h-px w-10 sm:w-14"
-               
+                style={{
+                  background:
+                    'linear-gradient(90deg, rgba(230,193,138,0.55) 0%, rgba(230,193,138,0.18) 100%)'
+                }}
               />
               <span
                 style={{
@@ -2917,21 +3139,32 @@ export default function HomeDynamic() {
             <div
               className="mt-10 sm:mt-12 h-px w-full"
               aria-hidden
-             
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(230,193,138,0.22) 0%, rgba(230,193,138,0.08) 50%, transparent 100%)'
+              }}
             />
           </header>
 
           {/* GRID — fünf Editorial-Cards
               Geöffnetes Detail fließt im Dokument: die Section wächst, alle Punkte bleiben lesbar.
-              items-start: geschlossene Karten behalten ihre Höhe. */}
-          <div className="mt-10 sm:mt-12 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-5 items-start">
+              items-start: geschlossene Karten behalten ihre Höhe.
+              Mobile: horizontaler Premium-Slider mit Snap. */}
+          <div
+            ref={mobileClarityRef}
+            className="mt-10 sm:mt-12 md:mt-14 flex sm:grid scrollbar-hide snap-x snap-mandatory sm:snap-none overflow-x-auto sm:overflow-visible -mx-6 sm:mx-0 px-6 sm:px-0 pb-3 sm:pb-0 gap-4 sm:gap-5 lg:gap-5 sm:grid-cols-2 lg:grid-cols-5 items-start"
+            style={{
+              scrollPaddingInline: '1.5rem',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
             {woKlarheitAreas.map((area, idx) => {
               const open = expandedClarityAreaId === area.id;
               const indexLabel = String(idx + 1).padStart(2, '0');
               return (
                 <article
                   key={area.id}
-                  className="clarity-fade flex min-w-0 flex-col"
+                  className="clarity-fade flex min-w-0 flex-col snap-center shrink-0 basis-[86%] max-w-[22rem] sm:basis-auto sm:shrink sm:max-w-none"
                   style={{ animationDelay: `${0.06 * idx + 0.05}s` }}
                 >
                   <button
@@ -3013,7 +3246,10 @@ export default function HomeDynamic() {
                     <div
                       className="relative mt-3 h-px w-10"
                       aria-hidden
-                     
+                      style={{
+                        background:
+                          'linear-gradient(90deg, rgba(230,193,138,0.55) 0%, rgba(230,193,138,0) 100%)'
+                      }}
                     />
 
                     {/* Teaser — flex-grow füllt den Mittelteil, line-clamp hält Höhe konsistent */}
@@ -3114,12 +3350,18 @@ export default function HomeDynamic() {
               );
             })}
           </div>
+
+          <MobileSliderDots
+            count={woKlarheitAreas.length}
+            active={activeClarityIndex}
+            hideAt="sm"
+          />
         </div>
       </section>
 
-      {/* ── SOCIAL PROOF — Editorial Whisper Testimonials ── */}
+      {/* ── SOCIAL PROOF — Editorial Whisper Testimonials · Fullscreen-Hintergrund auf Desktop ── */}
       <section
-        className="relative isolate overflow-hidden"
+        className="relative isolate overflow-hidden lg:flex lg:flex-col lg:justify-center lg:min-h-[100svh]"
         style={{ backgroundColor: '#000000' }}
         data-section
         data-section-id="voices"
@@ -3153,7 +3395,10 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px z-[3]"
           aria-hidden
-         
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.18) 50%, transparent 100%)'
+          }}
         />
 
         {/* Background-Bild — Infinity-Plateau über dem Bronze-Horizont.
@@ -3184,12 +3429,18 @@ export default function HomeDynamic() {
               {/* Top-Fade — verlängert, weicher Atemzug aus „Wo Klarheit wirkt“ in die Stille */}
               <div
                 className="absolute inset-x-0 top-0 h-44 sm:h-56"
-               
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.6) 38%, rgba(10,10,10,0.22) 72%, rgba(10,10,10,0) 100%)'
+                }}
               />
               {/* Bottom-Fade — Brücke zur nächsten Section */}
               <div
                 className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
-               
+                style={{
+                  background:
+                    'linear-gradient(0deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.22) 76%, rgba(10,10,10,0) 100%)'
+                }}
               />
               {/* Warmer Bronze-Atem mittig — die Sonnen-Reflexion trägt subtil
                   in den unteren Section-Saum und führt zum nächsten Kapitel. */}
@@ -3209,14 +3460,20 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-y-0 left-0 right-0 lg:right-[34%] z-[1]"
           aria-hidden
-         
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.38) 38%, rgba(8,8,10,0.12) 72%, rgba(8,8,10,0) 100%)'
+          }}
         />
 
         {/* Unterer Lesbarkeits-Wash — verankert das Stimmen-Raster ruhig vor der Pool-Reflexion */}
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[44%] max-h-[28rem] z-[1]"
           aria-hidden
-         
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(8,8,10,0) 0%, rgba(8,8,10,0.42) 48%, rgba(8,8,10,0.78) 100%)'
+          }}
         />
 
         {/* Bildposition responsiv — Horizont bleibt sichtbar, Reflexionsfläche
@@ -3285,8 +3542,16 @@ export default function HomeDynamic() {
             />
           </header>
 
-          {/* TESTIMONIAL GRID — schlicht, klein, edel, vier in einer Reihe */}
-          <div className="mt-10 sm:mt-12 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 lg:gap-5 items-start">
+          {/* TESTIMONIAL GRID — schlicht, klein, edel, vier in einer Reihe.
+              Mobile: horizontaler Premium-Slider mit Snap. */}
+          <div
+            ref={mobileVoicesRef}
+            className="mt-10 sm:mt-12 md:mt-14 flex sm:grid scrollbar-hide snap-x snap-mandatory sm:snap-none overflow-x-auto sm:overflow-visible -mx-6 sm:mx-0 px-6 sm:px-0 pb-3 sm:pb-0 gap-3.5 sm:gap-4 lg:gap-5 sm:grid-cols-2 lg:grid-cols-4 items-start"
+            style={{
+              scrollPaddingInline: '1.5rem',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
             {[
               {
                 quote: 'Alles fühlt sich wieder geordnet und tragfähig an.',
@@ -3311,7 +3576,7 @@ export default function HomeDynamic() {
             ].map((t, idx) => (
               <figure
                 key={`voice-${idx}`}
-                className="voices-fade m-0"
+                className="voices-fade m-0 snap-center shrink-0 basis-[86%] max-w-[22rem] sm:basis-auto sm:shrink sm:max-w-none"
                 style={{ animationDelay: `${0.07 * idx + 0.05}s` }}
               >
                 <div
@@ -3399,6 +3664,8 @@ export default function HomeDynamic() {
               </figure>
             ))}
           </div>
+
+          <MobileSliderDots count={4} active={activeVoicesIndex} hideAt="sm" />
         </div>
       </section>
 
@@ -3496,7 +3763,8 @@ export default function HomeDynamic() {
               to="/quiz"
               className="group relative block rounded-[13px] border border-[rgba(214,168,94,0.22)] px-5 py-[1.1875rem] no-underline outline-none transition-[border-color,box-shadow,background-color] duration-300 sm:px-[1.25rem] sm:py-5 backdrop-blur-[12px] focus-visible:border-[rgba(214,168,94,0.32)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/80 hover:border-[rgba(214,168,94,0.28)] hover:shadow-[0_0_42px_-18px_rgba(185,130,63,0.12)]"
               style={{
-
+                background:
+                  'linear-gradient(180deg, rgba(18,16,14,0.72) 0%, rgba(12,11,10,0.78) 100%)',
                 boxShadow:
                   'inset 0 1px 0 rgba(255, 248, 238, 0.045), 0 1px 0 rgba(0,0,0,0.5), 0 28px 56px -30px rgba(0,0,0,0.75)'
               }}
@@ -3504,7 +3772,10 @@ export default function HomeDynamic() {
               <span
                 className="pointer-events-none absolute inset-px rounded-[12px] opacity-[0.45]"
                 aria-hidden
-               
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(230,193,138,0.08) 0%, rgba(230,193,138,0) 50%, rgba(230,193,138,0.04) 100%)'
+                }}
               />
               <div className="relative">
                 <h3
@@ -3553,7 +3824,8 @@ export default function HomeDynamic() {
               to="/anamnesis"
               className="group relative block rounded-[13px] border border-[rgba(214,168,94,0.22)] px-5 py-[1.1875rem] no-underline outline-none transition-[border-color,box-shadow,background-color] duration-300 sm:px-[1.25rem] sm:py-5 backdrop-blur-[12px] focus-visible:border-[rgba(214,168,94,0.32)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/80 hover:border-[rgba(214,168,94,0.28)] hover:shadow-[0_0_42px_-18px_rgba(185,130,63,0.12)]"
               style={{
-
+                background:
+                  'linear-gradient(180deg, rgba(18,16,14,0.72) 0%, rgba(12,11,10,0.78) 100%)',
                 boxShadow:
                   'inset 0 1px 0 rgba(255, 248, 238, 0.045), 0 1px 0 rgba(0,0,0,0.5), 0 28px 56px -30px rgba(0,0,0,0.75)'
               }}
@@ -3561,7 +3833,10 @@ export default function HomeDynamic() {
               <span
                 className="pointer-events-none absolute inset-px rounded-[12px] opacity-[0.45]"
                 aria-hidden
-               
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(230,193,138,0.08) 0%, rgba(230,193,138,0) 50%, rgba(230,193,138,0.04) 100%)'
+                }}
               />
               <div className="relative">
                 <h3
@@ -3669,7 +3944,10 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px"
           aria-hidden
-         
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.20) 50%, transparent 100%)'
+          }}
         />
 
         <div className="relative z-[1] mx-auto max-w-[920px] px-6 sm:px-8 md:px-12 lg:px-16 pt-14 sm:pt-16 md:pt-20 lg:pt-24 pb-14 sm:pb-16 md:pb-20 lg:pb-24 text-center">
@@ -3808,7 +4086,10 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-36 sm:h-44 z-[1]"
           aria-hidden
-         
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(8,8,10,0) 0%, rgba(8,8,10,0.55) 55%, rgba(8,8,10,0.9) 100%)'
+          }}
         />
       </section>
 

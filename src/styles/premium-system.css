@@ -1200,3 +1200,239 @@ select:focus {
 
 /* NOTE: previous yellow rgba values have been replaced directly in the source
    tree with bronze rgba equivalents, so no global filter is needed here. */
+
+/* ============================================================================
+   17. CINEMATIC FLOW — Startseite als ein zusammenhängender Bewusstseinsraum
+   ----------------------------------------------------------------------------
+   Geltungsbereich: ausschließlich `.home-scroll-flow.cinematic-home`.
+   Ziel: matte Tiefe, ruhige Übergänge, kein hartes „Section-an-Section“.
+   Strategie: globaler atmosphärischer Layer + automatische Top/Bottom-
+   Tiefenfades pro Section, ohne Inhalte oder Reihenfolge zu verändern.
+   ============================================================================ */
+
+/* 17.1 — Globale Tiefenbühne: #0A0A0A + sehr leise Bronze-Lichtfelder + matte Körnung.
+         Dadurch wirkt selbst eine „leere“ Section nicht schwarz, sondern wie Raum. */
+.home-scroll-flow.cinematic-home {
+  position: relative;
+  isolation: isolate;
+  background-color: #0A0A0A !important;
+  background-image:
+    radial-gradient(120% 70% at 50% -10%, rgba(185, 130, 63, 0.055), transparent 58%),
+    radial-gradient(60% 55% at 88% 22%, rgba(214, 168, 94, 0.035), transparent 62%),
+    radial-gradient(72% 60% at 8% 78%, rgba(214, 168, 94, 0.022), transparent 62%),
+    radial-gradient(140% 90% at 50% 100%, rgba(0, 0, 0, 0.5), transparent 60%),
+    linear-gradient(180deg, #0A0A0A 0%, #08080A 50%, #0A0A0A 100%);
+  background-attachment: fixed, fixed, fixed, fixed, fixed;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: cover, cover, cover, cover, cover;
+}
+
+/* Matte Körnung — kaum sichtbar, hebt aber „leere“ Schwarz-Flächen */
+.home-scroll-flow.cinematic-home::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image:
+    radial-gradient(rgba(244, 239, 231, 0.35) 1px, transparent 1px),
+    radial-gradient(rgba(0, 0, 0, 0.6) 1px, transparent 1px);
+  background-size: 3px 3px, 4px 4px;
+  background-position: 0 0, 1px 2px;
+}
+
+/* 17.2 — Sektionen im Home-Flow sollen NIE eine eigene volle schwarze Plane setzen.
+         Inline `backgroundColor: '#000000'` / `colors.bg.primary` werden hier
+         neutralisiert, damit der globale Flow durchscheint. Inhalte sind unverändert. */
+.home-scroll-flow.cinematic-home > section[data-section]:not(:first-of-type),
+.home-scroll-flow.cinematic-home section[data-section][style*="background-color: #000000"],
+.home-scroll-flow.cinematic-home section[data-section][style*="background-color:#000000"],
+.home-scroll-flow.cinematic-home section[data-section][style*="backgroundColor: '#000000'"],
+.home-scroll-flow.cinematic-home section[data-section][style*="background-color: rgb(0, 0, 0)"] {
+  background-color: transparent !important;
+}
+
+/* 17.3 — Atmosphärische Section-Übergänge.
+         Jedes Section-Element bekommt unsichtbar weiche „Atemzüge" oben + unten,
+         die in die globale Obsidian-Tiefe ausfaden. Eigene innere Bild-Layer
+         (`absolute inset-0 z-0`) bleiben darunter, der Fade liegt darüber. */
+.home-scroll-flow.cinematic-home section[data-section]:not(:first-of-type) {
+  position: relative;
+}
+
+.home-scroll-flow.cinematic-home section[data-section]:not(:first-of-type)::before,
+.home-scroll-flow.cinematic-home section[data-section]:not(:first-of-type)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 4; /* über innerem z-[0..3] Background, unter Content z-[10]+ */
+  height: clamp(72px, 9vw, 140px);
+}
+
+.home-scroll-flow.cinematic-home section[data-section]:not(:first-of-type)::before {
+  top: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.78) 0%,
+    rgba(10, 10, 10, 0.34) 48%,
+    rgba(10, 10, 10, 0) 100%
+  );
+}
+
+.home-scroll-flow.cinematic-home section[data-section]:not(:first-of-type)::after {
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(10, 10, 10, 0.72) 0%,
+    rgba(10, 10, 10, 0.28) 52%,
+    rgba(10, 10, 10, 0) 100%
+  );
+}
+
+/* Hero-Sektion bleibt unverändert — kein zusätzlicher Top-Fade, da fullscreen */
+.home-scroll-flow.cinematic-home section[data-section]:first-of-type::before,
+.home-scroll-flow.cinematic-home section[data-section]:first-of-type::after {
+  content: none;
+}
+
+/* 17.4 — Spacing-Atmung. Sections atmen großzügiger, ohne Inhalte zu „strecken“. */
+.home-scroll-flow.cinematic-home section[data-section]:not(:first-of-type) {
+  padding-top: clamp(56px, 7vw, 100px) !important;
+  padding-bottom: clamp(56px, 7vw, 100px) !important;
+}
+
+@media (max-width: 768px) {
+  .home-scroll-flow.cinematic-home section[data-section]:not(:first-of-type) {
+    padding-top: clamp(40px, 9vw, 64px) !important;
+    padding-bottom: clamp(40px, 9vw, 64px) !important;
+  }
+}
+
+/* 17.5 — Cards (News, Voices, Clarity, etc.) editorial statt SaaS-floating.
+         Border und Shadow werden auf Bronze-Hairline reduziert, Hover ruhig. */
+.home-scroll-flow.cinematic-home [class*="rounded-3xl"][style*="rgba(255, 255, 255, 0.12)"],
+.home-scroll-flow.cinematic-home [class*="rounded-2xl"][style*="rgba(255, 255, 255, 0.12)"],
+.home-scroll-flow.cinematic-home [class*="rounded-3xl"][style*="rgba(255,255,255,0.12)"] {
+  border-color: rgba(230, 193, 138, 0.10) !important;
+  box-shadow:
+    0 22px 60px -28px rgba(0, 0, 0, 0.78),
+    inset 0 1px 0 rgba(244, 239, 231, 0.035),
+    inset 0 0 0 1px rgba(230, 193, 138, 0.04) !important;
+}
+
+/* News-Slider Karten: schwarze Vollverläufe weicher in den Flow überblenden */
+.home-scroll-flow.cinematic-home [class*="from-black"][class*="via-black/75"][class*="to-black/30"] {
+  background-image: linear-gradient(
+    to top,
+    rgba(8, 8, 10, 0.92) 0%,
+    rgba(8, 8, 10, 0.36) 58%,
+    rgba(8, 8, 10, 0) 100%
+  ) !important;
+}
+
+/* 17.6 — Voices / Clarity / Deep-Dive Kartenkanten leiser */
+.home-scroll-flow.cinematic-home .voice-card,
+.home-scroll-flow.cinematic-home .clarity-card {
+  border-color: rgba(230, 193, 138, 0.12) !important;
+  box-shadow:
+    0 18px 52px -28px rgba(0, 0, 0, 0.72),
+    inset 0 1px 0 rgba(244, 239, 231, 0.035) !important;
+}
+
+.home-scroll-flow.cinematic-home .voice-card:hover,
+.home-scroll-flow.cinematic-home .clarity-card:hover {
+  transform: translateY(-1px) !important;
+  border-color: rgba(230, 193, 138, 0.20) !important;
+  box-shadow:
+    0 24px 64px -28px rgba(0, 0, 0, 0.80),
+    inset 0 1px 0 rgba(244, 239, 231, 0.05),
+    0 0 64px -36px rgba(214, 168, 94, 0.30) !important;
+}
+
+/* 17.7 — Microinteractions global beruhigen */
+.home-scroll-flow.cinematic-home a,
+.home-scroll-flow.cinematic-home button,
+.home-scroll-flow.cinematic-home [role="button"] {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.home-scroll-flow.cinematic-home a:hover,
+.home-scroll-flow.cinematic-home button:hover {
+  transition-duration: 480ms !important;
+}
+
+/* Animierte Pulse / Bounce auf der Home gänzlich beruhigen */
+.home-scroll-flow.cinematic-home [class*="animate-pulse"] {
+  animation-duration: 8s !important;
+  opacity: 0.55 !important;
+}
+
+.home-scroll-flow.cinematic-home [class*="animate-bounce"] {
+  animation-duration: 4s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-scroll-flow.cinematic-home [class*="animate-pulse"],
+  .home-scroll-flow.cinematic-home [class*="animate-bounce"] {
+    animation: none !important;
+  }
+}
+
+/* 17.8 — Backdrops von Tailwind-Klassen wie bg-zinc-*, bg-neutral-900 etc.
+         werden im Home-Flow auf Obsidian-Werte gezogen. */
+.home-scroll-flow.cinematic-home .bg-black,
+.home-scroll-flow.cinematic-home .bg-zinc-900,
+.home-scroll-flow.cinematic-home .bg-zinc-950,
+.home-scroll-flow.cinematic-home .bg-neutral-900,
+.home-scroll-flow.cinematic-home .bg-neutral-950 {
+  background-color: transparent !important;
+}
+
+/* 17.9 — Bilder als Section-Backgrounds: weicher Bottom-Auslauf via mask.
+         Damit „endet“ ein Bild nicht hart, sondern atmet in die Tiefe aus. */
+.home-scroll-flow.cinematic-home section[data-section] [class*="absolute inset-0 z-0"] > .clarity-bg-img,
+.home-scroll-flow.cinematic-home section[data-section] [class*="absolute inset-0 z-0"] > .voices-bg-img,
+.home-scroll-flow.cinematic-home section[data-section] [class*="absolute inset-0 z-0"] > .kapitel-2-bg-img {
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 1) 18%,
+    rgba(0, 0, 0, 1) 82%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+          mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 1) 18%,
+    rgba(0, 0, 0, 1) 82%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+}
+
+/* 17.10 — Headlines auf der Home leicht „atmen“ lassen — gleicher Rhythmus. */
+.home-scroll-flow.cinematic-home h2 + p,
+.home-scroll-flow.cinematic-home h3 + p {
+  margin-top: clamp(0.75rem, 1.2vw, 1.25rem);
+}
+
+/* 17.11 — CTA-Integration: dunkle Bronze-Buttons im Home-Flow erhalten ruhigere
+         Schatten + sanfteren Hover. Inhalt/Form bleibt identisch. */
+.home-scroll-flow.cinematic-home .metallic-bronze-button,
+.home-scroll-flow.cinematic-home .btn-bronze,
+.home-scroll-flow.cinematic-home .btn-primary:not(.hero-cta) {
+  box-shadow:
+    inset 0 1px 0 rgba(242, 226, 192, 0.18),
+    inset 0 -1px 0 rgba(90, 56, 30, 0.5),
+    0 6px 20px -10px rgba(0, 0, 0, 0.55),
+    0 12px 32px -22px rgba(185, 130, 63, 0.35) !important;
+}
+
+.home-scroll-flow.cinematic-home .metallic-bronze-button:hover,
+.home-scroll-flow.cinematic-home .btn-bronze:hover,
+.home-scroll-flow.cinematic-home .btn-primary:not(.hero-cta):hover {
+  transform: translateY(-1px) !important;
+}

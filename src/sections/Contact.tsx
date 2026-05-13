@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Mail,
   Phone,
@@ -13,6 +13,8 @@ import {
   Briefcase,
   Brain,
   Mic,
+  HelpCircle,
+  Compass,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
@@ -25,14 +27,14 @@ const FONT_BODY =
 const BRONZE = '#C99B62';
 const BRONZE_MUTED = 'rgba(214,168,94,0.65)';
 
-/** Einheitlicher dunkler Input-Stil zur Start-/Erstgespräch-Optik */
+/** Einheitlicher matter Input-Stil — leicht aufgehellt für hochwertige Lesbarkeit */
 const INPUT_BASE =
-  'w-full rounded-[12px] border bg-[rgba(10,9,8,0.6)] px-4 py-3.5 text-[14px] font-light outline-none transition-all duration-300 ';
-const INPUT_COLORS_NORMAL = 'border-[rgba(214,168,94,0.14)] text-[rgba(248,243,232,0.92)] ';
+  'w-full rounded-[12px] border bg-[rgba(18,16,14,0.62)] px-4 py-3.5 text-[14px] font-light outline-none transition-[border-color,box-shadow,background-color] duration-[500ms] ';
+const INPUT_COLORS_NORMAL = 'border-[rgba(214,168,94,0.16)] text-[#F4F4F4] ';
 const INPUT_PLACEHOLDER =
-  'placeholder-[rgba(238,230,216,0.35)] ';
+  'placeholder-[rgba(234,221,203,0.4)] ';
 const INPUT_FOCUS =
-  'focus:border-[rgba(214,168,94,0.45)] focus:shadow-[0_0_0_1px_rgba(214,168,94,0.12)]';
+  'focus:border-[rgba(214,168,94,0.48)] focus:bg-[rgba(22,19,16,0.7)] focus:shadow-[0_0_0_1px_rgba(214,168,94,0.14)]';
 
 export default function Contact() {
   const { t } = useLanguage();
@@ -51,6 +53,15 @@ export default function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [validatedFields, setValidatedFields] = useState<Record<string, boolean>>({});
+  const formRef = useRef<HTMLDivElement | null>(null);
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
+
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.setTimeout(() => {
+      firstNameRef.current?.focus({ preventScroll: true });
+    }, 520);
+  };
 
   const inquiryTypes = [
     { value: 'coaching', label: t.nav.coaching || 'Coaching', icon: User },
@@ -283,132 +294,174 @@ export default function Contact() {
           </p>
         </header>
 
-        {/* Kontakt-Karten — inkl. Anamnese, gleiche Proportionen */}
+        {/* Orientierungs-Karten — „Was möchtest du als Nächstes tun?" */}
         <div
-          className="contact-fade mb-12 grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className="contact-fade mb-16 sm:mb-20"
           style={{ animationDelay: '0.08s' }}
         >
-          {[
-            {
-              Icon: Mail,
-              label: t.forms.email,
-              href: 'mailto:mail@anatoly-mook.de',
-              value: 'mail@anatoly-mook.de',
-            },
-            {
-              Icon: Phone,
-              label: t.forms.phone,
-              href: 'tel:+4923033340628',
-              value: '+49 230 333 40628',
-            },
-            {
-              Icon: MapPin,
-              label: t.contact.locationLabel,
-              href: undefined,
-              value: 'Deutschland',
-            },
-          ].map((row, i) => (
-            <div
-              key={i}
-              className="flex h-full min-h-[148px] flex-col rounded-[14px] px-4 py-4 text-center sm:text-left"
+          <div className="mb-7 text-center">
+            <span
+              className="uppercase"
               style={{
+                fontFamily: FONT_BODY,
+                fontWeight: 500,
+                fontSize: '0.6875rem',
+                letterSpacing: '0.26em',
+                color: BRONZE_MUTED,
+              }}
+            >
+              Orientierung
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 items-stretch gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                Icon: Send,
+                title: 'Anfrage',
+                body: 'Für erste Anliegen, Terminwünsche oder direkte Kontaktaufnahme.',
+                cta: 'Anfrage senden >>',
+                kind: 'button' as const,
+                onClick: scrollToForm,
+              },
+              {
+                Icon: Brain,
+                title: 'Analyse',
+                body: 'Für eine präzisere Einordnung deiner aktuellen Situation.',
+                cta: 'Analyse starten >>',
+                kind: 'link' as const,
+                to: '/quiz',
+              },
+              {
+                Icon: Compass,
+                title: 'Beratung',
+                body: 'Für ein vertrauliches Gespräch mit klarer Orientierung.',
+                cta: 'Beratung anfragen >>',
+                kind: 'link' as const,
+                to: '/booking',
+              },
+              {
+                Icon: HelpCircle,
+                title: 'FAQ',
+                body: 'Antworten auf häufige Fragen zu Rahmen, Ablauf und nächstem Schritt.',
+                cta: 'FAQ ansehen >>',
+                kind: 'link' as const,
+                to: '/faq',
+              },
+            ].map((card) => {
+              const sharedStyle = {
                 background:
                   'linear-gradient(180deg, rgba(20,17,14,0.72) 0%, rgba(8,7,6,0.82) 100%)',
                 border: '1px solid rgba(214,168,94,0.14)',
-                boxShadow: '0 14px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03)',
+                boxShadow:
+                  '0 18px 50px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.035)',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
-              }}
-            >
-              <div className="mb-3 flex justify-center sm:justify-start">
-                <span
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg"
-                  style={{
-                    border: '1px solid rgba(214,168,94,0.22)',
-                    color: BRONZE,
-                    background: 'rgba(214,168,94,0.06)',
+              };
+              const innerLayoutClass =
+                'group relative flex h-full min-h-[232px] flex-col rounded-[14px] px-5 pt-6 pb-5 text-left no-underline transition-[border-color,box-shadow] duration-[600ms] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(214,168,94,0.45)]';
+
+              const Inner = (
+                <>
+                  <span
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] mb-5"
+                    style={{
+                      border: '1px solid rgba(214,168,94,0.20)',
+                      color: BRONZE,
+                      background: 'rgba(214,168,94,0.05)',
+                    }}
+                    aria-hidden
+                  >
+                    <card.Icon size={16} strokeWidth={1.4} />
+                  </span>
+                  <h3
+                    className="m-0 mb-2"
+                    style={{
+                      fontFamily: FONT_HEAD,
+                      fontWeight: 300,
+                      fontSize: '1.0625rem',
+                      letterSpacing: '-0.02em',
+                      lineHeight: 1.2,
+                      color: '#F4F4F4',
+                    }}
+                  >
+                    {card.title}
+                  </h3>
+                  <p
+                    className="m-0 flex-1"
+                    style={{
+                      fontFamily: FONT_BODY,
+                      fontWeight: 400,
+                      fontSize: '0.8125rem',
+                      lineHeight: 1.55,
+                      color: 'rgba(234, 221, 203, 0.72)',
+                      letterSpacing: '-0.005em',
+                    }}
+                  >
+                    {card.body}
+                  </p>
+                  <span
+                    className="mt-5 inline-flex items-center gap-1.5 transition-colors duration-[600ms]"
+                    style={{
+                      fontFamily: FONT_BODY,
+                      fontWeight: 500,
+                      fontSize: '0.75rem',
+                      letterSpacing: '0.05em',
+                      color: '#EADDCB',
+                    }}
+                  >
+                    <span className="group-hover:text-[#F4F4F4] transition-colors duration-[600ms]">
+                      {card.cta}
+                    </span>
+                  </span>
+                </>
+              );
+
+              if (card.kind === 'button') {
+                return (
+                  <button
+                    key={card.title}
+                    type="button"
+                    onClick={card.onClick}
+                    className={innerLayoutClass}
+                    style={sharedStyle}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(214,168,94,0.26)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(214,168,94,0.14)';
+                    }}
+                  >
+                    {Inner}
+                  </button>
+                );
+              }
+
+              return (
+                <Link
+                  key={card.title}
+                  to={card.to}
+                  className={innerLayoutClass}
+                  style={sharedStyle}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(214,168,94,0.26)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(214,168,94,0.14)';
                   }}
                 >
-                  <row.Icon size={18} strokeWidth={1.65} aria-hidden />
-                </span>
-              </div>
-              <p
-                className="m-0 mb-1 text-[10px] font-medium uppercase tracking-[0.26em]"
-                style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
-              >
-                {row.label}
-              </p>
-              {row.href ? (
-                <a
-                  href={row.href}
-                  className="text-[14px] font-light underline-offset-4 transition-colors hover:opacity-95"
-                  style={{ fontFamily: FONT_BODY, color: 'rgba(244,239,230,0.88)' }}
-                >
-                  {row.value}
-                </a>
-              ) : (
-                <p className="m-0 text-[14px] font-light" style={{ fontFamily: FONT_BODY, color: 'rgba(244,239,230,0.85)' }}>
-                  {row.value}
-                </p>
-              )}
-            </div>
-          ))}
-
-          <Link
-            to="/anamnesis"
-            className="group flex h-full min-h-[148px] flex-col rounded-[14px] px-4 py-4 text-center no-underline transition-[border-color,box-shadow] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(214,168,94,0.45)] sm:text-left"
-            style={{
-              background:
-                'linear-gradient(180deg, rgba(20,17,14,0.72) 0%, rgba(8,7,6,0.82) 100%)',
-              border: '1px solid rgba(214,168,94,0.14)',
-              boxShadow: '0 14px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-            }}
-          >
-            <div className="mb-3 flex justify-center sm:justify-start">
-              <span
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 group-hover:border-[rgba(214,168,94,0.32)]"
-                style={{
-                  border: '1px solid rgba(214,168,94,0.22)',
-                  color: BRONZE,
-                  background: 'rgba(214,168,94,0.06)',
-                }}
-              >
-                <Brain size={18} strokeWidth={1.65} aria-hidden />
-              </span>
-            </div>
-            <p
-              className="m-0 mb-1 text-[10px] font-medium uppercase tracking-[0.26em]"
-              style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
-            >
-              {t.contact.anamnesisCardLabel}
-            </p>
-            <p
-              className="m-0 mb-1.5 text-[14px] font-light leading-snug"
-              style={{ fontFamily: FONT_HEAD, color: 'rgba(248,243,232,0.92)' }}
-            >
-              {t.contact.anamnesisCardTitle}
-            </p>
-            <p
-              className="m-0 mb-auto line-clamp-2 text-[11px] font-light leading-[1.45]"
-              style={{ fontFamily: FONT_BODY, color: 'rgba(238,230,216,0.48)' }}
-            >
-              {t.contact.anamnesisCardHint}
-            </p>
-            <span
-              className="mt-4 inline-flex items-center justify-center gap-1.5 text-[11.5px] font-medium uppercase tracking-[0.14em] transition-colors duration-200 sm:justify-start"
-              style={{ fontFamily: FONT_HEAD, color: BRONZE }}
-            >
-              {t.contact.anamnesisCardAction}
-              <ChevronsRight size={13} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-            </span>
-          </Link>
+                  {Inner}
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
         {/* Formular */}
         <div
-          className="contact-fade mx-auto rounded-[22px] p-6 sm:p-9 md:p-10"
+          ref={formRef}
+          id="contact-form"
+          className="contact-fade mx-auto rounded-[22px] p-6 sm:p-9 md:p-10 scroll-mt-24"
           style={{
             animationDelay: '0.15s',
             background: 'linear-gradient(180deg, rgba(18,16,14,0.74) 0%, rgba(8,7,6,0.86) 100%)',
@@ -528,6 +581,7 @@ export default function Contact() {
                   style={{ color: BRONZE }}
                 />
                 <input
+                  ref={firstNameRef}
                   type="text"
                   required
                   value={formData.first_name}
@@ -743,6 +797,144 @@ export default function Contact() {
             </p>
           </form>
         </div>
+
+        {/* Direkte Kontaktwege — sekundäre, ruhige Editorial-Sektion unter dem Formular */}
+        <section
+          className="contact-fade mt-16 sm:mt-20"
+          style={{ animationDelay: '0.22s' }}
+          aria-label="Direkte Kontaktwege"
+        >
+          <div className="mb-7 flex flex-col items-center gap-3 text-center">
+            <span
+              aria-hidden
+              className="block h-px w-12"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.55) 50%, rgba(214,168,94,0) 100%)',
+              }}
+            />
+            <h2
+              className="m-0"
+              style={{
+                fontFamily: FONT_HEAD,
+                fontWeight: 300,
+                fontSize: 'clamp(1.0625rem, 0.6vw + 0.95rem, 1.25rem)',
+                letterSpacing: '-0.02em',
+                color: '#F4F4F4',
+                lineHeight: 1.2,
+              }}
+            >
+              Direkte Kontaktwege
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {[
+              {
+                Icon: Mail,
+                label: t.forms.email,
+                href: 'mailto:mail@anatoly-mook.de',
+                value: 'mail@anatoly-mook.de',
+              },
+              {
+                Icon: Phone,
+                label: t.forms.phone,
+                href: 'tel:+4923033340628',
+                value: '+49 230 333 40628',
+              },
+              {
+                Icon: MapPin,
+                label: t.contact.locationLabel,
+                href: undefined,
+                value: 'Deutschland',
+              },
+            ].map((row) => {
+              const Content = (
+                <>
+                  <span
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-[8px] flex-shrink-0"
+                    style={{
+                      border: '1px solid rgba(214,168,94,0.16)',
+                      color: BRONZE_MUTED,
+                      background: 'rgba(214,168,94,0.04)',
+                    }}
+                    aria-hidden
+                  >
+                    <row.Icon size={13} strokeWidth={1.4} />
+                  </span>
+                  <div className="min-w-0 text-left">
+                    <p
+                      className="m-0 mb-0.5 uppercase"
+                      style={{
+                        fontFamily: FONT_BODY,
+                        fontWeight: 500,
+                        fontSize: '0.625rem',
+                        letterSpacing: '0.24em',
+                        color: 'rgba(140, 138, 135, 0.75)',
+                      }}
+                    >
+                      {row.label}
+                    </p>
+                    <p
+                      className="m-0 truncate"
+                      style={{
+                        fontFamily: FONT_BODY,
+                        fontWeight: 400,
+                        fontSize: '0.875rem',
+                        letterSpacing: '-0.005em',
+                        color: '#EADDCB',
+                      }}
+                    >
+                      {row.value}
+                    </p>
+                  </div>
+                </>
+              );
+
+              const sharedStyle = {
+                background:
+                  'linear-gradient(180deg, rgba(16,14,12,0.55) 0%, rgba(8,7,6,0.65) 100%)',
+                border: '1px solid rgba(244,239,231,0.05)',
+                boxShadow: 'inset 0 1px 0 rgba(255,248,238,0.025)',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)',
+              };
+              const cls =
+                'group flex items-center gap-3.5 rounded-[12px] px-4 py-3 no-underline transition-[border-color,background-color,color] duration-[600ms] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(214,168,94,0.32)]';
+
+              if (row.href) {
+                return (
+                  <a
+                    key={row.label}
+                    href={row.href}
+                    className={cls}
+                    style={sharedStyle}
+                  >
+                    {Content}
+                  </a>
+                );
+              }
+              return (
+                <div key={row.label} className={cls} style={sharedStyle}>
+                  {Content}
+                </div>
+              );
+            })}
+          </div>
+
+          <p
+            className="m-0 mt-7 text-center"
+            style={{
+              fontFamily: FONT_BODY,
+              fontWeight: 400,
+              fontSize: '0.75rem',
+              letterSpacing: '0.04em',
+              color: 'rgba(140, 138, 135, 0.75)',
+            }}
+          >
+            Antwort in der Regel innerhalb von 48 Stunden — vertraulich und ohne Drittweitergabe.
+          </p>
+        </section>
       </div>
     </div>
   );

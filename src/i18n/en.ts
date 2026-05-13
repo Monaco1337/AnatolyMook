@@ -339,6 +339,11 @@ export default {
   corporate: {
     title: 'Business & Corporate',
     subtitle: 'Consciousness development and transformation for teams and executives',
+    badge: 'My Offering',
+    heroTitle: 'For organisations',
+    heroSubtitle: 'that choose depth.',
+    heroAccent: 'choose depth',
+    heroDescription: 'I work with people who carry responsibility — discreet, precise, without loud promises. Spaces, processes and formats in which leadership rediscovers clarity.',
     duration: 'Duration',
     format: 'Format',
     participants: 'Participants',

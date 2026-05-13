@@ -204,15 +204,16 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                   e.stopPropagation();
                   onArticleClick(article);
                 }}
-                className="group relative w-full h-full cursor-pointer transition-all duration-700 ease-out hover:-translate-y-3 active:scale-[0.98] block"
+                className="group relative w-full h-full cursor-pointer transition-all duration-[900ms] ease-out hover:-translate-y-1 active:scale-[0.99] block"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
                 aria-label={`Artikel öffnen: ${article.title}`}
               >
                 <div className="relative w-full h-[420px] sm:h-[500px] rounded-3xl overflow-hidden"
                   style={{
 
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08) inset',
+                    border: '1px solid rgba(230, 193, 138, 0.10)',
+                    boxShadow:
+                      '0 22px 60px -28px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(244, 239, 231, 0.035), inset 0 0 0 1px rgba(230, 193, 138, 0.04)',
                     transform: 'translateZ(0)',
                     backfaceVisibility: 'hidden'
                   }}
@@ -222,7 +223,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                       <img
                         src={article.image_url}
                         alt={article.title}
-                        className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-[1.15]"
+                        className="w-full h-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-[1.06]"
                         loading="lazy"
                         style={{
                           willChange: 'transform',
@@ -230,22 +231,45 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                         }}
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-zinc-900 via-zinc-800 to-black" />
+                      <div
+                        className="w-full h-full"
+                        style={{
+                          background:
+                            'linear-gradient(180deg, #131211 0%, #0E0D0C 60%, #08080A 100%)'
+                        }}
+                      />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/30 group-hover:from-black group-hover:via-black/85 transition-all duration-700" />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all duration-700" />
+                    <div
+                      className="absolute inset-0 transition-all duration-[900ms]"
+                      style={{
+                        background:
+                          'linear-gradient(to top, rgba(8,8,10,0.94) 0%, rgba(8,8,10,0.55) 42%, rgba(8,8,10,0.18) 72%, rgba(8,8,10,0) 100%)'
+                      }}
+                    />
+                    <div
+                      className="absolute inset-0 transition-all duration-[900ms] group-hover:opacity-0"
+                      style={{ background: 'rgba(8,8,10,0.10)' }}
+                    />
                   </div>
 
                   <div className="absolute top-6 left-6 right-6 flex items-start justify-between gap-3 z-20 pointer-events-none">
                     {article.category && (
-                      <div className="px-4 py-2.5 rounded-xl backdrop-blur-2xl transition-all duration-500 group-hover:scale-110"
+                      <div className="px-4 py-2.5 rounded-xl backdrop-blur-2xl transition-all duration-[700ms] group-hover:scale-[1.02]"
                         style={{
-
-                          border: '1px solid rgba(185, 130, 63, 0.5)',
-                          boxShadow: '0 4px 20px rgba(185, 130, 63, 0.25), 0 0 40px rgba(185, 130, 63, 0.1)'
+                          background: 'linear-gradient(180deg, rgba(18,16,14,0.62) 0%, rgba(12,11,10,0.72) 100%)',
+                          border: '1px solid rgba(230, 193, 138, 0.18)',
+                          boxShadow: '0 8px 24px -10px rgba(0,0,0,0.55), inset 0 1px 0 rgba(244,239,231,0.05)'
                         }}
                       >
-                        <span className="text-xs font-bold tracking-[0.15em] text-yellow-100 uppercase">
+                        <span
+                          className="text-xs uppercase"
+                          style={{
+                            fontFamily: "'Avenir Next LT Pro', 'Avenir Next', system-ui, sans-serif",
+                            fontWeight: 500,
+                            letterSpacing: '0.18em',
+                            color: 'rgba(234, 221, 203, 0.92)'
+                          }}
+                        >
                           {article.category}
                         </span>
                       </div>
@@ -266,12 +290,13 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                     </div>
 
                     <h3
-                      className="text-2xl sm:text-3xl lg:text-4xl text-white leading-tight transition-all duration-500 group-hover:text-yellow-100"
+                      className="text-2xl sm:text-3xl lg:text-4xl leading-tight transition-all duration-[700ms]"
                       style={{
-                        fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
-                        fontWeight: 800,
-                        letterSpacing: '-0.015em',
-                        textShadow: '0 2px 12px rgba(0, 0, 0, 0.6), 0 4px 24px rgba(0, 0, 0, 0.4)'
+                        fontFamily: "'Montserrat', system-ui, sans-serif",
+                        fontWeight: 300,
+                        letterSpacing: '-0.02em',
+                        color: '#F4F4F4',
+                        textShadow: '0 1px 10px rgba(0, 0, 0, 0.55)'
                       }}
                     >
                       {article.title}

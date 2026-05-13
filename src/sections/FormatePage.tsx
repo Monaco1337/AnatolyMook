@@ -11,7 +11,8 @@ const GRAIN_SVG =
   "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
 
 /** Cinematic Backgrounds — eine zusammenhängende Luxus-Architektur über alle Sections.
- *  Reihenfolge entspricht der Scroll-Reise: Phase → Angebot → Öffnung. */
+ *  Reihenfolge entspricht der Scroll-Reise: Hero → Phase → Angebot → Öffnung. */
+const PORTFOLIO_BG_HERO = '/images/portfolio/portfolio-hero-bg.png';
 const PORTFOLIO_BG_PHASES = '/images/portfolio/portfolio-phases-bg.png';
 const PORTFOLIO_BG_OFFERS = '/images/portfolio/portfolio-offers-bg.png';
 const PORTFOLIO_BG_CTA = '/images/portfolio/portfolio-cta-bg.png';
@@ -145,67 +146,108 @@ export default function FormatePage() {
       <AtmosphereGrain className="fixed z-[40]" opacity={0.035} />
 
       {/* ──────────────────────────────────────────────
-         HERO — kompakt, typografisch · Cinematic Wings-Background
+         HERO — monumentale Architektur, schwebende Typografie
          ────────────────────────────────────────────── */}
+      <style>{`
+        /* Responsive Komposition — Headline immer auf dunklerem Bereich, warmes Licht atmet darunter */
+        .fp-hero-bg-img { background-position: 50% 62%; }
+        @media (max-width: 639px) {
+          .fp-hero-bg-img { background-position: 52% 68%; }
+        }
+        @media (min-width: 1024px) {
+          .fp-hero-bg-img { background-position: 50% 58%; }
+        }
+        @media (min-width: 1536px) {
+          .fp-hero-bg-img { background-position: 50% 54%; }
+        }
+        /* Ultra-langsamer cinematic drift — fast unmerklich */
+        @keyframes fp-hero-drift {
+          0%   { transform: scale(1.045) translate3d(0, 0, 0); }
+          50%  { transform: scale(1.055) translate3d(0, -6px, 0); }
+          100% { transform: scale(1.045) translate3d(0, 0, 0); }
+        }
+        .fp-hero-bg-img { animation: fp-hero-drift 28s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .fp-hero-bg-img { animation: none; transform: scale(1.04); }
+        }
+      `}</style>
       <section
-        className="relative overflow-hidden pb-[clamp(3rem,6vw,4.5rem)] pt-[clamp(7rem,12vw,9.5rem)]"
+        className="relative overflow-hidden pb-[clamp(4.5rem,9vw,7rem)] pt-[clamp(8.5rem,14vw,11.5rem)]"
         aria-labelledby="fp-hero-heading"
         style={{ backgroundColor: '#020202' }}
       >
-        {/* Wings-Background + atmosphärische Layer (analog Homepage-Meisterschaft).
-            Dunkles Zentrum trägt die zentrierte Typografie, Flügel rahmen seitlich. */}
+        {/* Monumentale Architektur — Premium-Stack, ein einziger Atem */}
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden style={{ backgroundColor: '#020202' }}>
+          {/* Layer 0 — Foto, hochwertig, leicht beruhigt, mit cinematic drift */}
           <div
-            className="absolute inset-0"
+            className="fp-hero-bg-img absolute inset-0"
             style={{
-              backgroundImage: 'url(/images/portfolio/portfolio-wings-hero-bg.png)',
+              backgroundImage: `url('${PORTFOLIO_BG_HERO}')`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center center',
               opacity: 0.82,
-              filter: 'saturate(0.96) contrast(1.02)'
+              filter: 'saturate(0.94) contrast(1.05)',
+              willChange: 'transform'
             }}
           />
-          {/* Dunkler Mittenwash — sichert Typografie-Lesbarkeit */}
+          {/* Layer 1 — sehr dunkler Overlay für maximale Textlesbarkeit (0.48) */}
+          <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.48)' }} />
+          {/* Mittenwash radial — Lese-Aura hinter der Headline, asymmetrisch nach oben */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                'radial-gradient(58% 68% at 50% 50%, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.28) 48%, rgba(0,0,0,0) 80%)'
+                'radial-gradient(62% 56% at 50% 40%, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 46%, rgba(0,0,0,0.08) 78%, rgba(0,0,0,0) 100%)'
             }}
           />
-          {/* Matte Tiefen-Lasur — nimmt dem Bild die Direktheit, einheitlicher Black-Wert */}
+          {/* Matte Tiefen-Lasur — einheitlicher Schwarzwert mit restlicher Seite */}
           <div className="absolute inset-0" style={{ background: 'rgba(2,2,3,0.18)' }} />
+          {/* Layer 2 — radialer warmer Bronze-Glow hinter Headline, extrem weich */}
+          <div
+            className="absolute inset-0 mix-blend-screen opacity-[0.55]"
+            style={{
+              background:
+                'radial-gradient(46% 36% at 50% 40%, rgba(232,180,118,0.09) 0%, rgba(186,128,62,0.04) 44%, rgba(0,0,0,0) 78%)'
+            }}
+          />
+          {/* Champagne-Hauch über die natürliche Lichtkurve unten Mitte (mix-blend-soft-light) */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-[55%] mix-blend-soft-light opacity-[0.55]"
+            style={{
+              background:
+                'radial-gradient(58% 70% at 50% 95%, rgba(255,224,178,0.08) 0%, transparent 70%)'
+            }}
+          />
+          {/* Layer 3 — Vignette außen, dunkelt Ränder oben/unten besonders */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(130% 92% at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 58%, rgba(0,0,0,0.5) 92%, rgba(0,0,0,0.72) 100%)'
+            }}
+          />
+          {/* Layer 4 — atmospheric haze, minimale volumetrische Ruhe */}
+          <div
+            className="absolute inset-0 opacity-[0.4]"
+            style={{
+              background:
+                'radial-gradient(82% 50% at 50% 60%, rgba(40,28,18,0.18) 0%, rgba(0,0,0,0) 70%)'
+            }}
+          />
           {/* Top-Fade — Verschmelzung mit Navbar-Saum, kein harter Cut */}
           <div
-            className="absolute inset-x-0 top-0 h-36 sm:h-48"
+            className="absolute inset-x-0 top-0 h-44 sm:h-56"
             style={{
               background:
-                'linear-gradient(180deg, rgba(2,2,2,0.97) 0%, rgba(2,2,2,0.62) 42%, rgba(2,2,2,0.22) 74%, rgba(2,2,2,0) 100%)'
+                'linear-gradient(180deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.66) 36%, rgba(2,2,2,0.22) 72%, rgba(2,2,2,0) 100%)'
             }}
           />
-          {/* Bottom-Fade — atmosphärischer Übergang in die Intro-Section (Bild 1) */}
+          {/* Bottom-Fade — atmosphärisches Ausblenden in die Intro-Section, Black-to-Black */}
           <div
-            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+            className="absolute inset-x-0 bottom-0 h-52 sm:h-64"
             style={{
               background:
-                'linear-gradient(0deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.64) 38%, rgba(2,2,2,0.2) 76%, rgba(2,2,2,0) 100%)'
-            }}
-          />
-          {/* Subtiler Bronze-Atem unten Mitte — pickt das warme Licht des Bildes auf */}
-          <div
-            className="absolute inset-x-0 bottom-0 h-28 sm:h-36 mix-blend-screen"
-            style={{
-              background:
-                'radial-gradient(60% 100% at 50% 100%, rgba(214,168,94,0.07) 0%, rgba(185,130,63,0.03) 38%, rgba(0,0,0,0) 70%)'
-            }}
-          />
-          {/* Bestehender warmer Punkt-Glow — Premium-Akzent oben mittig */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'radial-gradient(ellipse 55% 42% at 50% 22%, rgba(214,168,94,0.08) 0%, transparent 60%)'
+                'linear-gradient(0deg, #020202 0%, rgba(2,2,2,0.94) 24%, rgba(2,2,2,0.6) 52%, rgba(2,2,2,0.22) 80%, transparent 100%)'
             }}
           />
           {/* Atmosphärischer Hairline-Top — feiner Bronze-Saum als visueller Anker */}
@@ -213,40 +255,42 @@ export default function FormatePage() {
             className="absolute inset-x-0 top-0 h-px"
             style={{
               background:
-                'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.18) 50%, transparent 100%)'
+                'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.16) 50%, transparent 100%)'
             }}
           />
         </div>
 
         <div className="relative z-[2] mx-auto w-full max-w-[860px] px-6 sm:px-10 md:px-14">
+          {/* Vertikale Komposition: Eyebrow + Headline sitzen leicht über der Mitte —
+              das warme Licht des Bildes atmet darunter, Headline schwebt in der dunklen Zone. */}
           <div className="flex flex-col items-center text-center" data-reveal>
             <span
               className="uppercase"
               style={{
                 fontFamily: FONT_BODY,
-                fontSize: '0.625rem',
-                letterSpacing: '0.44em',
-                color: 'rgba(230,202,168,0.68)',
-                textShadow: '0 2px 14px rgba(0,0,0,0.65)'
+                fontSize: '0.6875rem',
+                letterSpacing: '0.46em',
+                color: 'rgba(230,202,168,0.66)',
+                textShadow: '0 2px 16px rgba(0,0,0,0.7)'
               }}
             >
               Formate
             </span>
             <h1
               id="fp-hero-heading"
-              className="m-0 mt-4 max-w-[22ch] text-pretty leading-[1.05] tracking-[-0.034em]"
+              className="m-0 mt-6 max-w-[22ch] text-pretty leading-[1.04] tracking-[-0.034em]"
               style={{
                 fontFamily: FONT_DISPLAY,
                 fontWeight: 100,
-                fontSize: 'clamp(1.9rem, 1rem + 3.2vw, 2.95rem)',
+                fontSize: 'clamp(1.95rem, 1rem + 3.4vw, 3.15rem)',
                 color: 'rgba(250,247,240,0.98)',
                 textShadow:
-                  '0 12px 44px rgba(0,0,0,0.62), 0 2px 14px rgba(0,0,0,0.5)'
+                  '0 16px 56px rgba(0,0,0,0.72), 0 2px 18px rgba(0,0,0,0.55), 0 0 1px rgba(0,0,0,0.55)'
               }}
             >
               Sechs Wege in <Accent>dieselbe Wirkung</Accent>.
             </h1>
-            <HairLine className="mx-auto mt-7 max-w-[2.25rem]" />
+            <HairLine className="mx-auto mt-9 max-w-[2.25rem]" opacity={0.7} />
           </div>
         </div>
       </section>

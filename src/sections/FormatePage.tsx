@@ -79,7 +79,8 @@ function HairLine({ className, opacity = 1 }: { className?: string; opacity?: nu
       className={`block h-px ${className ?? ''}`}
       style={{
         opacity,
-
+        background:
+          'linear-gradient(90deg, transparent 0%, rgba(214,168,94,0.55) 50%, transparent 100%)'
       }}
     />
   );
@@ -89,8 +90,10 @@ function Accent({ children }: { children: React.ReactNode }) {
   return (
     <span
       style={{
-
-        color: 'transparent'
+        color: '#EADDCB',
+        fontStyle: 'italic',
+        fontWeight: 200,
+        letterSpacing: '-0.005em'
       }}
     >
       {children}
@@ -319,7 +322,8 @@ export default function FormatePage() {
                     <span
                       className="fp-cta-line block h-px w-6 transition-[width,background] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
                       style={{
-
+                        background:
+                          'linear-gradient(90deg, rgba(214,168,94,0.5) 0%, rgba(214,168,94,0) 100%)'
                       }}
                     />
                     <span
@@ -432,34 +436,34 @@ export default function FormatePage() {
           >
             Ein Gespräch klärt <Accent>mehr</Accent> als ein Katalog.
           </h2>
+          {/* Premium-CTA — identisch zur Startseite („Erstgespräch vereinbaren"):
+              metallic-bronze-button hero-cta aus premium-system.css */}
           <Link
             to="/erstgespraech"
-            className="fp-cta group/cta mt-7 inline-flex items-center gap-3 rounded-full px-6 py-2.5"
+            className="metallic-bronze-button hero-cta group mt-7 inline-flex items-center justify-center whitespace-nowrap"
             style={{
-
-              border: '1px solid rgba(166, 124, 82, 0.55)',
-              boxShadow:
-                'inset 0 1px 0 rgba(242, 226, 192, 0.22), inset 0 -1px 0 rgba(90, 56, 30, 0.55), 0 6px 18px -8px rgba(0, 0, 0, 0.65)'
+              padding: 'clamp(14px, 1.35vw, 18px) clamp(26px, 3.2vw, 36px)',
+              minHeight: 'clamp(48px, 5.2vw, 56px)',
+              fontFamily: FONT_BODY
             }}
           >
             <span
-              className="uppercase"
+              className="leading-none whitespace-nowrap"
               style={{
-                fontFamily: FONT_BODY,
-                fontSize: '0.7rem',
-                letterSpacing: '0.28em',
-                color: 'rgba(229,200,156,0.85)'
+                fontSize: 'clamp(0.875rem, 0.8rem + 0.24vw, 1.02rem)',
+                fontWeight: 600,
+                letterSpacing: '-0.006em'
               }}
             >
-              Erstgespräch anfragen
+              Erstgespräch vereinbaren
             </span>
             <span
-              aria-hidden
-              className="block h-px w-7 transition-[width] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cta:w-12"
-              style={{
-
-              }}
-            />
+              aria-hidden="true"
+              className="ml-3 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-[2px]"
+              style={{ width: 22, height: 22 }}
+            >
+              <ChevronsRight size={20} strokeWidth={2.35} />
+            </span>
           </Link>
         </div>
       </section>
@@ -572,13 +576,6 @@ export default function FormatePage() {
           .fp-row .fp-cta-arrow {
             color: rgba(244,228,196,0.9);
           }
-        }
-        .fp-cta:focus-visible {
-          outline: none;
-          box-shadow:
-            inset 0 1px 0 rgba(242, 226, 192, 0.32),
-            inset 0 0 0 1px rgba(214, 168, 94, 0.32),
-            0 0 0 3px rgba(185, 130, 63, 0.18);
         }
         @media (prefers-reduced-motion: reduce) {
           .fp-root [data-reveal] {

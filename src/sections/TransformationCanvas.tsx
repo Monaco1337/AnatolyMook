@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Circle, Sparkles, Heart, Brain, Zap, Shield, Eye, Compass, Flame, Wind, Check, X } from 'lucide-react';
+import { ChevronsRight, Circle, Sparkles, Heart, Brain, Zap, Shield, Eye, Compass, Flame, Wind, Check, X } from 'lucide-react';
 
 export default function TransformationCanvas() {
   const [activeLevel, setActiveLevel] = useState<number | null>(null);
@@ -259,7 +259,7 @@ export default function TransformationCanvas() {
               <span className="block mb-6">Deine innere</span>
               <span className="relative inline-block">
                 <span className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 blur-3xl opacity-50 animate-pulse" />
-                <span className="relative bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200 text-transparent bg-clip-text font-light">
+                <span className="relative text-[#EADDCB]">
                   Neuausrichtung
                 </span>
               </span>
@@ -330,7 +330,7 @@ export default function TransformationCanvas() {
             </span>
             <h2 className="text-6xl md:text-7xl font-extralight text-white tracking-tight">
               3 Ebenen der
-              <span className="block mt-4 bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200 text-transparent bg-clip-text font-light">
+              <span className="block mt-4 text-[#EADDCB]">
                 Transzendenz
               </span>
             </h2>
@@ -467,7 +467,7 @@ export default function TransformationCanvas() {
             </span>
             <h2 className="text-6xl md:text-7xl font-extralight text-white tracking-tight">
               5 Qualitäten,
-              <span className="block mt-4 bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200 text-transparent bg-clip-text font-light">
+              <span className="block mt-4 text-[#EADDCB]">
                 die in dir reifen werden
               </span>
             </h2>
@@ -538,7 +538,7 @@ export default function TransformationCanvas() {
               </span>
               <h2 className="text-5xl md:text-6xl font-extralight text-white mb-6 tracking-tight">
                 Nächster Schritt:
-                <span className="block mt-4 bg-gradient-to-r from-amber-300 via-orange-300 to-amber-200 text-transparent bg-clip-text font-light">
+                <span className="block mt-4 text-[#EADDCB]">
                   Kostenloses Erstgespräch
                 </span>
               </h2>
@@ -553,7 +553,7 @@ export default function TransformationCanvas() {
               <button className="relative px-16 py-8 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white rounded-2xl font-light text-xl hover:shadow-[0_0_80px_rgba(185, 130, 63, 0.6)] transition-all duration-700 hover:scale-110 active:scale-95 group-hover:from-amber-400 group-hover:via-orange-400 group-hover:to-amber-500">
                 <span className="flex items-center gap-4">
                   Kostenloses Erstgespräch buchen
-                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-500" />
+                  <ChevronsRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-500" />
                 </span>
               </button>
             </div>
@@ -584,7 +584,7 @@ export default function TransformationCanvas() {
                   <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   <span className="relative flex items-center gap-3 text-lg">
                     Kontakt aufnehmen
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
+                    <ChevronsRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
                   </span>
                 </button>
 
@@ -592,7 +592,7 @@ export default function TransformationCanvas() {
                   <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   <span className="relative flex items-center gap-3 text-lg">
                     Seminare & Termine ansehen
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
+                    <ChevronsRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-500" />
                   </span>
                 </button>
               </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Calendar, Clock, Tag, ArrowRight, Search, BookOpen, X } from 'lucide-react';
+import { Calendar, Clock, Tag, ChevronsRight, Search, BookOpen, X } from 'lucide-react';
 import type deTranslations from '../i18n/de';
 import { supabase } from '../lib/supabase';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -488,7 +488,7 @@ function FeaturedPostCard({
               style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
             >
               {t.blog.readMore}
-              <ArrowRight size={14} strokeWidth={2} aria-hidden />
+              <ChevronsRight size={14} strokeWidth={2} aria-hidden />
             </span>
           </div>
         </div>
@@ -594,7 +594,7 @@ function BlogPostCard({
             style={{ fontFamily: FONT_HEAD, color: BRONZE_MUTED }}
           >
             {t.blog.read}
-            <ArrowRight size={13} strokeWidth={2} aria-hidden />
+            <ChevronsRight size={13} strokeWidth={2} aria-hidden />
           </span>
         </div>
       </div>

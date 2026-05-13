@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { Lock, ChevronsRight, Eye, EyeOff } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import {
   getLocalDevAdminCredentials,
@@ -245,7 +245,7 @@ export default function Login({ onLogin }: LoginProps) {
             ) : (
               <>
                 <span>Anmelden</span>
-                <ArrowRight size={18} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                <ChevronsRight size={18} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
               </>
             )}
           </button>

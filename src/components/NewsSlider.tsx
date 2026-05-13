@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Eye, MessageCircle, ArrowRight, Calendar, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Eye, MessageCircle, ChevronsRight, Calendar, Clock } from 'lucide-react';
 
 interface NewsArticle {
   id: string;
@@ -93,16 +93,14 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/30 to-transparent" />
           <div className="px-5 py-2 rounded-full"
             style={{
-              background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.1), rgba(138, 85, 40, 0.1))',
+
               border: '1px solid rgba(185, 130, 63, 0.2)',
               boxShadow: '0 0 20px rgba(185, 130, 63, 0.1)'
             }}
           >
             <span className="text-xs font-bold tracking-[0.2em] uppercase"
               style={{
-                background: 'linear-gradient(135deg, #B9823F, #8A5528)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+
                 backgroundClip: 'text'
               }}
             >
@@ -126,9 +124,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
               Klare{' '}
               <span
                 style={{
-                  background: 'linear-gradient(135deg, #B9823F 0%, #8A5528 50%, #ea580c 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+
                   backgroundClip: 'text'
                 }}
               >
@@ -148,7 +144,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                 onClick={prevSlide}
                 className="group relative w-14 h-14 rounded-2xl transition-all duration-500 hover:scale-105 active:scale-95"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                   boxShadow: '0 4px 24px rgba(0, 0, 0, 0.4)'
                 }}
@@ -161,7 +157,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                 onClick={nextSlide}
                 className="group relative w-14 h-14 rounded-2xl transition-all duration-500 hover:scale-105 active:scale-95"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                   boxShadow: '0 4px 24px rgba(0, 0, 0, 0.4)'
                 }}
@@ -214,7 +210,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
               >
                 <div className="relative w-full h-[420px] sm:h-[500px] rounded-3xl overflow-hidden"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02))',
+
                     border: '1px solid rgba(255, 255, 255, 0.12)',
                     boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08) inset',
                     transform: 'translateZ(0)',
@@ -244,7 +240,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                     {article.category && (
                       <div className="px-4 py-2.5 rounded-xl backdrop-blur-2xl transition-all duration-500 group-hover:scale-110"
                         style={{
-                          background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.25), rgba(138, 85, 40, 0.2))',
+
                           border: '1px solid rgba(185, 130, 63, 0.5)',
                           boxShadow: '0 4px 20px rgba(185, 130, 63, 0.25), 0 0 40px rgba(185, 130, 63, 0.1)'
                         }}
@@ -301,13 +297,13 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
 
                       <div className="px-6 py-3 rounded-xl transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl"
                         style={{
-                          background: 'linear-gradient(135deg, #B9823F, #8A5528, #ea580c)',
+
                           boxShadow: '0 4px 20px rgba(185, 130, 63, 0.4), 0 0 40px rgba(185, 130, 63, 0.2)'
                         }}
                       >
                         <div className="flex items-center gap-2 text-black">
                           <span className="text-xs font-black tracking-[0.1em] uppercase">Artikel lesen</span>
-                          <ArrowRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-2" strokeWidth={3} />
+                          <ChevronsRight className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-2" strokeWidth={3} />
                         </div>
                       </div>
                     </div>
@@ -324,7 +320,7 @@ export default function NewsSlider({ articles, onArticleClick }: NewsSliderProps
                 <div
                   className="absolute -inset-2 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 -z-10"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.4), rgba(138, 85, 40, 0.3), rgba(234, 88, 12, 0.2))',
+
                     filter: 'blur(24px)'
                   }}
                 />

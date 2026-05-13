@@ -8,7 +8,7 @@ export default {
     blog: 'Blog',
     faq: 'FAQ',
     kontakt: 'Kontakt',
-    formate: 'Formate',
+    formate: 'Portfolio',
     cart: 'Warenkorb',
     menu: {
       open: 'Menü öffnen',
@@ -153,7 +153,7 @@ export default {
     yourData: 'Deine Daten',
     summary: 'Zusammenfassung',
     confirm: 'Bestätigen',
-    edit: 'Bearbeiten',
+    edit: 'Anpassen',
     delete: 'Löschen',
     save: 'Speichern',
     reset: 'Zurücksetzen',
@@ -308,7 +308,7 @@ export default {
       },
       transformation: {
         title: 'Tiefe Transformation',
-        description: 'Wir arbeiten an den Wurzeln, nicht an den Symptomen.'
+        description: 'Wir gehen an die Wurzeln — nicht an die Symptome.'
       }
     },
     duration: 'Dauer',
@@ -462,7 +462,7 @@ export default {
       qty: 'Menge',
       summary: 'Zusammenfassung',
       continue: 'Weiter',
-      processing: 'Verarbeite...',
+      processing: 'Wird vorbereitet...',
       placeOrder: 'Bestellung aufgeben',
       order: 'Bestellen',
       back: 'Zurück',
@@ -579,7 +579,7 @@ export default {
       corporate: 'Geschäftskunden',
       products: 'Produkte',
       about: 'Über Anatoly',
-      dieArbeit: 'Die Arbeit',
+      dieArbeit: 'Bewusstseinsarchitektur',
       blog: 'Blog',
       faq: 'FAQ',
       booking: 'Termin buchen',
@@ -740,13 +740,13 @@ export default {
   transformationSlider: {
     badge: 'DEIN WEG',
     heading: 'Anfang der Meisterschaft',
-    description: 'Keine vagen Versprechungen. Keine oberflächlichen Motivations-Tricks. Hier beginnt tiefgreifende Arbeit am inneren Betriebssystem.',
+    description: 'Keine vagen Versprechungen. Keine oberflächlichen Motivations-Tricks. Hier beginnt die tiefe Neuordnung des inneren Betriebssystems.',
     imageAlt: 'Anatoly Mook – Transformationsreise zur bewussten Lebensführung',
     availability: 'Termine verfügbar',
     tags: ['Bewusstsein', 'Klarheit', 'Transformation'],
     testimonials: {
       testimonial1: {
-        text: 'Die Arbeit mit Anatoly hat mein Verständnis von Führung komplett transformiert.',
+        text: 'Die Begleitung mit Anatoly hat mein Verständnis von Führung komplett transformiert.',
         author: 'Unternehmer, München'
       },
       testimonial2: {
@@ -820,7 +820,7 @@ export default {
     stats: {
       experience: {
         label: 'Jahre Erfahrung',
-        sublabel: 'in Bewusstseinsarbeit'
+        sublabel: 'in Bewusstseinsführung'
       },
       transformations: {
         label: 'Transformationen',
@@ -851,7 +851,7 @@ export default {
       preview: ['Autopilot', 'Reaktion', 'Mangel'],
       details: [
         'Denken statt Sein',
-        'Reiz → Reflex',
+        'Reiz >> Reflex',
         'Angst als Motor',
         'Kontrolle & Widerstand',
         'Getrennte Innenwelt'

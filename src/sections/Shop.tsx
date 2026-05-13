@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { ShoppingCart, Search, X, Plus, Minus, Check, Star, Trash2 } from 'lucide-react';
+import { ShoppingCart, Search, X, Plus, Minus, Check, Star, Trash2, ChevronsRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { Product, CartItem } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -56,7 +56,7 @@ const SHOP_DUMMY_PRODUCTS: Product[] = [
     slug: 'raeucherstaebchen',
     description: 'Feiner, zurückhaltender Duft — sanft und klar.',
     long_description:
-      'Kuratierte Mischung, dezentes Räucherbild. Ideal für konzentrierte Momente oder den Abend nach dem Arbeitstag.',
+      'Kuratierte Mischung, dezentes Räucherbild. Ideal für konzentrierte Momente oder den ruhigen Abend nach dem Tag.',
     price: 18.5,
     compare_at_price: null,
     image_url:
@@ -772,9 +772,7 @@ function BoutiqueCard({
           }}
         >
           Details ansehen
-          <span aria-hidden className="-mt-px text-[13px]">
-            →
-          </span>
+          <ChevronsRight aria-hidden className="-mt-px h-3.5 w-3.5 shrink-0 opacity-90" strokeWidth={2.5} />
         </button>
       </div>
     </article>

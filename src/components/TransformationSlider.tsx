@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Plus, Sparkles, Brain, Heart, Compass, Flame, Target, Shield, ArrowRight, X, Calendar, MessageCircle } from 'lucide-react';
+import { Plus, Sparkles, Brain, Heart, Compass, Flame, Target, Shield, X, Calendar, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // ULTRA MINIMALIST HIGH-END FUSION CARD WITH DROPDOWN
@@ -344,7 +344,7 @@ export default function TransformationSlider() {
         <div className="max-w-4xl mx-auto text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24">
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-black text-white mb-4 sm:mb-5 md:mb-6 lg:mb-8 leading-tight tracking-tight" style={{ fontFamily: "'Inter', 'SF Pro Display', sans-serif", fontWeight: 900, letterSpacing: '-0.02em' }}>
             {t.transformationSection.header.title1}
-            <span className="block mt-1 sm:mt-1.5 md:mt-2 bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent">
+            <span className="block mt-1 sm:mt-1.5 md:mt-2 text-[#EADDCB]">
               {t.transformationSection.header.title2}
             </span>
           </h2>
@@ -403,13 +403,22 @@ export default function TransformationSlider() {
                         <img
                           src={slide.image}
                           alt={`Anatoly Mook – ${slide.title}: ${slide.subtitle}`}
-                          className="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-[10000ms] ease-out"
+                          className={`w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-[10000ms] ease-out ${
+                            slide.id === 'teacher'
+                              ? 'object-[52%_24%] max-[639px]:object-[50%_20%]'
+                              : ''
+                          }`}
                           loading="lazy"
                         />
 
-                        {/* Image Overlays */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
-                        <div className={`absolute inset-0 bg-gradient-to-tr ${slide.gradient}`} />
+                        {slide.id === 'teacher' ? (
+                          <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[22%] bg-gradient-to-t from-black/48 via-black/08 to-transparent sm:from-black/42" />
+                        ) : (
+                          <>
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
+                            <div className={`absolute inset-0 bg-gradient-to-tr ${slide.gradient}`} />
+                          </>
+                        )}
 
                         {/* Floating Icon Badge */}
                         <div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 md:top-3 md:left-3 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-md sm:rounded-lg md:rounded-xl backdrop-blur-2xl bg-white/10 border border-white/20 flex items-center justify-center shadow-[0_4px_16px_-4px_rgba(0,0,0,0.4)]">
@@ -528,7 +537,7 @@ export default function TransformationSlider() {
             <div className="flex items-center justify-center gap-2 sm:gap-2.5 md:gap-3 mb-1.5 sm:mb-2">
               <div className="h-[1px] w-10 sm:w-12 md:w-16 bg-gradient-to-r from-transparent via-yellow-400/50 to-yellow-400/80" />
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_0_20px_rgba(185, 130, 63, 0.6)]" />
-              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.3em] bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-black tracking-[0.25em] sm:tracking-[0.3em] text-[#EADDCB] uppercase" style={{ fontFamily: "'Inter', sans-serif" }}>
                 {t.transformationSection.results.badge}
               </span>
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-[0_0_20px_rgba(185, 130, 63, 0.6)]" />

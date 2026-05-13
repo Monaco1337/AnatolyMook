@@ -65,7 +65,7 @@ export default function SEOHead({
   const sectionSEO = getSectionSEO(section);
 
   const fullTitle = title || seoData?.title || sectionSEO.title || t('meta.defaultTitle') || 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft';
-  const fullDescription = description || seoData?.description || sectionSEO.description || t('meta.defaultDescription') || 'Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.';
+  const fullDescription = description || seoData?.description || sectionSEO.description || t('meta.defaultDescription') || 'Anatoly Mook steht für Klarheit statt Suche. Orientierung, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.';
   const canonicalUrl = `${baseUrl}${path && path !== '/' ? path : ''}`;
   const finalSchemaType = schemaType || sectionSEO.schemaType || 'WebPage';
   const ogImage = seoData?.og_image || sectionSEO.ogImage || 'https://www.anatoly-mook.de/bildschirmfoto_2025-12-10_um_20.44.33.png';

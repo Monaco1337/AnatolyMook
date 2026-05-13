@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Calendar, MapPin, Users, ArrowRight, CheckCircle, Target, Zap, Award, Sparkles } from 'lucide-react';
+import { X, Calendar, MapPin, Users, ChevronsRight, CheckCircle, Target, Zap, Award, Sparkles } from 'lucide-react';
 
 interface EventData {
   id: string;
@@ -253,7 +253,7 @@ export default function EventDetailModal({ event, onClose }: EventDetailModalPro
                     <div className="flex items-center justify-center gap-2 sm:gap-3 text-black">
                       <Award className="w-5 h-5 sm:w-6 sm:h-6" />
                       <span>{event.cta_text || 'Jetzt Anmelden'}</span>
-                      <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                      <ChevronsRight className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                   </button>
 

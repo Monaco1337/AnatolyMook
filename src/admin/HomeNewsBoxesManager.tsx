@@ -228,7 +228,7 @@ export default function HomeNewsBoxesManager() {
                 </div>
               </div>
               <div>
-                <h2 className="text-3xl font-black bg-gradient-to-r from-cyan-200 via-cyan-400 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(34,211,238,0.5)]">
+                <h2 className="text-3xl font-black text-[#E8FBFF]">
                   News Boxes
                 </h2>
                 <p className="text-white/60 text-sm mt-1">Featured Boxen unter dem Hero verwalten</p>
@@ -372,8 +372,8 @@ export default function HomeNewsBoxesManager() {
             <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 rounded-2xl border-2 border-cyan-500/30 shadow-[0_0_100px_rgba(34,211,238,0.4)]">
               <div className="p-8">
                 <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-2xl font-black bg-gradient-to-r from-cyan-200 to-blue-400 bg-clip-text text-transparent">
-                    {editingBox.id === 'new' ? 'Neue Box' : 'Box bearbeiten'}
+                  <h3 className="text-2xl font-black text-[#E8FBFF]">
+                    {editingBox.id === 'new' ? 'Neue Box' : 'Box anpassen'}
                   </h3>
                   <button
                     onClick={() => {

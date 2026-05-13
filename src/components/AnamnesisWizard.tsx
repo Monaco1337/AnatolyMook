@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Check, Sparkles, Brain, X, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, Sparkles, Brain, X, ChevronsRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { calculateTypology, type AnamnesisData, type TypologyResult } from '../utils/typologyCalculator';
 import Section1 from './anamnesis/Section1';
@@ -332,7 +332,7 @@ export default function AnamnesisWizard({ onClose }: WizardProps) {
                 >
                   <Brain className="w-6 h-6" strokeWidth={2.5} />
                   <span className="text-lg">Gespräch buchen</span>
-                  <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" strokeWidth={2.5} />
+                  <ChevronsRight className="w-6 h-6 transition-transform group-hover:translate-x-1" strokeWidth={2.5} />
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </button>
 
@@ -383,7 +383,7 @@ export default function AnamnesisWizard({ onClose }: WizardProps) {
               PREMIUM PROFILING
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight" style={{ fontFamily: "'Inter', sans-serif" }}>
-              Persönlicher <span className="bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent">Anamnesebogen</span>
+              Persönlicher <span className="bg-gradient-to-r from-amber-200 to-amber-400 text-[#F4F4F4]">Anamnesebogen</span>
             </h1>
             <p className="text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
               Vertraulich · Strukturiert · 3-6 Minuten
@@ -544,7 +544,7 @@ export default function AnamnesisWizard({ onClose }: WizardProps) {
                       <>
                         <Check size={20} />
                         Absenden
-                        <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+                        <ChevronsRight size={20} className="transition-transform group-hover:translate-x-1" />
                       </>
                     )}
                   </button>

@@ -188,8 +188,7 @@ function HairLine({ className }: { className?: string }) {
       aria-hidden
       className={`block h-px ${className ?? ''}`}
       style={{
-        background:
-          'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.55) 50%, rgba(214,168,94,0) 100%)'
+
       }}
     />
   );
@@ -200,11 +199,7 @@ function Accent({ children }: { children: React.ReactNode }) {
   return (
     <span
       style={{
-        backgroundImage:
-          'linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
+
         color: 'transparent'
       }}
     >
@@ -232,8 +227,7 @@ function EntryPanel({
       to={to}
       className="da-entry group relative block overflow-hidden"
       style={{
-        background:
-          'linear-gradient(180deg, rgba(20,15,10,0.62) 0%, rgba(8,8,10,0.78) 100%)',
+
         boxShadow:
           'inset 0 1px 0 rgba(236,218,182,0.06), inset 0 0 0 1px rgba(166,124,82,0.16)',
         backdropFilter: 'blur(28px)'
@@ -244,8 +238,7 @@ function EntryPanel({
         aria-hidden
         className="pointer-events-none absolute inset-x-6 top-0 h-px"
         style={{
-          background:
-            'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.55) 50%, rgba(214,168,94,0) 100%)'
+
         }}
       />
       {/* hover glow */}
@@ -320,8 +313,7 @@ function EntryPanel({
             aria-hidden
             className="block h-px w-7 transition-[width] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-12"
             style={{
-              background:
-                'linear-gradient(90deg, rgba(214,168,94,0.7) 0%, rgba(214,168,94,0) 100%)'
+
             }}
           />
           <span
@@ -412,16 +404,14 @@ export default function DieArbeit() {
           <div
             className="absolute inset-0"
             style={{
-              background:
-                'linear-gradient(180deg, rgba(2,2,3,0.18) 0%, rgba(2,2,3,0) 24%, rgba(2,2,3,0) 60%, rgba(1,1,2,0.78) 100%)'
+
             }}
           />
           {/* dezenter Lese-Schatten unten links unter Headline/Body */}
           <div
             className="absolute inset-0"
             style={{
-              background:
-                'linear-gradient(75deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0) 55%)'
+
             }}
           />
           {/* dezenter Innen-Rim */}
@@ -446,8 +436,7 @@ export default function DieArbeit() {
               aria-hidden
               className="block h-px w-12"
               style={{
-                background:
-                  'linear-gradient(90deg, rgba(214,168,94,0.7) 0%, rgba(214,168,94,0) 100%)'
+
               }}
             />
 
@@ -477,7 +466,7 @@ export default function DieArbeit() {
                 color: 'rgba(244,242,236,0.7)'
               }}
             >
-              Eine ruhige Arbeit für Menschen mit Verantwortung — präzise, diskret, ohne laute Versprechen.
+              Eine ruhige Begleitung für Menschen mit Verantwortung — präzise, diskret, ohne laute Versprechen.
             </p>
 
             {/* CTA-Linie */}
@@ -501,8 +490,7 @@ export default function DieArbeit() {
                   aria-hidden
                   className="block h-px w-9 transition-[width] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cta:w-16"
                   style={{
-                    background:
-                      'linear-gradient(90deg, rgba(214,168,94,0.85) 0%, rgba(214,168,94,0) 100%)'
+
                   }}
                 />
               </Link>
@@ -539,7 +527,7 @@ export default function DieArbeit() {
                 color: 'rgba(214,188,152,0.55)'
               }}
             >
-              Arbeitsweise
+              Haltung & Umsetzung
             </span>
             <h2
               id="da-method-heading"
@@ -606,8 +594,7 @@ export default function DieArbeit() {
                     aria-hidden
                     className="absolute inset-0"
                     style={{
-                      background:
-                        'linear-gradient(180deg, rgba(2,2,3,0.55) 0%, rgba(2,2,3,0.4) 28%, rgba(2,2,3,0.75) 70%, rgba(2,2,3,0.96) 100%)'
+
                     }}
                   />
                   {/* Bronze-Halo bei Hover */}
@@ -684,8 +671,7 @@ export default function DieArbeit() {
                         className="mx-auto mt-6 block h-px shrink-0 transition-[width] duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
                         style={{
                           width: isActive ? '3rem' : '1.25rem',
-                          background:
-                            'linear-gradient(90deg, rgba(214,168,94,0.75) 0%, rgba(214,168,94,0) 100%)'
+
                         }}
                       />
                     </div>
@@ -721,8 +707,7 @@ export default function DieArbeit() {
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
-            background:
-              'linear-gradient(180deg, rgba(2,2,2,0.78) 0%, rgba(2,2,2,0.58) 38%, rgba(2,2,2,0.68) 72%, rgba(2,2,2,0.85) 100%), radial-gradient(ellipse 70% 55% at 50% 0%, rgba(214,168,94,0.06) 0%, transparent 58%)'
+
           }}
         />
 
@@ -899,8 +884,7 @@ export default function DieArbeit() {
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
-            background:
-              'linear-gradient(180deg, rgba(2,2,2,0.76) 0%, rgba(2,2,2,0.52) 42%, rgba(2,2,2,0.62) 78%, rgba(2,2,2,0.82) 100%), radial-gradient(ellipse 65% 50% at 88% 35%, rgba(214,168,94,0.07) 0%, transparent 55%)'
+
           }}
         />
 
@@ -958,8 +942,7 @@ export default function DieArbeit() {
                       aria-hidden
                       className="hidden min-[380px]:block h-px w-5 shrink-0 sm:w-6"
                       style={{
-                        background:
-                          'linear-gradient(90deg, rgba(214,168,94,0.45) 0%, rgba(214,168,94,0) 100%)'
+
                       }}
                     />
                     <span
@@ -996,8 +979,7 @@ export default function DieArbeit() {
           aria-hidden
           className="absolute inset-0"
           style={{
-            background:
-              'linear-gradient(180deg, #020202 0%, #050507 40%, #030305 75%, #020203 100%)'
+
           }}
         />
         <div
@@ -1161,8 +1143,7 @@ function FieldTile({
         aria-hidden
         className="absolute inset-0"
         style={{
-          background:
-            'linear-gradient(180deg, rgba(2,2,3,0) 38%, rgba(2,2,3,0.6) 78%, rgba(2,2,3,0.96) 100%)'
+
         }}
       />
       {/* Bronze-Glow bei Hover */}
@@ -1202,8 +1183,7 @@ function FieldTile({
           aria-hidden
           className="my-3 mx-auto block h-px w-7 transition-[width] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-12"
           style={{
-            background:
-              'linear-gradient(90deg, rgba(214,168,94,0.6) 0%, rgba(214,168,94,0) 100%)'
+
           }}
         />
         <p

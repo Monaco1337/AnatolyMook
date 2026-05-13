@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Linkedin, Instagram, Youtube, ArrowUp, Phone } from 'lucide-react';
+import { Mail, Linkedin, Instagram, Youtube, ChevronsRight, Phone } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { europeanCities } from '../utils/localSEO';
 import { topicClusters } from '../seo/topicClusters';
@@ -176,7 +176,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         aria-hidden
         style={{
           background:
-            'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.10) 22%, rgba(231,192,138,0.32) 50%, rgba(214,168,94,0.10) 78%, rgba(214,168,94,0) 100%)'
+            'linear-gradient(90deg, transparent 0%, rgba(214,168,94,0.22) 18%, rgba(214,168,94,0.42) 50%, rgba(214,168,94,0.22) 82%, transparent 100%)'
         }}
       />
 
@@ -240,7 +240,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <p
               className="relative z-[2] m-0 -mt-[5.25rem] sm:-mt-[6rem] md:-mt-[6.75rem] max-w-[28rem]"
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                 fontSize: 'clamp(0.9rem, 0.84rem + 0.2vw, 1rem)',
                 fontWeight: 400,
                 lineHeight: 1.62,
@@ -255,7 +255,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <p
               className="relative z-[2] m-0 mt-3 max-w-[28rem]"
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                 fontSize: '0.8438rem',
                 fontWeight: 300,
                 lineHeight: 1.7,
@@ -295,16 +295,12 @@ export default function Footer({ onNavigate }: FooterProps) {
                 <h4
                   className="m-0 mb-5"
                   style={{
-                    fontFamily: "'Inter', sans-serif",
+                    fontFamily: "'Montserrat', system-ui, sans-serif",
                     fontSize: '0.6875rem',
-                    fontWeight: 600,
+                    fontWeight: 300,
                     letterSpacing: '0.22em',
                     textTransform: 'uppercase',
-                    background:
-                      'linear-gradient(135deg, #F2E2C0 0%, #D6A85E 50%, #B9823F 100%)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
+                    color: 'rgba(140,138,135,0.92)',
                     filter: 'drop-shadow(0 1px 6px rgba(0,0,0,0.45))'
                   }}
                 >
@@ -322,7 +318,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                           rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                           className="ft-link inline-flex items-center gap-2"
                           style={{
-                            fontFamily: "'Inter', sans-serif",
+                            fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                             fontSize: '0.84rem',
                             fontWeight: 400,
                             letterSpacing: '-0.002em',
@@ -334,7 +330,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                             className="ft-link-mark block h-px w-0 opacity-0"
                             style={{
                               background:
-                                'linear-gradient(90deg, rgba(214,168,94,0.9) 0%, rgba(214,168,94,0) 100%)'
+                                'linear-gradient(90deg, rgba(214,168,94,0.75) 0%, rgba(214,168,94,0.1) 100%)'
                             }}
                           />
                           {item.label}
@@ -354,8 +350,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             className="h-px w-full mb-10"
             aria-hidden
             style={{
-              background:
-                'linear-gradient(90deg, rgba(214,168,94,0.20) 0%, rgba(214,168,94,0.06) 38%, rgba(255,255,255,0.03) 70%, rgba(255,255,255,0) 100%)'
+
             }}
           />
 
@@ -363,7 +358,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <summary
               className="cursor-pointer list-none inline-flex items-center gap-2.5 select-none"
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                 fontSize: '0.6875rem',
                 fontWeight: 500,
                 letterSpacing: '0.22em',
@@ -375,8 +370,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 aria-hidden
                 className="block h-px w-6"
                 style={{
-                  background:
-                    'linear-gradient(90deg, rgba(214,168,94,0.8) 0%, rgba(214,168,94,0) 100%)'
+
                 }}
               />
               Standorte &amp; Themen
@@ -398,7 +392,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   <p
                     className="m-0 mb-3"
                     style={{
-                      fontFamily: "'Inter', sans-serif",
+                      fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                       fontSize: '0.65rem',
                       fontWeight: 500,
                       letterSpacing: '0.18em',
@@ -415,7 +409,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                         to={it.to}
                         className="transition-colors duration-300"
                         style={{
-                          fontFamily: "'Inter', sans-serif",
+                          fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                           fontSize: '0.72rem',
                           fontWeight: 400,
                           color: 'rgba(238,230,216,0.32)'
@@ -441,8 +435,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             className="pointer-events-none absolute inset-x-6 sm:inset-x-8 md:inset-x-12 lg:inset-x-16 h-px"
             aria-hidden
             style={{
-              background:
-                'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.12) 50%, rgba(214,168,94,0) 100%)',
+
               marginTop: '-1px'
             }}
           />
@@ -450,7 +443,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <p
               className="m-0"
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                 fontSize: '0.72rem',
                 fontWeight: 400,
                 letterSpacing: '0.02em',
@@ -462,7 +455,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <p
               className="m-0"
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                 fontSize: '0.65rem',
                 fontWeight: 400,
                 letterSpacing: '0.22em',
@@ -470,7 +463,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 color: 'rgba(214,188,152,0.32)'
               }}
             >
-              Editorial · Bewusstseinsarbeit · seit 2016
+              Editorial · Bewusstseinsführung · seit 2016
             </p>
           </div>
 
@@ -488,7 +481,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           >
             <span
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, sans-serif",
                 fontSize: '0.7rem',
                 fontWeight: 500,
                 letterSpacing: '0.22em',
@@ -497,7 +490,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             >
               {t('footer.backToTop')}
             </span>
-            <ArrowUp size={13} strokeWidth={1.8} aria-hidden />
+            <ChevronsRight size={13} strokeWidth={1.8} aria-hidden className="opacity-85" />
           </button>
         </div>
       </div>

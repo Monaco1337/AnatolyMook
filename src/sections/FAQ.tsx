@@ -7,7 +7,7 @@ import {
   Mail,
   HelpCircle,
   Search,
-  ArrowRight,
+  ChevronsRight,
   Briefcase,
   Clock,
   FileText,
@@ -349,7 +349,7 @@ export default function FAQ() {
             >
               <Mail size={14} strokeWidth={2} aria-hidden />
               Jetzt Kontakt aufnehmen
-              <ArrowRight size={14} strokeWidth={2} aria-hidden />
+              <ChevronsRight size={14} strokeWidth={2} aria-hidden />
             </Link>
           </div>
         </div>

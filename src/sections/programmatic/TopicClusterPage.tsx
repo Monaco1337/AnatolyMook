@@ -5,7 +5,7 @@ import SEOHead from '../../components/SEOHead';
 import { topicClusters } from '../../seo/topicClusters';
 import { webPageSchema, breadcrumbSchema } from '../../seo/schemaFactory';
 import InternalLinks from '../../components/InternalLinks';
-import { ChevronRight, ArrowRight, BookOpen } from 'lucide-react';
+import { ChevronRight, ChevronsRight, BookOpen } from 'lucide-react';
 
 export default function TopicClusterPage() {
   const { topic: topicSlug } = useParams<{ topic: string }>();
@@ -31,7 +31,7 @@ export default function TopicClusterPage() {
     coaching: { de: 'Coaching & Mentoring', en: 'Coaching & Mentoring', path: '/coaching' },
     keynotes: { de: 'Keynote-Vorträge', en: 'Keynote Speaking', path: '/keynotes' },
     corporate: { de: 'Corporate-Programme', en: 'Corporate Programs', path: '/corporate' },
-    transformation: { de: 'Die Arbeit', en: 'The Work', path: '/die-arbeit' },
+    transformation: { de: 'Orientierung', en: 'Orientation', path: '/die-arbeit' },
   };
 
   return (
@@ -81,7 +81,7 @@ export default function TopicClusterPage() {
                   if (!info) return null;
                   return (
                     <Link key={svc} to={info.path} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border hover:border-amber-500/40 transition-all" style={{ borderColor: colors.border.subtle, color: colors.text.secondary }}>
-                      {lang === 'en' ? info.en : info.de} <ArrowRight className="w-3 h-3" />
+                      {lang === 'en' ? info.en : info.de} <ChevronsRight className="w-3 h-3" />
                     </Link>
                   );
                 })}

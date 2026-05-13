@@ -1,7 +1,48 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Users, Clock, MapPin, Briefcase, TrendingUp, Sparkles, CheckCircle2, ArrowRight, Star, Target, Zap, Building2, Lightbulb, Award, ChevronDown, Check } from 'lucide-react';
+import { Users, Clock, MapPin, Briefcase, TrendingUp, Sparkles, CheckCircle2, ChevronsRight, Star, Target, Zap, Building2, Lightbulb, Award, ChevronDown, Check } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useLanguage } from '../contexts/LanguageContext';
+
+const FONT_DISPLAY =
+  "'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif" as const;
+/** Fließtext: angefragte Familie mit robusten Fallbacks (wie Premium-System mit Avenir) */
+const FONT_BODY =
+  "'Aviral Next LT Pro', 'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" as const;
+
+const ENTRY_CARDS = [
+  {
+    id: 'kultur',
+    title: 'Kulturprozess',
+    body:
+      'Für Unternehmen, die Reibung nicht nur organisieren, sondern an der inneren Ausrichtung ihrer Kultur klären wollen.',
+    cta: 'Kultur vertiefen >>',
+    category: 'transformation' as const
+  },
+  {
+    id: 'selbst',
+    title: 'Selbstständige',
+    body:
+      'Für Menschen mit Verantwortung, die nicht nur leisten, sondern aus Klarheit, Präsenz und stimmiger Richtung führen wollen.',
+    cta: 'Ausrichtung klären >>',
+    category: 'workshop' as const
+  },
+  {
+    id: 'fuehrung',
+    title: 'Führung',
+    body:
+      'Für Führungspersönlichkeiten, die Entscheidungen, Wirkung und innere Stabilität auf ein neues Niveau bringen wollen.',
+    cta: 'Führung stärken >>',
+    category: 'leadership' as const
+  },
+  {
+    id: 'teams',
+    title: 'Teams',
+    body:
+      'Für Teams, die weniger Reibung, mehr Bewusstheit und eine tragfähige gemeinsame Ausrichtung brauchen.',
+    cta: 'Teamwirkung öffnen >>',
+    category: 'team-retreat' as const
+  }
+];
 
 interface CorporateOffer {
   id: string;
@@ -73,15 +114,15 @@ export default function Corporate() {
       id: 'team-transformation',
       category: 'team-retreat',
       title: 'Team Transformation',
-      subtitle: 'Tiefgreifende Teamarbeit für echte Veränderung',
+      subtitle: 'Tiefgreifende Teamführung für echte Veränderung',
       tagline: 'Ein starkes Team entsteht nicht durch Teambuilding, sondern durch gemeinsames Wachstum.',
       duration: '2–3 Tage Intensiv',
       participants: '10–30 Teilnehmer',
       format: 'Offsite / Retreat',
       availability: 'Termine auf Anfrage',
       price: 'Ab 8.900 €',
-      description: 'Ein intensives Offsite-Format, das Teams aus der Routine holt und den Raum schafft für ehrliche Kommunikation, klare Ausrichtung und neue Zusammenarbeit. Kein Entertainment, sondern echte Arbeit an dem, was zählt.',
-      essence: 'Wenn ein Team wirklich zusammenfindet, wird aus Zusammenarbeit Wirksamkeit.',
+      description: 'Ein intensives Offsite-Format, das Teams aus der Routine holt und den Raum schafft für ehrliche Kommunikation, klare Ausrichtung und neues Zusammenwirken. Kein Entertainment, sondern echte Vertiefung in dem, was zählt.',
+      essence: 'Wenn ein Team wirklich zusammenfindet, wird aus gemeinsamer Ausrichtung Wirksamkeit.',
       includes: [
         'Vorgespräch mit Teamleitung (Ziel & Kontext)',
         '2–3 Tage Intensiv-Programm',
@@ -91,12 +132,12 @@ export default function Corporate() {
         'Follow-up Call nach 4 Wochen'
       ],
       benefits: [
-        { title: 'Echte Verbindung', description: 'Schaffen Sie die Basis für Vertrauen, Offenheit und konstruktive Zusammenarbeit im Team.' },
+        { title: 'Echte Verbindung', description: 'Schaffen Sie die Basis für Vertrauen, Offenheit und konstruktives Zusammenwirken im Team.' },
         { title: 'Gemeinsame Ausrichtung', description: 'Entwickeln Sie ein klares, geteiltes Verständnis von Zielen, Rollen und Verantwortung.' },
         { title: 'Spürbare Veränderung', description: 'Erleben Sie den Unterschied zwischen einem netten Teamtag und echter Transformation.' }
       ],
       ideal_for: ['Management-Teams', 'Projektteams in Umbruchphasen', 'Abteilungen mit Reibungsverlusten', 'Neuzusammengesetzte Teams'],
-      program_outline: ['Ankommen & Rahmen setzen', 'Standortbestimmung als Team', 'Kernthemen identifizieren & bearbeiten', 'Neue Vereinbarungen & Strukturen', 'Integration & Transferplan'],
+      program_outline: ['Ankommen & Rahmen setzen', 'Standortbestimmung als Team', 'Kernthemen identifizieren & klären', 'Neue Vereinbarungen & Strukturen', 'Integration & Transferplan'],
       gradient: 'from-purple-500 to-violet-500',
       image: '/bildschirmfoto_2026-01-09_um_18.51.39.png',
       is_active: true,
@@ -124,12 +165,12 @@ export default function Corporate() {
         'Optional: Follow-up Coaching'
       ],
       benefits: [
-        { title: 'Souveräne Gesprächsführung', description: 'Führen Sie jedes Gespräch – ob Mitarbeitergespräch oder Verhandlung – mit Klarheit und Wirkung.' },
+        { title: 'Souveräne Gesprächsführung', description: 'Führen Sie jedes Gespräch – ob Entwicklungsgespräch oder Verhandlung – mit Klarheit und Wirkung.' },
         { title: 'Konstruktive Konfliktlösung', description: 'Verwandeln Sie Spannungen in produktive Dialoge und nachhaltige Lösungen.' },
         { title: 'Stärkere Unternehmenskultur', description: 'Schaffen Sie eine Kultur der Offenheit, in der Feedback als Geschenk verstanden wird.' }
       ],
       ideal_for: ['Führungskräfte aller Ebenen', 'HR & People-Teams', 'Vertriebs- & Kundenteams', 'Projektleitungen'],
-      program_outline: ['Grundlagen bewusster Kommunikation', 'Die Kunst des aktiven Zuhörens', 'Feedback als Führungsinstrument', 'Schwierige Gespräche meistern', 'Transfer in den Arbeitsalltag'],
+      program_outline: ['Grundlagen bewusster Kommunikation', 'Die Kunst des aktiven Zuhörens', 'Feedback als Führungsinstrument', 'Schwierige Gespräche meistern', 'Transfer in den Führungsalltag'],
       gradient: 'from-amber-500 to-orange-500',
       image: '/bildschirmfoto_2025-12-19_um_01.49.07.png',
       is_active: true,
@@ -237,27 +278,19 @@ export default function Corporate() {
     { id: 'transformation', label: t.corporate.categories.transformation, icon: TrendingUp }
   ], [t]);
 
-  const features = useMemo(() => [
-    {
-      icon: Briefcase,
-      title: t.corporate.features.tailored.title,
-      description: t.corporate.features.tailored.description
-    },
-    {
-      icon: Users,
-      title: t.corporate.features.teamFocus.title,
-      description: t.corporate.features.teamFocus.description
-    },
-    {
-      icon: TrendingUp,
-      title: t.corporate.features.measurable.title,
-      description: t.corporate.features.measurable.description
-    }
-  ], [t]);
-
   const filteredOffers = selectedCategory === 'all'
     ? offers
     : offers.filter(offer => offer.category === selectedCategory);
+
+  const scrollToOffers = (categoryId: typeof ENTRY_CARDS[number]['category']) => {
+    setSelectedCategory(categoryId);
+    window.requestAnimationFrame(() => {
+      document.getElementById('corporate-offers')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
+  };
 
   const categoryColors: Record<string, { from: string; to: string }> = {
     workshop: { from: '#8A5528', to: '#f97316' },
@@ -271,57 +304,92 @@ export default function Corporate() {
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-cyan-900/10 to-teal-900/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(6,182,212,0.15),transparent_50%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-stone-950/80 via-[#070708] to-[#050506]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_80%_at_50%_0%,rgba(185,130,63,0.06),transparent_55%)]" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-          <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-6">
-              <Briefcase size={16} className="text-cyan-400" strokeWidth={2} />
-              <span className="text-sm font-semibold text-cyan-400 uppercase tracking-wider">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 lg:py-[4.25rem]">
+          <div className="text-center mb-8 sm:mb-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-[rgba(214,168,94,0.16)] mb-5">
+              <Briefcase size={15} className="text-[#c9a878]" strokeWidth={2} />
+              <span
+                className="text-[11px] uppercase tracking-[0.22em] text-[rgba(234,221,203,0.85)]"
+                style={{ fontFamily: FONT_BODY, fontWeight: 500 }}
+              >
                 {t.corporate.badge}
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
-              <span className="text-white">
-                {t.corporate.heroTitle}
-              </span>
+            <h1
+              className="text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-5xl mb-5 leading-[1.12] tracking-[-0.03em]"
+              style={{ fontFamily: FONT_DISPLAY, fontWeight: 300, color: '#F4F4F4' }}
+            >
+              <span>{t.corporate.heroTitle}</span>
               <br />
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-teal-400 bg-clip-text text-transparent">
-                {t.corporate.heroSubtitle}
-              </span>
+              <span style={{ color: '#EADDCB', fontWeight: 300 }}>{t.corporate.heroSubtitle}</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            <p
+              className="text-[15px] sm:text-base max-w-2xl mx-auto leading-[1.6]"
+              style={{ fontFamily: FONT_BODY, fontWeight: 400, color: 'rgba(140, 138, 135, 0.92)' }}
+            >
               {t.corporate.heroDescription}
             </p>
           </div>
 
-          {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12 sm:mb-16">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
+          {/* Einstieg: vier Zielgruppen-Räume */}
+          <div className="mb-8 sm:mb-10">
+            <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6">
+              <h2
+                className="text-xl sm:text-2xl tracking-[-0.03em] mb-2.5"
+                style={{ fontFamily: FONT_DISPLAY, fontWeight: 300, color: '#F4F4F4' }}
+              >
+                Vier Räume für bewusste Wirkung.
+              </h2>
+              <p
+                className="text-[13px] sm:text-sm leading-relaxed px-1"
+                style={{ fontFamily: FONT_BODY, fontWeight: 400, color: '#EADDCB' }}
+              >
+                Kultur, Führung und Teamdynamik verändern sich nicht durch mehr Druck — sondern durch klare Ausrichtung.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-3.5">
+              {ENTRY_CARDS.map((card) => (
                 <div
-                  key={index}
-                  className="relative group"
+                  key={card.id}
+                  className="relative flex min-h-0 rounded-[14px] border border-[rgba(185,130,63,0.14)] bg-[rgba(10,10,11,0.78)] backdrop-blur-[20px] shadow-[inset_0_1px_0_rgba(255,248,238,0.06)] transition-[border-color,background-color] duration-300 hover:border-[rgba(185,130,63,0.22)] hover:bg-[rgba(12,12,13,0.82)]"
                 >
-                  <div className="absolute -inset-[1px] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="relative bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-2xl p-6 h-full">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-4">
-                      <Icon size={24} className="text-cyan-400" strokeWidth={2} />
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-                    <p className="text-sm text-gray-400 leading-relaxed">{feature.description}</p>
+                  <div className="flex min-h-[220px] sm:min-h-[240px] flex-col p-4 sm:p-[1.125rem] w-full">
+                    <h3
+                      className="text-[17px] sm:text-[1.05rem] tracking-[-0.02em] mb-2"
+                      style={{ fontFamily: FONT_DISPLAY, fontWeight: 300, color: '#F4F4F4', lineHeight: 1.2 }}
+                    >
+                      {card.title}
+                    </h3>
+                    <p
+                      className="flex-1 text-[13px] sm:text-[13.5px] leading-[1.55] mb-4"
+                      style={{ fontFamily: FONT_BODY, fontWeight: 400, color: '#F4F4F4' }}
+                    >
+                      {card.body}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => scrollToOffers(card.category)}
+                      className="mt-auto inline-flex items-center gap-1.5 self-start border-0 bg-transparent p-0 cursor-pointer group/cta focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.35)] rounded-sm"
+                      style={{ fontFamily: FONT_BODY }}
+                    >
+                      <span className="text-[12px] sm:text-[12.5px] tracking-[0.04em] text-[#EADDCB] group-hover/cta:text-[#F4F4F4] transition-colors duration-300">
+                        {card.cta}
+                      </span>
+                    </button>
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-10 pt-1 border-t border-white/[0.05]">
             {categories.map((category) => {
               const Icon = category.icon;
               const isActive = selectedCategory === category.id;
@@ -348,7 +416,10 @@ export default function Corporate() {
       </div>
 
       {/* Offers Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div
+        id="corporate-offers"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16 scroll-mt-[4.5rem]"
+      >
         {loading ? (
           <div className="text-center py-20">
             <div className="w-16 h-16 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin mx-auto mb-4" />
@@ -387,13 +458,19 @@ export default function Corporate() {
                   <div className="relative bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-3xl overflow-hidden">
                     {/* Image Header */}
                     <div
-                      className="relative h-48 sm:h-56 bg-cover bg-center"
+                      className="relative h-48 sm:h-56 bg-cover"
                       style={{
-                        backgroundImage: `url(${offer.image})`
+                        backgroundImage: `url(${offer.image})`,
+                        backgroundPosition: 'center 28%'
                       }}
                     >
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" />
+                      <div
+                        className="absolute inset-x-0 bottom-0 top-[18%] pointer-events-none"
+                        style={{
+                          background:
+                            'linear-gradient(to top, rgba(17,24,39,0.94) 0%, rgba(17,24,39,0.35) min(62%,340px), transparent 100%)'
+                        }}
+                      />
 
                       {/* Category Badge */}
                       <div className="absolute top-4 left-4">
@@ -553,7 +630,7 @@ export default function Corporate() {
                                 <div className="space-y-2">
                                   {offer.ideal_for.map((item, index) => (
                                     <div key={index} className="flex items-start gap-3 text-sm text-gray-300">
-                                      <ArrowRight size={16} className="text-cyan-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
+                                      <ChevronsRight size={16} className="text-cyan-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
                                       <span>{item}</span>
                                     </div>
                                   ))}
@@ -589,7 +666,7 @@ export default function Corporate() {
                         <div className="flex items-center justify-between mb-4">
                           <div>
                             <div className="text-xs text-gray-500 mb-1">{t.corporate.price}</div>
-                            <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                            <div className="text-3xl font-bold text-[#E8FBFF]">
                               {offer.price}
                             </div>
                           </div>
@@ -631,7 +708,7 @@ export default function Corporate() {
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:scale-105"
             >
               <span>{t.corporate.ctaButton}</span>
-              <ArrowRight size={20} strokeWidth={2.5} />
+              <ChevronsRight size={20} strokeWidth={2.5} />
             </a>
           </div>
         </div>

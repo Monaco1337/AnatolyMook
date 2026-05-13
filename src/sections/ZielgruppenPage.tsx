@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ChevronsRight } from 'lucide-react';
 import { HERO_PORTRAIT } from '../constants/brandAssets';
 
 const FONT_DISPLAY =
@@ -40,7 +41,7 @@ const PROFILE_BLOCKS: {
     line: 'Wenn konstante Erreichbarkeit mit kaum erholsamer Ruhe zusammentrifft.',
     image:
       'https://images.pexels.com/photos/3807688/pexels-photo-3807688.jpeg?auto=compress&cs=tinysrgb&w=1400',
-    imageAlt: 'Arbeitsumgebung bei Dämmerung, Fokus und Belastung',
+    imageAlt: 'Fokussierte Umgebung bei Dämmerung, Spannung und Klarheit',
     imagePosition: 'object-[45%_38%]',
     align: 'imageRight'
   },
@@ -73,7 +74,7 @@ const TESTIMONIALS: { quote: string; context: string }[] = [
     context: 'Führungskraft · internationaler Konzern'
   },
   {
-    quote: '„Die Arbeit fühlt sich nicht nach Motivation an. Sie fühlt sich nach Ordnung an — und die bleibt.“',
+    quote: '„Es fühlt sich nicht nach Motivation an. Es fühlt sich nach Ordnung an — und die bleibt.“',
     context: 'Unternehmerin · Dienstleistung'
   },
   {
@@ -134,13 +135,10 @@ export default function ZielgruppenPage() {
             <img
               src={`${HERO_PORTRAIT.pathBase}.png`}
               alt=""
-              className="h-full w-full scale-[1.08] object-cover object-[58%_32%] sm:object-[56%_30%] lg:object-[54%_28%]"
+              className="h-full w-full scale-[1.02] object-cover object-[56%_28%] max-[639px]:object-[52%_30%] sm:object-[54%_26%] lg:object-[54%_26%]"
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              style={{
-                filter: 'contrast(1.08) saturate(0.88) brightness(0.78)'
-              }}
             />
           </picture>
 
@@ -156,14 +154,14 @@ export default function ZielgruppenPage() {
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(180deg, rgba(2,2,3,0.5) 0%, rgba(2,2,3,0.15) 28%, rgba(2,2,3,0.55) 62%, rgba(1,1,2,0.92) 100%)'
+                'linear-gradient(180deg, rgba(2,3,5,0.38) 0%, transparent 40%, transparent 68%, rgba(1,2,4,0.68) 100%)'
             }}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(105deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 38%, transparent 58%)'
+                'linear-gradient(105deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.2) min(48%,520px), transparent 74%)'
             }}
           />
           {/* Bronze-Kante / Rim */}
@@ -171,7 +169,7 @@ export default function ZielgruppenPage() {
             className="absolute inset-0"
             style={{
               boxShadow:
-                'inset 0 0 120px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255, 248, 238, 0.06), inset 0 -1px 0 rgba(214, 168, 94, 0.08)'
+                'inset 0 0 96px rgba(0,0,0,0.36), inset 0 1px 0 rgba(255, 248, 238, 0.06), inset 0 -1px 0 rgba(214, 168, 94, 0.08)'
             }}
           />
           <AtmosphereLayer />
@@ -220,7 +218,7 @@ export default function ZielgruppenPage() {
                 textShadow: '0 12px 40px rgba(0,0,0,0.5)'
               }}
             >
-              Diese Arbeit richtet sich an Menschen mit Verantwortung, mentaler Belastung und dem Wunsch nach klarer
+              Diese Orientierung richtet sich an Menschen mit Verantwortung, mentaler Belastung und dem Wunsch nach klarer
               Führung — ruhig, präzise, ohne dramatische Versprechen.
             </p>
           </div>
@@ -280,7 +278,7 @@ export default function ZielgruppenPage() {
 
       {/* Profile — abwechselnd Bild / Text */}
       <div className="bg-[#030303]">
-        <h2 className="sr-only">Für wen diese Arbeit gedacht ist</h2>
+        <h2 className="sr-only">Für wen diese Orientierung gedacht ist</h2>
         {PROFILE_BLOCKS.map((block, index) => {
           const imageCol = (
             <div className="relative min-h-[min(52vh,480px)] w-full overflow-hidden md:min-h-[420px]">
@@ -404,7 +402,7 @@ export default function ZielgruppenPage() {
               color: 'rgba(214, 188, 152, 0.55)'
             }}
           >
-            Rückmeldungen aus der Arbeit
+            Rückmeldungen aus der Begleitung
           </p>
           <h2
             className="m-0 max-w-[22ch] font-light tracking-[-0.032em] text-balance"
@@ -478,14 +476,15 @@ export default function ZielgruppenPage() {
 
           <Link
             to="/erstgespraech"
-            className="mt-8 inline-flex font-light uppercase tracking-[0.14em] text-[rgba(196,174,138,0.72)] underline decoration-[rgba(214,168,94,0.22)] underline-offset-[0.3em] transition-colors hover:text-[rgba(230,212,182,0.9)] hover:decoration-[rgba(214,168,94,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.28)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#020202]"
+            className="mt-8 inline-flex items-center gap-1.5 font-light uppercase tracking-[0.14em] text-[rgba(196,174,138,0.72)] underline decoration-[rgba(214,168,94,0.22)] underline-offset-[0.3em] transition-colors hover:text-[rgba(230,212,182,0.9)] hover:decoration-[rgba(214,168,94,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.28)] focus-visible:ring-offset-4 focus-visible:ring-offset-[#020202]"
             style={{
               fontFamily: FONT_BODY,
               fontSize: '0.75rem',
               fontWeight: 300
             }}
           >
-            Strategisches Gespräch vereinbaren →
+            Strategisches Gespräch vereinbaren
+            <ChevronsRight size={14} strokeWidth={2.25} aria-hidden />
           </Link>
         </div>
       </section>

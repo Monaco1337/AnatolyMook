@@ -592,7 +592,7 @@ export default function CorporateManager() {
 
                   <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5 pb-4 sm:pb-5 border-b border-gray-100">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-[18px] sm:text-[20px] font-bold bg-gradient-to-br from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                      <span className="text-[18px] sm:text-[20px] font-bold text-[#E8FBFF]">
                         {offer.price}
                       </span>
                     </div>
@@ -608,7 +608,7 @@ export default function CorporateManager() {
                       className="flex-1 py-2.5 sm:py-3 px-3 sm:px-4 bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 text-gray-900 rounded-xl text-[13px] sm:text-[14px] font-semibold flex items-center justify-center gap-2 transition-all hover:shadow-md border border-gray-200/60"
                     >
                       <Edit2 size={15} strokeWidth={2.5} />
-                      <span className="hidden sm:inline">Bearbeiten</span>
+                      <span className="hidden sm:inline">Anpassen</span>
                     </button>
                     <button
                       onClick={() => handleDelete(offer.id, offer.title)}
@@ -644,7 +644,7 @@ export default function CorporateManager() {
             <div className="px-6 sm:px-8 py-5 sm:py-6 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h3 className="text-[22px] sm:text-[24px] font-[600] text-gray-900">
-                  {editingOffer ? 'Angebot bearbeiten' : 'Neues Angebot'}
+                  {editingOffer ? 'Angebot anpassen' : 'Neues Angebot'}
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}

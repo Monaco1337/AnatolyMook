@@ -42,8 +42,8 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
 
   type MenuItem = { id: string; label: string; targetId: string };
   const menuStructure: MenuItem[] = [
-    { id: 'die-arbeit', label: 'Die Arbeit', targetId: 'die-arbeit' },
-    { id: 'formate', label: 'Formate', targetId: 'formate' },
+    { id: 'die-arbeit', label: 'Bewusstseinsarchitektur', targetId: 'die-arbeit' },
+    { id: 'formate', label: 'Portfolio', targetId: 'formate' },
     { id: 'corporate', label: 'Business', targetId: 'corporate' },
     { id: 'kontakt', label: 'Kontakt', targetId: 'kontakt' }
   ];
@@ -226,8 +226,7 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                       }}
                       className="nav-booking-cta group/cta relative inline-flex items-center justify-center px-4 py-2 rounded-[10px] overflow-hidden"
                       style={{
-                        background:
-                          'linear-gradient(180deg, rgba(28,18,10,0.92) 0%, rgba(20,12,6,0.95) 100%)',
+
                         border: '1px solid rgba(166, 124, 82, 0.55)',
                         boxShadow: `
                           inset 0 1px 0 rgba(242, 226, 192, 0.22),
@@ -270,7 +269,7 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                         className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[11px]"
                         style={{
                           background:
-                            'linear-gradient(180deg, rgba(242, 226, 192, 0.10) 0%, rgba(242, 226, 192, 0.02) 60%, rgba(242, 226, 192, 0) 100%)'
+                            'linear-gradient(180deg, rgba(255,255,255,0.085) 0%, rgba(255,255,255,0) 58%)'
                         }}
                       />
                       {/* Bronze-Hairline innen */}
@@ -287,14 +286,7 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                         style={{
                           fontWeight: 500,
                           letterSpacing: '0.05em',
-                          backgroundImage:
-                            'linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text',
-                          color: 'transparent',
-                          filter:
-                            'drop-shadow(0 1px 0 rgba(0,0,0,0.55)) drop-shadow(0 0 14px rgba(166,124,82,0.18))'
+                          color: 'rgba(244,244,244,0.95)'
                         }}
                       >
                         Termin buchen
@@ -411,8 +403,7 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
               className="mx-4 my-2 h-px"
               aria-hidden
               style={{
-                background:
-                  'linear-gradient(90deg, rgba(166,124,82,0) 0%, rgba(166,124,82,0.32) 50%, rgba(166,124,82,0) 100%)'
+
               }}
             />
 
@@ -439,8 +430,7 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
               className="mx-4 my-2 h-px"
               aria-hidden
               style={{
-                background:
-                  'linear-gradient(90deg, rgba(166,124,82,0) 0%, rgba(166,124,82,0.18) 50%, rgba(166,124,82,0) 100%)'
+
               }}
             />
 
@@ -454,8 +444,7 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                 }}
                 className="relative block w-full h-[44px] rounded-[11px] text-[14px] font-[500] tracking-[0.02em] transition-all duration-300 active:scale-[0.97] flex items-center justify-center overflow-hidden"
                 style={{
-                  background:
-                    'linear-gradient(180deg, rgba(28,18,10,0.92) 0%, rgba(20,12,6,0.95) 100%)',
+
                   border: '1px solid rgba(166, 124, 82, 0.55)',
                   boxShadow: `
                     inset 0 1px 0 rgba(242, 226, 192, 0.22),
@@ -470,27 +459,20 @@ export default function Navigation({ currentSection, onNavigate }: NavigationPro
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[11px]"
                   style={{
-                    background:
-                      'linear-gradient(180deg, rgba(242, 226, 192, 0.10) 0%, rgba(242, 226, 192, 0) 100%)'
+
                   }}
                 />
                 <span
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-x-3 top-px h-px"
                   style={{
-                    background:
-                      'linear-gradient(90deg, rgba(166,124,82,0) 0%, rgba(214,176,128,0.55) 50%, rgba(166,124,82,0) 100%)'
+
                   }}
                 />
                 <span
                   className="relative"
                   style={{
-                    backgroundImage:
-                      'linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    color: 'transparent',
+
                     filter:
                       'drop-shadow(0 1px 0 rgba(0,0,0,0.55)) drop-shadow(0 0 14px rgba(166,124,82,0.18))'
                   }}

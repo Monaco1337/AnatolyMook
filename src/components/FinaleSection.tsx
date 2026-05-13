@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { ArrowRight, Plus, Heart, Brain, Shield, Star, Sparkles, Zap, Target, Crown, ChevronRight, Quote } from 'lucide-react';
+import { ChevronsRight, Plus, Heart, Brain, Shield, Star, Sparkles, Zap, Target, Crown, ChevronRight, Quote } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export interface FinaleSectionProps {
@@ -20,7 +20,6 @@ export default function FinaleSection({
   const [openPanel, setOpenPanel] = useState<number | null>(null);
   const [expandedLevel, setExpandedLevel] = useState<number | null>(null);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,14 +27,6 @@ export default function FinaleSection({
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    });
-  };
 
   const transcendenceLevels = useMemo(() => [
     {
@@ -116,7 +107,7 @@ export default function FinaleSection({
                 <Star className="w-4 h-4 text-yellow-400 fill-yellow-400 opacity-50" />
               </div>
             </div>
-            <span className="text-xs sm:text-sm font-bold tracking-[0.2em] bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-300 bg-clip-text text-transparent uppercase">
+            <span className="text-xs sm:text-sm font-bold tracking-[0.2em] bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-300 text-[#F4F4F4] uppercase">
               {t.transformationSlider.badge}
             </span>
             <Sparkles className="w-4 h-4 text-yellow-400" />
@@ -125,7 +116,7 @@ export default function FinaleSection({
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight mb-3 sm:mb-4">
             {t.transformationSlider.heading.split(' ').slice(0, -2).join(' ')}{' '}
             <span className="relative inline-block">
-              <span className="relative z-10 bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-400 bg-clip-text text-transparent">
+              <span className="relative z-10 text-[#EADDCB]">
                 {t.transformationSlider.heading.split(' ').slice(-2).join(' ')}
               </span>
               <span className="absolute -inset-1 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 blur-xl" />
@@ -137,28 +128,16 @@ export default function FinaleSection({
           </p>
         </div>
 
-        <div
-          className="relative w-full h-[45vh] sm:h-[50vh] md:h-[55vh] lg:h-[60vh] rounded-2xl sm:rounded-3xl lg:rounded-[32px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)]"
-          onMouseMove={handleMouseMove}
-        >
+        <div className="relative w-full h-[45vh] sm:h-[50vh] md:h-[55vh] lg:h-[60vh] rounded-2xl sm:rounded-3xl lg:rounded-[32px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)]">
           <div className="absolute inset-0">
             <img
               src="/bildschirmfoto_2026-01-02_um_22.35.10.png"
               alt={t.transformationSlider.imageAlt}
-              className="w-full h-full object-cover object-[15%_center] sm:object-[20%_center] scale-105 transition-transform duration-[20s] hover:scale-110"
+              className="w-full h-full object-cover object-[22%_center] max-[639px]:object-[24%_center] sm:object-[20%_center] scale-105 transition-transform duration-[20s] hover:scale-110"
             />
 
-            <div
-              className="absolute inset-0 transition-opacity duration-500"
-              style={{
-                background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, transparent 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%)`
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/40 to-black/80" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
-
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-black/82 via-black/22 to-transparent sm:from-black/78" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/12 to-black/55" />
           </div>
 
           <div className="absolute top-4 sm:top-6 lg:top-8 left-4 sm:left-6 lg:left-8 right-4 sm:right-6 lg:right-8 flex justify-between items-start">
@@ -231,7 +210,7 @@ export default function FinaleSection({
 
                   <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white leading-[1.1] tracking-tight mb-3 sm:mb-4">
                     {t.transformationSlider.cta.heading.split(' ').slice(0, -2).join(' ')}{' '}
-                    <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-400 bg-clip-text text-transparent">
+                    <span className="text-[#EADDCB]">
                       {t.transformationSlider.cta.heading.split(' ').slice(-2).join(' ')}
                     </span>
                   </h3>
@@ -248,7 +227,7 @@ export default function FinaleSection({
                       <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-yellow-300 to-orange-400" />
                       <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-orange-300 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       <span className="relative text-black text-sm sm:text-base font-bold">{t.transformationSlider.cta.primary}</span>
-                      <ArrowRight className="relative w-4 h-4 sm:w-5 sm:h-5 text-black group-hover:translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
+                      <ChevronsRight className="relative w-4 h-4 sm:w-5 sm:h-5 text-black group-hover:translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
                     </a>
 
                     <a
@@ -428,7 +407,7 @@ export default function FinaleSection({
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.3),transparent_70%)]" />
                   </div>
                   <span className="relative text-black text-sm sm:text-base font-bold">{t.transformationSlider.cta.finalCta}</span>
-                  <ArrowRight className="relative w-5 h-5 text-black group-hover:translate-x-1.5 transition-transform duration-300" strokeWidth={2.5} />
+                  <ChevronsRight className="relative w-5 h-5 text-black group-hover:translate-x-1.5 transition-transform duration-300" strokeWidth={2.5} />
                 </a>
 
                 <div className="flex items-center justify-center gap-4 mt-4">
@@ -457,7 +436,7 @@ export default function FinaleSection({
           <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {stats.map((stat, i) => (
               <div key={i} className="text-center group">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-400 bg-clip-text text-transparent mb-2 group-hover:scale-105 transition-transform duration-300">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#EADDCB] mb-2 group-hover:scale-105 transition-transform duration-300">
                   {stat.value}
                 </div>
                 <div className="text-sm sm:text-base text-white font-semibold mb-1">{stat.label}</div>

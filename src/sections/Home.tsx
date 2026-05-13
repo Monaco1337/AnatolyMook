@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { ArrowRight, ChevronDown, Sparkles, Award, Users, Star, TrendingUp, Check, Target, Brain, Heart, Shield, Play, Calendar, Zap, Book, Plus, X } from 'lucide-react';
+import { ChevronsRight, ChevronDown, Sparkles, Award, Users, Star, TrendingUp, Check, Target, Brain, Heart, Shield, Play, Calendar, Zap, Book, Plus, X } from 'lucide-react';
 import PremiumSlider from '../components/PremiumSlider';
 import ConsciousnessComparison from '../components/ConsciousnessComparison';
 import AwarenessModule from '../components/AwarenessModule';
@@ -51,15 +51,21 @@ export default function Home() {
             <img
               src="/anatoly_mook.png"
               alt="Anatoly Mook – Bewusstseinscoach und Mentor für innere Transformation und bewusstes Leben"
-              className="w-full h-full object-cover object-[65%_center] sm:object-[center_20%] md:object-[center_15%] lg:object-[center_10%]"
+              className="w-full h-full object-cover object-[50%_28%] max-[639px]:object-[48%_22%] sm:object-[52%_22%] md:object-[50%_18%] lg:object-[48%_18%]"
               loading="eager"
               fetchPriority="high"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/15" />
-            <div className="absolute inset-x-0 bottom-0 h-[55vh] sm:h-[58vh] md:h-[62vh] lg:h-[68vh] bg-gradient-to-t from-yellow-400/80 via-yellow-400/40 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-[40vh] sm:h-[45vh] md:h-[50vh] lg:h-[55vh] bg-gradient-to-t from-yellow-500/50 via-yellow-500/20 to-transparent" />
+            {/* Lesbarkeit unten/links; oben/rechts Gesicht möglichst frei */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/12 via-transparent to-black/46" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/24 via-transparent to-transparent" aria-hidden />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  'linear-gradient(to top, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.06) min(48%,360px), transparent 100%), radial-gradient(ellipse 120% 95% at 8% 100%, rgba(15,12,8,0.38) 0%, transparent 52%)'
+              }}
+            />
 
             <div className="absolute inset-x-5 sm:inset-x-8 md:inset-x-12 lg:inset-x-16 xl:inset-x-20 bottom-10 sm:bottom-12 md:bottom-14 lg:bottom-16 z-10">
               <div className="max-w-7xl mx-auto">
@@ -135,7 +141,7 @@ export default function Home() {
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-yellow-50/30 via-transparent to-yellow-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       <span className="relative font-semibold tracking-wide">Kostenlos Erstgespräch</span>
-                      <ArrowRight
+                      <ChevronsRight
                         className="relative w-[18px] h-[18px] md:w-5 md:h-5 transition-transform duration-500 group-hover:translate-x-1.5"
                         strokeWidth={2.5}
                       />
@@ -168,7 +174,7 @@ export default function Home() {
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-3 sm:mb-4 tracking-tight"
                 style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900 }}>
-              <span className="bg-gradient-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">Aktuell</span>
+              <span className="text-[#EADDCB]">Aktuell</span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-white/60">
               Was bewegt dich gerade?
@@ -198,7 +204,7 @@ export default function Home() {
                   className="inline-flex items-center gap-2 text-sm sm:text-base text-yellow-400 font-semibold hover:gap-3 transition-all"
                 >
                   Mehr erfahren
-                  <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
+                  <ChevronsRight size={16} className="sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
                 </button>
               </div>
             </div>
@@ -225,7 +231,7 @@ export default function Home() {
                   className="inline-flex items-center gap-2 text-sm sm:text-base text-blue-400 font-semibold hover:gap-3 transition-all"
                 >
                   Pakete ansehen
-                  <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
+                  <ChevronsRight size={16} className="sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
                 </button>
               </div>
             </div>
@@ -252,7 +258,7 @@ export default function Home() {
                   className="inline-flex items-center gap-2 text-sm sm:text-base text-green-400 font-semibold hover:gap-3 transition-all"
                 >
                   Weiterlesen
-                  <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
+                  <ChevronsRight size={16} className="sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
                 </button>
               </div>
             </div>
@@ -279,19 +285,18 @@ export default function Home() {
                     boxShadow: '0 40px 80px -20px rgba(0,0,0,0.8), 0 25px 50px -20px rgba(185, 130, 63, 0.2), inset 0 1px 0 0 rgba(255,255,255,0.1)'
                   }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10 pointer-events-none" />
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent z-20" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[38%] bg-gradient-to-t from-black/45 via-black/10 to-transparent z-10" />
 
                   <img
                     src="/bildschirmfoto_2026-01-10_um_12.29.12.png"
                     alt="Anatoly Mook – Bewusstseinslehrer und Coach fur innere Transformation"
-                    className="w-full aspect-[4/5] object-cover object-top transform group-hover:scale-[1.02] transition-transform duration-1000"
+                    className="w-full aspect-[4/5] object-cover object-[50%_22%] max-[639px]:object-[50%_18%] transform group-hover:scale-[1.02] transition-transform duration-1000"
                     loading="lazy"
                   />
 
-                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/70 to-transparent z-10" />
+                  <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/55 to-transparent z-10" />
 
-                  <div className="absolute bottom-6 left-6 right-6 z-20">
+                  <div className="absolute bottom-6 left-6 right-6 z-20 max-sm:left-4 max-sm:right-4 max-sm:bottom-5">
                     <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl px-5 py-4">
                       <p className="text-white/90 text-sm sm:text-base font-medium tracking-wide">
                         Anatoly Mook
@@ -312,7 +317,7 @@ export default function Home() {
               <h2 className="text-[1.75rem] leading-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-extrabold text-white mb-8 sm:mb-10 md:mb-12 tracking-tight"
                   style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900 }}>
                 Viele Menschen sind nicht falsch.<br />
-                <span className="bg-gradient-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">Sie sind nur innerlich uberlastet.</span>
+                <span className="text-[#EADDCB]">Sie sind nur innerlich uberlastet.</span>
               </h2>
 
               <div className="space-y-5 sm:space-y-6 text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed"
@@ -358,17 +363,17 @@ export default function Home() {
                   boxShadow: '0 30px 60px -20px rgba(0,0,0,0.7), 0 20px 40px -30px rgba(185, 130, 63, 0.3)'
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[40%] bg-gradient-to-t from-black/35 via-transparent to-transparent z-10" />
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-400/40 to-transparent z-20" />
 
                 <img
                   src="/bildschirmfoto_2025-12-19_um_01.49.07.png"
                   alt="Anatoly Mook – Portrait des Bewusstseinscoachs und Lehrers für innere Meisterschaft"
-                  className="w-full aspect-[4/5] object-cover transform group-hover:scale-[1.03] transition-transform duration-1000"
+                  className="w-full aspect-[4/5] object-cover object-[50%_26%] max-[639px]:object-[50%_22%] transform group-hover:scale-[1.03] transition-transform duration-1000"
                   loading="lazy"
                 />
 
-                <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 right-0 h-20 sm:h-28 bg-gradient-to-t from-black/52 to-transparent z-10" />
               </div>
 
               <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-amber-500/20 to-yellow-500/10 rounded-full blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
@@ -386,7 +391,7 @@ export default function Home() {
           <h2 className="text-[1.75rem] leading-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white mb-4 sm:mb-5 md:mb-6 tracking-tight"
               style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900 }}>
             Warum sich dein Leben<br />
-            <span className="bg-gradient-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">gerade schwer anfühlt</span>
+            <span className="text-[#EADDCB]">gerade schwer anfühlt</span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed mt-4 sm:mt-5 md:mt-6">
             Die meisten Menschen wechseln nicht,<br />
@@ -409,7 +414,7 @@ export default function Home() {
             <h2 className="text-[1.75rem] leading-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white mb-4 sm:mb-5 md:mb-6 tracking-tight"
                 style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900 }}>
               So beschreiben Menschen<br className="hidden sm:inline" />
-              <span className="bg-gradient-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">den Unterschied</span>
+              <span className="text-[#EADDCB]">den Unterschied</span>
             </h2>
           </div>
 
@@ -479,7 +484,7 @@ export default function Home() {
           <div className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20">
             <h2 className="text-[1.75rem] leading-tight sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white mb-4 sm:mb-5 md:mb-6 tracking-tight"
                 style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900 }}>
-              Veränderung braucht keinen <span className="bg-gradient-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">Druck</span><br className="hidden sm:inline" />
+              Veränderung braucht keinen <span className="text-[#EADDCB]">Druck</span><br className="hidden sm:inline" />
               <span className="block mt-1 sm:mt-2">– sondern einen klaren Rahmen</span>
             </h2>
           </div>
@@ -550,7 +555,7 @@ export default function Home() {
               }}
             >
               <span className="relative z-10 font-semibold">Jetzt buchen</span>
-              <ArrowRight className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} />
+              <ChevronsRight className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
             </button>
           </div>
@@ -574,11 +579,11 @@ export default function Home() {
           <div className="grid lg:grid-cols-[40%_60%] gap-6 lg:gap-8 items-start">
             {/* LEFT: Bild */}
             <div className="relative rounded-2xl overflow-hidden h-[280px] sm:h-[360px] lg:h-[520px] group">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent z-10" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/82 via-black/18 to-transparent z-10" />
               <img
                 src="/bildschirmfoto_2025-12-19_um_01.49.07.png"
                 alt="Anatoly Mook – Transformationscoach für bewusste Lebensführung und innere Meisterschaft"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover object-[50%_26%] max-[639px]:object-[50%_20%] transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
               <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20">
@@ -599,7 +604,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-[1.1]">
                   Der Anfang<br />
-                  <span className="bg-gradient-to-r from-yellow-300 to-amber-400 bg-clip-text text-transparent">deiner Meisterschaft</span>
+                  <span className="text-[#EADDCB]">deiner Meisterschaft</span>
                 </h2>
               </div>
 
@@ -691,7 +696,7 @@ export default function Home() {
                 className="metallic-bronze-button btn-bronze group w-full inline-flex items-center justify-center gap-2 h-11 sm:h-12 px-6 text-sm"
               >
                 <span>Erstgespräch buchen</span>
-                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.5} />
+                <ChevronsRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.5} />
               </button>
             </div>
           </div>
@@ -702,7 +707,7 @@ export default function Home() {
       <section className="relative py-12 sm:py-16 bg-black" data-section>
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-white/80 leading-snug">
-            <span className="bg-gradient-to-r from-yellow-300 to-amber-400 bg-clip-text text-transparent font-bold">Klarheit</span> beginnt oft mit einem Gespräch.
+            <span className="text-[#EADDCB]">Klarheit</span> beginnt oft mit einem Gespräch.
           </p>
         </div>
       </section>

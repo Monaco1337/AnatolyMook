@@ -1,4 +1,4 @@
-import { Download, Play, FileText, Headphones, ArrowRight, Sparkles } from 'lucide-react';
+import { Download, Play, FileText, Headphones, ChevronsRight, Sparkles } from 'lucide-react';
 
 export default function Resources() {
   const resources = [
@@ -155,7 +155,7 @@ export default function Resources() {
                 </p>
                 <button className="text-yellow-500 hover:text-yellow-400 transition-colors flex items-center text-sm font-light tracking-wider">
                   DOWNLOAD
-                  <ArrowRight className="ml-2" size={14} />
+                  <ChevronsRight className="ml-2" size={14} />
                 </button>
               </div>
             </div>
@@ -199,7 +199,7 @@ export default function Resources() {
                 </p>
                 <button className="w-full px-6 py-3 border border-yellow-500/50 text-yellow-500 font-light tracking-wider hover:bg-yellow-500/10 transition-all duration-300 flex items-center justify-center">
                   JOIN CHALLENGE
-                  <ArrowRight className="ml-2" size={18} />
+                  <ChevronsRight className="ml-2" size={18} />
                 </button>
               </div>
             ))}
@@ -231,7 +231,7 @@ export default function Resources() {
               />
               <button className="px-8 py-4 bg-yellow-500 text-black font-light tracking-wider hover:bg-yellow-400 transition-all duration-300 flex items-center justify-center whitespace-nowrap">
                 ASK NOW
-                <ArrowRight className="ml-2" size={20} />
+                <ChevronsRight className="ml-2" size={20} />
               </button>
             </div>
             <p className="text-white/40 text-sm font-light mt-6">
@@ -257,7 +257,7 @@ export default function Resources() {
             />
             <button className="px-8 py-4 bg-white text-black font-light tracking-wider hover:bg-gray-200 transition-all duration-300 flex items-center justify-center whitespace-nowrap">
               SUBSCRIBE
-              <ArrowRight className="ml-2" size={20} />
+              <ChevronsRight className="ml-2" size={20} />
             </button>
           </div>
         </div>

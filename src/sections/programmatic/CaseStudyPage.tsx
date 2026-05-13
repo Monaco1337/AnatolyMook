@@ -5,7 +5,7 @@ import SEOHead from '../../components/SEOHead';
 import { testimonials } from '../../seo/testimonialData';
 import { reviewSchema, breadcrumbSchema } from '../../seo/schemaFactory';
 import InternalLinks from '../../components/InternalLinks';
-import { ChevronRight, Star, ArrowRight } from 'lucide-react';
+import { ChevronRight, Star, ChevronsRight } from 'lucide-react';
 
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -80,7 +80,7 @@ export default function CaseStudyPage() {
               {lang === 'en' ? 'Start your transformation' : lang === 'ru' ? 'Начните вашу трансформацию' : 'Starten Sie Ihre Transformation'}
             </p>
             <Link to="/booking" className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 text-black font-semibold rounded-xl hover:bg-amber-400 transition-all">
-              {lang === 'en' ? 'Book Appointment' : lang === 'ru' ? 'Записаться' : 'Termin buchen'} <ArrowRight className="w-4 h-4" />
+              {lang === 'en' ? 'Book Appointment' : lang === 'ru' ? 'Записаться' : 'Termin buchen'} <ChevronsRight className="w-4 h-4" />
             </Link>
           </div>
         </article>

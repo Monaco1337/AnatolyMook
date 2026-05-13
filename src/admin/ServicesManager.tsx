@@ -287,7 +287,7 @@ export default function ServicesManager() {
                     className="flex-1 py-2 px-3 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-[8px] text-[13px] font-[500] flex items-center justify-center gap-2 transition-colors"
                   >
                     <Edit2 size={14} strokeWidth={2} />
-                    Bearbeiten
+                    Anpassen
                   </button>
                   <button
                     onClick={() => handleDelete(service.id)}
@@ -310,7 +310,7 @@ export default function ServicesManager() {
             <div className="px-8 py-6 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h3 className="text-[24px] font-[600] text-gray-900">
-                  {editingService ? 'Service bearbeiten' : 'Neuer Service'}
+                  {editingService ? 'Service anpassen' : 'Neuer Service'}
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}

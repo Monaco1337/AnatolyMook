@@ -607,7 +607,7 @@ export default function SeminarsManager() {
                   {/* Price & Duration */}
                   <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5 pb-4 sm:pb-5 border-b border-gray-100">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-[18px] sm:text-[20px] font-bold bg-gradient-to-br from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                      <span className="text-[18px] sm:text-[20px] font-bold text-[#EADDCB]">
                         {seminar.price}
                       </span>
                     </div>
@@ -624,7 +624,7 @@ export default function SeminarsManager() {
                       className="flex-1 py-2.5 sm:py-3 px-3 sm:px-4 bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 text-gray-900 rounded-xl text-[13px] sm:text-[14px] font-semibold flex items-center justify-center gap-2 transition-all hover:shadow-md border border-gray-200/60"
                     >
                       <Edit2 size={15} strokeWidth={2.5} />
-                      <span className="hidden sm:inline">Bearbeiten</span>
+                      <span className="hidden sm:inline">Anpassen</span>
                     </button>
                     <button
                       onClick={() => handleDelete(seminar.id, seminar.title)}
@@ -661,7 +661,7 @@ export default function SeminarsManager() {
             <div className="px-8 py-6 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h3 className="text-[24px] font-[600] text-gray-900">
-                  {editingSeminar ? 'Seminar bearbeiten' : 'Neues Seminar'}
+                  {editingSeminar ? 'Seminar anpassen' : 'Neues Seminar'}
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}
@@ -1038,7 +1038,7 @@ export default function SeminarsManager() {
                       <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 rounded-[8px] group">
                         <Sparkles size={14} className="text-amber-600" strokeWidth={2} />
                         <span className="flex-1 text-[14px] text-gray-900">
-                          {t.von} → {t.zu}
+                            {t.von} {'>>'} {t.zu}
                         </span>
                         <button
                           onClick={() => removeTransformation(index)}

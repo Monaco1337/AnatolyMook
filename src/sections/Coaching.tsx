@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Calendar, Clock, Video, MapPin, Award, Users, Sparkles, CheckCircle2, ArrowRight, Star, Target, Zap, Heart, Brain, Shield, ChevronDown, Check } from 'lucide-react';
+import { Calendar, Clock, Video, MapPin, Award, Users, Sparkles, CheckCircle2, ChevronsRight, Star, Target, Zap, Heart, Brain, Shield, ChevronDown, Check } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { supabase } from '../lib/supabase';
 
@@ -46,7 +46,7 @@ export default function Coaching() {
       sessions: '1 Session',
       format: 'Online oder Präsenz',
       availability: 'Innerhalb von 7 Tagen',
-      description: 'Eine intensive Einzelsession für ein konkretes Thema. Ob Klarheit in einer Entscheidung, Auflösung eines inneren Konflikts oder ein gezielter Impuls – in 90 Minuten arbeiten wir präzise an dem, was gerade dran ist.',
+      description: 'Eine intensive Einzelsession für ein konkretes Thema. Ob Klarheit in einer Entscheidung, Auflösung eines inneren Konflikts oder ein gezielter Impuls – in 90 Minuten vertiefen wir präzise das, was gerade dran ist.',
       essence: 'Manchmal braucht es nur einen klaren Moment, um den ganzen Weg zu sehen.',
       includes: [
         '90 Minuten 1:1 mit Anatoly',
@@ -57,10 +57,10 @@ export default function Coaching() {
       ],
       benefits: [
         { title: 'Sofortige Klarheit', description: 'Verlasse die Session mit einem klaren Bild und konkreten nächsten Schritten.' },
-        { title: 'Tiefgehend & präzise', description: 'Keine Smalltalk-Runde, sondern fokussierte Arbeit an deinem Kernthema.' },
+        { title: 'Tiefgehend & präzise', description: 'Keine Smalltalk-Runde, sondern fokussierte Vertiefung in deinem Kernthema.' },
         { title: 'Flexibel', description: 'Online oder persönlich – du wählst das Format, das für dich passt.' }
       ],
-      perfect_for: ['Konkrete Entscheidungssituationen', 'Akute innere Konflikte', 'Orientierung in Umbruchphasen', 'Kennenlernen der Arbeitsweise'],
+      perfect_for: ['Konkrete Entscheidungssituationen', 'Akute innere Konflikte', 'Orientierung in Umbruchphasen', 'Kennenlernen der Haltung und Praxis'],
       gradient: 'from-amber-400 to-orange-500',
       image: '/bildschirmfoto_2025-12-19_um_01.49.07.png',
       is_active: true,
@@ -77,7 +77,7 @@ export default function Coaching() {
       sessions: '3 Sessions (über 6 Wochen)',
       format: 'Online oder Präsenz',
       availability: 'Start innerhalb von 14 Tagen',
-      description: 'Drei aufeinander aufbauende Sessions über sechs Wochen. Ideal, um ein Thema wirklich durchzuarbeiten: Erkennen, Auflösen, Verankern. Zwischen den Sessions integrierst du das Gelernte im Alltag.',
+      description: 'Drei aufeinander aufbauende Sessions über sechs Wochen. Ideal, um ein Thema wirklich zu durchdringen: Erkennen, Auflösen, Verankern. Zwischen den Sessions integrierst du das Gelernte im Alltag.',
       essence: 'Echte Transformation geschieht nicht in einem Moment – sie braucht Raum und Begleitung.',
       includes: [
         '3 × 90 Minuten 1:1 Coaching',
@@ -124,7 +124,7 @@ export default function Coaching() {
       ],
       benefits: [
         { title: 'Maximale Tiefe', description: 'Wöchentliche Sessions und tägliche Verfügbarkeit ermöglichen Transformation auf allen Ebenen.' },
-        { title: 'Ganzheitlich', description: 'Beruf, Beziehung, Gesundheit, Sinn – wir arbeiten an allem, was für dich relevant ist.' },
+        { title: 'Ganzheitlich', description: 'Beruf, Beziehung, Gesundheit, Sinn – wir klären alles, was für dich relevant ist.' },
         { title: 'Exklusiv', description: 'Nur 5 VIP-Plätze gleichzeitig – volle Aufmerksamkeit und höchste Priorität.' }
       ],
       perfect_for: ['Unternehmer & Führungskräfte', 'Menschen in tiefgreifenden Lebensphasen', 'High-Performer mit Sinnfragen', 'Jeder, der bereit ist für den nächsten großen Schritt'],
@@ -145,7 +145,7 @@ export default function Coaching() {
       sessions: 'Individuell (bi-weekly + on-demand)',
       format: 'Präsenz & On-Demand',
       availability: 'Nach Vorgespräch',
-      description: 'Maßgeschneidertes Coaching für C-Level Executives und Geschäftsführer. Diskretion, höchste Qualität und absolute Flexibilität. Wir arbeiten an strategischer Klarheit, persönlicher Wirksamkeit und der Balance zwischen Leistung und Lebensqualität.',
+      description: 'Maßgeschneidertes Coaching für C-Level Executives und Geschäftsführer. Diskretion, höchste Qualität und absolute Flexibilität. Wir vertiefen strategische Klarheit, persönliche Wirksamkeit und die Balance zwischen Leistung und Lebensqualität.',
       essence: 'Wer andere auf höchstem Niveau führt, braucht einen Sparringspartner auf Augenhöhe.',
       includes: [
         'Bi-weekly Coaching-Sessions (90 Min.)',
@@ -161,7 +161,7 @@ export default function Coaching() {
         { title: 'Persönliche Wirksamkeit', description: 'Steigern Sie Ihre Präsenz, Kommunikation und Ihren Einfluss auf natürliche Weise.' },
         { title: 'Sustainable Performance', description: 'Finden Sie den Weg zu nachhaltiger Höchstleistung ohne Burnout-Risiko.' }
       ],
-      perfect_for: ['CEOs & Geschäftsführer', 'Vorstände & C-Level Executives', 'Unternehmer mit >50 Mitarbeitern', 'Führungskräfte vor Schlüsselentscheidungen'],
+      perfect_for: ['CEOs & Geschäftsführer', 'Vorstände & C-Level Executives', 'Unternehmer mit >50 Teammitgliedern', 'Führungskräfte vor Schlüsselentscheidungen'],
       gradient: 'from-emerald-400 to-teal-500',
       image: '/bildschirmfoto_2026-01-19_um_18.37.19.png',
       is_active: true,
@@ -273,7 +273,7 @@ export default function Coaching() {
             {/* Epic Title */}
             <h1 className="mb-8 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'forwards', opacity: 0 }}>
               <span className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight leading-[1.1] mb-3">
-                <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-500 bg-clip-text text-transparent">
+                <span className="text-[#EADDCB]">
                   {t.coaching.heroTitle}
                 </span>
               </span>
@@ -381,13 +381,19 @@ export default function Coaching() {
                   <div className="relative bg-gray-900/90 backdrop-blur-xl border border-gray-800 rounded-3xl overflow-hidden transition-all duration-500 group-hover:border-yellow-400/20 group-hover:scale-[1.01]">
                     {/* Image Header */}
                     <div
-                      className="relative h-48 sm:h-56 bg-cover bg-center"
+                      className="relative h-48 sm:h-56 bg-cover"
                       style={{
-                        backgroundImage: `url(${pkg.image})`
+                        backgroundImage: `url(${pkg.image})`,
+                        backgroundPosition: 'center 28%'
                       }}
                     >
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" />
+                      <div
+                        className="absolute inset-x-0 bottom-0 top-[18%] pointer-events-none"
+                        style={{
+                          background:
+                            'linear-gradient(to top, rgba(17,24,39,0.94) 0%, rgba(17,24,39,0.35) min(62%,340px), transparent 100%)'
+                        }}
+                      />
 
                       {/* Tier Badge - Ultra Premium */}
                       <div className="absolute top-6 left-6">
@@ -549,7 +555,7 @@ export default function Coaching() {
                                 <div className="space-y-2">
                                   {pkg.perfect_for.map((item, index) => (
                                     <div key={index} className="flex items-start gap-3 text-sm text-gray-300">
-                                      <ArrowRight size={16} className="text-yellow-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
+                                      <ChevronsRight size={16} className="text-yellow-400 mt-0.5 flex-shrink-0" strokeWidth={2} />
                                       <span>{item}</span>
                                     </div>
                                   ))}
@@ -565,7 +571,7 @@ export default function Coaching() {
                         <div className="flex items-center justify-between mb-4">
                           <div>
                             <div className="text-xs text-gray-500 mb-1">{t.coaching.price}</div>
-                            <div className="text-3xl font-bold bg-gradient-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">
+                            <div className="text-3xl font-bold text-[#EADDCB]">
                               {pkg.price}
                             </div>
                           </div>
@@ -581,7 +587,7 @@ export default function Coaching() {
                         >
                           <span className="relative z-10 flex items-center justify-center gap-2">
                             {t.coaching.bookNow}
-                            <ArrowRight size={18} className="transition-transform duration-300 group-hover/btn:translate-x-1" strokeWidth={3} />
+                            <ChevronsRight size={18} className="transition-transform duration-300 group-hover/btn:translate-x-1" strokeWidth={3} />
                           </span>
                         </a>
                       </div>
@@ -610,7 +616,7 @@ export default function Coaching() {
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black rounded-xl font-bold text-lg transition-all shadow-lg shadow-yellow-400/30 hover:shadow-xl hover:scale-105"
             >
               <span>{t.coaching.ctaButton}</span>
-              <ArrowRight size={20} strokeWidth={2.5} />
+              <ChevronsRight size={20} strokeWidth={2.5} />
             </a>
           </div>
         </div>

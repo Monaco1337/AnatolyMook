@@ -473,7 +473,7 @@ export default function EventsManager() {
                 </div>
               </div>
               <div>
-                <h2 className="text-3xl font-black bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.5)]">
+                <h2 className="text-3xl font-black text-[#EADDCB] drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.5)]">
                   Events Section
                 </h2>
                 <p className="text-white/60 text-sm mt-1">Überschrift und Event-Karten verwalten</p>
@@ -664,7 +664,7 @@ export default function EventsManager() {
                           setShowEventForm(true);
                         }}
                         className="p-2 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 transition-all"
-                        title="Bearbeiten"
+                        title="Anpassen"
                       >
                         <Pencil size={16} />
                       </button>
@@ -714,8 +714,8 @@ export default function EventsManager() {
             <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 rounded-2xl border-2 border-yellow-500/30 shadow-[0_0_100px_rgba(185, 130, 63, 0.4)]">
               <div className="p-8">
                 <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-2xl font-black bg-gradient-to-r from-yellow-200 to-orange-400 bg-clip-text text-transparent">
-                    {editingEvent.id === 'new' ? 'Neues Event' : 'Event bearbeiten'}
+                  <h3 className="text-2xl font-black text-[#EADDCB]">
+                    {editingEvent.id === 'new' ? 'Neues Event' : 'Event anpassen'}
                   </h3>
                   <button
                     onClick={() => {

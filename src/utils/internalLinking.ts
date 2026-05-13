@@ -14,12 +14,12 @@ const routes = [
   { path: '/', name: 'Home', keywords: ['Startseite', 'Home', 'Hauptseite', 'Willkommen', 'Anatoly Mook', 'Bewusstsein', 'Klarheit', 'Meisterschaft'] },
   {
     path: '/die-arbeit',
-    name: 'Die Arbeit',
+    name: 'Orientierung',
     keywords: [
-      'Die Arbeit',
+      'Orientierung',
       'Klarheit',
       'Führung',
-      'Orientierung',
+      'Begleitung',
       'Verantwortung',
       'Über Anatoly',
       'Über mich',
@@ -29,7 +29,8 @@ const routes = [
       'Methodik',
       'Lebensbereiche',
       'Ressourcen',
-      'Arbeitsweise'
+      'Haltung',
+      'Umsetzung'
     ]
   },
   { path: '/seminare', name: 'Seminare', keywords: ['Seminare', 'Workshops', 'Kurse', 'Trainings', 'Intensiv-Seminare', 'Bewusstseins-Seminare', 'Transformations-Seminare', 'Entwicklungs-Seminare'] },
@@ -45,7 +46,7 @@ const routes = [
   { path: '/booking', name: 'Termin buchen', keywords: ['Termin buchen', 'Booking', 'Terminvereinbarung', 'Buchen', 'Online-Buchung', 'Termin-Tool', 'Kalender-Buchung', 'Erstgespräch'] },
   { path: '/quiz', name: 'Bewusstseins-Quiz', keywords: ['Quiz', 'Test', 'Selbsteinschätzung', 'Assessment', 'Bewusstseins-Test', 'Evaluierung', 'Analyse', 'Standortbestimmung'] },
   { path: '/impressum', name: 'Impressum', keywords: ['Impressum', 'Rechtliches', 'Anbieterkennzeichnung', 'Legal', 'TMG', 'Angaben', 'Verantwortlich', 'Gesetzlich'] },
-  { path: '/datenschutz', name: 'Datenschutz', keywords: ['Datenschutz', 'Privacy', 'DSGVO', 'Datenschutzerklärung', 'Datensicherheit', 'Privatsphäre', 'Datenverarbeitung', 'Cookie-Policy'] }
+  { path: '/datenschutz', name: 'Datenschutz', keywords: ['Datenschutz', 'Privacy', 'DSGVO', 'Datenschutzerklärung', 'Datensicherheit', 'Privatsphäre', 'Datennutzung', 'Cookie-Policy'] }
 ];
 
 export function generateMassiveInternalLinks(currentPath: string = '/'): InternalLink[] {
@@ -282,7 +283,7 @@ export function generateFooterLinks(): LinkGroup[] {
         { url: `${baseUrl}/booking`, text: 'Buchungskalender', title: 'Kalender öffnen' },
         { url: `${baseUrl}/faq`, text: 'Unterstützung', title: 'Support erhalten' },
         { url: `${baseUrl}/impressum`, text: 'Anbieterkennzeichnung', title: 'Anbieter-Informationen' },
-        { url: `${baseUrl}/datenschutz`, text: 'Datenverarbeitung', title: 'Wie Daten verarbeitet werden' },
+        { url: `${baseUrl}/datenschutz`, text: 'Datennutzung', title: 'Wie Daten genutzt werden' },
         { url: `${baseUrl}/kontakt`, text: 'Nachricht senden', title: 'Nachricht schreiben' },
         { url: `${baseUrl}/booking`, text: 'Termin-Tool', title: 'Buchungstool verwenden' }
       ]

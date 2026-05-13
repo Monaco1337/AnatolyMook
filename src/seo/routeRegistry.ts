@@ -12,8 +12,8 @@ export interface RouteEntry {
 const BASE_URL = 'https://www.anatoly-mook.de';
 
 const mainRoutesDe: Array<{ path: string; section: string; titleDe: string; titleEn: string; titleRu: string; descDe: string; descEn: string; descRu: string; priority: number }> = [
-  { path: '/', section: 'home', titleDe: 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft', titleEn: 'Anatoly Mook – Clarity, Conscious Leadership & Personal Mastery', titleRu: 'Анатолий Мук – Ясность, осознанное лидерство и личное мастерство', descDe: 'Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.', descEn: 'Consciousness work, coaching and formats for people who take responsibility and want to shape their lives consistently.', descRu: 'Работа с сознанием, коучинг и форматы для людей, которые берут ответственность и последовательно формируют свою жизнь.', priority: 1.0 },
-  { path: '/die-arbeit', section: 'die-arbeit', titleDe: 'Die Arbeit – Klarheit & ruhige Beratung | Anatoly Mook', titleEn: 'The Work – Clarity & Discreet Advisory | Anatoly Mook', titleRu: 'Работа – ясность и ровное сопровождение | Анатолий Мук', descDe: 'Einheitliche Darstellung von Arbeitsweise, typischen Situationen und Wirkbereichen — wie private Beratung, nicht wie eine Wissensplattform.', descEn: 'Editorial merging of methodology, situational resonance, and where clarity lands — discreet and calm.', descRu: 'Собранный экскурсус: как устроена работа и где возвращается ясность — ровно и приватно.', priority: 0.9 },
+  { path: '/', section: 'home', titleDe: 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft', titleEn: 'Anatoly Mook – Clarity, Conscious Leadership & Personal Mastery', titleRu: 'Анатолий Мук – Ясность, осознанное лидерство и личное мастерство', descDe: 'Orientierung, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.', descEn: 'Orientation, coaching and formats for people who take responsibility and want to shape their lives consistently.', descRu: 'Ориентация, коучинг и форматы для людей, которые берут ответственность и последовательно формируют свою жизнь.', priority: 1.0 },
+  { path: '/die-arbeit', section: 'die-arbeit', titleDe: 'Orientierung – Klarheit & ruhige Beratung | Anatoly Mook', titleEn: 'Orientation – Clarity & Discreet Advisory | Anatoly Mook', titleRu: 'Ориентация – ясность и ровное сопровождение | Анатолий Мук', descDe: 'Einheitliche Darstellung von Haltung, typischen Situationen und Wirkbereichen — wie private Beratung, nicht wie eine Wissensplattform.', descEn: 'Editorial merging of methodology, situational resonance, and where clarity lands — discreet and calm.', descRu: 'Собранный обзор: как выстроена сопровождение и где возвращается ясность — ровно и приватно.', priority: 0.9 },
   { path: '/seminare', section: 'seminare', titleDe: 'Seminare & Workshops – Anatoly Mook', titleEn: 'Seminars & Workshops – Anatoly Mook', titleRu: 'Семинары и воркшопы – Анатолий Мук', descDe: 'Intensive Seminare und Workshops für Bewusstseinsentwicklung, persönliche Meisterschaft und bewusste Führung.', descEn: 'Intensive seminars and workshops for consciousness development, personal mastery and conscious leadership.', descRu: 'Интенсивные семинары и воркшопы для развития сознания, личного мастерства и осознанного лидерства.', priority: 0.9 },
   { path: '/coaching', section: 'coaching', titleDe: '1:1 Coaching & Mentoring – Anatoly Mook', titleEn: '1:1 Coaching & Mentoring – Anatoly Mook', titleRu: 'Индивидуальный коучинг – Анатолий Мук', descDe: 'Individuelles Coaching und Mentoring für Klarheit, Entscheidungsstärke und nachhaltige Transformation.', descEn: 'Individual coaching and mentoring for clarity, decision-making strength and sustainable transformation.', descRu: 'Индивидуальный коучинг и менторинг для ясности, силы принятия решений и устойчивой трансформации.', priority: 0.9 },
   { path: '/keynotes', section: 'keynotes', titleDe: 'Keynote-Vorträge – Anatoly Mook', titleEn: 'Keynote Speaking – Anatoly Mook', titleRu: 'Ки-ноуты – Анатолий Мук', descDe: 'Inspirierende Keynote-Vorträge zu Klarheit, Bewusstsein und persönlicher Meisterschaft für Ihr Event.', descEn: 'Inspiring keynote speeches on clarity, consciousness and personal mastery for your event.', descRu: 'Вдохновляющие ки-ноуты о ясности, сознании и личном мастерстве для вашего мероприятия.', priority: 0.8 },
@@ -37,8 +37,8 @@ const serviceMetaDe: Record<string, { label: string; desc: string }> = {
   coaching: { label: 'Coaching & Mentoring', desc: 'Individuelles Coaching und Mentoring für Klarheit und Entscheidungsstärke' },
   keynotes: { label: 'Keynote-Vorträge', desc: 'Inspirierende Impulsvorträge zu Klarheit, Bewusstsein und bewusster Führung' },
   corporate: { label: 'Corporate-Programme', desc: 'Führungskräfteentwicklung und Organisationstransformation für Unternehmen' },
-  transformation: { label: 'Die Arbeit', desc: 'Klarheit, Arbeitsweise und Wirkbereiche — zusammengeführte Orientierung für hohe Verantwortung' },
-  resources: { label: 'Die Arbeit', desc: 'Wo Klarheit wirkt — Führung, Beziehungen, Berufung und Stabilität in einer ruhigen Darstellung' },
+  transformation: { label: 'Orientierung', desc: 'Klarheit, Haltung und Wirkbereiche — zusammengeführte Orientierung für hohe Verantwortung' },
+  resources: { label: 'Orientierung', desc: 'Wo Klarheit wirkt — Führung, Beziehungen, Berufung und Stabilität in einer ruhigen Darstellung' },
   booking: { label: 'Termin buchen', desc: 'Termin für Coaching, Seminare oder Erstgespräch buchen' },
 };
 
@@ -47,8 +47,8 @@ const serviceMetaEn: Record<string, { label: string; desc: string }> = {
   coaching: { label: 'Coaching & Mentoring', desc: 'Individual coaching and mentoring for clarity and decision-making strength' },
   keynotes: { label: 'Keynote Speaking', desc: 'Inspiring keynote speeches on clarity, consciousness and conscious leadership' },
   corporate: { label: 'Corporate Programs', desc: 'Leadership development and organizational transformation for companies' },
-  transformation: { label: 'The Work', desc: 'Clarity, ways of working, and life domains — one calm narrative' },
-  resources: { label: 'The Work', desc: 'Where clarity lands — leadership, relationships, vocation, stability' },
+  transformation: { label: 'Orientation', desc: 'Clarity, stance, and domains where it lands — one calm narrative' },
+  resources: { label: 'Orientation', desc: 'Where clarity lands — leadership, relationships, vocation, stability' },
   booking: { label: 'Book Appointment', desc: 'Book an appointment for coaching, seminars or initial consultation' },
 };
 
@@ -57,8 +57,8 @@ const serviceMetaRu: Record<string, { label: string; desc: string }> = {
   coaching: { label: 'Коучинг и менторинг', desc: 'Индивидуальный коучинг для ясности и силы принятия решений' },
   keynotes: { label: 'Ки-ноуты', desc: 'Вдохновляющие доклады о ясности, сознании и осознанном лидерстве' },
   corporate: { label: 'Корпоративные программы', desc: 'Развитие руководителей и организационная трансформация' },
-  transformation: { label: 'Работа', desc: 'Ясность, подход и сферы — единый спокойный рассказ' },
-  resources: { label: 'Работа', desc: 'Где возвращается ясность — лидерство, отношения, призвание, устойчивость' },
+  transformation: { label: 'Ориентация', desc: 'Ясность, позиция и сферы воздействия — единый спокойный рассказ' },
+  resources: { label: 'Ориентация', desc: 'Где возвращается ясность — лидерство, отношения, призвание, устойчивость' },
   booking: { label: 'Записаться', desc: 'Забронировать встречу для коучинга или семинара' },
 };
 
@@ -196,7 +196,7 @@ export function getTestimonialRoutes(testimonials: Array<{ slug: string; name: s
     type: 'testimonial' as const,
     lang: 'de' as const,
     title: { de: `${t.name} – Erfolgsgeschichte | Anatoly Mook`, en: `${t.name} – Success Story | Anatoly Mook`, ru: `${t.name} – История успеха | Анатолий Мук` },
-    description: { de: `Erfahren Sie, wie ${t.name} (${t.role}) durch die Zusammenarbeit mit Anatoly Mook nachhaltige Veränderung erlebt hat.`, en: `Discover how ${t.name} (${t.role}) experienced sustainable change through working with Anatoly Mook.`, ru: `Узнайте, как ${t.name} (${t.role}) испытал устойчивые изменения благодаря работе с Анатолием Муком.` },
+    description: { de: `Erfahren Sie, wie ${t.name} (${t.role}) durch die Begleitung mit Anatoly Mook nachhaltige Veränderung erlebt hat.`, en: `Discover how ${t.name} (${t.role}) experienced sustainable change with Anatoly Mook as guide.`, ru: `Узнайте, как ${t.name} (${t.role}) испытал устойчивые изменения благодаря сопровождению с Анатолием Муком.` },
     priority: 0.4,
     changefreq: 'monthly' as const,
     params: { testimonial: t.slug }

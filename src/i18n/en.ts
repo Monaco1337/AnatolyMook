@@ -539,7 +539,7 @@ export default {
       corporate: 'Corporate',
       products: 'Products',
       about: 'About Anatoly',
-      dieArbeit: 'The Work',
+      dieArbeit: 'Orientation',
       blog: 'Blog',
       faq: 'FAQ',
       booking: 'Book Appointment',
@@ -705,7 +705,7 @@ export default {
     tags: ['Consciousness', 'Clarity', 'Transformation'],
     testimonials: {
       testimonial1: {
-        text: 'Working with Anatoly has completely transformed my understanding of leadership.',
+        text: 'My journey with Anatoly has completely transformed my understanding of leadership.',
         author: 'Entrepreneur, Munich'
       },
       testimonial2: {
@@ -810,7 +810,7 @@ export default {
       preview: ['Autopilot', 'Reaction', 'Lack'],
       details: [
         'Thinking instead of Being',
-        'Stimulus → Reflex',
+        'Stimulus >> Reflex',
         'Fear as Driver',
         'Control & Resistance',
         'Separated Inner World'

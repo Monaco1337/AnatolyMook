@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { ChevronsRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { getSeminarById, type SeminarFormat } from '../data/seminars';
 
@@ -32,8 +33,7 @@ function HairLine({ className }: { className?: string }) {
       aria-hidden
       className={`block h-px ${className ?? ''}`}
       style={{
-        background:
-          'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.55) 50%, rgba(214,168,94,0) 100%)'
+
       }}
     />
   );
@@ -43,11 +43,7 @@ function Accent({ children }: { children: React.ReactNode }) {
   return (
     <span
       style={{
-        backgroundImage:
-          'linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
+
         color: 'transparent'
       }}
     >
@@ -129,8 +125,7 @@ export default function SeminarDetail() {
             to="/seminare"
             className="sd-cta mt-7 inline-flex items-center gap-3 rounded-full px-6 py-2.5"
             style={{
-              background:
-                'linear-gradient(180deg, rgba(28,18,10,0.92) 0%, rgba(20,12,6,0.95) 100%)',
+
               border: '1px solid rgba(166, 124, 82, 0.55)'
             }}
           >
@@ -459,8 +454,7 @@ export default function SeminarDetail() {
                     aria-hidden
                     className="mt-[0.45rem] block h-px w-3 shrink-0"
                     style={{
-                      background:
-                        'linear-gradient(90deg, rgba(214,168,94,0.65) 0%, rgba(214,168,94,0) 100%)'
+
                     }}
                   />
                   <span
@@ -513,8 +507,7 @@ export default function SeminarDetail() {
                     aria-hidden
                     className="block h-px w-6 shrink-0"
                     style={{
-                      background:
-                        'linear-gradient(90deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0) 100%)'
+
                     }}
                   />
                   <span
@@ -581,8 +574,7 @@ export default function SeminarDetail() {
               to={`/booking?seminar=${encodeURIComponent(seminar.id)}`}
               className="sd-cta group/cta inline-flex items-center gap-3 rounded-full px-7 py-3"
               style={{
-                background:
-                  'linear-gradient(180deg, rgba(28,18,10,0.92) 0%, rgba(20,12,6,0.95) 100%)',
+
                 border: '1px solid rgba(166, 124, 82, 0.55)',
                 boxShadow:
                   'inset 0 1px 0 rgba(242, 226, 192, 0.22), inset 0 -1px 0 rgba(90, 56, 30, 0.55), 0 6px 18px -8px rgba(0, 0, 0, 0.65)'
@@ -603,8 +595,7 @@ export default function SeminarDetail() {
                 aria-hidden
                 className="block h-px w-7 transition-[width] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cta:w-12"
                 style={{
-                  background:
-                    'linear-gradient(90deg, rgba(214,168,94,0.8) 0%, rgba(214,168,94,0) 100%)'
+
                 }}
               />
             </Link>
@@ -619,7 +610,7 @@ export default function SeminarDetail() {
               }}
             >
               <span className="uppercase">Fragen klären</span>
-              <span aria-hidden>→</span>
+              <ChevronsRight size={12} strokeWidth={2.35} aria-hidden className="opacity-80" />
             </Link>
           </div>
         </div>

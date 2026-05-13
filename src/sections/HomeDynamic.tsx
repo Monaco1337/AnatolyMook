@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo, useRef, useId, type CSSProperties, type ReactNode } from 'react';
+import { useState, useEffect, useMemo, useRef, useId, type ReactNode } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Sparkles, Award, Users, Star, TrendingUp, Check, Target, Brain, Heart, Shield, Play, Calendar, Zap, Book, ChevronLeft, ChevronRight, Plus, Minus, AlertCircle, Eye, Repeat, Crown, TrendingDown, Waves, Puzzle, Pause, X, Compass, Lightbulb, Cog, MousePointerClick, Activity, Diamond } from 'lucide-react';
+import { ChevronsRight, ChevronDown, Sparkles, Award, Users, Star, TrendingUp, Check, Target, Brain, Heart, Shield, Play, Calendar, Zap, Book, ChevronLeft, ChevronRight, Plus, Minus, AlertCircle, Eye, Repeat, Crown, TrendingDown, Waves, Puzzle, Pause, X, Compass, Lightbulb, Cog, MousePointerClick, Activity, Diamond } from 'lucide-react';
 import { useThemeStyles } from '../hooks/useThemeStyles';
 import { useLanguage } from '../contexts/LanguageContext';
 import PremiumSlider from '../components/PremiumSlider';
@@ -69,6 +69,44 @@ const HOME_TRUST_WIRK_PILLARS: { title: string; icon: 'brain' | 'compass' | 'bul
   { icon: 'pointer', title: 'Wirkung im Alltag' }
 ];
 
+/** Unter dem Hero: drei kuratierte Einstiegskacheln (ruhig, editorial, ohne Slider). */
+const HOME_MEISTERSCHAFT_WAYS: {
+  label: string;
+  body: string;
+  cta: string;
+  to: string;
+  imageSrc: string;
+  imageClassName: string;
+}[] = [
+  {
+    label: 'ONLINE',
+    body: 'Für Menschen, die Orientierung in ihren Alltag integrieren möchten.',
+    cta: 'Portfolio ansehen',
+    to: '/formate',
+    imageSrc: '/images/home/wirkung-pier.png',
+    imageClassName:
+      'h-full w-full object-cover object-[50%_44%]'
+  },
+  {
+    label: 'SEMINARE',
+    body: 'Verdichtete Räume für Klarheit, Neuordnung und bewusste Ausrichtung.',
+    cta: 'Seminare entdecken',
+    to: '/seminare',
+    imageSrc: '/images/home/fuehrung-boardroom.png',
+    imageClassName:
+      'h-full w-full object-cover object-[48%_46%]'
+  },
+  {
+    label: '1:1 FÜHRUNG',
+    body: 'Präzise persönliche Begleitung für tiefgreifende innere Neuordnung.',
+    cta: 'Exklusive Begleitung',
+    to: '/coaching',
+    imageSrc: '/images/home/stabilitaet-berg.png',
+    imageClassName:
+      'h-full w-full object-cover object-[52%_38%]'
+  }
+];
+
 /** Supabase kann ohne Timeout blockieren → Startseite bleibt sonst im Loading-State (schwarzer Vollbild-Hintergrund). */
 const HOME_FETCH_TIMEOUT_MS = 15000;
 
@@ -77,7 +115,7 @@ const FONT_DISPLAY =
   "'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif" as const;
 /** Homepage: Fließtext — Avenir Next (Systemstack auf macOS/iOS, sensible Fallbacks) */
 const FONT_BODY =
-  "'Avenir Next', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" as const;
+  "'Avenir Next', 'Avenir Next LT Pro', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" as const;
 
 const HOME_TEXT_CLEAR = '#F4F4F4';
 
@@ -90,66 +128,13 @@ const TRANSFORM_ROWS: { from: string; to: string }[] = [
   { from: 'Operativ gebunden', to: 'Strategisch klar' }
 ];
 
-/** Split long labels at " & " so all stat columns share a common label baseline */
-function TrustLabel({ text, className, style }: { text: string; className?: string; style?: CSSProperties }) {
-  const parts = text.split(' & ');
-  if (parts.length === 2) {
-    return (
-      <span className={className} style={style}>
-        {parts[0]}
-        <br />
-        <span>& {parts[1]}</span>
-      </span>
-    );
-  }
-  return (
-    <span className={className} style={style}>
-      {text}
-    </span>
-  );
-}
-
-/** Premium gold hex mark for “Führungskräfte & Unternehmer” (replaces bullet) */
-function TrustExecutiveInsignia({ idSuffix, size }: { idSuffix: string; size: 'hero' | 'strip' }) {
-  const gid = `trust-exec-${idSuffix}`;
-  const dim =
-    size === 'hero'
-      ? 'clamp(1rem, 0.88rem + 0.45vw, 1.3125rem)'
-      : 'clamp(2rem, 5.2vw, 3.5rem)';
-  return (
-    <svg
-      viewBox="0 0 48 48"
-      className="hero-trust-insignia shrink-0"
-      aria-hidden
-      style={{ width: dim, height: 'auto', display: 'block' }}
-    >
-      <defs>
-        <linearGradient id={gid} x1="0" y1="0" x2="0.5" y2="1">
-          <stop offset="0%" stopColor="#E6C18A" />
-          <stop offset="42%" stopColor="#D6A85E" />
-          <stop offset="100%" stopColor="#8A6820" />
-        </linearGradient>
-      </defs>
-      <path
-        fill="none"
-        stroke={`url(#${gid})`}
-        strokeWidth="1.35"
-        strokeLinejoin="round"
-        d="M24 4 L41 13.5 V34.5 L24 44 L7 34.5 V13.5 Z"
-      />
-      <path fill={`url(#${gid})`} fillOpacity={0.18} d="M24 13 L34.5 19 V31 L24 37 L13.5 31 V19 Z" />
-    </svg>
-  );
-}
-
 function HomeTrustWirkIconFrame({ children }: { children: ReactNode }) {
   return (
     <div
       className="relative flex size-[3.125rem] shrink-0 items-center justify-center sm:size-[3.375rem] rounded-[12px] border sm:rounded-[14px]"
       style={{
         borderColor: 'rgba(230, 193, 138, 0.18)',
-        background:
-          'linear-gradient(158deg, rgba(230, 193, 138, 0.16) 0%, rgba(42, 34, 26, 0.62) 38%, rgba(6, 5, 4, 0.94) 100%)',
+
         boxShadow:
           '0 0 36px -10px rgba(185, 130, 63, 0.42), inset 0 1px 0 rgba(255, 248, 238, 0.08), inset 0 -1px 0 rgba(0, 0, 0, 0.38)'
       }}
@@ -157,10 +142,7 @@ function HomeTrustWirkIconFrame({ children }: { children: ReactNode }) {
     >
       <span
         className="pointer-events-none absolute inset-px rounded-[11px] opacity-[0.5] sm:rounded-[13px]"
-        style={{
-          background:
-            'linear-gradient(118deg, rgba(255, 250, 242, 0.07) 0%, transparent 52%)'
-        }}
+       
       />
       <span className="relative z-[1] [&_svg]:drop-shadow-[0_2px_12px_rgba(185,130,63,0.38)]">{children}</span>
     </div>
@@ -388,8 +370,8 @@ export default function HomeDynamic() {
     ...{
       mainHeading:
         'Klarheit im Denken.\nRuhe in Entscheidungen.\nFührung, die trägt.',
-      subheading:
-        'Wenn Tempo die Linie verwischt, liegt der nächste Hebel selten im Markt — sondern in der Ruhe Ihrer Führung.',
+      quote:
+        'Der Eintritt in erwachte Präsenz, bewusste Selbstführung und gelebte Wirkkraft.',
       ctaText: 'Erstgespräch vereinbaren'
     }
   };
@@ -409,7 +391,7 @@ export default function HomeDynamic() {
   const deepPane = DEEP_DIVE_PANELS[deepDiveTab];
 
   return (
-    <div className="home-scroll-flow" style={{ backgroundColor: colors.bg.primary }}>
+    <div className="home-scroll-flow cinematic-home" style={{ backgroundColor: colors.bg.primary }}>
       {/* 1️⃣ HERO */}
       <section className="relative w-full overflow-hidden" style={{ backgroundColor: '#000', height: '100svh', minHeight: '100vh' }} data-section>
         <div className="relative w-full h-full">
@@ -625,7 +607,7 @@ export default function HomeDynamic() {
                 width={HERO_PORTRAIT.width}
                 height={HERO_PORTRAIT.height}
                 alt={HERO_PORTRAIT.altDe}
-                className="hero-portrait-img absolute inset-0 h-full w-full object-cover max-[639px]:object-[42%_56%] sm:object-[46%_46%] md:object-[50%_42%] lg:object-[52%_40%] xl:object-[54%_38%] 2xl:object-[56%_36%]"
+                className="hero-portrait-img absolute inset-0 h-full w-full object-cover max-[639px]:object-[48%_44%] sm:object-[50%_40%] md:object-[52%_36%] lg:object-[52%_34%] xl:object-[54%_32%] 2xl:object-[54%_30%]"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -637,105 +619,79 @@ export default function HomeDynamic() {
               />
             </picture>
 
-            {/* CINEMATIC LIGHTING — gentle bronze aura from upper right (editorial, not sunset) */}
+            {/* CINEMATIC LIGHTING — bronze halo kept off facial core (lighter = less veil on eyes/skin) */}
             <div
               className="hero-sun absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  'radial-gradient(ellipse 50% 42% at 82% 22%, rgba(214,168,94,0.22) 0%, rgba(185,130,63,0.10) 38%, rgba(122,74,36,0.04) 62%, transparent 80%)',
+                  'radial-gradient(ellipse 52% 40% at 88% 12%, rgba(214,168,94,0.09) 0%, rgba(185,130,63,0.05) 40%, transparent 74%)',
                 mixBlendMode: 'screen'
               }}
             />
 
-            {/* SOFT BRONZE HAZE — very subtle, almost ambient */}
+            {/* SOFT BRONZE HAZE — very subtle */}
             <div
               className="hero-rays absolute inset-0 pointer-events-none"
               style={{
                 background: `
-                  linear-gradient(155deg, transparent 42%, rgba(185,130,63,0.04) 52%, transparent 64%),
-                  linear-gradient(170deg, transparent 48%, rgba(214,168,94,0.03) 58%, transparent 70%)
+                  linear-gradient(155deg, transparent 42%, rgba(185,130,63,0.025) 52%, transparent 64%),
+                  linear-gradient(170deg, transparent 48%, rgba(214,168,94,0.02) 58%, transparent 70%)
                 `,
                 mixBlendMode: 'screen'
               }}
             />
 
-            {/* Obsidian — Desktop etwas reduziert rechts = Motiv wirkt schärfer */}
+            {/* Lesbarkeit links / unten nur — kein Multiply über dem Gesamtbild */}
             <div
               className="absolute inset-0 pointer-events-none hidden sm:block"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(5,5,5,0.38) 0%, rgba(5,5,5,0.14) 28%, rgba(5,5,5,0.28) 62%, rgba(5,5,5,0.65) 100%)'
+                  'linear-gradient(90deg, rgba(5,7,11,0.58) 0%, rgba(5,7,11,0.22) min(52%,520px), rgba(5,7,11,0.06) min(72%,940px), transparent 88%)'
               }}
             />
+
+            {/* Mobil: Scrims vor allem oben (Headline); Gesicht weiter unten/rechts möglichst frei */}
             <div
               className="absolute inset-0 pointer-events-none sm:hidden"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(5,5,5,0.22) 0%, rgba(5,5,5,0.08) 40%, rgba(5,5,5,0.12) 72%, rgba(5,5,5,0.38) 100%)'
+                  'linear-gradient(180deg, rgba(6,8,11,0.72) 0%, rgba(6,8,11,0.18) min(42%,340px), transparent min(76%,620px)), linear-gradient(90deg, rgba(4,5,10,0.45) 0%, transparent min(92%,780px))'
               }}
             />
 
+            {/* Bottom anchor — Überblendung zur Lesbarkeit, nicht zur Gesichtsmitte */}
             <div
-              className="absolute inset-0 pointer-events-none max-[639px]:opacity-45 sm:opacity-85"
+              className="absolute inset-x-0 bottom-0 h-[38%] pointer-events-none max-[639px]:opacity-65 sm:h-[52%]"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(20,15,10,0.14) 0%, transparent 38%, rgba(10,8,6,0.14) 100%)',
-                mixBlendMode: 'multiply'
+                  'linear-gradient(0deg, rgba(4,6,11,0.52) 0%, rgba(4,6,11,0.12) 58%, transparent 100%)'
               }}
             />
 
-            {/* LINKER TEXT-KORRIDOR — breiterer Schutz, Gesicht bleibt rechts frei */}
-            <div
-              className="absolute inset-0 pointer-events-none hidden sm:block"
-              style={{
-                background:
-                  'linear-gradient(90deg, rgba(2,2,2,0.94) 0%, rgba(4,3,2,0.82) min(32vw, 520px), rgba(5,4,3,0.38) min(48vw, 720px), rgba(5,4,3,0.06) min(62vw, 980px), transparent 100%)'
-              }}
-            />
-
-            {/* MOBILE OVERLAY — Lesbarkeit nur oben; Gesichtsbereich bleibt frei */}
+            {/* Vignette — weicher, Gesicht weniger eingegraut */}
             <div
               className="absolute inset-0 pointer-events-none sm:hidden"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(0,0,0,0.91) 0%, rgba(0,0,0,0.76) 22%, rgba(0,0,0,0.28) 46%, rgba(0,0,0,0.08) 62%, transparent 100%), linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.18) 42%, transparent 72%)'
-              }}
-            />
-
-            {/* HEAVY BOTTOM ANCHOR — Desktop; Mobil schwächer = Porträt wirkt schärfer */}
-            <div
-              className="absolute inset-x-0 bottom-0 h-[38%] pointer-events-none max-[639px]:opacity-55 sm:h-[55%] sm:opacity-100"
-              style={{
-                background:
-                  'linear-gradient(0deg, rgba(0,0,0,0.94) 0%, rgba(2,2,2,0.78) 18%, rgba(5,4,3,0.42) 45%, transparent 100%)'
-              }}
-            />
-
-            {/* Cinematic vignette — getrennt: Mobil leicht, Desktop stark */}
-            <div
-              className="absolute inset-0 pointer-events-none sm:hidden"
-              style={{ boxShadow: 'inset 0 0 90px 28px rgba(0,0,0,0.38)' }}
+              style={{ boxShadow: 'inset 0 0 76px 20px rgba(0,0,0,0.26)' }}
             />
             <div
               className="absolute inset-0 pointer-events-none hidden sm:block"
-              style={{ boxShadow: 'inset 0 0 220px 64px rgba(0,0,0,0.48)' }}
+              style={{ boxShadow: 'inset 0 0 172px 48px rgba(0,0,0,0.3)' }}
             />
 
-            {/* Subtle top fade for navbar readability over light sky */}
+            {/* Subtle top fade for navbar */}
             <div
               className="absolute inset-x-0 top-0 h-32 sm:h-36 md:h-40 pointer-events-none"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 50%, transparent 100%)'
+                  'linear-gradient(180deg, rgba(4,7,14,0.48) 0%, rgba(4,7,14,0.12) 55%, transparent 100%)'
               }}
             />
 
-            {/* Hairline bronze accent at very top */}
             <div
               className="absolute top-0 inset-x-0 h-px pointer-events-none"
               style={{
                 background:
-                  'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.35) 50%, transparent 100%)'
+                  'linear-gradient(90deg, transparent, rgba(214,168,94,0.14), transparent)'
               }}
             />
 
@@ -753,42 +709,12 @@ export default function HomeDynamic() {
               <div
                 className="hero-content-wrap w-full sm:w-auto max-w-[min(100%,17.75rem)] sm:max-w-[min(26rem,min(92vw,420px))] md:max-w-[min(28rem,min(44vw,440px))] lg:max-w-[min(30rem,min(42vw,460px))] xl:max-w-[min(31rem,min(40vw,480px))] 2xl:max-w-[min(32rem,min(38vw,500px))]"
               >
-                {/* Badge */}
-                <div className="inline-flex items-center gap-2.5 sm:gap-3 mb-6 max-[639px]:mb-6 sm:mb-7 md:mb-8"
-                     style={{ opacity: Math.max(0, 0.9 - scrollY * 0.002) }}>
-                  <div
-                    className="h-px w-7 sm:w-9"
-                    style={{
-                      background:
-                        'linear-gradient(90deg, rgba(185, 130, 63, 0) 0%, rgba(185, 130, 63, 0.6) 100%)'
-                    }}
-                  />
-                  <span
-                    className="hero-badge-text uppercase"
-                    style={{
-                      fontFamily: FONT_DISPLAY,
-                      fontSize: 'clamp(0.6rem, 0.56rem + 0.12vw, 0.7rem)',
-                      letterSpacing: '0.28em',
-                      fontWeight: 600
-                    }}
-                  >
-                    Bewusstsein · Arbeit · Tiefe
-                  </span>
-                  <div
-                    className="h-px w-5 sm:w-7 hidden sm:block"
-                    style={{
-                      background:
-                        'linear-gradient(90deg, rgba(185, 130, 63, 0.5) 0%, rgba(185, 130, 63, 0) 100%)'
-                    }}
-                  />
-                </div>
-
                 {/* Main heading */}
                 <h1
                     className="hero-headline mb-4 max-[639px]:mb-5 sm:mb-6 md:mb-7"
                     style={{
                       fontFamily: FONT_DISPLAY,
-                      fontWeight: 600,
+                      fontWeight: 300,
                       fontSize: 'clamp(1.55rem, 0.88rem + 2.05vw, 2.75rem)',
                       lineHeight: 1.11,
                       letterSpacing: '-0.04em',
@@ -801,16 +727,11 @@ export default function HomeDynamic() {
                   {hero.mainHeading
                     ? (() => {
                         const arr = hero.mainHeading.split('\n');
-                        const gradientStyle = {
-                          backgroundImage:
-                            'linear-gradient(180deg, #F4E8D4 0%, #E6C18A 32%, #B9823F 52%, #7A4A24 100%)',
-                          WebkitBackgroundClip: 'text' as const,
-                          WebkitTextFillColor: 'transparent',
-                          backgroundClip: 'text' as const,
-                          color: 'transparent',
-                          filter:
-                            'drop-shadow(0 4px 18px rgba(185,130,63,0.28)) drop-shadow(0 1px 3px rgba(0,0,0,0.58))',
-                          letterSpacing: '-0.04em'
+                        const headlineAccentStyle = {
+                          color: '#EADDCB',
+                          fontWeight: 300,
+                          letterSpacing: '-0.04em',
+                          textShadow: '0 2px 16px rgba(0,0,0,0.5)'
                         };
                         const goldIdx = arr.length - 1;
                         const mitteSplit =
@@ -822,7 +743,7 @@ export default function HomeDynamic() {
                               {arr.map((line: string, i: number) => {
                                 const isGoldLine = i === goldIdx;
                                 return isGoldLine ? (
-                                  <span key={`d-${i}`} className="hero-headline-line block" style={gradientStyle}>
+                                  <span key={`d-${i}`} className="hero-headline-line block" style={headlineAccentStyle}>
                                     <span className="sm:whitespace-nowrap">{line}</span>
                                   </span>
                                 ) : (
@@ -844,7 +765,7 @@ export default function HomeDynamic() {
                                   ) : (
                                     <span className="hero-headline-line block">{arr[1]}</span>
                                   )}
-                                  <span className="hero-headline-line block" style={gradientStyle}>
+                                  <span className="hero-headline-line block" style={headlineAccentStyle}>
                                     <span>{arr[goldIdx]}</span>
                                   </span>
                                 </>
@@ -852,7 +773,7 @@ export default function HomeDynamic() {
                                 arr.map((line: string, i: number) => {
                                   const isGoldLine = i === goldIdx;
                                   return isGoldLine ? (
-                                    <span key={`m-${i}`} className="hero-headline-line block" style={gradientStyle}>
+                                    <span key={`m-${i}`} className="hero-headline-line block" style={headlineAccentStyle}>
                                       <span>{line}</span>
                                     </span>
                                   ) : (
@@ -869,7 +790,8 @@ export default function HomeDynamic() {
                     : null}
                 </h1>
 
-                {/* Subheading */}
+                {/* Subheading (nur wenn in home_content gesetzt) */}
+                {hero.subheading?.trim() ? (
                 <p
                   className="hero-subline mb-4 max-[639px]:max-w-[min(17.75rem,100%)] sm:mb-7 md:mb-8"
                   style={{
@@ -879,96 +801,17 @@ export default function HomeDynamic() {
                     letterSpacing: '-0.006em',
                     maxWidth: '480px'
                   }}>
-                  {(hero.subheading || 'Wenn Tempo die Linie verwischt, liegt der nächste Hebel selten im Markt — sondern in der Ruhe Ihrer Führung.')
+                  {hero.subheading
                     .split('\n')
                     .map((line: string, i: number) => (
                       <span key={i}>{line}<br /></span>
                     ))}
                 </p>
-
-                {/* Trust block — nur ≥sm im Hero (Mobil: kein Stack übers Gesicht; KPIs im Streifen unten) */}
-                <div
-                  className="hidden sm:flex sm:flex-nowrap sm:items-start gap-x-2 md:gap-x-3 lg:gap-x-3.5 gap-y-2 mb-8 md:mb-10"
-                  style={{
-                    fontFamily: FONT_BODY,
-                    textShadow: '0 1px 10px rgba(0,0,0,0.45)'
-                  }}
-                >
-                  {[
-                    { value: '15+' as const, label: 'Jahre Erfahrung', mobileOnly: false },
-                    { value: '500+' as const, label: 'Begleitete Menschen', mobileOnly: false },
-                    {
-                      label: 'Führungskräfte & Unternehmer',
-                      mobileOnly: true,
-                      mark: true as const
-                    },
-                    { value: '1:1' as const, label: 'Arbeit im Einzelnen', mobileOnly: false }
-                  ].map((item, i, arr) => {
-                    const lastVisibleDesktopIndex = arr
-                      .map((it, idx) => (!it.mobileOnly ? idx : -1))
-                      .filter(idx => idx !== -1)
-                      .pop();
-                    const showDesktopDivider =
-                      !item.mobileOnly && i !== lastVisibleDesktopIndex;
-                    const labelStyle: CSSProperties = {
-                      color: 'rgba(214, 188, 152, 0.78)',
-                      fontSize: 'clamp(0.55rem, 0.52rem + 0.13vw, 0.65rem)',
-                      letterSpacing: '0.16em',
-                      fontWeight: 500,
-                      lineHeight: 1.28,
-                      textShadow:
-                        '0 1px 10px rgba(0,0,0,0.45), 0 0 18px rgba(185,130,63,0.12)'
-                    };
-                    return (
-                      <div
-                        key={i}
-                        className={`flex items-stretch h-full ${item.mobileOnly ? 'sm:hidden' : ''}`}
-                      >
-                        <div className="flex flex-col flex-1 min-w-0 gap-y-1 sm:gap-y-1 text-center sm:text-left leading-none">
-                          <div className="flex min-h-0 shrink-0 items-center justify-center sm:justify-start">
-                            {'mark' in item && item.mark ? (
-                              <TrustExecutiveInsignia idSuffix={`hero-${i}`} size="hero" />
-                            ) : (
-                              <span
-                                className="hero-trust-num"
-                                style={{
-                                  color: '#F8F0E6',
-                                  fontSize: 'clamp(1rem, 0.88rem + 0.45vw, 1.3125rem)',
-                                  fontWeight: 500,
-                                  letterSpacing: '-0.022em',
-                                  fontFeatureSettings: '"tnum" 1, "lnum" 1',
-                                  textShadow:
-                                    '0 1px 8px rgba(0,0,0,0.55), 0 0 22px rgba(185,130,63,0.14)'
-                                }}
-                              >
-                                {'value' in item ? item.value : null}
-                              </span>
-                            )}
-                          </div>
-                          <div className="flex flex-col pt-0">
-                            <span className="hero-trust-label uppercase">
-                              <TrustLabel text={item.label} style={labelStyle} />
-                            </span>
-                          </div>
-                        </div>
-                        {showDesktopDivider && (
-                          <span
-                            aria-hidden="true"
-                            className="hidden sm:block ml-3 md:ml-3.5 lg:ml-4 w-px self-stretch min-h-[2.75rem]"
-                            style={{
-                              background:
-                                'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.16) 50%, transparent 100%)'
-                            }}
-                          />
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                ) : null}
 
                 {/* Quote */}
                 {hero.quote && (
-                  <div className="hidden sm:block mb-7 sm:mb-9">
+                  <div className="mb-6 max-[639px]:mb-6 sm:mb-7 md:mb-9">
                     <p
                        className="hero-quote italic font-light"
                        style={{
@@ -977,18 +820,18 @@ export default function HomeDynamic() {
                          fontWeight: 400,
                          letterSpacing: '0.01em'
                        }}>
-                      „{hero.quote}"
+                      „{hero.quote}“
                     </p>
                   </div>
                 )}
 
-                {/* CTA */}
-                <div className="flex flex-col items-start gap-4 max-[639px]:gap-3 sm:gap-5">
+                {/* CTA — Primär high-end + Mikrocopy; Sekundär: zwei kompakte CTAs */}
+                <div className="flex flex-col items-start gap-0 max-[639px]:w-full">
                   <button
                     className="metallic-bronze-button hero-cta group inline-flex items-center justify-center w-full sm:w-auto whitespace-nowrap max-[639px]:mt-5"
                     style={{
-                      padding: 'clamp(12px, 1.2vw, 16px) clamp(24px, 3vw, 32px)',
-                      minHeight: 'clamp(46px, 5vw, 54px)',
+                      padding: 'clamp(14px, 1.35vw, 18px) clamp(26px, 3.2vw, 36px)',
+                      minHeight: 'clamp(48px, 5.2vw, 56px)',
                       fontFamily: FONT_BODY
                     }}
                     onClick={() => {
@@ -999,136 +842,111 @@ export default function HomeDynamic() {
                     <span
                       className="leading-none whitespace-nowrap"
                       style={{
-                        fontSize: 'clamp(0.85rem, 0.8rem + 0.22vw, 1rem)',
+                        fontSize: 'clamp(0.875rem, 0.8rem + 0.24vw, 1.02rem)',
                         fontWeight: 600,
-                        letterSpacing: '-0.005em'
+                        letterSpacing: '-0.006em'
                       }}
                     >
                       {hero.ctaText || 'Erstgespräch vereinbaren'}
                     </span>
                     <span
                       aria-hidden="true"
-                      className="ml-4 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-[3px]"
-                      style={{ width: 18, height: 18 }}
+                      className="ml-3 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-[2px]"
+                      style={{ width: 22, height: 22 }}
                     >
-                      <ArrowRight
-                        size={16}
-                        strokeWidth={2.25}
-                      />
+                      <ChevronsRight size={20} strokeWidth={2.35} />
                     </span>
                   </button>
 
-                  <Link
-                    to="/quiz"
-                    className="mt-2.5 sm:mt-3 text-[rgba(214,188,152,0.58)] hover:text-[rgba(238,226,206,0.78)] outline-none transition-[color] duration-300 focus-visible:ring-2 focus-visible:ring-amber-500/35 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm focus-visible:no-underline"
+                  <p
+                    className="hero-primary-microcopy m-0 mt-3 max-[639px]:mt-3.5"
                     style={{
                       fontFamily: FONT_BODY,
-                      fontSize: 'clamp(0.75rem, 0.71rem + 0.22vw, 0.84375rem)',
-                      fontWeight: 400,
-                      letterSpacing: '0.06em',
-                      textDecoration: 'underline',
-                      textUnderlineOffset: '0.26em',
-                      textDecorationThickness: '0.05em'
+                      fontSize: 'clamp(0.6875rem, 0.63rem + 0.22vw, 0.796875rem)',
+                      fontWeight: 500,
+                      letterSpacing: '0.22em',
+                      textTransform: 'uppercase',
+                      color: 'rgba(214, 188, 152, 0.62)'
                     }}
                   >
-                    Oder zuerst Orientierung erhalten →
-                  </Link>
+                    15 Min. Vertraulich
+                  </p>
 
-                  {/* Micro-trust unter CTA — Mobil (eine Zeile) */}
-                  <div className="flex sm:hidden flex-col items-start gap-2 mt-0.5 w-full max-w-[min(17.75rem,100%)]">
-                    <span
-                      aria-hidden="true"
-                      className="block max-w-full"
+                  <div className="mt-8 max-[639px]:mt-7 w-full sm:max-w-[min(26rem,min(92vw,420px))]">
+                    <p
+                      className="m-0"
                       style={{
-                        width: 'clamp(28px, 48%, 120px)',
-                        height: '1px',
-                        background:
-                          'linear-gradient(90deg, rgba(230, 193, 138, 0) 0%, rgba(230, 193, 138, 0.65) 50%, rgba(230, 193, 138, 0) 100%)',
-                        boxShadow: '0 0 8px rgba(230, 193, 138, 0.25)'
-                      }}
-                    />
-                    <div
-                      className="hero-microtrust-inline-mobile flex flex-nowrap items-center justify-start gap-x-0 w-full min-w-0"
-                      style={{ fontFamily: FONT_BODY }}
-                    >
-                      { ['15 Min.', 'Vertraulich', 'Orientierung'].map((label, i, arr) => (
-                        <div key={`m-micro-${i}`} className="flex flex-none items-center shrink-0">
-                          <span
-                            className="hero-microtrust-label uppercase leading-none"
-                            style={{
-                              fontSize: 'clamp(0.42rem, 0.36rem + 0.95vw, 0.52rem)',
-                              letterSpacing: '0.08em',
-                              whiteSpace: 'nowrap'
-                            }}
-                          >
-                            {label}
-                          </span>
-                          {i < arr.length - 1 && (
-                            <span
-                              aria-hidden="true"
-                              className="hero-microtrust-divider mx-0.5 inline-block shrink-0"
-                              style={{
-                                width: '1px',
-                                height: '9px',
-                                background:
-                                  'linear-gradient(180deg, rgba(230, 193, 138, 0) 0%, rgba(230, 193, 138, 0.55) 50%, rgba(230, 193, 138, 0) 100%)'
-                              }}
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Micro-trust unter CTA — Desktop */}
-                  <div className="hidden sm:flex flex-col items-start gap-3 sm:gap-3.5 mt-1 pl-1">
-                    {/* Hairline gold accent */}
-                    <span
-                      aria-hidden="true"
-                      className="block"
-                      style={{
-                        width: 'clamp(36px, 6vw, 56px)',
-                        height: '1px',
-                        background:
-                          'linear-gradient(90deg, rgba(230, 193, 138, 0) 0%, rgba(230, 193, 138, 0.65) 50%, rgba(230, 193, 138, 0) 100%)',
-                        boxShadow: '0 0 8px rgba(230, 193, 138, 0.25)'
-                      }}
-                    />
-
-                    <div
-                      className="flex flex-wrap items-center gap-y-3"
-                      style={{
-                        fontFamily: FONT_BODY
+                        fontFamily: FONT_DISPLAY,
+                        fontSize: 'clamp(0.703125rem, 0.64rem + 0.22vw, 0.796875rem)',
+                        fontWeight: 600,
+                        letterSpacing: '0.26em',
+                        textTransform: 'uppercase',
+                        color: 'rgba(230, 202, 168, 0.78)'
                       }}
                     >
-                      {['15 Min.', 'Vertraulich', 'Orientierung'].map(
-                        (label, i, arr) => (
-                          <div key={i} className="flex items-center">
-                            <span
-                              className="hero-microtrust-label uppercase"
-                              style={{
-                                fontSize: 'clamp(0.575rem, 0.54rem + 0.13vw, 0.7rem)',
-                                letterSpacing: '0.14em',
-                                whiteSpace: 'nowrap'
-                              }}
-                            >
-                              {label}
-                            </span>
-                            {i < arr.length - 1 && (
-                              <span
-                                aria-hidden="true"
-                                className="hero-microtrust-divider mx-1.5 sm:mx-2 md:mx-2.5 inline-block"
-                                style={{
-                                  width: '1px',
-                                  height: '12px',
-                                  background:
-                                    'linear-gradient(180deg, rgba(230, 193, 138, 0) 0%, rgba(230, 193, 138, 0.55) 50%, rgba(230, 193, 138, 0) 100%)'
-                                }}
-                              />
-                            )}
-                          </div>
-                        )
-                      )}
+                      Orientierung und Anamnese
+                    </p>
+                    <p
+                      className="hero-subline m-0 mt-2 mb-4 max-[639px]:mb-3.5"
+                      style={{
+                        fontFamily: FONT_BODY,
+                        fontSize: 'clamp(0.8125rem, 0.76rem + 0.16vw, 0.90625rem)',
+                        lineHeight: 1.55,
+                        letterSpacing: '-0.01em',
+                        maxWidth: '28rem',
+                        color: 'rgba(234, 221, 203, 0.82)'
+                      }}
+                    >
+                      ruhige erste Orientierung
+                    </p>
+                    <div className="flex flex-row flex-wrap gap-2.5 w-full">
+                      <Link
+                        to="/quiz"
+                        className="hero-cta-ghost group inline-flex flex-1 min-w-[7.25rem] items-center justify-center gap-2 rounded-[11px] border border-[rgba(214,168,94,0.22)] px-3.5 py-2.5 no-underline transition-[border-color,background-color,box-shadow,transform] duration-300 outline-none hover:border-[rgba(214,168,94,0.38)] hover:-translate-y-px hover:shadow-[0_14px_40px_-22px_rgba(185,130,63,0.35)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/85 sm:min-w-[8.75rem]"
+                        style={{
+                          fontFamily: FONT_BODY,
+
+                          boxShadow:
+                            'inset 0 1px 0 rgba(255,248,238,0.04), 0 1px 0 rgba(0,0,0,0.45)'
+                        }}
+                      >
+                        <span
+                          className="text-[0.8125rem] font-medium tracking-tight"
+                          style={{ color: 'rgba(252, 247, 236, 0.94)' }}
+                        >
+                          Orientierung
+                        </span>
+                        <ChevronsRight
+                          size={15}
+                          strokeWidth={2.35}
+                          className="opacity-85 transition-transform duration-300 group-hover:translate-x-0.5"
+                          aria-hidden
+                        />
+                      </Link>
+                      <Link
+                        to="/anamnesis"
+                        className="hero-cta-ghost group inline-flex flex-1 min-w-[7.25rem] items-center justify-center gap-2 rounded-[11px] border border-[rgba(214,168,94,0.22)] px-3.5 py-2.5 no-underline transition-[border-color,background-color,box-shadow,transform] duration-300 outline-none hover:border-[rgba(214,168,94,0.38)] hover:-translate-y-px hover:shadow-[0_14px_40px_-22px_rgba(185,130,63,0.35)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/85 sm:min-w-[8.75rem]"
+                        style={{
+                          fontFamily: FONT_BODY,
+
+                          boxShadow:
+                            'inset 0 1px 0 rgba(255,248,238,0.04), 0 1px 0 rgba(0,0,0,0.45)'
+                        }}
+                      >
+                        <span
+                          className="text-[0.8125rem] font-medium tracking-tight"
+                          style={{ color: 'rgba(252, 247, 236, 0.94)' }}
+                        >
+                          Anamnese
+                        </span>
+                        <ChevronsRight
+                          size={15}
+                          strokeWidth={2.35}
+                          className="opacity-85 transition-transform duration-300 group-hover:translate-x-0.5"
+                          style={{ color: 'rgba(230,193,138,0.88)', stroke: 'rgba(230,193,138,0.88)' }}
+                          aria-hidden
+                        />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -1143,211 +961,160 @@ export default function HomeDynamic() {
 
       </section>
 
-      {/* Erste Orientierung — Klarcheck & Anamnese (editorial, vor Transformation) */}
+      {/* Neue Wege zur Meisterschaft — drei kuratierte Einstiege unter dem Hero (still, editorial) */}
       <section
-        aria-labelledby="home-orientierung-heading"
+        aria-labelledby="home-meisterschaft-heading"
         className="relative w-full overflow-hidden border-t border-transparent"
+        style={{ backgroundColor: colors.bg.primary }}
         data-section
-        data-section-id="orientierung-erster-schritt"
+        data-section-id="neue-wege-meisterschaft"
       >
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden max-md:min-h-[100%]" aria-hidden>
-          <img
-            src="/images/home/orientierung-berg-hintergrund.png"
-            alt=""
-            className="absolute inset-0 h-full min-h-[100%] w-full scale-[1.02] object-cover object-[74%_42%] sm:object-[78%_40%]"
-            loading="lazy"
-            decoding="async"
-          />
-          {/* Lesefläche links — Bild rechts zeigt Licht & Tiefe */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
           <div
-            className="absolute inset-0 md:hidden"
+            className="absolute inset-x-0 -top-[8%] h-[min(48vh,440px)] w-full"
             style={{
               background:
-                'linear-gradient(180deg, rgba(4,4,5,0.85) 0%, rgba(4,4,5,0.55) 38%, rgba(4,4,5,0.72) 100%)'
+                'radial-gradient(ellipse 95% 90% at 50% -2%, rgba(214,168,94,0.07) 0%, rgba(32,26,18,0.08) 35%, transparent 68%)'
             }}
           />
           <div
-            className="absolute inset-0 hidden md:block"
+            className="absolute inset-x-0 bottom-0 h-[min(40%,340px)]"
             style={{
               background:
-                'linear-gradient(90deg, rgba(5,4,3,0.96) 0%, rgba(5,4,3,0.88) min(42%,22rem), rgba(5,4,3,0.42) min(72%,54rem), rgba(5,4,3,0.08) 88%, transparent 100%)'
+                'radial-gradient(ellipse 115% 90% at 50% 100%, rgba(185,130,63,0.045) 0%, transparent 58%)'
             }}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(180deg, rgba(3,3,4,0.38) 0%, transparent min(42%,380px), transparent 72%, rgba(2,2,3,0.55) 100%)'
-            }}
-          />
-          <div
-            className="absolute inset-0 opacity-[0.09]"
-            style={{
-              background: 'linear-gradient(125deg, rgba(214,168,94,0.12) 0%, transparent 45%)'
+                'linear-gradient(180deg, rgba(4,4,5,0.22) 0%, transparent min(52%,460px), rgba(10,10,11,0.25) 100%)'
             }}
           />
         </div>
 
-        <div className="relative z-[1] mx-auto max-w-[1600px] px-6 pb-14 pt-[2.875rem] sm:px-8 sm:pb-[3.25rem] sm:pt-[3.25rem] md:px-12 lg:min-h-[min(52svh,520px)] lg:px-16 lg:flex lg:flex-col lg:justify-center lg:pb-16 lg:pt-14">
-          <div className="mx-auto max-w-[40rem] text-center lg:mx-0 lg:max-w-[44rem] lg:text-left">
-            <p
-              className="m-0 uppercase"
-              style={{
-                fontFamily: FONT_BODY,
-                fontSize: 'clamp(0.625rem, 0.58rem + 0.15vw, 0.703125rem)',
-                fontWeight: 500,
-                letterSpacing: '0.28em',
-                color: 'rgba(222, 198, 164, 0.78)'
-              }}
-            >
-              Erster Schritt
-            </p>
+        <div className="relative z-[1] mx-auto max-w-[1600px] px-6 pb-[2.875rem] pt-[2.875rem] sm:px-8 sm:pb-14 sm:pt-12 md:px-12 lg:px-16 lg:pb-16 lg:pt-14">
+          <header className="mx-auto mb-10 max-w-[42rem] text-center lg:mx-0 lg:mb-11 lg:max-w-[46rem] lg:text-left">
             <h2
-              id="home-orientierung-heading"
-              className="mt-[1.125rem] m-0 font-medium tracking-[-0.034em] antialiased"
+              id="home-meisterschaft-heading"
+              className="m-0 text-balance"
               style={{
                 fontFamily: FONT_DISPLAY,
-                fontSize: 'clamp(1.3125rem, 0.94rem + 1.12vw, 1.9375rem)',
-                lineHeight: 1.22,
-                color: 'rgba(252, 246, 236, 0.98)',
-                textShadow:
-                  '0 1px 0 rgba(0,0,0,0.55), 0 22px 52px rgba(0,0,0,0.5), 0 0 56px rgba(0,0,0,0.25)'
+                fontWeight: 300,
+                letterSpacing: '-0.036em',
+                lineHeight: 1.06,
+                fontSize: 'clamp(1.5rem, 1.02rem + 1.52vw, 2.3125rem)',
+                color: HOME_TEXT_CLEAR,
+                textShadow: '0 12px 40px rgba(0,0,0,0.45)'
               }}
             >
-              Nicht jede Situation braucht sofort eine Entscheidung.
+              Neue Wege zur Meisterschaft
             </h2>
             <p
-              className="m-0 mt-[1.125rem] max-w-[28rem] text-balance lg:max-w-[30rem]"
+              className="m-0 mt-4 max-w-[34rem] text-balance lg:mx-0 mx-auto lg:text-left"
               style={{
                 fontFamily: FONT_BODY,
-                fontSize: 'clamp(0.9375rem, 0.88rem + 0.2vw, 1.0625rem)',
                 fontWeight: 400,
-                lineHeight: 1.62,
-                letterSpacing: '-0.012em',
-                color: 'rgba(228, 218, 202, 0.9)',
-                textShadow: '0 10px 36px rgba(0,0,0,0.45), 0 1px 12px rgba(0,0,0,0.35)'
+                fontSize: 'clamp(0.90625rem, 0.85rem + 0.17vw, 1rem)',
+                lineHeight: 1.58,
+                letterSpacing: '-0.01em',
+                color: 'rgba(234, 221, 203, 0.86)'
               }}
             >
-              Manchmal hilft zuerst ein klarer Blick auf die eigene Situation.
+              Drei Einstiegspunkte — unterschiedliche Räume, dieselbe Richtung.
             </p>
-          </div>
-
-          <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 sm:mt-11 sm:gap-[1.125rem] lg:mx-0 lg:max-w-[52rem] lg:grid-cols-2">
-            <Link
-              to="/quiz"
-              className="group relative block rounded-[13px] border border-[rgba(214,168,94,0.22)] px-5 py-[1.1875rem] no-underline outline-none transition-[border-color,box-shadow,background-color] duration-300 sm:px-[1.25rem] sm:py-5 backdrop-blur-[12px] focus-visible:border-[rgba(214,168,94,0.32)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/80 hover:border-[rgba(214,168,94,0.28)] hover:shadow-[0_0_42px_-18px_rgba(185,130,63,0.12)]"
+            <div
+              className="mt-7 sm:mt-8 h-px w-full max-w-xl lg:max-w-[40rem] mx-auto lg:mx-0"
+              aria-hidden
               style={{
                 background:
-                  'linear-gradient(165deg, rgba(12,11,10,0.78) 0%, rgba(5,5,6,0.86) 100%)',
-                boxShadow:
-                  'inset 0 1px 0 rgba(255, 248, 238, 0.045), 0 1px 0 rgba(0,0,0,0.5), 0 28px 56px -30px rgba(0,0,0,0.75)'
+                  'linear-gradient(90deg, transparent 0%, rgba(230, 193, 138, 0.09) 14%, rgba(230, 193, 138, 0.26) 50%, rgba(230, 193, 138, 0.09) 86%, transparent 100%)'
               }}
-            >
-              <span
-                className="pointer-events-none absolute inset-px rounded-[12px] opacity-[0.45]"
-                aria-hidden
-                style={{
-                  background:
-                    'linear-gradient(145deg, rgba(255, 250, 242, 0.034) 0%, transparent 55%)'
-                }}
-              />
-              <div className="relative">
-                <h3
-                  className="m-0 font-semibold tracking-[-0.022em]"
-                  style={{
-                    fontFamily: FONT_DISPLAY,
-                    fontSize: 'clamp(1.03125rem, 0.95rem + 0.28vw, 1.2rem)',
-                    letterSpacing: '-0.022em',
-                    lineHeight: 1.3,
-                    color: 'rgba(252, 247, 236, 0.96)'
-                  }}
-                >
-                  Klarcheck
-                </h3>
-                <p
-                  className="m-0 mt-2"
-                  style={{
-                    fontFamily: FONT_BODY,
-                    fontSize: 'clamp(0.828125rem, 0.79rem + 0.13vw, 0.890625rem)',
-                    lineHeight: 1.56,
-                    fontWeight: 400,
-                    letterSpacing: '-0.008em',
-                    color: 'rgba(234, 224, 206, 0.9)'
-                  }}
-                >
-                  Eine ruhige erste Orientierung für aktuelle Herausforderungen und innere Unklarheit.
-                </p>
-                <span
-                  className="mt-[1.0625rem] inline-flex font-medium transition-colors duration-300 group-hover:text-[rgba(240,226,196,0.92)]"
-                  style={{
-                    fontFamily: FONT_BODY,
-                    fontSize: 'clamp(0.796875rem, 0.765rem + 0.09vw, 0.84375rem)',
-                    letterSpacing: '0.05em',
-                    color: 'rgba(208, 182, 144, 0.82)'
-                  }}
-                >
-                  Orientierung starten →
-                </span>
-              </div>
-            </Link>
+            />
+          </header>
 
-            <Link
-              to="/anamnesis"
-              className="group relative block rounded-[13px] border border-[rgba(214,168,94,0.22)] px-5 py-[1.1875rem] no-underline outline-none transition-[border-color,box-shadow,background-color] duration-300 sm:px-[1.25rem] sm:py-5 backdrop-blur-[12px] focus-visible:border-[rgba(214,168,94,0.32)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/80 hover:border-[rgba(214,168,94,0.28)] hover:shadow-[0_0_42px_-18px_rgba(185,130,63,0.12)]"
-              style={{
-                background:
-                  'linear-gradient(165deg, rgba(12,11,10,0.78) 0%, rgba(5,5,6,0.86) 100%)',
-                boxShadow:
-                  'inset 0 1px 0 rgba(255, 248, 238, 0.045), 0 1px 0 rgba(0,0,0,0.5), 0 28px 56px -30px rgba(0,0,0,0.75)'
-              }}
-            >
-              <span
-                className="pointer-events-none absolute inset-px rounded-[12px] opacity-[0.45]"
-                aria-hidden
-                style={{
-                  background:
-                    'linear-gradient(145deg, rgba(255, 250, 242, 0.034) 0%, transparent 55%)'
-                }}
-              />
-              <div className="relative">
-                <h3
-                  className="m-0 font-semibold tracking-[-0.022em]"
-                  style={{
-                    fontFamily: FONT_DISPLAY,
-                    fontSize: 'clamp(1.03125rem, 0.95rem + 0.28vw, 1.2rem)',
-                    letterSpacing: '-0.022em',
-                    lineHeight: 1.3,
-                    color: 'rgba(252, 247, 236, 0.96)'
-                  }}
-                >
-                  Anamnese
-                </h3>
-                <p
-                  className="m-0 mt-2"
-                  style={{
-                    fontFamily: FONT_BODY,
-                    fontSize: 'clamp(0.828125rem, 0.79rem + 0.13vw, 0.890625rem)',
-                    lineHeight: 1.56,
-                    fontWeight: 400,
-                    letterSpacing: '-0.008em',
-                    color: 'rgba(234, 224, 206, 0.9)'
-                  }}
-                >
-                  Ein strukturierter Einstieg zur tieferen Analyse Ihrer aktuellen Situation.
-                </p>
-                <span
-                  className="mt-[1.0625rem] inline-flex font-medium transition-colors duration-300 group-hover:text-[rgba(240,226,196,0.92)]"
-                  style={{
-                    fontFamily: FONT_BODY,
-                    fontSize: 'clamp(0.796875rem, 0.765rem + 0.09vw, 0.84375rem)',
-                    letterSpacing: '0.05em',
-                    color: 'rgba(208, 182, 144, 0.82)'
-                  }}
-                >
-                  Analyse beginnen →
-                </span>
-              </div>
-            </Link>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 md:gap-6 xl:gap-7">
+            {HOME_MEISTERSCHAFT_WAYS.map((way, idx) => (
+              <Link
+                key={way.to}
+                to={way.to}
+                aria-label={`${way.label}: ${way.body} — ${way.cta}`}
+                className={
+                  idx === 2
+                    ? 'home-mastery-way-card group md:col-span-2 md:max-w-[min(100%,24rem)] md:justify-self-center xl:col-span-1 xl:max-w-none xl:justify-self-stretch'
+                    : 'home-mastery-way-card group'
+                }
+              >
+                <div className="home-mastery-way-card__media relative">
+                  <img
+                    src={way.imageSrc}
+                    alt=""
+                    className={way.imageClassName}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0"
+                    style={{
+                      background:
+                        'linear-gradient(180deg, rgba(6,5,4,0.12) 0%, rgba(4,3,2,0.48) 46%, rgba(2,2,3,0.9) 100%)'
+                    }}
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-90"
+                    style={{
+                      background:
+                        'linear-gradient(90deg, transparent, rgba(230,193,138,0.2), transparent)'
+                    }}
+                  />
+                </div>
+
+                <div className="flex flex-1 flex-col px-5 pb-5 pt-5 sm:px-[1.25rem] sm:pb-5 sm:pt-[1.125rem]">
+                  <p
+                    className="m-0 text-[0.625rem] font-medium uppercase tracking-[0.32em]"
+                    style={{
+                      fontFamily: FONT_BODY,
+                      color: 'rgba(214, 188, 152, 0.7)'
+                    }}
+                  >
+                    {way.label}
+                  </p>
+                  <p
+                    className="m-0 mt-3 flex-1"
+                    style={{
+                      fontFamily: FONT_BODY,
+                      fontSize: 'clamp(0.859375rem, 0.79rem + 0.2vw, 0.9375rem)',
+                      lineHeight: 1.55,
+                      letterSpacing: '-0.012em',
+                      fontWeight: 400,
+                      color: 'rgba(244,244,244,0.92)'
+                    }}
+                  >
+                    {way.body}
+                  </p>
+                  <span
+                    className="mt-5 inline-flex items-center gap-1.5 border-t pt-4"
+                    style={{
+                      borderColor: 'rgba(230, 193, 138, 0.12)',
+                      fontFamily: FONT_BODY,
+                      fontSize: '0.78125rem',
+                      fontWeight: 500,
+                      letterSpacing: '0.07em',
+                      color: 'rgba(226, 202, 168, 0.76)'
+                    }}
+                  >
+                    {way.cta}
+                    <ChevronsRight
+                      className="home-mastery-way-card__cta-icon opacity-88 shrink-0"
+                      size={15}
+                      strokeWidth={2.35}
+                      style={{ color: 'rgba(230, 193, 138, 0.72)' }}
+                      aria-hidden
+                    />
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -1423,8 +1190,7 @@ export default function HomeDynamic() {
                 aria-hidden
                 className="mt-5 sm:mt-[1.125rem] h-px w-full max-w-xl lg:max-w-[44rem] mx-auto lg:mx-0"
                 style={{
-                  background:
-                    'linear-gradient(90deg, transparent 0%, rgba(230, 193, 138, 0.06) 14%, rgba(230, 193, 138, 0.32) 50%, rgba(230, 193, 138, 0.06) 86%, transparent 100%)',
+
                   boxShadow: '0 0 24px rgba(185, 130, 63, 0.06)'
                 }}
               />
@@ -1476,19 +1242,15 @@ export default function HomeDynamic() {
                   <HomeTrustWirkIcon kind={pillar.icon} gradId={trustWirkStrokeGradId} />
                   <div className="min-w-0 flex-1 text-left">
                     <p
-                      className="m-0 font-semibold leading-snug"
+                      className="m-0 leading-snug"
                       style={{
                         fontFamily: FONT_DISPLAY,
                         fontSize: 'clamp(1rem, 0.88rem + 0.38vw, 1.1875rem)',
                         letterSpacing: '-0.024em',
                         lineHeight: 1.3,
-                        background: 'linear-gradient(182deg, #F6ECD8 0%, #E6C18A 26%, #C99552 58%, #8B5A2B 100%)',
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        color: 'transparent',
-                        filter:
-                          'drop-shadow(0 1px 0 rgba(0,0,0,0.48)) drop-shadow(0 10px 28px rgba(185, 130, 63, 0.16))'
+                        fontWeight: 400,
+                        color: '#EADDCB',
+                        textShadow: '0 1px 8px rgba(0,0,0,0.42)'
                       }}
                     >
                       {pillar.title}
@@ -1508,7 +1270,7 @@ export default function HomeDynamic() {
                   }}
                 >
                   <span>Weiter</span>
-                  <ArrowRight
+                  <ChevronsRight
                     size={17}
                     strokeWidth={2.25}
                     className="transition-transform duration-300 group-hover:translate-x-[3px]"
@@ -1567,34 +1329,59 @@ export default function HomeDynamic() {
               }
             `}</style>
 
-            {/* Hintergrund — Kapitel I (fullscreen, sanfter Bottom-Fade für smoothen Bildwechsel) */}
-            <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+            {/* Hintergrund — Kapitel I (cineastische Steinkammer mit Bronze-Lichtschacht) */}
+            <div className="pointer-events-none absolute inset-0 z-0 bg-black" aria-hidden>
+              {/* Schärfe und Tiefe des Bildes bleiben unberührt — keine Filter, kein Blur */}
               <div
-                className="absolute inset-0"
+                className="kapitel-1-bg-img absolute inset-0"
                 style={{
-                  backgroundImage: 'url(/images/manifest/manifest-kapitel-1-bg.png)',
+                  backgroundImage: 'url(/images/manifest/manifest-kapitel-1-stone-light.png)',
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center center',
                   backgroundRepeat: 'no-repeat'
                 }}
               />
-              {/* Top-Fade: weicher Anschluss an die Section darüber */}
+              {/* Tiefen-Vignette (oben/unten + seitlich) — verschmilzt das Bild matt mit der Section
+                  ohne Detailverlust; reine Overlay-Maskierung statt Weichzeichnung. */}
               <div
-                className="absolute inset-x-0 top-0 h-36 sm:h-44"
+                className="absolute inset-0"
                 style={{
                   background:
-                    'linear-gradient(180deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.42) 52%, rgba(0,0,0,0.14) 82%, rgba(0,0,0,0) 100%)'
+                    'radial-gradient(140% 100% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.36) 78%, rgba(0,0,0,0.78) 100%)'
                 }}
               />
-              {/* Bottom-Fade: dunkle Brücke zu Kapitel II */}
+              {/* Linkes Tiefen-Wash — hält Headline ruhig und lesbar, ohne das Bild zu glätten */}
               <div
-                className="absolute inset-x-0 bottom-0 h-36 sm:h-44"
+                className="absolute inset-y-0 left-0 w-full lg:w-[62%]"
+               
+              />
+              {/* Top-Fade: weicher Anschluss an die Section darüber */}
+              <div
+                className="absolute inset-x-0 top-0 h-40 sm:h-52"
+               
+              />
+              {/* Bottom-Fade: dunkle Brücke zu Kapitel II, leichte warme Reflexion am Saum */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+               
+              />
+              {/* Warmer Bronze-Atem (sehr fein) — verbindet die Lichtquelle visuell mit dem Footer-Saum */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-28 sm:h-36 mix-blend-screen"
                 style={{
                   background:
-                    'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.58) 42%, rgba(0,0,0,0.18) 78%, rgba(0,0,0,0) 100%)'
+                    'radial-gradient(80% 100% at 62% 100%, rgba(214,168,94,0.10) 0%, rgba(185,130,63,0.04) 35%, rgba(0,0,0,0) 70%)'
                 }}
               />
             </div>
+
+            {/* Bildposition responsiv steuern — auf Mobile rückt der Bronze-Lichtschacht
+                stärker ins Blickfeld; Desktop bleibt mittig komponiert. */}
+            <style>{`
+              .kapitel-1-bg-img { background-position: 58% center; }
+              @media (min-width: 768px) {
+                .kapitel-1-bg-img { background-position: center center; }
+              }
+            `}</style>
 
             <div className="relative z-[1] w-full mx-auto max-w-[1320px] px-6 sm:px-10 md:px-14 lg:px-20">
 
@@ -1603,10 +1390,7 @@ export default function HomeDynamic() {
                 <span
                   aria-hidden
                   className="block h-px w-7 sm:w-9"
-                  style={{
-                    background:
-                      'linear-gradient(90deg, transparent 0%, rgba(214,168,94,0.7) 100%)'
-                  }}
+                 
                 />
                 <span
                   className="block uppercase"
@@ -1666,11 +1450,7 @@ export default function HomeDynamic() {
                       style={{
                         fontWeight: 500,
                         letterSpacing: '-0.03em',
-                        background:
-                          'linear-gradient(182deg, #F2E2C0 0%, #D6A85E 32%, #B9823F 58%, #7A4A24 100%)',
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
+                        color: '#EADDCB'
                       }}
                     >
                       Klarheit
@@ -1696,11 +1476,7 @@ export default function HomeDynamic() {
                       style={{
                         fontWeight: 500,
                         letterSpacing: '0.2em',
-                        background:
-                          'linear-gradient(185deg, #F6E4BC 0%, #C99552 45%, #8A5A24 95%)',
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
+                        color: '#EADDCB'
                       }}
                     >
                       Führung
@@ -1732,7 +1508,8 @@ export default function HomeDynamic() {
                           width: '1px',
                           height: 'clamp(1.35rem, 2vw, 1.85rem)',
                           background:
-                            'linear-gradient(180deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.85) 50%, rgba(214,168,94,0) 100%)'
+                            'linear-gradient(180deg, transparent 0%, rgba(214,168,94,0.55) 45%, rgba(214,168,94,0.18) 100%)',
+                          boxShadow: '0 0 10px rgba(185,130,63,0.12)'
                         }}
                       />
                       <p
@@ -1773,11 +1550,7 @@ export default function HomeDynamic() {
                   style={{
                     fontWeight: 500,
                     letterSpacing: '0.2em',
-                    background:
-                      'linear-gradient(185deg, #F6E4BC 0%, #C99552 45%, #8A5A24 95%)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
+                    color: '#EADDCB'
                   }}
                 >
                   Führung
@@ -1817,40 +1590,83 @@ export default function HomeDynamic() {
           }
         `}</style>
 
-        {/* Hintergrund — wie Kapitel I: gleicher 1600-Rahmen + seitlicher Bleed (Bild „schwebt“ in #000) */}
+        {/* Hintergrund — Kapitel II: Dawn-Plateau mit Bronze-Lichtportal
+            Bild schwebt im selben 1600-Rahmen wie Kapitel I; nahtloser Anschluss
+            an die dunkle Brücke darüber. Schärfe + Tiefe bleiben unangetastet. */}
         <div className="pointer-events-none absolute inset-0 z-0 bg-black" aria-hidden>
           <div className="relative mx-auto h-full max-w-[1600px] px-6 sm:px-8 md:px-12 lg:px-16">
             <div
               className="absolute inset-y-0 overflow-hidden -left-6 -right-6 sm:-left-8 sm:-right-8 md:-left-12 md:-right-12 lg:-left-16 lg:-right-16 xl:-left-[5.5rem] xl:-right-[5.5rem]"
             >
               <div
-                className="absolute inset-0"
+                className="kapitel-2-bg-img absolute inset-0"
                 style={{
-                  backgroundImage: 'url(/images/manifest/manifest-kapitel-2-bg.png)',
+                  backgroundImage: 'url(/images/manifest/manifest-kapitel-2-horizon-light.png)',
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center center',
                   backgroundRepeat: 'no-repeat'
                 }}
               />
-              {/* Top-Fade */}
+              {/* Globale matte Tiefen-Vignette — verbindet Bild ohne Detailverlust mit der Section */}
               <div
-                className="absolute inset-x-0 top-0 h-36 sm:h-44"
+                className="absolute inset-0"
                 style={{
                   background:
-                    'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.62) 40%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)'
+                    'radial-gradient(150% 100% at 50% 52%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.38) 72%, rgba(0,0,0,0.78) 100%)'
+                }}
+              />
+              {/* Linkes Lesefeld — Editorial-Kolumnen bleiben hochwertig lesbar ohne das Bildportal zu zerstören */}
+              <div
+                className="absolute inset-y-0 left-0 w-full lg:w-[58%]"
+                style={{
+                  background:
+                    'linear-gradient(90deg, rgba(5,7,11,0.93) 0%, rgba(7,9,13,0.78) min(52%,740px), rgba(12,13,17,0.48) min(88%,980px), rgba(14,14,17,0.12) 100%)'
+                }}
+              />
+              {/* Top-Fade — Anschluss aus Kapitel I */}
+              <div
+                className="absolute inset-x-0 top-0 h-44 sm:h-56"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(5,7,13,0.62) 0%, rgba(5,7,13,0.22) min(72%,460px), transparent 100%)'
                 }}
               />
               {/* Bottom-Fade */}
               <div
-                className="absolute inset-x-0 bottom-0 h-36 sm:h-44"
+                className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
                 style={{
                   background:
-                    'linear-gradient(0deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.48) 44%, rgba(0,0,0,0.14) 80%, rgba(0,0,0,0) 100%)'
+                    'linear-gradient(0deg, rgba(8,10,16,0.48) 0%, rgba(8,10,16,0.12) min(72%,460px), transparent 100%)'
                 }}
+              />
+              {/* Warmer Bronze-Atem unten rechts — verlängert das Lichtportal sanft in die nächste Section */}
+              <div
+                className="absolute right-0 bottom-0 w-[78%] h-32 sm:h-40 mix-blend-screen"
+                style={{
+                  background:
+                    'radial-gradient(70% 100% at 72% 100%, rgba(214,168,94,0.10) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
+                }}
+              />
+              {/* Rechtes Feld — sehr dezent, Liste bleibt lesbar ohne Portal zu zerstören */}
+              <div
+                className="pointer-events-none absolute inset-y-0 right-0 hidden w-[min(48%,620px)] lg:block"
+                style={{
+                  background:
+                    'linear-gradient(270deg, rgba(14,13,17,0.38) 0%, rgba(12,12,14,0.14) min(92%,780px), transparent 100%)'
+                }}
+                aria-hidden
               />
             </div>
           </div>
         </div>
+
+        {/* Bildposition responsiv — auf Mobile rückt das Bronze-Portal etwas
+            ins Sichtfeld, ohne die Headline-Lesbarkeit aufzugeben. */}
+        <style>{`
+          .kapitel-2-bg-img { background-position: 62% center; }
+          @media (min-width: 768px) {
+            .kapitel-2-bg-img { background-position: center center; }
+          }
+        `}</style>
 
         <div className="relative z-[1] w-full mx-auto max-w-[1320px] px-6 sm:px-10 md:px-14 lg:px-20">
           <div className="w-full">
@@ -1858,10 +1674,10 @@ export default function HomeDynamic() {
             <div className="flex items-center gap-3 mb-6 sm:mb-7 lg:mb-8">
               <span
                 aria-hidden
-                className="block h-px w-7 sm:w-9"
+                className="block h-px w-7 sm:w-9 shrink-0"
                 style={{
                   background:
-                    'linear-gradient(90deg, transparent 0%, rgba(214,168,94,0.7) 100%)'
+                    'linear-gradient(90deg, rgba(214,168,94,0.85) 0%, rgba(214,168,94,0.15) 100%)'
                 }}
               />
               <span
@@ -1899,7 +1715,8 @@ export default function HomeDynamic() {
                       letterSpacing: '-0.04em',
                       lineHeight: 1.02,
                       color: HOME_TEXT_CLEAR,
-                      textShadow: '0 2px 18px rgba(0,0,0,0.65)',
+                      textShadow:
+                        '0 2px 32px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.95), 0 0 1px rgba(0,0,0,0.9)',
                       WebkitFontSmoothing: 'antialiased',
                       MozOsxFontSmoothing: 'grayscale'
                     }}
@@ -1915,7 +1732,10 @@ export default function HomeDynamic() {
                       letterSpacing: '-0.04em',
                       lineHeight: 1.02,
                       color: HOME_TEXT_CLEAR,
-                      textShadow: '0 2px 18px rgba(0,0,0,0.65)'
+                      textShadow:
+                        '0 2px 32px rgba(0,0,0,0.85), 0 1px 3px rgba(0,0,0,0.95), 0 0 1px rgba(0,0,0,0.9)',
+                      WebkitFontSmoothing: 'antialiased',
+                      MozOsxFontSmoothing: 'grayscale'
                     }}
                   >
                     zur{' '}
@@ -1923,12 +1743,8 @@ export default function HomeDynamic() {
                       style={{
                         fontWeight: 500,
                         letterSpacing: '-0.032em',
-                        background:
-                          'linear-gradient(182deg, #F2E2C0 0%, #D6A85E 32%, #B9823F 58%, #7A4A24 100%)',
-                        WebkitBackgroundClip: 'text',
-                        backgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
-                      }}
+
+                        }}
                     >
                       klaren Führung
                     </span>
@@ -1951,10 +1767,11 @@ export default function HomeDynamic() {
                     fontFamily: FONT_BODY,
                     fontSize: 'clamp(0.95rem, 0.86rem + 0.4vw, 1.0625rem)',
                     fontWeight: 400,
-                    lineHeight: 1.6,
+                    lineHeight: 1.62,
                     letterSpacing: '-0.006em',
-                    color: 'rgba(238, 230, 216, 0.62)',
-                    textShadow: '0 1px 12px rgba(0,0,0,0.45)'
+                    color: 'rgba(244, 244, 244, 0.93)',
+                    textShadow:
+                      '0 2px 24px rgba(0,0,0,0.9), 0 1px 2px rgba(0,0,0,1), 0 0 1px rgba(0,0,0,0.85)'
                   }}
                 >
                   Was sich verändert, wenn Klarheit zurückkehrt.
@@ -1973,11 +1790,11 @@ export default function HomeDynamic() {
                 >
                   <span
                     aria-hidden
-                    className="block h-px transition-all duration-500 group-hover:w-12"
+                    className="block h-px shrink-0 transition-all duration-500 group-hover:w-12 max-w-[3rem]"
                     style={{
                       width: '1.75rem',
                       background:
-                        'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.78) 100%)'
+                        'linear-gradient(90deg, rgba(214,168,94,0.75) 0%, rgba(214,168,94,0.2) 100%)'
                     }}
                   />
                   <span
@@ -2014,7 +1831,7 @@ export default function HomeDynamic() {
                           width: '1px',
                           height: 'clamp(1.5rem, 2.2vw, 2rem)',
                           background:
-                            'linear-gradient(180deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.85) 50%, rgba(214,168,94,0) 100%)'
+                            'linear-gradient(180deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0.12) 100%)'
                         }}
                       />
                       <p
@@ -2024,13 +1841,13 @@ export default function HomeDynamic() {
                           fontSize: 'clamp(0.95rem, 0.86rem + 0.4vw, 1.125rem)',
                           lineHeight: 1.58,
                           letterSpacing: '-0.006em',
-                          textShadow: '0 1px 10px rgba(0,0,0,0.7)'
+                          textShadow: '0 2px 20px rgba(0,0,0,0.88), 0 1px 2px rgba(0,0,0,0.95)'
                         }}
                       >
                         <span
                           style={{
-                            fontWeight: 300,
-                            color: 'rgba(140, 138, 135, 0.85)'
+                            fontWeight: 400,
+                            color: 'rgba(234, 230, 220, 0.88)'
                           }}
                         >
                           {row.from}
@@ -2042,19 +1859,15 @@ export default function HomeDynamic() {
                             width: '0.85rem',
                             height: '1px',
                             background:
-                              'linear-gradient(90deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0.85) 100%)',
+                              'linear-gradient(90deg, rgba(214,168,94,0.5), rgba(214,168,94,0.12))',
                             verticalAlign: 'middle'
                           }}
                         />
                         <span
                           style={{
                             fontWeight: 500,
-                            background:
-                              'linear-gradient(182deg, #F2E2C0 0%, #D6A85E 32%, #B9823F 58%, #7A4A24 100%)',
-                            WebkitBackgroundClip: 'text',
-                            backgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            color: 'transparent'
+                            letterSpacing: '-0.01em',
+                            color: 'rgba(234, 221, 203, 0.96)'
                           }}
                         >
                           {row.to}
@@ -2102,11 +1915,11 @@ export default function HomeDynamic() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-12">
               <div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-2"
-                    style={{ fontFamily: FONT_DISPLAY, fontWeight: 900 }}>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl mb-2 text-[#f4f4f4]"
+                    style={{ fontFamily: FONT_DISPLAY, fontWeight: 300, letterSpacing: '-0.03em' }}>
                   {eventsHeader.heading}
                   {eventsHeader.highlight && (
-                    <span className="bg-gradient-to-r from-yellow-200 to-yellow-400 bg-clip-text text-transparent">
+                    <span className="text-[#EADDCB]" style={{ fontFamily: FONT_DISPLAY, fontWeight: 300 }}>
                       {eventsHeader.highlight}
                     </span>
                   )}
@@ -2242,7 +2055,7 @@ export default function HomeDynamic() {
                         className="relative rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-500"
                         style={{
                           height: event.card_height || '420px',
-                          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02))',
+
                           border: '1px solid rgba(255, 255, 255, 0.12)',
                           boxShadow: '0 10px 40px rgba(0, 0, 0, 0.5)'
                         }}
@@ -2351,21 +2164,21 @@ export default function HomeDynamic() {
             className="absolute inset-0"
             style={{
               background:
-                'radial-gradient(115% 88% at 50% 45%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.14) 52%, rgba(0,0,0,0.55) 100%)'
+                'radial-gradient(120% 90% at 44% 40%, transparent 0%, rgba(0,0,0,0.06) 48%, rgba(0,0,0,0.38) 100%)'
             }}
           />
           <div
-            className="absolute inset-x-0 top-0 h-32 sm:h-40"
+            className="absolute inset-x-0 top-0 h-32 sm:h-40 pointer-events-none"
             style={{
               background:
-                'linear-gradient(180deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 100%)'
+                'linear-gradient(180deg, rgba(2,4,10,0.55) 0%, transparent 100%)'
             }}
           />
           <div
-            className="absolute inset-x-0 bottom-0 h-32 sm:h-40"
+            className="absolute inset-x-0 bottom-0 h-32 sm:h-40 pointer-events-none"
             style={{
               background:
-                'linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 100%)'
+                'linear-gradient(0deg, rgba(4,7,13,0.45) 0%, transparent 100%)'
             }}
           />
         </div>
@@ -2394,10 +2207,7 @@ export default function HomeDynamic() {
                 <span
                   style={{
                     fontWeight: 400,
-                    background: 'linear-gradient(180deg, #F2E2C0 0%, #D6A85E 38%, #B9823F 70%, #8A5528 100%)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
+                    color: '#EADDCB'
                   }}
                 >
                   Präzision
@@ -2406,10 +2216,7 @@ export default function HomeDynamic() {
                 <span
                   style={{
                     fontWeight: 400,
-                    background: 'linear-gradient(180deg, #F2E2C0 0%, #D6A85E 38%, #B9823F 70%, #8A5528 100%)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
+                    color: '#EADDCB'
                   }}
                 >
                   Tiefe
@@ -2437,29 +2244,26 @@ export default function HomeDynamic() {
                 <img
                   src="/images/portrait/anatoly-precision-portrait.png"
                   alt="Anatoly Mook"
-                  className="relative block h-full w-full select-none"
+                  className="relative block h-full w-full select-none max-[639px]:object-[52%_30%] object-cover object-[52%_28%]"
                   draggable={false}
                   style={{
-                    objectFit: 'cover',
-                    objectPosition: 'center 30%',
                     zIndex: 1,
                     WebkitMaskImage:
-                      'radial-gradient(78% 88% at 50% 46%, #000 0%, #000 56%, rgba(0,0,0,0.92) 68%, rgba(0,0,0,0.55) 82%, rgba(0,0,0,0.18) 92%, rgba(0,0,0,0) 100%)',
+                      'radial-gradient(94% 100% at 52% 36%, #000 0%, #000 72%, rgba(0,0,0,0.88) 80%, rgba(0,0,0,0.35) 90%, transparent 100%)',
                     maskImage:
-                      'radial-gradient(78% 88% at 50% 46%, #000 0%, #000 56%, rgba(0,0,0,0.92) 68%, rgba(0,0,0,0.55) 82%, rgba(0,0,0,0.18) 92%, rgba(0,0,0,0) 100%)',
-                    filter: 'drop-shadow(0 28px 60px rgba(0,0,0,0.55)) contrast(1.04) saturate(1.02)'
+                      'radial-gradient(94% 100% at 52% 36%, #000 0%, #000 72%, rgba(0,0,0,0.88) 80%, rgba(0,0,0,0.35) 90%, transparent 100%)',
+                    filter: 'drop-shadow(0 28px 60px rgba(0,0,0,0.55))'
                   }}
                 />
 
-                {/* Soft bottom blend in die Section */}
+                {/* Soft bottom blend — nur Bildfuß, kein Multiply über dem Gesicht */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] sm:h-[30%]"
                   style={{
-                    background:
-                      'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.9) 100%)',
                     zIndex: 2,
-                    mixBlendMode: 'multiply'
+                    background:
+                      'linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.12) 72%, transparent 100%)'
                   }}
                 />
               </div>
@@ -2485,11 +2289,7 @@ export default function HomeDynamic() {
                 <span
                   style={{
                     fontWeight: 400,
-                    background:
-                      'linear-gradient(180deg, #F2E2C0 0%, #D6A85E 38%, #B9823F 70%, #8A5528 100%)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
+                    color: '#EADDCB'
                   }}
                 >
                   Präzision
@@ -2498,11 +2298,7 @@ export default function HomeDynamic() {
                 <span
                   style={{
                     fontWeight: 400,
-                    background:
-                      'linear-gradient(180deg, #F2E2C0 0%, #D6A85E 38%, #B9823F 70%, #8A5528 100%)',
-                    WebkitBackgroundClip: 'text',
-                    backgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
+                    color: '#EADDCB'
                   }}
                 >
                   Tiefe
@@ -2551,8 +2347,7 @@ export default function HomeDynamic() {
                     key={`sys-card-${i}`}
                     className="group relative rounded-xl px-4 py-5 transition-all duration-500 hover:-translate-y-[2px]"
                     style={{
-                      background:
-                        'linear-gradient(158deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 60%, rgba(0,0,0,0.18) 100%)',
+
                       border: '1px solid rgba(214, 168, 94, 0.16)',
                       backdropFilter: 'blur(8px)',
                       WebkitBackdropFilter: 'blur(8px)',
@@ -2568,8 +2363,7 @@ export default function HomeDynamic() {
                       className="relative z-[1] mb-3 flex h-9 w-9 items-center justify-center rounded-lg"
                       aria-hidden
                       style={{
-                        background:
-                          'linear-gradient(158deg, rgba(230,193,138,0.18) 0%, rgba(40,28,16,0.6) 65%, rgba(8,6,4,0.92) 100%)',
+
                         border: '1px solid rgba(214,168,94,0.22)',
                         color: '#E6C18A'
                       }}
@@ -2615,7 +2409,7 @@ export default function HomeDynamic() {
                   className="metallic-bronze-button btn-bronze group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[0.95rem]"
                 >
                   <span>Strategisches Gespräch anfragen</span>
-                  <ArrowRight className="h-[17px] w-[17px] transition-transform duration-300 group-hover:translate-x-[2px]" strokeWidth={2.5} />
+                  <ChevronsRight className="h-[17px] w-[17px] transition-transform duration-300 group-hover:translate-x-[2px]" strokeWidth={2.5} />
                 </button>
                 <p
                   className="m-0 pl-0.5 mt-1"
@@ -2639,8 +2433,7 @@ export default function HomeDynamic() {
             <article
               className="relative rounded-2xl p-7 sm:p-8 md:p-9"
               style={{
-                background:
-                  'linear-gradient(158deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.012) 55%, rgba(0,0,0,0.22) 100%)',
+
                 border: '1px solid rgba(214, 168, 94, 0.18)',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
@@ -2691,12 +2484,8 @@ export default function HomeDynamic() {
                   fontWeight: 500,
                   letterSpacing: '-0.01em',
                   lineHeight: 1.45,
-                  background:
-                    'linear-gradient(182deg, #F2E2C0 0%, #D6A85E 32%, #B9823F 58%, #7A4A24 100%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
-                }}
+
+                  }}
               >
                 Transzendenz in ein neues Bewusstsein
               </p>
@@ -2714,8 +2503,7 @@ export default function HomeDynamic() {
                       style={{
                         width: '1px',
                         height: '1rem',
-                        background:
-                          'linear-gradient(180deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.85) 50%, rgba(214,168,94,0) 100%)'
+
                       }}
                     />
                     <span
@@ -2758,7 +2546,7 @@ export default function HomeDynamic() {
                           aria-hidden
                           className="mt-[7px] block h-[5px] w-[5px] shrink-0 rounded-full"
                           style={{
-                            background: 'linear-gradient(180deg, #F2E2C0 0%, #B9823F 100%)',
+
                             boxShadow: '0 0 8px rgba(214,168,94,0.4)'
                           }}
                         />
@@ -2799,8 +2587,7 @@ export default function HomeDynamic() {
             <article
               className="relative rounded-2xl p-7 sm:p-8 md:p-9"
               style={{
-                background:
-                  'linear-gradient(158deg, rgba(255,255,255,0.035) 0%, rgba(255,255,255,0.012) 55%, rgba(0,0,0,0.22) 100%)',
+
                 border: '1px solid rgba(214, 168, 94, 0.18)',
                 backdropFilter: 'blur(10px)',
                 WebkitBackdropFilter: 'blur(10px)',
@@ -2885,7 +2672,7 @@ export default function HomeDynamic() {
                           aria-hidden
                           className="mt-[7px] block h-[5px] w-[5px] shrink-0 rounded-full"
                           style={{
-                            background: 'linear-gradient(180deg, #F2E2C0 0%, #B9823F 100%)',
+
                             boxShadow: '0 0 8px rgba(214,168,94,0.4)'
                           }}
                         />
@@ -2975,62 +2762,78 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px z-[2]"
           aria-hidden
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.22) 18%, rgba(214,168,94,0.42) 50%, rgba(214,168,94,0.22) 82%, rgba(214,168,94,0) 100%)'
-          }}
+         
         />
 
-        {/* Background-Bild — volle Tiefenwirkung, scharf, nur saubere Section-Kanten */}
+        {/* Background-Bild — Dawn-Horizont mit Gräser-Vordergrund.
+            Schärfe und Tiefe des Bildes bleiben erhalten; nur dezente Color-Refine, kein Blur. */}
         <div className="pointer-events-none absolute inset-0 z-0 bg-black" aria-hidden>
           <div className="relative mx-auto h-full max-w-[1600px] px-6 sm:px-8 md:px-12 lg:px-16">
             <div className="absolute inset-y-0 overflow-hidden -left-6 -right-6 sm:-left-8 sm:-right-8 md:-left-12 md:-right-12 lg:-left-16 lg:-right-16 xl:-left-[5.5rem] xl:-right-[5.5rem]">
-              {/* Bild – scharf, kein Blur, kräftige Tiefe */}
               <div
-                className="absolute inset-0"
+                className="clarity-bg-img absolute inset-0"
                 style={{
-                  backgroundImage: 'url(/images/manifest/clarity-stone-veil-bg.png)',
+                  backgroundImage: 'url(/images/manifest/clarity-horizon-grass-bg.png)',
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center center',
                   backgroundRepeat: 'no-repeat',
                   opacity: 1,
-                  filter: 'saturate(1.02) contrast(1.04)'
+                  filter: 'saturate(0.96) contrast(1.04)'
                 }}
               />
-              {/* Sehr leichte Dunkel-Lasur – verankert die Section ohne Tiefe zu killen */}
+              {/* Matter Tiefen-Wash — bringt das helle Dawn-Bild in die Lichtwelt der Section,
+                  ohne Detail oder Schärfe zu verlieren. */}
               <div
                 className="absolute inset-0"
-                style={{ background: 'rgba(0,0,0,0.16)' }}
+                style={{ background: 'rgba(0,0,0,0.22)' }}
               />
-              {/* Top-Fade – weicher Übergang zur vorherigen Section */}
+              {/* Radiale Mattvignette — saubere Sektion-Kanten, Mitte bleibt detailtreu */}
               <div
-                className="absolute inset-x-0 top-0 h-36 sm:h-44"
+                className="absolute inset-0"
                 style={{
                   background:
-                    'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.62) 40%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)'
+                    'radial-gradient(150% 110% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.68) 100%)'
                 }}
               />
-              {/* Bottom-Fade – weicher Übergang zur nächsten Section */}
+              {/* Top-Fade — verlängert, damit der Anschluss aus dem dunklen Saum von Kapitel II
+                  wie ein langsamer Atemzug ins Licht wirkt. */}
               <div
-                className="absolute inset-x-0 bottom-0 h-36 sm:h-44"
+                className="absolute inset-x-0 top-0 h-44 sm:h-56"
+               
+              />
+              {/* Bottom-Fade — dunkle Brücke zur nächsten Section */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+               
+              />
+              {/* Warmer Bronze-Atem unten links — verbindet den Sonnen-Horizont visuell
+                  mit dem unteren Sektionsrand, ohne harten Cut. */}
+              <div
+                className="absolute left-0 bottom-0 w-[70%] h-28 sm:h-36 mix-blend-screen"
                 style={{
                   background:
-                    'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.62) 40%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)'
+                    'radial-gradient(70% 100% at 20% 100%, rgba(214,168,94,0.08) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
                 }}
               />
             </div>
           </div>
         </div>
 
-        {/* Lesbarkeits-Scrim hinter dem Header (linksbündig) – High-End-Typo bleibt lesbar, Steinstruktur bleibt sichtbar */}
+        {/* Lesbarkeits-Scrim hinter dem Header (linksbündig) — etwas weicher kalibriert,
+            damit der Bronze-Horizont mit dem Headline-Akzent „Klarheit“ harmoniert. */}
         <div
           className="pointer-events-none absolute inset-y-0 left-0 right-0 lg:right-[35%] z-[1]"
           aria-hidden
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.52) 35%, rgba(0,0,0,0.22) 70%, rgba(0,0,0,0) 100%)'
-          }}
+         
         />
+
+        {/* Bildposition responsiv — Horizontlinie bleibt auf allen Größen im oberen
+            Drittel, das Gräser-Volumen trägt den Cards-Bereich. */}
+        <style>{`
+          .clarity-bg-img { background-position: center 38%; }
+          @media (min-width: 768px) {
+            .clarity-bg-img { background-position: center 42%; }
+          }
+        `}</style>
 
         <div
           className={`relative z-[1] mx-auto max-w-[1320px] px-6 sm:px-8 md:px-12 lg:px-16 pt-12 sm:pt-16 md:pt-20 lg:pt-24 transition-[padding-bottom] duration-500 ease-out motion-reduce:transition-none ${
@@ -3047,10 +2850,7 @@ export default function HomeDynamic() {
               <span
                 aria-hidden
                 className="h-px w-10 sm:w-14"
-                style={{
-                  background:
-                    'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.55) 60%, rgba(214,168,94,0.9) 100%)'
-                }}
+               
               />
               <span
                 style={{
@@ -3059,10 +2859,7 @@ export default function HomeDynamic() {
                   fontWeight: 600,
                   letterSpacing: '0.28em',
                   textTransform: 'uppercase',
-                  background: 'linear-gradient(135deg, #F2E2C0 0%, #D6A85E 45%, #B9823F 100%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+
                   filter:
                     'drop-shadow(0 1px 8px rgba(0,0,0,0.7)) drop-shadow(0 0 12px rgba(185,130,63,0.18))'
                 }}
@@ -3091,11 +2888,8 @@ export default function HomeDynamic() {
               <span
                 style={{
                   fontWeight: 400,
-                  background: 'linear-gradient(180deg, #F2E2C0 0%, #D6A85E 38%, #B9823F 70%, #8A5528 100%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
-                }}
+
+                  }}
               >
                 Klarheit
               </span>
@@ -3123,10 +2917,7 @@ export default function HomeDynamic() {
             <div
               className="mt-10 sm:mt-12 h-px w-full"
               aria-hidden
-              style={{
-                background:
-                  'linear-gradient(90deg, rgba(214,168,94,0.32) 0%, rgba(214,168,94,0.10) 38%, rgba(255,255,255,0.04) 70%, rgba(255,255,255,0) 100%)'
-              }}
+             
             />
           </header>
 
@@ -3156,8 +2947,7 @@ export default function HomeDynamic() {
                     style={{
                       padding: 'clamp(1.1rem, 0.85rem + 0.7vw, 1.4rem)',
                       minHeight: 'clamp(15.5rem, 14rem + 3vw, 18rem)',
-                      background:
-                        'linear-gradient(165deg, rgba(18,14,10,0.78) 0%, rgba(10,8,6,0.72) 52%, rgba(0,0,0,0.82) 100%)',
+
                       border: open
                         ? '1px solid rgba(214,168,94,0.42)'
                         : '1px solid rgba(214,168,94,0.20)',
@@ -3223,10 +3013,7 @@ export default function HomeDynamic() {
                     <div
                       className="relative mt-3 h-px w-10"
                       aria-hidden
-                      style={{
-                        background:
-                          'linear-gradient(90deg, rgba(214,168,94,0.75) 0%, rgba(214,168,94,0.1) 100%)'
-                      }}
+                     
                     />
 
                     {/* Teaser — flex-grow füllt den Mittelteil, line-clamp hält Höhe konsistent */}
@@ -3251,10 +3038,7 @@ export default function HomeDynamic() {
                     >
                       <span
                         className="h-px w-5"
-                        style={{
-                          background:
-                            'linear-gradient(90deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0) 100%)'
-                        }}
+                       
                       />
                       <span
                         style={{
@@ -3291,8 +3075,7 @@ export default function HomeDynamic() {
                         <div
                           className="mt-2.5 rounded-xl px-4 py-4 sm:px-4 sm:py-4"
                           style={{
-                            background:
-                              'linear-gradient(160deg, rgba(18,14,10,0.94) 0%, rgba(8,6,4,0.88) 45%, rgba(0,0,0,0.82) 100%)',
+
                             border: '1px solid rgba(214,168,94,0.22)',
                             boxShadow:
                               '0 22px 56px -20px rgba(0,0,0,0.92), 0 0 0 1px rgba(214,168,94,0.08) inset',
@@ -3306,10 +3089,7 @@ export default function HomeDynamic() {
                                 <span
                                   aria-hidden
                                   className="mt-[0.52rem] block h-px w-3.5 shrink-0"
-                                  style={{
-                                    background:
-                                      'linear-gradient(90deg, rgba(214,168,94,0.85) 0%, rgba(214,168,94,0) 100%)'
-                                  }}
+                                 
                                 />
                                 <span
                                   style={{
@@ -3373,66 +3153,80 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px z-[3]"
           aria-hidden
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.22) 18%, rgba(214,168,94,0.42) 50%, rgba(214,168,94,0.22) 82%, rgba(214,168,94,0) 100%)'
-          }}
+         
         />
 
-        {/* Background-Bild — wie „Wo Klarheit wirkt“: max-width-Container, nicht full-bleed; scharf, volle Tiefe */}
+        {/* Background-Bild — Infinity-Plateau über dem Bronze-Horizont.
+            Scharf, kein Blur; dezente Color-Refine. Matte Tiefen-Lasuren statt Bild-Manipulation. */}
         <div className="pointer-events-none absolute inset-0 z-0 bg-black" aria-hidden>
           <div className="relative mx-auto h-full max-w-[1600px] px-6 sm:px-8 md:px-12 lg:px-16">
             <div className="absolute inset-y-0 overflow-hidden -left-6 -right-6 sm:-left-8 sm:-right-8 md:-left-12 md:-right-12 lg:-left-16 lg:-right-16 xl:-left-[5.5rem] xl:-right-[5.5rem]">
               <div
-                className="absolute inset-0"
+                className="voices-bg-img absolute inset-0"
                 style={{
-                  backgroundImage: 'url(/images/manifest/voices-threadstone-bg.png)',
+                  backgroundImage: 'url(/images/manifest/voices-horizon-pool-bg.png)',
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center center',
                   backgroundRepeat: 'no-repeat',
                   opacity: 1,
-                  filter: 'saturate(1.03) contrast(1.05)'
+                  filter: 'saturate(0.98) contrast(1.04)'
                 }}
               />
-              {/* Leichte Lasur nur zur Lesbarkeit — kein Weichzeichnen des Motivs */}
-              <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.14)' }} />
+              {/* Matter Tiefen-Wash — Bild rückt in dieselbe Lichtwelt wie die Section darüber */}
+              <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.20)' }} />
+              {/* Radiale Mattvignette — saubere Sektion-Kanten, Detail bleibt zentral erhalten */}
               <div
-                className="absolute inset-x-0 top-0 h-36 sm:h-44"
+                className="absolute inset-0"
                 style={{
                   background:
-                    'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.62) 40%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)'
+                    'radial-gradient(150% 110% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.70) 100%)'
                 }}
               />
+              {/* Top-Fade — verlängert, weicher Atemzug aus „Wo Klarheit wirkt“ in die Stille */}
               <div
-                className="absolute inset-x-0 bottom-0 h-36 sm:h-44"
+                className="absolute inset-x-0 top-0 h-44 sm:h-56"
+               
+              />
+              {/* Bottom-Fade — Brücke zur nächsten Section */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+               
+              />
+              {/* Warmer Bronze-Atem mittig — die Sonnen-Reflexion trägt subtil
+                  in den unteren Section-Saum und führt zum nächsten Kapitel. */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-32 sm:h-40 mix-blend-screen"
                 style={{
                   background:
-                    'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.62) 40%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)'
+                    'radial-gradient(60% 100% at 50% 100%, rgba(214,168,94,0.09) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
                 }}
               />
             </div>
           </div>
         </div>
 
-        {/* Lesbarkeits-Scrim links — Headline & Lead bleiben editorial lesbar */}
+        {/* Lesbarkeits-Scrim links — feiner kalibriert, damit der Bronze-Horizont
+            unter „Begleitung“ in der Headline durchatmen kann. */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 right-0 lg:right-[30%] z-[1]"
+          className="pointer-events-none absolute inset-y-0 left-0 right-0 lg:right-[34%] z-[1]"
           aria-hidden
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(0,0,0,0.74) 0%, rgba(0,0,0,0.48) 38%, rgba(0,0,0,0.18) 72%, rgba(0,0,0,0) 100%)'
-          }}
+         
         />
 
-        {/* Unterer Bereich etwas gebunden — Zitat-Karten bleiben sauber lesbar */}
+        {/* Unterer Lesbarkeits-Wash — verankert das Stimmen-Raster ruhig vor der Pool-Reflexion */}
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] max-h-[28rem] z-[1]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[44%] max-h-[28rem] z-[1]"
           aria-hidden
-          style={{
-            background:
-              'linear-gradient(0deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0) 100%)'
-          }}
+         
         />
+
+        {/* Bildposition responsiv — Horizont bleibt sichtbar, Reflexionsfläche
+            trägt die Testimonial-Karten. */}
+        <style>{`
+          .voices-bg-img { background-position: 58% 38%; }
+          @media (min-width: 768px) {
+            .voices-bg-img { background-position: center 42%; }
+          }
+        `}</style>
 
         <div className="relative z-[2] mx-auto max-w-[1320px] px-6 sm:px-8 md:px-12 lg:px-16 pt-14 sm:pt-16 md:pt-20 lg:pt-24 pb-14 sm:pb-16 md:pb-20 lg:pb-24">
 
@@ -3448,7 +3242,7 @@ export default function HomeDynamic() {
                 lineHeight: 1.04,
                 color: HOME_TEXT_CLEAR,
                 textShadow:
-                  '0 2px 18px rgba(0,0,0,0.88), 0 6px 32px rgba(0,0,0,0.55), 0 0 26px rgba(185,130,63,0.08)',
+                  '0 2px 18px rgba(0,0,0,0.88), 0 6px 32px rgba(0,0,0,0.55)',
                 WebkitFontSmoothing: 'antialiased',
                 MozOsxFontSmoothing: 'grayscale'
               }}
@@ -3457,10 +3251,7 @@ export default function HomeDynamic() {
               <span
                 style={{
                   fontWeight: 400,
-                  background: 'linear-gradient(180deg, #F2E2C0 0%, #D6A85E 38%, #B9823F 70%, #8A5528 100%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
+                  color: '#EADDCB'
                 }}
               >
                 Begleitung
@@ -3480,7 +3271,7 @@ export default function HomeDynamic() {
                 textShadow: '0 2px 14px rgba(0,0,0,0.72), 0 0 22px rgba(0,0,0,0.35)'
               }}
             >
-              Kurze Aussagen aus der Arbeit — ohne Inszenierung.
+              Kurze Aussagen aus der Transformation — ohne Inszenierung.
               <span style={{ color: 'rgba(255,250,242,0.92)' }}> Was sich nachhaltig verschoben hat.</span>
             </p>
 
@@ -3545,12 +3336,8 @@ export default function HomeDynamic() {
                       fontSize: '1.05rem',
                       fontWeight: 400,
                       letterSpacing: '0.02em',
-                      background:
-                        'linear-gradient(180deg, #E6C18A 0%, #B9823F 80%, #6A4A22 100%)',
-                      WebkitBackgroundClip: 'text',
-                      backgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      opacity: 0.75,
+                      color: 'rgba(201,163,112,0.82)',
+                      opacity: 0.85,
                       display: 'inline-block'
                     }}
                   >
@@ -3615,6 +3402,213 @@ export default function HomeDynamic() {
         </div>
       </section>
 
+      {/* Erste Orientierung — Klarcheck & Anamnese (editorial, vor Transformation) */}
+      <section
+        aria-labelledby="home-orientierung-heading"
+        className="relative w-full overflow-hidden border-t border-transparent"
+        data-section
+        data-section-id="orientierung-teaser"
+      >
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden max-md:min-h-[100%]" aria-hidden>
+          {/* Nahtlos aus schwarzem Abschnitt oben */}
+          <div
+            className="absolute inset-x-0 top-0 z-[3] h-36 pointer-events-none"
+            aria-hidden
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(2, 3, 5, 0.82) 0%, rgba(4, 5, 8, 0.28) min(92%,620px), transparent 100%)'
+            }}
+          />
+
+          <img
+            src="/images/home/orientierung-kueste-twilight.png"
+            alt=""
+            className="absolute inset-0 h-full min-h-[100%] w-full scale-[1.01] object-cover object-[52%_50%] sm:object-[55%_48%] lg:object-[52%_46%]"
+            loading="lazy"
+            decoding="async"
+          />
+          {/* Mobil: dunkle Lesefläche (Text mittig/oben auf Bild) */}
+          <div
+            className="absolute inset-0 md:hidden"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(6, 8, 12, 0.78) 0%, rgba(8, 10, 14, 0.48) min(78%,720px), rgba(12, 12, 15, 0.18) 100%), linear-gradient(90deg, rgba(8, 10, 15, 0.55) 0%, transparent min(94%,940px))'
+            }}
+          />
+          {/* Desktop: links Editorial-Korridor, rechts Küstenlicht sichtbar */}
+          <div
+            className="absolute inset-0 hidden md:block"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(7, 9, 14, 0.9) 0%, rgba(10, 12, 18, 0.58) min(48%,640px), rgba(16, 15, 18, 0.2) min(78%,940px), rgba(18, 17, 19, 0.04) min(94%,980px))'
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(120% 90% at 12% 32%, rgba(0, 0, 0, 0.52) 0%, transparent min(74%,940px)), radial-gradient(90% 80% at 100% 100%, rgba(0, 0, 0, 0.22) 0%, transparent 58%)'
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.055]"
+            style={{
+              background: 'linear-gradient(180deg, transparent 0%, rgba(4, 5, 8, 0.4) 100%)'
+            }}
+          />
+        </div>
+
+        <div className="relative z-[1] mx-auto max-w-[1600px] px-6 pb-14 pt-[2.5rem] sm:px-8 sm:pb-[3.25rem] sm:pt-[2.75rem] md:px-12 lg:min-h-[min(52svh,520px)] lg:px-16 lg:flex lg:flex-col lg:justify-center lg:pb-16 lg:pt-12">
+          <div className="mx-auto max-w-[40rem] text-center lg:mx-0 lg:max-w-[44rem] lg:text-left">
+            <h2
+              id="home-orientierung-heading"
+              className="m-0 font-medium tracking-[-0.034em] antialiased"
+              style={{
+                fontFamily: FONT_DISPLAY,
+                fontSize: 'clamp(1.3125rem, 0.94rem + 1.12vw, 1.9375rem)',
+                lineHeight: 1.22,
+                color: 'rgba(252, 246, 236, 0.98)',
+                textShadow:
+                  '0 1px 0 rgba(0,0,0,0.55), 0 22px 52px rgba(0,0,0,0.5), 0 0 56px rgba(0,0,0,0.25)'
+              }}
+            >
+              Nicht jede Situation braucht sofort eine Entscheidung.
+            </h2>
+            <p
+              className="m-0 mt-[1.125rem] max-w-[28rem] text-balance lg:max-w-[30rem]"
+              style={{
+                fontFamily: FONT_BODY,
+                fontSize: 'clamp(0.9375rem, 0.88rem + 0.2vw, 1.0625rem)',
+                fontWeight: 400,
+                lineHeight: 1.62,
+                letterSpacing: '-0.012em',
+                color: 'rgba(244, 242, 236, 0.94)',
+                textShadow:
+                  '0 2px 24px rgba(0, 0, 0, 0.82), 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 1px rgba(0, 0, 0, 0.6)'
+              }}
+            >
+              Manchmal hilft zuerst ein klarer Blick auf die eigene Situation.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-4 sm:mt-11 sm:gap-[1.125rem] lg:mx-0 lg:max-w-[52rem] lg:grid-cols-2">
+            <Link
+              to="/quiz"
+              className="group relative block rounded-[13px] border border-[rgba(214,168,94,0.22)] px-5 py-[1.1875rem] no-underline outline-none transition-[border-color,box-shadow,background-color] duration-300 sm:px-[1.25rem] sm:py-5 backdrop-blur-[12px] focus-visible:border-[rgba(214,168,94,0.32)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/80 hover:border-[rgba(214,168,94,0.28)] hover:shadow-[0_0_42px_-18px_rgba(185,130,63,0.12)]"
+              style={{
+
+                boxShadow:
+                  'inset 0 1px 0 rgba(255, 248, 238, 0.045), 0 1px 0 rgba(0,0,0,0.5), 0 28px 56px -30px rgba(0,0,0,0.75)'
+              }}
+            >
+              <span
+                className="pointer-events-none absolute inset-px rounded-[12px] opacity-[0.45]"
+                aria-hidden
+               
+              />
+              <div className="relative">
+                <h3
+                  className="m-0 font-semibold tracking-[-0.022em]"
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontSize: 'clamp(1.03125rem, 0.95rem + 0.28vw, 1.2rem)',
+                    letterSpacing: '-0.022em',
+                    lineHeight: 1.3,
+                    color: 'rgba(252, 247, 236, 0.96)'
+                  }}
+                >
+                  Klarcheck
+                </h3>
+                <p
+                  className="m-0 mt-2"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.828125rem, 0.79rem + 0.13vw, 0.890625rem)',
+                    lineHeight: 1.56,
+                    fontWeight: 400,
+                    letterSpacing: '-0.008em',
+                    color: 'rgba(234, 224, 206, 0.9)'
+                  }}
+                >
+                  Eine ruhige erste Orientierung für aktuelle Herausforderungen und innere Unklarheit.
+                </p>
+                <span
+                  className="mt-[1.0625rem] inline-flex font-medium transition-colors duration-300 group-hover:text-[rgba(240,226,196,0.92)]"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.796875rem, 0.765rem + 0.09vw, 0.84375rem)',
+                    letterSpacing: '0.05em',
+                    color: 'rgba(208, 182, 144, 0.82)'
+                  }}
+                >
+                  <span className="inline-flex items-center gap-1.5">
+                    Orientierung starten
+                    <ChevronsRight size={14} strokeWidth={2.35} className="opacity-90" aria-hidden />
+                  </span>
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              to="/anamnesis"
+              className="group relative block rounded-[13px] border border-[rgba(214,168,94,0.22)] px-5 py-[1.1875rem] no-underline outline-none transition-[border-color,box-shadow,background-color] duration-300 sm:px-[1.25rem] sm:py-5 backdrop-blur-[12px] focus-visible:border-[rgba(214,168,94,0.32)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.24)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/80 hover:border-[rgba(214,168,94,0.28)] hover:shadow-[0_0_42px_-18px_rgba(185,130,63,0.12)]"
+              style={{
+
+                boxShadow:
+                  'inset 0 1px 0 rgba(255, 248, 238, 0.045), 0 1px 0 rgba(0,0,0,0.5), 0 28px 56px -30px rgba(0,0,0,0.75)'
+              }}
+            >
+              <span
+                className="pointer-events-none absolute inset-px rounded-[12px] opacity-[0.45]"
+                aria-hidden
+               
+              />
+              <div className="relative">
+                <h3
+                  className="m-0 font-semibold tracking-[-0.022em]"
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontSize: 'clamp(1.03125rem, 0.95rem + 0.28vw, 1.2rem)',
+                    letterSpacing: '-0.022em',
+                    lineHeight: 1.3,
+                    color: 'rgba(252, 247, 236, 0.96)'
+                  }}
+                >
+                  Anamnese
+                </h3>
+                <p
+                  className="m-0 mt-2"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.828125rem, 0.79rem + 0.13vw, 0.890625rem)',
+                    lineHeight: 1.56,
+                    fontWeight: 400,
+                    letterSpacing: '-0.008em',
+                    color: 'rgba(234, 224, 206, 0.9)'
+                  }}
+                >
+                  Ein strukturierter Einstieg zur tieferen Analyse Ihrer aktuellen Situation.
+                </p>
+                <span
+                  className="mt-[1.0625rem] inline-flex font-medium transition-colors duration-300 group-hover:text-[rgba(240,226,196,0.92)]"
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 'clamp(0.796875rem, 0.765rem + 0.09vw, 0.84375rem)',
+                    letterSpacing: '0.05em',
+                    color: 'rgba(208, 182, 144, 0.82)'
+                  }}
+                >
+                  <span className="inline-flex items-center gap-1.5">
+                    Analyse beginnen
+                    <ChevronsRight size={14} strokeWidth={2.35} className="opacity-90" aria-hidden />
+                  </span>
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── FINAL CTA — „Ein Gespräch kann viel ordnen“ ── */}
       <section
         className="relative isolate overflow-hidden"
@@ -3675,10 +3669,7 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-x-0 top-0 h-px"
           aria-hidden
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.20) 20%, rgba(214,168,94,0.38) 50%, rgba(214,168,94,0.20) 80%, rgba(214,168,94,0) 100%)'
-          }}
+         
         />
 
         <div className="relative z-[1] mx-auto max-w-[920px] px-6 sm:px-8 md:px-12 lg:px-16 pt-14 sm:pt-16 md:pt-20 lg:pt-24 pb-14 sm:pb-16 md:pb-20 lg:pb-24 text-center">
@@ -3704,11 +3695,8 @@ export default function HomeDynamic() {
             <span
               style={{
                 fontWeight: 400,
-                background: 'linear-gradient(180deg, #F2E2C0 0%, #D6A85E 38%, #B9823F 70%, #8A5528 100%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
+
+                }}
             >
               Gespräch
             </span>
@@ -3749,8 +3737,7 @@ export default function HomeDynamic() {
               className="cta-primary group relative inline-flex items-center justify-center gap-2.5 rounded-[14px]"
               style={{
                 padding: '0.95rem 1.85rem',
-                background:
-                  'linear-gradient(180deg, rgba(244,239,231,0.16) 0%, rgba(230,193,138,0.10) 55%, rgba(214,168,94,0.06) 100%)',
+
                 border: '1px solid rgba(230,193,138,0.34)',
                 boxShadow:
                   '0 1px 0 rgba(244,239,231,0.35) inset, 0 0 0 1px rgba(230,193,138,0.06) inset, 0 0 22px rgba(214,168,94,0.20), 0 0 60px rgba(185,130,63,0.10), 0 6px 18px rgba(0,0,0,0.4)'
@@ -3759,10 +3746,7 @@ export default function HomeDynamic() {
               <span
                 aria-hidden
                 className="pointer-events-none absolute inset-0 rounded-[14px] overflow-hidden"
-                style={{
-                  background:
-                    'linear-gradient(180deg, rgba(244,239,231,0.20) 0%, rgba(244,239,231,0) 45%)'
-                }}
+               
               />
               <span
                 className="relative"
@@ -3776,7 +3760,7 @@ export default function HomeDynamic() {
               >
                 Zeit reservieren
               </span>
-              <ArrowRight
+              <ChevronsRight
                 className="relative h-4 w-4 transition-transform duration-400 group-hover:translate-x-[3px]"
                 strokeWidth={2}
                 style={{ color: '#FFFAF2' }}
@@ -3824,10 +3808,7 @@ export default function HomeDynamic() {
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-36 sm:h-44 z-[1]"
           aria-hidden
-          style={{
-            background:
-              'linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.62) 40%, rgba(0,0,0,0.2) 78%, rgba(0,0,0,0) 100%)'
-          }}
+         
         />
       </section>
 
@@ -3865,15 +3846,18 @@ export default function HomeDynamic() {
             <div className="flex min-w-0 w-full flex-col lg:max-w-[min(680px,100%)]">
               <div className="flex flex-col space-y-7 md:space-y-9">
                 <h2
-                  className="m-0 font-black tracking-tight text-white"
+                  className="m-0 tracking-tight text-[#f4f4f4]"
                   style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontWeight: 300,
                     fontSize:
                       'clamp(2.5rem, 1.85rem + 2.85vw, 4rem)',
                     lineHeight: 1.14,
-                    textShadow: '0 4px 40px rgba(185, 130, 63, 0.22)'
+                    letterSpacing: '-0.03em',
+                    textShadow: '0 8px 32px rgba(0,0,0,0.45)'
                   }}
                 >
-                  <span className="inline-block bg-gradient-to-r from-yellow-100 via-yellow-300 to-yellow-500 bg-clip-text text-transparent">
+                  <span className="inline-block text-[#EADDCB]" style={{ fontFamily: FONT_DISPLAY, fontWeight: 300 }}>
                     Präzision trifft Tiefe
                   </span>
                 </h2>
@@ -3911,7 +3895,7 @@ export default function HomeDynamic() {
                       <div
                         className="mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-lg transition-transform duration-300"
                         style={{
-                          background: 'linear-gradient(135deg, #B9823F 0%, #8A5528 100%)',
+
                           boxShadow: '0 2px 8px rgba(185, 130, 63, 0.18)'
                         }}
                       >
@@ -3919,9 +3903,13 @@ export default function HomeDynamic() {
                       </div>
                       <h4 className="mb-1 text-[11px] font-black tracking-tight text-white">{item.title}</h4>
                       <p className="m-0 text-[10px] leading-snug text-white/55">
-                        <span aria-hidden="true" className="text-white/30">
-                          →{' '}
-                        </span>
+                        <ChevronsRight
+                          aria-hidden="true"
+                          className="mt-px inline shrink-0 text-white/35"
+                          size={13}
+                          strokeWidth={2.5}
+                        />
+                        <span aria-hidden className="inline w-1.5 shrink-0" />
                         {item.line}
                       </p>
                     </div>
@@ -3939,7 +3927,7 @@ export default function HomeDynamic() {
                   className="metallic-bronze-button btn-bronze group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[0.95rem]"
                 >
                   <span>Erstgespräch anfragen</span>
-                  <ArrowRight className="h-[17px] w-[17px] transition-transform duration-300 group-hover:translate-x-[2px]" strokeWidth={2.5} />
+                  <ChevronsRight className="h-[17px] w-[17px] transition-transform duration-300 group-hover:translate-x-[2px]" strokeWidth={2.5} />
                 </button>
                 <p
                   className="m-0 pl-0.5 text-[10px] font-medium leading-relaxed tracking-[0.12em] uppercase"
@@ -3962,16 +3950,14 @@ export default function HomeDynamic() {
               className="text-left group"
             >
               <div className="relative rounded-2xl p-6" style={{
-                background: 'linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(10,10,10,0.9) 100%)',
+
                 border: expandedPanels.promise ? '1px solid rgba(185, 130, 63, 0.4)' : '1px solid rgba(185, 130, 63, 0.2)',
                 boxShadow: expandedPanels.promise ? '0 12px 40px rgba(185, 130, 63, 0.15)' : '0 8px 24px rgba(0,0,0,0.3)',
                 transition: 'all 0.3s'
               }}>
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{
-                      background: 'linear-gradient(135deg, #B9823F 0%, #8A5528 100%)'
-                    }}>
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center">
                       <Star className="w-5 h-5 text-black" strokeWidth={2.5} />
                     </div>
                     <h3 className="text-xl font-black text-white">Kernversprechen</h3>
@@ -3998,9 +3984,7 @@ export default function HomeDynamic() {
                         background: 'rgba(185, 130, 63, 0.08)',
                         border: '1px solid rgba(185, 130, 63, 0.15)'
                       }}>
-                        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{
-                          background: 'linear-gradient(135deg, #B9823F 0%, #8A5528 100%)'
-                        }}>
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0">
                           {item.icon}
                         </div>
                         <div>
@@ -4020,7 +4004,7 @@ export default function HomeDynamic() {
               className="text-left group"
             >
               <div className="relative rounded-2xl p-6" style={{
-                background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.12) 0%, rgba(122, 74, 36, 0.08) 100%)',
+
                 border: expandedPanels.how ? '1px solid rgba(185, 130, 63, 0.4)' : '1px solid rgba(185, 130, 63, 0.2)',
                 boxShadow: expandedPanels.how ? '0 12px 40px rgba(185, 130, 63, 0.15)' : '0 8px 24px rgba(0,0,0,0.3)',
                 transition: 'all 0.3s'
@@ -4049,9 +4033,7 @@ export default function HomeDynamic() {
                         background: 'rgba(255,255,255,0.05)',
                         border: '1px solid rgba(185, 130, 63, 0.15)'
                       }}>
-                        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{
-                          background: 'linear-gradient(135deg, #B9823F 0%, #8A5528 100%)'
-                        }}>
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0">
                           {item.icon}
                         </div>
                         <div>
@@ -4081,22 +4063,19 @@ export default function HomeDynamic() {
               >
                 <Calendar className="w-4 h-4" strokeWidth={2.2} />
                 Erstgespräch vereinbaren
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" strokeWidth={2.2} />
+                <ChevronsRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" strokeWidth={2.2} />
               </button>
               <button
+                type="button"
                 onClick={() => {
-                  const seminarsSection = document.querySelector('[data-section="seminars"]');
-                  if (seminarsSection) seminarsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  navigate('/formate');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="group flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium text-white/90 transition-all duration-300 hover:bg-white/[0.10] hover:-translate-y-[1px]"
-                style={{
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.12)'
-                }}
+                className="portfolio-cta-cool-to-bronze group inline-flex items-center gap-2 px-6 py-3 text-sm rounded-[11px]"
               >
-                <Book className="w-4 h-4 text-white/70" strokeWidth={2.2} />
-                Formate entdecken
-                <ArrowRight className="w-4 h-4 text-white/70 group-hover:translate-x-1 transition-transform" strokeWidth={2.2} />
+                <Book className="w-4 h-4 transition-colors duration-300 opacity-90 group-hover:opacity-100" strokeWidth={2.2} />
+                Portfolio ansehen
+                <ChevronsRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.2} aria-hidden />
               </button>
             </div>
           </div>
@@ -4137,11 +4116,8 @@ export default function HomeDynamic() {
               <span
                 style={{
                   fontWeight: 400,
-                  background: 'linear-gradient(180deg, #F2E2C0 0%, #D6A85E 38%, #B9823F 70%, #8A5528 100%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
-                }}
+
+                  }}
               >
                 {anchor.mainText}
               </span>

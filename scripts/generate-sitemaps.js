@@ -21,15 +21,15 @@ const SERVICE_LABELS = {
   coaching: 'Coaching & Mentoring',
   keynotes: 'Keynote-Vorträge',
   corporate: 'Corporate-Programme',
-  transformation: 'Die Arbeit',
-  resources: 'Die Arbeit',
+  transformation: 'Orientierung',
+  resources: 'Orientierung',
   booking: 'Termin buchen',
 };
 const LANGS = ['', '/en', '/ru'];
 
 const MAIN_PAGES = [
   { loc: '/', priority: '1.0', freq: 'daily', label: 'Startseite' },
-  { loc: '/die-arbeit', priority: '0.9', freq: 'monthly', label: 'Die Arbeit' },
+  { loc: '/die-arbeit', priority: '0.9', freq: 'monthly', label: 'Orientierung' },
   { loc: '/seminare', priority: '0.9', freq: 'weekly', label: 'Seminare & Workshops' },
   { loc: '/coaching', priority: '0.9', freq: 'weekly', label: 'Coaching & Mentoring' },
   { loc: '/keynotes', priority: '0.8', freq: 'monthly', label: 'Keynote-Vorträge' },

@@ -1,6 +1,6 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Minus, CheckCircle2, Brain, ArrowRight } from 'lucide-react';
+import { Plus, Minus, CheckCircle2, Brain, ChevronsRight } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 interface QuizQuestion {
@@ -400,15 +400,16 @@ export default function ConsciousnessQuiz() {
             >
               <Brain size={15} strokeWidth={1.9} aria-hidden />
               Gespräch mit mir anfragen
-              <ArrowRight size={14} strokeWidth={2} aria-hidden />
+              <ChevronsRight size={14} strokeWidth={2} aria-hidden />
             </Link>
             <div className="mt-4">
               <Link
                 to="/booking"
-                className="text-[12px] font-light underline-offset-4 transition-opacity hover:opacity-90"
+                className="inline-flex items-center gap-1.5 text-[12px] font-light underline-offset-4 transition-opacity hover:opacity-90"
                 style={{ color: BRONZE_MUTED }}
               >
-                Oder Termin buchen →
+                Oder Termin buchen
+                <ChevronsRight size={13} strokeWidth={2.25} aria-hidden className="opacity-90" />
               </Link>
             </div>
           </div>
@@ -520,7 +521,7 @@ export default function ConsciousnessQuiz() {
               }}
             >
               Weiter zum Klarcheck
-              <ArrowRight size={14} strokeWidth={2} aria-hidden />
+              <ChevronsRight size={14} strokeWidth={2} aria-hidden />
             </button>
 
             <p className="m-0 mt-4 text-center text-[11px] font-light leading-[1.45]" style={{ color: 'rgba(238,230,216,0.4)' }}>
@@ -779,7 +780,7 @@ export default function ConsciousnessQuiz() {
             ) : (
               <>
                 Auswertung ansehen
-                <ArrowRight size={14} strokeWidth={2} aria-hidden />
+                <ChevronsRight size={14} strokeWidth={2} aria-hidden />
               </>
             )}
           </button>

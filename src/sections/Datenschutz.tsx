@@ -186,7 +186,7 @@ export default function Datenschutz() {
         },
         {
           label: 'Rechtsgrundlage',
-          value: 'Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, da die Datenverarbeitung zur Erfüllung des Buchungsvertrags erforderlich ist. Ohne diese Daten können wir die Buchung nicht bearbeiten und die Dienstleistung nicht erbringen.',
+          value: 'Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, da die Datenverarbeitung zur Erfüllung des Buchungsvertrags erforderlich ist. Ohne diese Daten können wir die Buchung nicht abschließen und die Dienstleistung nicht erbringen.',
           isText: true
         },
         {
@@ -194,7 +194,7 @@ export default function Datenschutz() {
           value: 'Die erhobenen Daten verwenden wir ausschließlich für folgende Zwecke:',
           isList: true,
           items: [
-            'Bearbeitung und Bestätigung Ihrer Buchung',
+            'Abwicklung und Bestätigung Ihrer Buchung',
             'Kommunikation bezüglich der gebuchten Dienstleistung',
             'Versand von Buchungsbestätigungen und Erinnerungen per E-Mail',
             'Terminkoordination und Planung',
@@ -215,7 +215,7 @@ export default function Datenschutz() {
         },
         {
           label: 'Automatisierte Entscheidungsfindung',
-          value: 'Bei der Buchungsabwicklung findet keine automatisierte Entscheidungsfindung einschließlich Profiling gemäß Art. 22 DSGVO statt. Jede Buchung wird individuell geprüft und bearbeitet.',
+          value: 'Bei der Buchungsabwicklung findet keine automatisierte Entscheidungsfindung einschließlich Profiling gemäß Art. 22 DSGVO statt. Jede Buchung wird individuell geprüft und freigegeben.',
           isText: true
         }
       ]
@@ -227,12 +227,12 @@ export default function Datenschutz() {
       content: [
         {
           label: 'E-Mail-Kontakt',
-          value: 'Bei der Kontaktaufnahme per E-Mail (mail@anatoly-mook.de) werden die von Ihnen mitgeteilten Daten (Name, E-Mail-Adresse, Nachrichteninhalt) bei uns gespeichert, um Ihre Anfrage zu bearbeiten. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung Ihrer Anfrage) oder lit. b DSGVO, wenn Ihre Anfrage auf einen Vertragsabschluss abzielt.',
+          value: 'Bei der Kontaktaufnahme per E-Mail (mail@anatoly-mook.de) werden die von Ihnen mitgeteilten Daten (Name, E-Mail-Adresse, Nachrichteninhalt) bei uns gespeichert, um Ihre Anfrage zu beantworten. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung Ihrer Anfrage) oder lit. b DSGVO, wenn Ihre Anfrage auf einen Vertragsabschluss abzielt.',
           isText: true
         },
         {
           label: 'Telefonischer Kontakt',
-          value: 'Bei der Kontaktaufnahme per Telefon (02303 334 0628) werden keine personenbezogenen Daten automatisiert erfasst oder gespeichert, es sei denn, Sie willigen in eine Aufzeichnung ein oder wir sind gesetzlich dazu verpflichtet. Notizen zu Telefonaten werden nur zur Bearbeitung Ihres Anliegens gespeichert.',
+          value: 'Bei der Kontaktaufnahme per Telefon (02303 334 0628) werden keine personenbezogenen Daten automatisiert erfasst oder gespeichert, es sei denn, Sie willigen in eine Aufzeichnung ein oder wir sind gesetzlich dazu verpflichtet. Notizen zu Telefonaten werden nur zur Klärung Ihres Anliegens gespeichert.',
           isText: true
         },
         {
@@ -607,7 +607,7 @@ export default function Datenschutz() {
       content: [
         {
           label: 'Beschreibung',
-          value: 'Wir nutzen ein Content Delivery Network (CDN), um Inhalte unserer Website schneller auszuliefern. Ein CDN ist ein Netzwerk geografisch verteilter Server, die zusammenarbeiten, um Inhalte schnell an Nutzer zu übermitteln.',
+          value: 'Wir nutzen ein Content Delivery Network (CDN), um Inhalte unserer Website schneller auszuliefern. Ein CDN ist ein Netzwerk geografisch verteilter Server, die aufeinander abgestimmt Inhalte schnell an Nutzer übermitteln.',
           isText: true
         },
         {

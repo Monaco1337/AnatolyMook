@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Minus, Brain, Heart, Sparkles, ArrowRight } from 'lucide-react';
+import { Plus, Minus, Brain, Heart, Sparkles, ChevronsRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export type AwarenessModuleVariant = 'default' | 'cardsOnly' | 'paradigmaOnly';
@@ -112,7 +112,7 @@ export default function AwarenessModule({ variant = 'default' }: { variant?: Awa
                 <span className="text-yellow-400">{t.awarenessModule.finalMessage1}</span> {t.awarenessModule.finalMessage2}
                 <br />
                 <span className="text-white/90">{t.awarenessModule.finalMessage3}</span>{' '}
-                <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent font-bold">{t.awarenessModule.finalMessage4}</span>
+                <span className="text-[#EADDCB]">{t.awarenessModule.finalMessage4}</span>
                 <span className="text-white/90">{t.awarenessModule.finalMessage5}</span>
               </p>
             </div>
@@ -159,7 +159,7 @@ export default function AwarenessModule({ variant = 'default' }: { variant?: Awa
             <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-5 md:mb-6">
               <div className="h-[1px] w-6 sm:w-8 md:w-10 lg:w-12 bg-gradient-to-r from-transparent via-yellow-400/50 to-yellow-400/80" />
               <div className="w-1 h-1 rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(185, 130, 63, 0.6)]" />
-              <span className="text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] font-black tracking-[0.25em] sm:tracking-[0.3em] bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent uppercase" style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900 }}>
+              <span className="text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] font-black tracking-[0.25em] sm:tracking-[0.3em] text-[#EADDCB] uppercase" style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900 }}>
                 {t.awarenessModule.badge}
               </span>
               <div className="w-1 h-1 rounded-full bg-yellow-400 shadow-[0_0_15px_rgba(185, 130, 63, 0.6)]" />
@@ -170,7 +170,7 @@ export default function AwarenessModule({ variant = 'default' }: { variant?: Awa
               className="text-[1.75rem] sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black text-white tracking-tight leading-[1.1]"
               style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900, letterSpacing: '-0.03em' }}
             >
-              <span className="block bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.3)]">
+              <span className="block text-[#EADDCB] drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.3)]">
                 {t.awarenessModule.heading}
               </span>
             </h2>
@@ -212,7 +212,7 @@ export default function AwarenessModule({ variant = 'default' }: { variant?: Awa
                 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-black text-white tracking-tight leading-[1.1]"
                 style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", fontWeight: 900, letterSpacing: '-0.03em' }}
               >
-                <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.3)]">
+                <span className="text-[#EADDCB] drop-shadow-[0_0_30px_rgba(185, 130, 63, 0.3)]">
                   {t.awarenessModule.transformationTitle1}
                 </span>
                 <span className="block mt-1 sm:mt-1.5 md:mt-2">{t.awarenessModule.transformationTitle2}</span>
@@ -283,7 +283,7 @@ export default function AwarenessModule({ variant = 'default' }: { variant?: Awa
                     <div className="space-y-2 sm:space-y-2.5 animate-fade-in">
                       {t.awarenessModule.unconscious.details.map((detail, idx) => (
                         <div key={idx} className="flex items-start gap-2 sm:gap-2.5 md:gap-3 group">
-                          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 sm:mt-1 text-red-400/60 group-hover:text-red-400 transition-colors flex-shrink-0" strokeWidth={2} />
+                          <ChevronsRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 sm:mt-1 text-red-400/60 group-hover:text-red-400 transition-colors flex-shrink-0" strokeWidth={2} />
                           <p className="text-xs sm:text-sm md:text-base text-white/70 group-hover:text-white/90 font-light leading-relaxed transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
                             {detail}
                           </p>
@@ -372,7 +372,7 @@ export default function AwarenessModule({ variant = 'default' }: { variant?: Awa
                     <div className="space-y-2 sm:space-y-2.5 animate-fade-in">
                       {t.awarenessModule.conscious.details.map((detail, idx) => (
                         <div key={idx} className="flex items-start gap-2 sm:gap-2.5 md:gap-3 group">
-                          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 sm:mt-1 text-yellow-400/70 group-hover:text-yellow-400 transition-colors flex-shrink-0" strokeWidth={2} />
+                          <ChevronsRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 sm:mt-1 text-yellow-400/70 group-hover:text-yellow-400 transition-colors flex-shrink-0" strokeWidth={2} />
                           <p className="text-xs sm:text-sm md:text-base text-white/80 group-hover:text-white font-light leading-relaxed transition-colors" style={{ fontFamily: "'Inter', sans-serif" }}>
                             {detail}
                           </p>
@@ -503,7 +503,7 @@ export default function AwarenessModule({ variant = 'default' }: { variant?: Awa
                   <p className="relative text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 font-light leading-relaxed max-w-3xl mx-auto px-6" style={{ fontFamily: "'SF Pro Display', 'Inter', sans-serif", letterSpacing: '-0.01em' }}>
                     <span className="text-yellow-400">{t.awarenessModule.finalMessage1}</span> {t.awarenessModule.finalMessage2}
                     <br />
-                    <span className="text-white/90">{t.awarenessModule.finalMessage3}</span> <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-orange-500 bg-clip-text text-transparent font-bold">{t.awarenessModule.finalMessage4}</span><span className="text-white/90">{t.awarenessModule.finalMessage5}</span>
+                    <span className="text-white/90">{t.awarenessModule.finalMessage3}</span> <span className="text-[#EADDCB]">{t.awarenessModule.finalMessage4}</span><span className="text-white/90">{t.awarenessModule.finalMessage5}</span>
                   </p>
                 </div>
               </div>

@@ -5,14 +5,14 @@ import { europeanCities } from '../../utils/localSEO';
 import SEOHead from '../../components/SEOHead';
 import { localBusinessSchema, breadcrumbSchema } from '../../seo/schemaFactory';
 import InternalLinks from '../../components/InternalLinks';
-import { MapPin, ArrowRight, ChevronRight } from 'lucide-react';
+import { MapPin, ChevronsRight, ChevronRight } from 'lucide-react';
 
 const serviceList = [
   { slug: 'seminare', de: 'Seminare & Workshops', en: 'Seminars & Workshops', ru: 'Семинары', icon: '📚' },
   { slug: 'coaching', de: 'Coaching & Mentoring', en: 'Coaching & Mentoring', ru: 'Коучинг', icon: '🎯' },
   { slug: 'keynotes', de: 'Keynote-Vorträge', en: 'Keynote Speaking', ru: 'Ки-ноуты', icon: '🎤' },
   { slug: 'corporate', de: 'Corporate-Programme', en: 'Corporate Programs', ru: 'Корпоративные', icon: '🏢' },
-  { slug: 'transformation', de: 'Die Arbeit', en: 'The Work', ru: 'Работа', icon: '✨' },
+  { slug: 'transformation', de: 'Orientierung', en: 'Orientation', ru: 'Ориентация', icon: '✨' },
 ];
 
 export default function CityOverviewPage() {
@@ -90,7 +90,7 @@ export default function CityOverviewPage() {
                   {language === 'en' ? svc.en : language === 'ru' ? svc.ru : svc.de}
                 </h2>
                 <span className="inline-flex items-center gap-1 text-sm text-amber-500">
-                  {language === 'en' ? 'Learn more' : language === 'ru' ? 'Подробнее' : 'Mehr erfahren'} <ArrowRight className="w-3 h-3" />
+                  {language === 'en' ? 'Learn more' : language === 'ru' ? 'Подробнее' : 'Mehr erfahren'} <ChevronsRight className="w-3 h-3" />
                 </span>
               </Link>
             ))}

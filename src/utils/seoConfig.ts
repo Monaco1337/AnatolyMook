@@ -15,7 +15,7 @@ export interface SectionSEO {
 export const sectionSEOConfig: Record<string, SectionSEO> = {
   home: {
     title: 'Anatoly Mook – Klarheit, bewusste Führung & persönliche Meisterschaft',
-    description: 'Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen – klar, präzise, wirksam.',
+    description: 'Anatoly Mook steht für Klarheit statt Suche. Orientierung, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen – klar, präzise, wirksam.',
     keywords: ['Anatoly Mook', 'Bewusstsein', 'Klarheit', 'bewusste Führung', 'persönliche Meisterschaft', 'Transformation', 'Coaching', 'Seminare', 'Mentoring'],
     ogImage: HERO_PORTRAIT.absPng,
     ogImageWidth: HERO_PORTRAIT.width,
@@ -24,10 +24,10 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
     schemaType: 'WebPage'
   },
   'die-arbeit': {
-    title: 'Die Arbeit – Klarheit, Führung & ruhige Beratung | Anatoly Mook',
+    title: 'Orientierung – Klarheit, Führung & ruhige Beratung | Anatoly Mook',
     description:
-      'Wie die Zusammenarbeit aufgebaut ist: Präsenz, Ordnung, Führungskraft — und wo Klarheit im Leben wieder wirken darf. Ruhige Beratung, keine laute Oberfläche.',
-    keywords: ['Anatoly Mook', 'Die Arbeit', 'Klarheit', 'Führung', 'Beratung', 'Executive', 'Orientierung'],
+      'So ist die Begleitung aufgebaut: Präsenz, Ordnung, Führungskraft — und wo Klarheit im Leben wieder wirken darf. Ruhige Beratung, keine laute Oberfläche.',
+    keywords: ['Anatoly Mook', 'Orientierung', 'Klarheit', 'Führung', 'Beratung', 'Executive', 'Bewusstsein'],
     ogImage: HERO_PORTRAIT.absPng,
     ogImageWidth: HERO_PORTRAIT.width,
     ogImageHeight: HERO_PORTRAIT.height,
@@ -37,7 +37,7 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
   about: {
     title: 'Methode – Klarheit, Führungsstabilität & präzise Umsetzung | Anatoly Mook',
     description:
-      'Wie die Arbeit aufgebaut ist: Wahrnehmung, Ordnung und Umsetzung — ruhige Analyse, keine Oberflächlichkeit, tragfähige Stabilität für Unternehmer und Führungskräfte.',
+      'Wie Begleitung und Umsetzung ineinandergreifen: Wahrnehmung, Ordnung, Wirkung — ruhige Analyse, keine Oberflächlichkeit, tragfähige Stabilität für Unternehmer und Führungskräfte.',
     keywords: ['Anatoly Mook', 'Methode', 'Klarheit', 'Führung', 'Executive Beratung', 'Entscheidungsfindung'],
     ogImage: HERO_PORTRAIT.absPng,
     ogImageWidth: HERO_PORTRAIT.width,
@@ -105,7 +105,7 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
   },
   blog: {
     title: 'Blog – Artikel zu Bewusstsein, Klarheit & persönlicher Meisterschaft',
-    description: 'Aktuelle Artikel, Insights und Perspektiven zu Bewusstseinsarbeit, Klarheit, bewusster Führung und persönlicher Meisterschaft von Anatoly Mook.',
+    description: 'Aktuelle Artikel, Insights und Perspektiven zu Bewusstseinsführung, Klarheit, bewusster Führung und persönlicher Meisterschaft von Anatoly Mook.',
     keywords: ['Blog', 'Artikel', 'Insights', 'Bewusstsein', 'Klarheit', 'Persönliche Meisterschaft'],
     schemaType: 'Article'
   },
@@ -117,7 +117,7 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
   },
   faq: {
     title: 'FAQ – Häufig gestellte Fragen zu Coaching & Seminaren',
-    description: 'Antworten auf häufig gestellte Fragen zu Coaching, Seminaren, Methoden und der Zusammenarbeit mit Anatoly Mook.',
+    description: 'Antworten auf häufig gestellte Fragen zu Coaching, Seminaren, Methoden und der Begleitung mit Anatoly Mook.',
     keywords: ['FAQ', 'Fragen', 'Antworten', 'Häufig gestellte Fragen', 'Coaching FAQ'],
     schemaType: 'FAQPage'
   },
@@ -129,7 +129,7 @@ export const sectionSEOConfig: Record<string, SectionSEO> = {
   },
   kontakt: {
     title: 'Kontakt – Anatoly Mook für Coaching & Seminare erreichen',
-    description: 'Kontaktieren Sie Anatoly Mook für Coaching, Seminare, Keynotes oder individuelle Anfragen. Persönlicher Kontakt für eine nachhaltige Zusammenarbeit.',
+    description: 'Kontaktieren Sie Anatoly Mook für Coaching, Seminare, Keynotes oder individuelle Anfragen. Persönlicher Kontakt für eine tragfähige Begleitung.',
     keywords: ['Kontakt', 'Anfrage', 'Beratung', 'Termin vereinbaren', 'Kontaktformular'],
     schemaType: 'WebPage'
   },

@@ -49,7 +49,7 @@ export const STATIC_SEMINARS: Seminar[] = [
     subtitle: 'Drei Tage in Stille, Struktur und Klarheit.',
     tagline: 'Vom Denken ins Sein — der direkte Weg zur inneren Klarheit.',
     description:
-      'Drei Tage intensive Bewusstseinsarbeit. Sie lernen, den Verstand zu beruhigen, Klarheit zu finden und aus innerer Stille heraus zu handeln. Keine Theorie — reine Praxis, präzise geführt.',
+      'Drei Tage intensive Bewusstseinsvertiefung. Sie lernen, den Verstand zu beruhigen, Klarheit zu finden und aus innerer Stille heraus zu handeln. Keine Theorie — reine Praxis, präzise geführt.',
     essence:
       'Klarheit ist kein Zustand, den man erreicht. Es ist das, was bleibt, wenn man aufhört zu suchen.',
     duration: '3 Tage',
@@ -101,7 +101,7 @@ export const STATIC_SEMINARS: Seminar[] = [
     subtitle: 'Fünf Tage Masterclass für Verantwortliche.',
     tagline: 'Wer sich selbst führen kann, führt andere mit natürlicher Autorität.',
     description:
-      'Die intensive Masterclass für Führungskräfte, die ihre Wirksamkeit auf ein neues Level bringen. Fünf Tage Tiefenarbeit an Präsenz, Entscheidungsstärke und authentischer Führung.',
+      'Die intensive Masterclass für Führungskräfte, die ihre Wirksamkeit auf ein neues Level bringen. Fünf Tage intensive Vertiefung in Präsenz, Entscheidungsstärke und authentischer Führung.',
     essence: 'Echte Führung braucht keinen Druck. Sie entsteht aus Klarheit und Präsenz.',
     duration: '5 Tage',
     price: 'Ab 3.900 €',
@@ -286,7 +286,7 @@ export const STATIC_SEMINARS: Seminar[] = [
         tag: 'Samstag',
         title: 'Öffnung & Tiefe',
         content:
-          'Ankommen, Ausrichtung finden und in die Tiefe der Bewusstseinsarbeit eintauchen.'
+          'Ankommen, Ausrichtung finden und in die Tiefe der Bewusstseinsführung eintauchen.'
       },
       {
         tag: 'Sonntag',

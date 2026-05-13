@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
-  ArrowRight,
+  ChevronsRight,
   Loader2,
   CheckCircle2,
 } from 'lucide-react';
@@ -324,7 +324,7 @@ export default function BookingPremium() {
 
             <ul className="mt-10 space-y-3.5 max-w-[460px]" style={{ fontFamily: FONT_BODY }}>
               {[
-                <>Ich lese persönlich — nichts wird automatisiert verarbeitet.</>,
+                <>Ich lese persönlich — nichts wird automatisiert ausgewertet.</>,
                 <>Ich melde mich innerhalb von <Hl>24 Stunden</Hl>.</>,
                 <>Alles bleibt <Hl>vertraulich</Hl> — das ist die Grundregel.</>,
               ].map((line, i) => (
@@ -432,7 +432,7 @@ export default function BookingPremium() {
                       }}
                     >
                       Weiter
-                      <ArrowRight size={14} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                      <ChevronsRight size={14} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                     </button>
                   ) : (
                     <button
@@ -457,7 +457,7 @@ export default function BookingPremium() {
                       ) : (
                         <>
                           Aufnahme einreichen
-                          <ArrowRight size={14} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                          <ChevronsRight size={14} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                         </>
                       )}
                     </button>

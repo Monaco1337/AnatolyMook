@@ -25,7 +25,7 @@ export function personSchema() {
       'https://www.youtube.com/@anatolymux'
     ],
     jobTitle: 'Mentor für Bewusstsein & persönliche Meisterschaft',
-    description: 'Anatoly Mook steht für Klarheit statt Suche. Bewusstseinsarbeit, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.',
+    description: 'Anatoly Mook steht für Klarheit statt Suche. Orientierung, Coaching und Formate für Menschen, die Verantwortung übernehmen und ihr Leben konsequent gestalten wollen.',
     knowsAbout: [
       'Bewusstseinsentwicklung', 'Persönliche Meisterschaft', 'Bewusste Führung', 'Entscheidungsstärke',
       'Transformation', 'Mentoring', 'Executive Coaching', 'Persönlichkeitsentwicklung',

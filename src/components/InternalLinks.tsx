@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { ArrowRight, MapPin, BookOpen, HelpCircle, Lightbulb, Star } from 'lucide-react';
+import { ChevronsRight, MapPin, BookOpen, HelpCircle, Lightbulb, Star } from 'lucide-react';
 import { europeanCities } from '../utils/localSEO';
 import { topicClusters } from '../seo/topicClusters';
 import { glossaryEntries } from '../seo/glossaryData';
@@ -30,11 +30,11 @@ const serviceLabels: Record<string, { de: string; en: string; ru: string }> = {
   coaching: { de: 'Coaching & Mentoring', en: 'Coaching & Mentoring', ru: 'Коучинг' },
   keynotes: { de: 'Keynote-Vorträge', en: 'Keynote Speaking', ru: 'Ки-ноуты' },
   corporate: { de: 'Corporate-Programme', en: 'Corporate Programs', ru: 'Корпоративные' },
-  transformation: { de: 'Die Arbeit', en: 'The Work', ru: 'Работа' },
+  transformation: { de: 'Orientierung', en: 'Orientation', ru: 'Ориентация' },
 };
 
 const mainPages = [
-  { slug: 'die-arbeit', de: 'Die Arbeit', en: 'The Work', ru: 'Работа' },
+  { slug: 'die-arbeit', de: 'Orientierung', en: 'Orientation', ru: 'Ориентация' },
   { slug: 'booking', de: 'Termin buchen', en: 'Book Appointment', ru: 'Записаться' },
   { slug: 'faq', de: 'Häufige Fragen', en: 'FAQ', ru: 'Частые вопросы' },
   { slug: 'blog', de: 'Blog & Insights', en: 'Blog & Insights', ru: 'Блог' },
@@ -183,7 +183,7 @@ export default function InternalLinks({
                 className="p-3 rounded-lg border text-sm hover:border-amber-500/40 transition-all flex items-center gap-2 group"
                 style={{ borderColor: colors.border.subtle }}
               >
-                <ArrowRight className="w-3 h-3 text-amber-500/50 group-hover:text-amber-500 flex-shrink-0" />
+                <ChevronsRight className="w-3 h-3 text-amber-500/50 group-hover:text-amber-500 flex-shrink-0" />
                 <span className="group-hover:text-amber-500 transition-colors" style={{ color: colors.text.secondary }}>
                   {t.title[lang]}
                 </span>

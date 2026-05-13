@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronsRight } from 'lucide-react';
 
 const FONT_DISPLAY =
   "'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, sans-serif" as const;
@@ -78,8 +79,7 @@ function HairLine({ className, opacity = 1 }: { className?: string; opacity?: nu
       className={`block h-px ${className ?? ''}`}
       style={{
         opacity,
-        background:
-          'linear-gradient(90deg, rgba(214,168,94,0) 0%, rgba(214,168,94,0.55) 50%, rgba(214,168,94,0) 100%)'
+
       }}
     />
   );
@@ -89,11 +89,7 @@ function Accent({ children }: { children: React.ReactNode }) {
   return (
     <span
       style={{
-        backgroundImage:
-          'linear-gradient(180deg, #F4E4C4 0%, #E2BE85 38%, #C99552 62%, #A6724A 100%)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
+
         color: 'transparent'
       }}
     >
@@ -177,7 +173,7 @@ export default function FormatePage() {
                 color: 'rgba(250,247,240,0.96)'
               }}
             >
-              Sechs Wege in <Accent>dieselbe Arbeit</Accent>.
+              Sechs Wege in <Accent>dieselbe Wirkung</Accent>.
             </h1>
             <HairLine className="mx-auto mt-6 max-w-[2rem]" />
           </div>
@@ -256,9 +252,7 @@ export default function FormatePage() {
               }}
             >
               Zum jeweiligen Angebot
-              <span aria-hidden style={{ color: 'rgba(229,200,156,0.75)' }}>
-                →
-              </span>
+              <ChevronsRight aria-hidden className="h-3 w-3 opacity-85" strokeWidth={2.5} style={{ color: 'rgba(229,200,156,0.75)' }} />
             </span>
           </div>
 
@@ -325,8 +319,7 @@ export default function FormatePage() {
                     <span
                       className="fp-cta-line block h-px w-6 transition-[width,background] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
                       style={{
-                        background:
-                          'linear-gradient(90deg, rgba(214,168,94,0.55) 0%, rgba(214,168,94,0) 100%)'
+
                       }}
                     />
                     <span
@@ -443,8 +436,7 @@ export default function FormatePage() {
             to="/erstgespraech"
             className="fp-cta group/cta mt-7 inline-flex items-center gap-3 rounded-full px-6 py-2.5"
             style={{
-              background:
-                'linear-gradient(180deg, rgba(28,18,10,0.92) 0%, rgba(20,12,6,0.95) 100%)',
+
               border: '1px solid rgba(166, 124, 82, 0.55)',
               boxShadow:
                 'inset 0 1px 0 rgba(242, 226, 192, 0.22), inset 0 -1px 0 rgba(90, 56, 30, 0.55), 0 6px 18px -8px rgba(0, 0, 0, 0.65)'
@@ -465,8 +457,7 @@ export default function FormatePage() {
               aria-hidden
               className="block h-px w-7 transition-[width] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/cta:w-12"
               style={{
-                background:
-                  'linear-gradient(90deg, rgba(214,168,94,0.75) 0%, rgba(214,168,94,0) 100%)'
+
               }}
             />
           </Link>

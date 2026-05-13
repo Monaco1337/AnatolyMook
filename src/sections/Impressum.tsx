@@ -194,9 +194,7 @@ export default function Impressum() {
             <h1
               className="text-[48px] lg:text-[64px] font-[700] tracking-[-0.04em] mb-5"
               style={{
-                background: 'linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.75) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+
                 backgroundClip: 'text'
               }}
             >

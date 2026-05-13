@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
-  ArrowRight,
+  ChevronsRight,
   Mail,
   Phone,
   User,
@@ -453,7 +453,7 @@ export default function Erstgespraech() {
                   className="mt-0.5 h-4 w-4 accent-[#C99B62]"
                 />
                 <span className="text-[12.5px] leading-[1.6] text-[rgba(238,230,216,0.62)]">
-                  Ich bin damit einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert
+                  Ich bin damit einverstanden, dass meine Angaben zur Klärung meiner Anfrage gespeichert
                   werden. Details in der{' '}
                   <Link to="/datenschutz" className="text-[#C99B62] underline-offset-4 hover:underline">
                     Datenschutzerklärung
@@ -495,7 +495,7 @@ export default function Erstgespraech() {
                 ) : (
                   <>
                     Anfrage senden
-                    <ArrowRight size={18} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                    <ChevronsRight size={18} strokeWidth={2.25} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                   </>
                 )}
               </button>
@@ -540,8 +540,8 @@ export default function Erstgespraech() {
                     title: <>Du entscheidest in <Hl>Ruhe</Hl>.</>,
                     body: (
                       <>
-                        Du bekommst eine ehrliche Empfehlung — und Zeit. Ich arbeite nicht mit
-                        Standardlösungen und nicht mit Druck.
+                        Du bekommst eine ehrliche Empfehlung — und Zeit. Ich setze nicht auf
+                        Standardlösungen und nicht auf Druck.
                       </>
                     ),
                   },

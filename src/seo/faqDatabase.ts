@@ -12,7 +12,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "wer-ist-anatoly-mook",
     question: { de: "Wer ist Anatoly Mook?", en: "Who is Anatoly Mook?", ru: "Кто такой Анатолий Мук?" },
     answer: {
-      de: "Anatoly Mook ist Mentor für Klarheit, bewusste Führung und persönliche Meisterschaft. Er begleitet Führungskräfte, Unternehmer und Menschen in Verantwortung dabei, Klarheit in komplexen Situationen zu finden und bewusste Entscheidungen zu treffen. Mit Sitz in Unna (NRW) arbeitet er sowohl vor Ort als auch online im gesamten DACH-Raum und international.",
+      de: "Anatoly Mook ist Mentor für Klarheit, bewusste Führung und persönliche Meisterschaft. Er begleitet Führungskräfte, Unternehmer und Menschen in Verantwortung dabei, Klarheit in komplexen Situationen zu finden und bewusste Entscheidungen zu treffen. Mit Sitz in Unna (NRW) begleitet er Klientinnen und Klienten sowohl vor Ort als auch online im gesamten DACH-Raum und international.",
       en: "Anatoly Mook is a mentor for clarity, conscious leadership, and personal mastery. He guides executives, entrepreneurs, and people in positions of responsibility to find clarity in complex situations and make conscious decisions. Based in Unna (NRW, Germany), he works both on-site and online throughout the DACH region and internationally.",
       ru: "Анатолий Мук — ментор в области ясности, осознанного лидерства и личного мастерства. Он сопровождает руководителей, предпринимателей и людей на ответственных позициях в обретении ясности в сложных ситуациях. Базируясь в Унне (Германия), он работает очно и онлайн по всей Европе и за её пределами."
     },
@@ -48,7 +48,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "was-unterscheidet-anatoly-mook",
     question: { de: "Was unterscheidet Anatoly Mook von anderen Coaches?", en: "What sets Anatoly Mook apart from other coaches?", ru: "Чем Анатолий Мук отличается от других коучей?" },
     answer: {
-      de: "Anatoly Mook verbindet tiefgreifende Bewusstseinsarbeit mit pragmatischen, messbaren Ergebnissen. Es geht nicht um Motivation oder Tipps, sondern um echte Transformation auf der Ebene von Wahrnehmung und Identität. Sein Ansatz ist direkt, klar und frei von esoterischem Beiwerk. Klienten schätzen besonders die Verbindung aus Tiefe und Umsetzbarkeit.",
+      de: "Anatoly Mook verbindet tiefgreifende Bewusstseinsführung mit pragmatischen, messbaren Ergebnissen. Es geht nicht um Motivation oder Tipps, sondern um echte Transformation auf der Ebene von Wahrnehmung und Identität. Sein Ansatz ist direkt, klar und frei von esoterischem Beiwerk. Klienten schätzen besonders die Verbindung aus Tiefe und Umsetzbarkeit.",
       en: "Anatoly Mook combines deep consciousness work with pragmatic, measurable results. It is not about motivation or tips, but about genuine transformation at the level of perception and identity. His approach is direct, clear, and free from esoteric accessories. Clients especially value the combination of depth and practical applicability.",
       ru: "Анатолий Мук сочетает глубокую работу с сознанием и прагматичные, измеримые результаты. Речь не о мотивации или советах, а о настоящей трансформации на уровне восприятия и идентичности. Его подход прямой, ясный и свободный от эзотерики. Клиенты особенно ценят сочетание глубины и практической применимости."
     },
@@ -84,7 +84,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "online-oder-vor-ort",
     question: { de: "Finden die Sessions online oder vor Ort statt?", en: "Do sessions take place online or in person?", ru: "Сессии проходят онлайн или очно?" },
     answer: {
-      de: "Beides ist möglich. Coaching-Sessions und kleinere Formate finden sowohl in Unna (Ackerstraße 56) als auch online via Zoom statt. Seminare und Workshops werden meist als Präsenzveranstaltungen durchgeführt. Für internationale Klienten bieten wir vollständig digitale Begleitung an. Die Qualität der Arbeit ist in beiden Formaten gleich hoch.",
+      de: "Beides ist möglich. Coaching-Sessions und kleinere Formate finden sowohl in Unna (Ackerstraße 56) als auch online via Zoom statt. Seminare und Workshops werden meist als Präsenzveranstaltungen durchgeführt. Für internationale Klienten bieten wir vollständig digitale Begleitung an. Die Qualität der Umsetzung ist in beiden Formaten gleich hoch.",
       en: "Both are possible. Coaching sessions and smaller formats take place both in Unna (Ackerstraße 56) and online via Zoom. Seminars and workshops are usually conducted as in-person events. For international clients, we offer fully digital accompaniment. The quality of work is equally high in both formats.",
       ru: "Возможны оба варианта. Коучинг-сессии проходят как в Унне (Ackerstraße 56), так и онлайн через Zoom. Семинары обычно проводятся очно. Для международных клиентов предлагаем полностью цифровое сопровождение. Качество работы одинаково высокое в обоих форматах."
     },
@@ -96,7 +96,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "wie-funktioniert-erstgespraech",
     question: { de: "Wie läuft ein Erstgespräch ab?", en: "How does an initial consultation work?", ru: "Как проходит первичная консультация?" },
     answer: {
-      de: "Das kostenlose Erstgespräch dauert ca. 30 Minuten und dient dem gegenseitigen Kennenlernen. Wir besprechen Ihre aktuelle Situation, Ihre Ziele und ob eine Zusammenarbeit sinnvoll ist. Es gibt keinen Verkaufsdruck — es geht darum, zu prüfen, ob die Chemie stimmt und der Ansatz zu Ihnen passt. Buchen Sie einfach einen Termin über die Website.",
+      de: "Das kostenlose Erstgespräch dauert ca. 30 Minuten und dient dem gegenseitigen Kennenlernen. Wir besprechen Ihre aktuelle Situation, Ihre Ziele und ob eine Begleitung sinnvoll ist. Es gibt keinen Verkaufsdruck — es geht darum, zu prüfen, ob die Chemie stimmt und der Ansatz zu Ihnen passt. Buchen Sie einfach einen Termin über die Website.",
       en: "The free initial consultation lasts about 30 minutes and serves to get to know each other. We discuss your current situation, your goals, and whether a collaboration makes sense. There is no sales pressure — it is about checking whether the chemistry is right and the approach suits you. Simply book an appointment through the website.",
       ru: "Бесплатная первичная консультация длится около 30 минут и служит для знакомства. Мы обсуждаем вашу текущую ситуацию, цели и целесообразность сотрудничества. Никакого давления — важно проверить, подходит ли вам подход. Просто забронируйте встречу на сайте."
     },
@@ -180,7 +180,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "corporate-roi",
     question: { de: "Welchen ROI bringt ein Corporate-Programm?", en: "What ROI does a corporate program deliver?", ru: "Какой ROI приносит корпоративная программа?" },
     answer: {
-      de: "Klienten berichten von messbaren Verbesserungen in Bereichen wie Entscheidungsgeschwindigkeit, Mitarbeiterzufriedenheit, Fluktuationsrate und Führungseffektivität. Typische Ergebnisse: 30-40% schnellere Entscheidungszyklen, signifikant höhere Teamkohäsion und verbesserte Unternehmenskultur. Der genaue ROI wird im Vorfeld gemeinsam definiert und im Prozess gemessen.",
+      de: "Klienten berichten von messbaren Verbesserungen in Bereichen wie Entscheidungsgeschwindigkeit, Teamzufriedenheit, Fluktuationsrate und Führungseffektivität. Typische Ergebnisse: 30-40% schnellere Entscheidungszyklen, signifikant höhere Teamkohäsion und verbesserte Unternehmenskultur. Der genaue ROI wird im Vorfeld gemeinsam definiert und im Prozess gemessen.",
       en: "Clients report measurable improvements in areas such as decision speed, employee satisfaction, turnover rate, and leadership effectiveness. Typical results: 30-40% faster decision cycles, significantly higher team cohesion, and improved corporate culture. The exact ROI is jointly defined in advance and measured throughout the process.",
       ru: "Клиенты отмечают измеримые улучшения в скорости принятия решений, удовлетворённости сотрудников, текучести кадров и эффективности лидерства. Типичные результаты: на 30-40% быстрее циклы решений, значительно выше сплочённость команды, улучшенная корпоративная культура. Точный ROI определяется заранее и измеряется в процессе."
     },
@@ -226,9 +226,9 @@ export const faqEntries: FAQEntry[] = [
   },
   {
     slug: "ist-das-esoterisch",
-    question: { de: "Ist Bewusstseinsarbeit esoterisch?", en: "Is consciousness work esoteric?", ru: "Работа с сознанием — это эзотерика?" },
+    question: { de: "Ist Bewusstseinsführung esoterisch?", en: "Is consciousness work esoteric?", ru: "Работа с сознанием — это эзотерика?" },
     answer: {
-      de: "Nein. Der Ansatz von Anatoly Mook ist pragmatisch, evidenzbasiert und frei von esoterischem Beiwerk. Bewusstseinsarbeit bedeutet hier: die eigenen Denk- und Verhaltensmuster zu erkennen, blinde Flecken aufzudecken und bewusstere Entscheidungen zu treffen. Die Methoden basieren auf Erkenntnissen aus Psychologie, Neurowissenschaft und Führungsforschung.",
+      de: "Nein. Der Ansatz von Anatoly Mook ist pragmatisch, evidenzbasiert und frei von esoterischem Beiwerk. Bewusstseinsführung bedeutet hier: die eigenen Denk- und Verhaltensmuster zu erkennen, blinde Flecken aufzudecken und bewusstere Entscheidungen zu treffen. Die Methoden basieren auf Erkenntnissen aus Psychologie, Neurowissenschaft und Führungsforschung.",
       en: "No. Anatoly Mook's approach is pragmatic, evidence-based, and free from esoteric accessories. Consciousness work here means: recognizing your own thinking and behavioral patterns, uncovering blind spots, and making more conscious decisions. The methods are based on insights from psychology, neuroscience, and leadership research.",
       ru: "Нет. Подход Анатолия Мука прагматичен, основан на доказательствах и свободен от эзотерики. Работа с сознанием здесь означает: распознавание собственных паттернов мышления и поведения, выявление слепых зон и принятие более осознанных решений. Методы основаны на психологии, нейронауке и исследованиях лидерства."
     },
@@ -238,9 +238,9 @@ export const faqEntries: FAQEntry[] = [
   },
   {
     slug: "sprachen-der-begleitung",
-    question: { de: "In welchen Sprachen wird gearbeitet?", en: "In which languages is coaching available?", ru: "На каких языках доступен коучинг?" },
+    question: { de: "In welchen Sprachen begleitet Anatoly Mook?", en: "In which languages is coaching available?", ru: "На каких языках доступен коучинг?" },
     answer: {
-      de: "Anatoly Mook arbeitet in Deutsch, Englisch und Russisch. Coaching, Seminare und Keynotes können in jeder dieser drei Sprachen durchgeführt werden. Bei Corporate-Programmen mit internationalen Teams ist auch ein mehrsprachiges Format möglich.",
+      de: "Anatoly Mook begleitet auf Deutsch, Englisch und Russisch. Coaching, Seminare und Keynotes können in jeder dieser drei Sprachen durchgeführt werden. Bei Corporate-Programmen mit internationalen Teams ist auch ein mehrsprachiges Format möglich.",
       en: "Anatoly Mook works in German, English, and Russian. Coaching, seminars, and keynotes can be conducted in any of these three languages. For corporate programs with international teams, a multilingual format is also possible.",
       ru: "Анатолий Мук работает на немецком, английском и русском языках. Коучинг, семинары и ки-ноуты проводятся на любом из трёх языков. Для корпоративных программ с международными командами возможен мультиязычный формат."
     },
@@ -276,7 +276,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "vertraulichkeit",
     question: { de: "Wie steht es um die Vertraulichkeit?", en: "How is confidentiality handled?", ru: "Как обеспечивается конфиденциальность?" },
     answer: {
-      de: "Absolute Vertraulichkeit ist selbstverständlich und Grundlage jeder Zusammenarbeit. Alle Inhalte der Sessions sind streng vertraulich. Bei Corporate-Aufträgen werden Vertraulichkeitsvereinbarungen geschlossen. Ergebnisse werden nur mit Ihrem ausdrücklichen Einverständnis an Dritte kommuniziert.",
+      de: "Absolute Vertraulichkeit ist selbstverständlich und Grundlage jeder Begleitung. Alle Inhalte der Sessions sind streng vertraulich. Bei Corporate-Aufträgen werden Vertraulichkeitsvereinbarungen geschlossen. Ergebnisse werden nur mit Ihrem ausdrücklichen Einverständnis an Dritte kommuniziert.",
       en: "Absolute confidentiality is a given and the foundation of every collaboration. All session contents are strictly confidential. For corporate assignments, confidentiality agreements are concluded. Results are only communicated to third parties with your explicit consent.",
       ru: "Абсолютная конфиденциальность — основа каждого сотрудничества. Все содержание сессий строго конфиденциально. При корпоративных заказах заключаются соглашения о конфиденциальности. Результаты передаются третьим лицам только с вашего явного согласия."
     },
@@ -288,7 +288,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "nachhaltige-veraenderung",
     question: { de: "Wie nachhaltig sind die Ergebnisse?", en: "How sustainable are the results?", ru: "Насколько устойчивы результаты?" },
     answer: {
-      de: "Der Ansatz zielt auf tiefgreifende Veränderung auf der Ebene von Bewusstsein und Identität, nicht nur auf Verhaltensanpassung. Deshalb sind die Ergebnisse besonders nachhaltig. Klienten berichten, dass die gewonnene Klarheit und Bewusstheit auch Jahre nach der Zusammenarbeit wirkt und sich weiterentwickelt.",
+      de: "Der Ansatz zielt auf tiefgreifende Veränderung auf der Ebene von Bewusstsein und Identität, nicht nur auf Verhaltensanpassung. Deshalb sind die Ergebnisse besonders nachhaltig. Klienten berichten, dass die gewonnene Klarheit und Bewusstheit auch Jahre nach der Begleitung wirkt und sich weiterentwickelt.",
       en: "The approach aims at profound change at the level of consciousness and identity, not just behavioral adjustment. Therefore, the results are particularly sustainable. Clients report that the clarity and awareness gained continues to work and develop even years after the collaboration.",
       ru: "Подход направлен на глубокие изменения на уровне сознания и идентичности, а не просто коррекцию поведения. Поэтому результаты особенно устойчивы. Клиенты отмечают, что обретённая ясность и осознанность продолжают работать и развиваться даже спустя годы."
     },
@@ -324,7 +324,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "team-coaching",
     question: { de: "Gibt es auch Team-Coaching?", en: "Is team coaching available?", ru: "Доступен ли командный коучинг?" },
     answer: {
-      de: "Ja, Team-Coaching ist ein wesentlicher Bestandteil der Corporate-Programme. Dabei arbeiten wir mit Führungsteams an Themen wie Kommunikation, Entscheidungskultur, Vertrauen und gemeinsamer Ausrichtung. Team-Coachings finden in der Regel als Tages- oder Halbtagesformate statt und werden individuell auf Ihre Teamdynamik abgestimmt.",
+      de: "Ja, Team-Coaching ist ein wesentlicher Bestandteil der Corporate-Programme. Dabei begleiten wir Führungsteams an Themen wie Kommunikation, Entscheidungskultur, Vertrauen und gemeinsamer Ausrichtung. Team-Coachings finden in der Regel als Tages- oder Halbtagesformate statt und werden individuell auf Ihre Teamdynamik abgestimmt.",
       en: "Yes, team coaching is an essential part of corporate programs. We work with leadership teams on topics such as communication, decision culture, trust, and shared alignment. Team coaching usually takes place as full-day or half-day formats and is individually tailored to your team dynamics.",
       ru: "Да, командный коучинг — существенная часть корпоративных программ. Мы работаем с командами руководителей над коммуникацией, культурой принятия решений, доверием и общим направлением. Командный коучинг проводится в формате полного или половины дня и адаптируется под вашу командную динамику."
     },
@@ -360,7 +360,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "erfahrungsberichte",
     question: { de: "Gibt es Erfahrungsberichte von Klienten?", en: "Are there client testimonials?", ru: "Есть ли отзывы клиентов?" },
     answer: {
-      de: "Ja, auf unserer Website finden Sie zahlreiche Erfolgsgeschichten von Führungskräften, Unternehmern und Privatpersonen, die ihre Erfahrungen mit der Zusammenarbeit teilen. Aufgrund der Vertraulichkeit erfolgen manche Berichte anonym. Gerne vermitteln wir auch persönliche Referenzgespräche.",
+      de: "Ja, auf unserer Website finden Sie zahlreiche Erfolgsgeschichten von Führungskräften, Unternehmern und Privatpersonen, die ihre Erfahrungen mit der Begleitung teilen. Aufgrund der Vertraulichkeit erfolgen manche Berichte anonym. Gerne vermitteln wir auch persönliche Referenzgespräche.",
       en: "Yes, on our website you will find numerous success stories from executives, entrepreneurs, and individuals sharing their experiences. Due to confidentiality, some reports are anonymous. We are also happy to arrange personal reference conversations.",
       ru: "Да, на нашем сайте вы найдёте многочисленные истории успеха руководителей, предпринимателей и частных лиц. Из-за конфиденциальности некоторые отзывы анонимны. Также можем организовать личные рекомендательные беседы."
     },
@@ -384,7 +384,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "digitale-ressourcen",
     question: { de: "Gibt es digitale Ressourcen oder Online-Kurse?", en: "Are there digital resources or online courses?", ru: "Есть ли цифровые ресурсы или онлайн-курсы?" },
     answer: {
-      de: "Ja, auf der Ressourcen-Seite finden Sie kostenlose Guides, Reflexionstools und Materialien. Darüber hinaus bietet der Shop digitale Produkte und Online-Kurse für die eigenständige Arbeit an Klarheit und bewusster Führung. Klienten im Coaching erhalten zusätzliche exklusive Materialien.",
+      de: "Ja, auf der Ressourcen-Seite finden Sie kostenlose Guides, Reflexionstools und Materialien. Darüber hinaus bietet der Shop digitale Produkte und Online-Kurse für die eigenständige Vertiefung an Klarheit und bewusster Führung. Klienten im Coaching erhalten zusätzliche exklusive Materialien.",
       en: "Yes, on the resources page you will find free guides, reflection tools, and materials. Additionally, the shop offers digital products and online courses for independent work on clarity and conscious leadership. Coaching clients receive additional exclusive materials.",
       ru: "Да, на странице ресурсов есть бесплатные руководства, инструменты рефлексии и материалы. Магазин предлагает цифровые продукты и онлайн-курсы для самостоятельной работы над ясностью и осознанным лидерством. Клиенты коучинга получают дополнительные эксклюзивные материалы."
     },
@@ -448,7 +448,7 @@ export const faqEntries: FAQEntry[] = [
       ru: "Как измеряется успех коучинга?"
     },
     answer: {
-      de: "Anatoly Mook setzt auf eine Kombination aus qualitativen und quantitativen Methoden. Zu Beginn werden klare, messbare Ziele definiert. Im Prozess werden regelmäßig Selbsteinschätzungen und Fortschrittsreflexionen durchgeführt. Bei Corporate-Programmen kommen zusätzlich 360-Grad-Feedbacks und Team-Assessments zum Einsatz. Zwischen- und Abschlussevaluationen dokumentieren die erzielten Veränderungen. So wird der Erfolg der Zusammenarbeit transparent und nachvollziehbar für alle Beteiligten.",
+      de: "Anatoly Mook setzt auf eine Kombination aus qualitativen und quantitativen Methoden. Zu Beginn werden klare, messbare Ziele definiert. Im Prozess werden regelmäßig Selbsteinschätzungen und Fortschrittsreflexionen durchgeführt. Bei Corporate-Programmen kommen zusätzlich 360-Grad-Feedbacks und Team-Assessments zum Einsatz. Zwischen- und Abschlussevaluationen dokumentieren die erzielten Veränderungen. So wird der Erfolg der Begleitung transparent und nachvollziehbar für alle Beteiligten.",
       en: "Anatoly Mook uses a combination of qualitative and quantitative methods. At the outset, clear measurable goals are defined. During the process, regular self-assessments and progress reflections are conducted. For corporate programs, 360-degree feedback and team assessments are additionally employed. Interim and final evaluations document the changes achieved. This makes the success of the collaboration transparent and traceable for everyone involved.",
       ru: "Анатолий Мук использует комбинацию качественных и количественных методов. В начале определяются чёткие измеримые цели. В процессе регулярно проводятся самооценки и рефлексии прогресса. Для корпоративных программ дополнительно применяются 360-градусная обратная связь и командные оценки. Промежуточные и итоговые оценки документируют достигнутые изменения. Это делает успех сотрудничества прозрачным и отслеживаемым для всех участников."
     },
@@ -459,12 +459,12 @@ export const faqEntries: FAQEntry[] = [
   {
     slug: "langfristige-wirkung",
     question: {
-      de: "Wie wirkt sich die Zusammenarbeit langfristig aus?",
+      de: "Wie wirkt sich die Begleitung langfristig aus?",
       en: "What is the long-term impact of the collaboration?",
       ru: "Каково долгосрочное влияние сотрудничества?"
     },
     answer: {
-      de: "Die Zusammenarbeit mit Anatoly Mook wirkt weit über den eigentlichen Coaching-Zeitraum hinaus. Klienten entwickeln eigene Werkzeuge und Fähigkeiten, die sie dauerhaft einsetzen können. Die veränderten Denk- und Verhaltensmuster werden zu einem natürlichen Teil des Alltags. Viele Klienten berichten auch Jahre nach der Zusammenarbeit von anhaltenden positiven Veränderungen in Führung, Beziehungen und Lebensqualität. Optional bietet Anatoly Mook Auffrischungssitzungen für langfristige Begleitung an.",
+      de: "Die Begleitung mit Anatoly Mook wirkt weit über den eigentlichen Coaching-Zeitraum hinaus. Klienten entwickeln eigene Werkzeuge und Fähigkeiten, die sie dauerhaft einsetzen können. Die veränderten Denk- und Verhaltensmuster werden zu einem natürlichen Teil des Alltags. Viele Klienten berichten auch Jahre nach der Begleitung von anhaltenden positiven Veränderungen in Führung, Beziehungen und Lebensqualität. Optional bietet Anatoly Mook Auffrischungssitzungen für langfristige Begleitung an.",
       en: "The collaboration with Anatoly Mook has effects well beyond the actual coaching period. Clients develop their own tools and skills they can use permanently. The changed thinking and behavior patterns become a natural part of daily life. Many clients report lasting positive changes in leadership, relationships, and quality of life even years after the collaboration. Optionally, Anatoly Mook offers refresher sessions for long-term support.",
       ru: "Сотрудничество с Анатолием Муком оказывает влияние далеко за пределами самого периода коучинга. Клиенты развивают собственные инструменты и навыки для постоянного использования. Изменённые паттерны мышления и поведения становятся естественной частью повседневной жизни. Многие клиенты отмечают устойчивые позитивные изменения в лидерстве, отношениях и качестве жизни спустя годы после сотрудничества. Дополнительно доступны сессии обновления."
     },
@@ -496,7 +496,7 @@ export const faqEntries: FAQEntry[] = [
       ru: "Помогает ли коучинг при смене профессии?"
     },
     answer: {
-      de: "Absolut. Coaching bei Anatoly Mook ist besonders wirkungsvoll in Phasen beruflicher Neuorientierung. Der Prozess hilft Ihnen, Klarheit über Ihre wahren Werte, Stärken und Ambitionen zu gewinnen. Statt voreiliger Entscheidungen entwickeln Sie eine fundierte innere Ausrichtung, die als Kompass für berufliche Veränderungen dient. Gemeinsam werden konkrete nächste Schritte erarbeitet und mögliche Hindernisse antizipiert. Viele Klienten finden durch diesen Prozess nicht nur einen neuen Job, sondern eine tiefere berufliche Erfüllung.",
+      de: "Absolut. Coaching bei Anatoly Mook ist besonders wirkungsvoll in Phasen beruflicher Neuorientierung. Der Prozess hilft Ihnen, Klarheit über Ihre wahren Werte, Stärken und Ambitionen zu gewinnen. Statt voreiliger Entscheidungen entwickeln Sie eine fundierte innere Ausrichtung, die als Kompass für berufliche Veränderungen dient. Gemeinsam werden konkrete nächste Schritte formuliert und mögliche Hindernisse antizipiert. Viele Klienten finden durch diesen Prozess nicht nur einen neuen Job, sondern eine tiefere berufliche Erfüllung.",
       en: "Absolutely. Coaching with Anatoly Mook is particularly effective during phases of career reorientation. The process helps you gain clarity about your true values, strengths, and ambitions. Instead of hasty decisions, you develop a well-founded inner alignment that serves as a compass for professional changes. Together, concrete next steps are developed and potential obstacles anticipated. Many clients find not just a new job through this process, but deeper professional fulfillment.",
       ru: "Безусловно. Коучинг у Анатолия Мука особенно эффективен в фазах профессиональной переориентации. Процесс помогает обрести ясность относительно ваших истинных ценностей, сильных сторон и амбиций. Вместо поспешных решений вы формируете обоснованную внутреннюю направленность, которая служит компасом для профессиональных изменений. Совместно разрабатываются конкретные следующие шаги и предвосхищаются возможные препятствия. Многие клиенты находят через этот процесс не просто новую работу, а глубокое профессиональное удовлетворение."
     },
@@ -512,7 +512,7 @@ export const faqEntries: FAQEntry[] = [
       ru: "Есть ли поддержка после семинаров?"
     },
     answer: {
-      de: "Ja, Anatoly Mook legt großen Wert auf nachhaltige Wirkung der Seminare. Nach jedem Seminar erhalten Teilnehmer umfangreiche Begleitmaterialien und Reflexionsaufgaben für die Integration im Alltag. Für ausgewählte Seminare gibt es Follow-up-Termine nach vier bis sechs Wochen, in denen Erfahrungen und Herausforderungen besprochen werden. Teilnehmer haben zudem die Möglichkeit, in ein individuelles Coaching-Programm einzusteigen, um die Seminarinhalte gezielt zu vertiefen und persönlich weiterzuarbeiten.",
+      de: "Ja, Anatoly Mook legt großen Wert auf nachhaltige Wirkung der Seminare. Nach jedem Seminar erhalten Teilnehmer umfangreiche Begleitmaterialien und Reflexionsaufgaben für die Integration im Alltag. Für ausgewählte Seminare gibt es Follow-up-Termine nach vier bis sechs Wochen, in denen Erfahrungen und Herausforderungen besprochen werden. Teilnehmer haben zudem die Möglichkeit, in ein individuelles Coaching-Programm einzusteigen, um die Seminarinhalte gezielt zu vertiefen und persönlich weiter zu vertiefen.",
       en: "Yes, Anatoly Mook places great emphasis on the lasting impact of seminars. After each seminar, participants receive comprehensive supporting materials and reflection exercises for integration into daily life. For selected seminars, follow-up sessions are offered after four to six weeks to discuss experiences and challenges. Participants also have the option to enter an individual coaching program to deepen seminar content and continue personal development.",
       ru: "Да, Анатолий Мук придаёт большое значение устойчивому эффекту семинаров. После каждого семинара участники получают обширные сопроводительные материалы и задания для рефлексии и интеграции в повседневную жизнь. Для отдельных семинаров предусмотрены контрольные встречи через четыре-шесть недель для обсуждения опыта и трудностей. Участники также могут перейти в индивидуальную программу коучинга для углубления содержания семинара."
     },
@@ -536,7 +536,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "qualifikationen-anatoly-mook",
     question: { de: "Welche Qualifikationen hat Anatoly Mook?", en: "What qualifications does Anatoly Mook have?", ru: "Какими квалификациями обладает Анатолий Мук?" },
     answer: {
-      de: "Anatoly Mook verfügt über umfassende Ausbildungen in Coaching, Bewusstseinsarbeit und Organisationsentwicklung. Seine Expertise basiert auf jahrelanger praktischer Erfahrung in der Begleitung von Führungskräften und Unternehmern. Er bildet sich kontinuierlich weiter und integriert Erkenntnisse aus Psychologie, Neurowissenschaft und Führungsforschung in seine Arbeit. Darüber hinaus bringt er eigene unternehmerische Erfahrung mit, die seine Coaching-Arbeit besonders praxisnah und relevant macht.",
+      de: "Anatoly Mook verfügt über umfassende Ausbildungen in Coaching, Bewusstseinsführung und Organisationsentwicklung. Seine Expertise basiert auf jahrelanger praktischer Erfahrung in der Begleitung von Führungskräften und Unternehmern. Er bildet sich kontinuierlich weiter und integriert Erkenntnisse aus Psychologie, Neurowissenschaft und Führungsforschung in seine Begleitung. Darüber hinaus bringt er eigene unternehmerische Erfahrung mit, die seine Coaching-Praxis besonders praxisnah und relevant macht.",
       en: "Anatoly Mook holds comprehensive certifications in coaching, consciousness work, and organizational development. His expertise is based on years of practical experience guiding executives and entrepreneurs. He continuously furthers his education and integrates insights from psychology, neuroscience, and leadership research into his work. Additionally, he brings his own entrepreneurial experience, which makes his coaching work particularly practical and relevant.",
       ru: "Анатолий Мук обладает обширными сертификациями в коучинге, работе с сознанием и организационном развитии. Его экспертиза основана на многолетнем практическом опыте сопровождения руководителей и предпринимателей. Он постоянно повышает квалификацию и интегрирует в работу знания из психологии, нейронауки и исследований лидерства. Кроме того, он привносит собственный предпринимательский опыт, что делает его коучинг особенно практичным и актуальным."
     },
@@ -548,7 +548,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "coaching-und-therapie",
     question: { de: "Kann Coaching mit Therapie kombiniert werden?", en: "Can coaching be combined with therapy?", ru: "Можно ли сочетать коучинг с терапией?" },
     answer: {
-      de: "Ja, Coaching und Therapie können sich hervorragend ergänzen. Coaching fokussiert auf Entwicklung, Ziele und Zukunftsgestaltung, während Therapie tieferliegende psychische Themen behandelt. Anatoly Mook arbeitet bei Bedarf in Abstimmung mit Therapeuten seiner Klienten. Wichtig: Coaching ersetzt keine Therapie bei akuten psychischen Erkrankungen. Im Erstgespräch klären wir gemeinsam, ob Coaching das richtige Format für Ihre Situation ist, und empfehlen gegebenenfalls ergänzende professionelle Unterstützung.",
+      de: "Ja, Coaching und Therapie können sich hervorragend ergänzen. Coaching fokussiert auf Entwicklung, Ziele und Zukunftsgestaltung, während Therapie tieferliegende psychische Themen behandelt. Anatoly Mook kooperiert bei Bedarf in Abstimmung mit Therapeuten seiner Klienten. Wichtig: Coaching ersetzt keine Therapie bei akuten psychischen Erkrankungen. Im Erstgespräch klären wir gemeinsam, ob Coaching das richtige Format für Ihre Situation ist, und empfehlen gegebenenfalls ergänzende professionelle Unterstützung.",
       en: "Yes, coaching and therapy can complement each other excellently. Coaching focuses on development, goals, and shaping the future, while therapy addresses deeper psychological issues. Anatoly Mook works in coordination with his clients therapists when needed. Important: Coaching does not replace therapy for acute mental health conditions. In the initial consultation, we jointly determine whether coaching is the right format for your situation and recommend additional professional support if appropriate.",
       ru: "Да, коучинг и терапия могут отлично дополнять друг друга. Коучинг фокусируется на развитии, целях и формировании будущего, тогда как терапия работает с глубинными психологическими темами. Анатолий Мук при необходимости координируется с терапевтами клиентов. Важно: коучинг не заменяет терапию при острых психических расстройствах. На первичной консультации мы определяем, подходит ли коучинг для вашей ситуации, и при необходимости рекомендуем дополнительную поддержку."
     },
@@ -572,7 +572,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "retreat-themen",
     question: { de: "Welche Themen werden auf den Retreats behandelt?", en: "What topics do the retreats cover?", ru: "Какие темы охватывают ретриты?" },
     answer: {
-      de: "Die Retreats behandeln Themen wie tiefe Selbsterkenntnis, Bewusstseinsentwicklung, Loslassen alter Muster, Klarheit in Lebensfragen und persönliche Neuausrichtung. Jeder Retreat hat einen thematischen Schwerpunkt, ergänzt durch Meditation, Atemarbeit und Reflexionsübungen. Die mehrtägige Intensität ermöglicht Einsichten, die in kürzeren Formaten kaum erreichbar sind. Die Retreats finden an ausgewählten, ruhigen Orten statt, die eine Atmosphäre der Konzentration und inneren Einkehr fördern.",
+      de: "Die Retreats behandeln Themen wie tiefe Selbsterkenntnis, Bewusstseinsentwicklung, Loslassen alter Muster, Klarheit in Lebensfragen und persönliche Neuausrichtung. Jeder Retreat hat einen thematischen Schwerpunkt, ergänzt durch Meditation, Atempraxis und Reflexionsübungen. Die mehrtägige Intensität ermöglicht Einsichten, die in kürzeren Formaten kaum erreichbar sind. Die Retreats finden an ausgewählten, ruhigen Orten statt, die eine Atmosphäre der Konzentration und inneren Einkehr fördern.",
       en: "The retreats cover topics such as deep self-knowledge, consciousness development, releasing old patterns, clarity in life questions, and personal realignment. Each retreat has a thematic focus, complemented by meditation, breathwork, and reflection exercises. The multi-day intensity enables insights rarely achievable in shorter formats. Retreats take place at selected, quiet locations that foster an atmosphere of concentration and inner reflection.",
       ru: "Ретриты охватывают темы глубокого самопознания, развития сознания, отпускания старых паттернов, ясности в жизненных вопросах и личной переориентации. Каждый ретрит имеет тематический фокус, дополняемый медитацией, дыхательными практиками и рефлексивными упражнениями. Многодневная интенсивность позволяет достичь инсайтов, малодоступных в коротких форматах. Ретриты проходят в отобранных тихих местах с атмосферой концентрации."
     },
@@ -594,7 +594,7 @@ export const faqEntries: FAQEntry[] = [
   },
   {
     slug: "langzeit-rabatte",
-    question: { de: "Gibt es Rabatte bei langfristiger Zusammenarbeit?", en: "Are there discounts for long-term commitments?", ru: "Есть ли скидки при долгосрочном сотрудничестве?" },
+    question: { de: "Gibt es Rabatte bei langfristiger Begleitung?", en: "Are there discounts for long-term commitments?", ru: "Есть ли скидки при долгосрочном сотрудничестве?" },
     answer: {
       de: "Ja, für längere Begleitprozesse bieten wir attraktive Paketangebote an, die deutlich günstiger sind als Einzelsitzungen. Ein 6-Monats-Paket oder Jahresprogramm beinhaltet in der Regel einen spürbaren Preisvorteil sowie zusätzliche Leistungen wie Zwischenchecks und exklusive Materialien. Die genauen Konditionen werden im Erstgespräch individuell besprochen und auf Ihre Bedürfnisse abgestimmt. Ratenzahlung ist ebenfalls möglich.",
       en: "Yes, for longer accompaniment processes we offer attractive package deals that are significantly more affordable than individual sessions. A 6-month package or annual program typically includes a noticeable price advantage plus additional services such as interim check-ins and exclusive materials. Exact terms are discussed individually in the initial consultation and tailored to your needs. Installment payments are also available.",
@@ -632,7 +632,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "corporate-bedarfsanalyse",
     question: { de: "Wie funktioniert die Corporate-Bedarfsanalyse?", en: "How does the corporate needs analysis work?", ru: "Как проводится корпоративный анализ потребностей?" },
     answer: {
-      de: "Die Bedarfsanalyse beginnt mit einem ausführlichen Briefing-Gespräch mit den Entscheidungsträgern. Anschließend führen wir bei Bedarf Interviews mit Stakeholdern und Mitarbeitern durch. Auf Basis dieser Erkenntnisse erstellen wir ein maßgeschneidertes Konzept mit klaren Zielen, Meilensteinen und messbaren Erfolgsindikatoren. Der gesamte Analyseprozess ist vertraulich und ergebnisoffen. Erst nach Ihrer Zustimmung zum Konzept beginnt die eigentliche Programmarbeit.",
+      de: "Die Bedarfsanalyse beginnt mit einem ausführlichen Briefing-Gespräch mit den Entscheidungsträgern. Anschließend führen wir bei Bedarf Interviews mit Stakeholdern und Teammitgliedern durch. Auf Basis dieser Erkenntnisse erstellen wir ein maßgeschneidertes Konzept mit klaren Zielen, Meilensteinen und messbaren Erfolgsindikatoren. Der gesamte Analyseprozess ist vertraulich und ergebnisoffen. Erst nach Ihrer Zustimmung zum Konzept beginnt die eigentliche Programmumsetzung.",
       en: "The needs analysis begins with a detailed briefing conversation with decision-makers. We then conduct interviews with stakeholders and employees as needed. Based on these insights, we create a customized concept with clear goals, milestones, and measurable success indicators. The entire analysis process is confidential and open-ended. Only after your approval of the concept does the actual program work begin.",
       ru: "Анализ потребностей начинается с подробного брифинга с лицами, принимающими решения. Затем при необходимости проводятся интервью с заинтересованными сторонами и сотрудниками. На основе полученных данных создаётся индивидуальная концепция с ясными целями, этапами и измеримыми показателями успеха. Весь процесс анализа конфиденциален. Программная работа начинается только после вашего одобрения концепции."
     },
@@ -642,9 +642,9 @@ export const faqEntries: FAQEntry[] = [
   },
   {
     slug: "branchen",
-    question: { de: "Mit welchen Branchen arbeitet Anatoly Mook?", en: "What industries does Anatoly Mook work with?", ru: "С какими отраслями работает Анатолий Мук?" },
+    question: { de: "Mit welchen Branchen deckt Anatoly Mook Erfahrung ab?", en: "What industries does Anatoly Mook work with?", ru: "С какими отраслями работает Анатолий Мук?" },
     answer: {
-      de: "Anatoly Mook arbeitet branchenübergreifend mit Führungskräften und Unternehmen aus unterschiedlichsten Bereichen — von Technologie und Finanzwesen über Gesundheitswesen und Industrie bis hin zu Beratung und Bildung. Die Kernthemen bewusste Führung, Klarheit und persönliche Meisterschaft sind universell. Die Methoden werden individuell auf die spezifischen Herausforderungen und Kontexte der jeweiligen Branche angepasst.",
+      de: "Anatoly Mook ist branchenübergreifend für mit Führungskräften und Unternehmen aus unterschiedlichsten Bereichen — von Technologie und Finanzwesen über Gesundheitswesen und Industrie bis hin zu Beratung und Bildung. Die Kernthemen bewusste Führung, Klarheit und persönliche Meisterschaft sind universell. Die Methoden werden individuell auf die spezifischen Herausforderungen und Kontexte der jeweiligen Branche angepasst.",
       en: "Anatoly Mook works across industries with leaders and companies from diverse sectors — from technology and finance to healthcare and manufacturing to consulting and education. The core themes of conscious leadership, clarity, and personal mastery are universal. Methods are individually adapted to the specific challenges and contexts of each industry.",
       ru: "Анатолий Мук работает межотраслево с руководителями и компаниями из самых разных сфер — от технологий и финансов до здравоохранения и промышленности, от консалтинга до образования. Ключевые темы осознанного лидерства, ясности и личного мастерства универсальны. Методы индивидуально адаптируются под специфику каждой отрасли."
     },
@@ -668,7 +668,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "unterschied-seminar-retreat",
     question: { de: "Was ist der Unterschied zwischen Seminar und Retreat?", en: "What is the difference between a seminar and a retreat?", ru: "В чём разница между семинаром и ретритом?" },
     answer: {
-      de: "Seminare sind kompakte Lernformate von einem halben bis zwei Tagen mit klarem thematischem Fokus und strukturiertem Programm. Retreats dauern mehrere Tage und bieten mehr Raum für Stille, Reflexion und tiefe persönliche Arbeit. Während Seminare stärker auf Wissensvermittlung und praktische Werkzeuge ausgerichtet sind, ermöglichen Retreats eine intensivere Transformation durch den Rückzug aus dem Alltag und die vollständige Konzentration auf die eigene Entwicklung.",
+      de: "Seminare sind kompakte Lernformate von einem halben bis zwei Tagen mit klarem thematischem Fokus und strukturiertem Programm. Retreats dauern mehrere Tage und bieten mehr Raum für Stille, Reflexion und tiefe persönliche Begleitung. Während Seminare stärker auf Wissensvermittlung und praktische Werkzeuge ausgerichtet sind, ermöglichen Retreats eine intensivere Transformation durch den Rückzug aus dem Alltag und die vollständige Konzentration auf die eigene Entwicklung.",
       en: "Seminars are compact learning formats lasting half a day to two days with a clear thematic focus and structured program. Retreats last several days and offer more space for silence, reflection, and deep personal work. While seminars are more oriented toward knowledge transfer and practical tools, retreats enable more intensive transformation through withdrawal from daily life and complete focus on personal development.",
       ru: "Семинары — компактные учебные форматы от полудня до двух дней с чётким тематическим фокусом и структурированной программой. Ретриты длятся несколько дней и предоставляют больше пространства для тишины, рефлексии и глубокой личной работы. Если семинары больше направлены на передачу знаний и практические инструменты, то ретриты обеспечивают более интенсивную трансформацию через уход от повседневности."
     },
@@ -692,7 +692,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "zufriedenheitsgarantie",
     question: { de: "Was passiert, wenn ich nicht zufrieden bin?", en: "What happens if I am not satisfied?", ru: "Что будет, если я не удовлетворён?" },
     answer: {
-      de: "Ihre Zufriedenheit hat oberste Priorität. Wenn Sie nach den ersten Sessions das Gefühl haben, dass der Ansatz nicht zu Ihnen passt, sprechen wir offen darüber und finden gemeinsam eine Lösung. Bei Seminaren bieten wir eine Zufriedenheitsregelung an. Unser Ziel ist eine vertrauensvolle Zusammenarbeit, in der beide Seiten ehrlich kommunizieren. Das kostenlose Erstgespräch dient auch dazu, vorab zu prüfen, ob Ansatz und Chemie stimmen.",
+      de: "Ihre Zufriedenheit hat oberste Priorität. Wenn Sie nach den ersten Sessions das Gefühl haben, dass der Ansatz nicht zu Ihnen passt, sprechen wir offen darüber und finden gemeinsam eine Lösung. Bei Seminaren bieten wir eine Zufriedenheitsregelung an. Unser Ziel ist eine vertrauensvolle Begleitung, in der beide Seiten ehrlich kommunizieren. Das kostenlose Erstgespräch dient auch dazu, vorab zu prüfen, ob Ansatz und Chemie stimmen.",
       en: "Your satisfaction is our top priority. If after the first sessions you feel the approach does not suit you, we discuss this openly and find a solution together. For seminars, we offer a satisfaction policy. Our goal is a trusting collaboration where both sides communicate honestly. The free initial consultation also serves to check in advance whether the approach and chemistry are right.",
       ru: "Ваша удовлетворённость — наш главный приоритет. Если после первых сессий вы чувствуете, что подход вам не подходит, мы открыто обсудим это и найдём решение. Для семинаров действует политика удовлетворённости. Наша цель — доверительное сотрудничество с честной коммуникацией. Бесплатная первичная консультация также помогает заранее проверить, подходят ли подход и взаимодействие."
     },
@@ -704,7 +704,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "ressourcen-selbststudium",
     question: { de: "Gibt es Ressourcen zum Selbststudium?", en: "Are there resources for self-study?", ru: "Есть ли ресурсы для самостоятельного изучения?" },
     answer: {
-      de: "Ja, auf unserer Ressourcen-Seite finden Sie kostenlose Materialien wie Reflexionstools, Guides zur Bewusstseinsentwicklung und praxisnahe Übungen. Im Shop sind darüber hinaus digitale Kurse und vertiefende Programme erhältlich, die Sie in Ihrem eigenen Tempo durcharbeiten können. Diese Materialien eignen sich hervorragend als Einstieg oder als Ergänzung zu einem Coaching-Prozess und helfen Ihnen, eigenständig an Ihrer Entwicklung zu arbeiten.",
+      de: "Ja, auf unserer Ressourcen-Seite finden Sie kostenlose Materialien wie Reflexionstools, Guides zur Bewusstseinsentwicklung und praxisnahe Übungen. Im Shop sind darüber hinaus digitale Kurse und vertiefende Programme erhältlich, die Sie in Ihrem eigenen Tempo durchgehen können. Diese Materialien eignen sich hervorragend als Einstieg oder als Ergänzung zu einem Coaching-Prozess und helfen Ihnen, eigenständig an Ihrer Entwicklung zu feilen.",
       en: "Yes, on our resources page you will find free materials such as reflection tools, consciousness development guides, and practical exercises. The shop also offers digital courses and in-depth programs you can work through at your own pace. These materials are excellent as an introduction or supplement to a coaching process and help you work independently on your development.",
       ru: "Да, на странице ресурсов вы найдёте бесплатные материалы: инструменты рефлексии, руководства по развитию сознания и практические упражнения. В магазине также доступны цифровые курсы и углублённые программы, которые можно проходить в своём темпе. Эти материалы отлично подходят как вступление или дополнение к коучинг-процессу и помогают самостоятельно работать над развитием."
     },
@@ -824,7 +824,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "einzigartigkeit-coaching-ansatz",
     question: { de: "Was macht den Coaching-Ansatz einzigartig?", en: "What makes the coaching approach unique?", ru: "Что делает коучинг-подход уникальным?" },
     answer: {
-      de: "Der Ansatz von Anatoly Mook ist einzigartig durch die Verbindung von Tiefe und Pragmatismus. Statt an der Oberfläche zu bleiben, arbeiten wir auf der Ebene von Bewusstsein und Identität, wo echte Transformation stattfindet. Gleichzeitig ist jeder Schritt auf messbare Ergebnisse ausgerichtet. Die dreisprachige Arbeit, die Integration verschiedener Methoden und die Verbindung von östlicher Weisheit mit westlicher Führungspraxis machen den Ansatz besonders wirkungsvoll.",
+      de: "Der Ansatz von Anatoly Mook ist einzigartig durch die Verbindung von Tiefe und Pragmatismus. Statt an der Oberfläche zu bleiben, gehen wir auf der Ebene von Bewusstsein und Identität, wo echte Transformation stattfindet. Gleichzeitig ist jeder Schritt auf messbare Ergebnisse ausgerichtet. Die dreisprachige Praxis, die Integration verschiedener Methoden und die Verbindung von östlicher Weisheit mit westlicher Führungspraxis machen den Ansatz besonders wirkungsvoll.",
       en: "Anatoly Mook's approach is unique through the combination of depth and pragmatism. Instead of staying on the surface, we work at the level of consciousness and identity where real transformation occurs. At the same time, every step is oriented toward measurable results. The trilingual work, integration of various methods, and connection of Eastern wisdom with Western leadership practice make the approach particularly effective.",
       ru: "Подход Анатолия Мука уникален сочетанием глубины и прагматизма. Вместо работы на поверхности мы действуем на уровне сознания и идентичности, где происходит настоящая трансформация. При этом каждый шаг направлен на измеримые результаты. Трёхъязычная работа, интеграция различных методов и связь восточной мудрости с западной практикой лидерства делают подход особенно действенным."
     },
@@ -848,7 +848,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "rolle-achtsamkeit",
     question: { de: "Welche Rolle spielt Achtsamkeit im Coaching?", en: "What role does mindfulness play?", ru: "Какую роль играет осознанность в коучинге?" },
     answer: {
-      de: "Achtsamkeit ist ein zentrales Element in Anatoly Mooks Arbeit. Sie bildet die Grundlage für Selbstkenntnis, klare Wahrnehmung und bewusste Entscheidungen. Im Coaching werden Achtsamkeitstechniken eingesetzt, um Klienten zu helfen, ihre automatischen Reaktionsmuster zu erkennen und bewusstere Alternativen zu entwickeln. Dabei geht es nicht um esoterische Praktiken, sondern um wissenschaftlich fundierte Methoden, die nachweislich Fokus, Stressresistenz und Entscheidungsqualität verbessern.",
+      de: "Achtsamkeit ist ein zentrales Element in Anatoly Mooks Begleitung. Sie bildet die Grundlage für Selbstkenntnis, klare Wahrnehmung und bewusste Entscheidungen. Im Coaching werden Achtsamkeitstechniken eingesetzt, um Klienten zu helfen, ihre automatischen Reaktionsmuster zu erkennen und bewusstere Alternativen zu entwickeln. Dabei geht es nicht um esoterische Praktiken, sondern um wissenschaftlich fundierte Methoden, die nachweislich Fokus, Stressresistenz und Entscheidungsqualität verbessern.",
       en: "Mindfulness is a central element in Anatoly Mook's work. It forms the foundation for self-knowledge, clear perception, and conscious decisions. In coaching, mindfulness techniques are used to help clients recognize their automatic reaction patterns and develop more conscious alternatives. This is not about esoteric practices but about scientifically grounded methods that demonstrably improve focus, stress resistance, and decision quality.",
       ru: "Осознанность — центральный элемент в работе Анатолия Мука. Она составляет основу самопознания, ясного восприятия и осознанных решений. В коучинге техники осознанности помогают клиентам распознавать автоматические паттерны реакций и развивать более осознанные альтернативы. Речь не об эзотерических практиках, а о научно обоснованных методах, доказанно улучшающих фокус, стрессоустойчивость и качество решений."
     },
@@ -860,7 +860,7 @@ export const faqEntries: FAQEntry[] = [
     slug: "coaching-bei-burnout",
     question: { de: "Kann Coaching bei Burnout helfen?", en: "Can coaching help with burnout?", ru: "Может ли коучинг помочь при выгорании?" },
     answer: {
-      de: "Coaching kann sowohl präventiv als auch begleitend bei Burnout-Themen wirken. In der Prävention hilft es, Stressmuster zu erkennen, gesunde Grenzen zu setzen und nachhaltige Arbeitsweisen zu entwickeln. Bei bereits aufgetretenem Burnout kann Coaching den Genesungsprozess unterstützen — ergänzend zu medizinischer oder therapeutischer Betreuung. Anatoly Mook hilft Klienten, die tieferliegenden Ursachen zu verstehen und eine neue Balance zwischen Leistung und Wohlbefinden zu finden.",
+      de: "Coaching kann sowohl präventiv als auch begleitend bei Burnout-Themen wirken. In der Prävention hilft es, Stressmuster zu erkennen, gesunde Grenzen zu setzen und nachhaltige Führungsrhythmen zu entwickeln. Bei bereits aufgetretenem Burnout kann Coaching den Genesungsprozess unterstützen — ergänzend zu medizinischer oder therapeutischer Betreuung. Anatoly Mook hilft Klienten, die tieferliegenden Ursachen zu verstehen und eine neue Balance zwischen Leistung und Wohlbefinden zu finden.",
       en: "Coaching can work both preventively and supportively on burnout topics. In prevention, it helps recognize stress patterns, set healthy boundaries, and develop sustainable work practices. When burnout has already occurred, coaching can support the recovery process — complementary to medical or therapeutic care. Anatoly Mook helps clients understand the deeper causes and find a new balance between performance and well-being.",
       ru: "Коучинг может работать как превентивно, так и поддерживающе при теме выгорания. В профилактике он помогает распознавать стресс-паттерны, устанавливать здоровые границы и развивать устойчивые рабочие привычки. При уже наступившем выгорании коучинг поддерживает процесс восстановления — дополнительно к медицинской помощи. Анатолий Мук помогает клиентам понять глубинные причины и найти новый баланс между результативностью и благополучием."
     },

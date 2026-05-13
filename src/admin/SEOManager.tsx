@@ -348,7 +348,7 @@ export default function SEOManager() {
                         }}
                         className="text-blue-600 hover:text-blue-900 mr-3"
                       >
-                        Bearbeiten
+                        Anpassen
                       </button>
                       <button
                         onClick={() => handleDelete(kw.id, 'seo_keywords')}
@@ -462,7 +462,7 @@ export default function SEOManager() {
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
               <h2 className="text-xl font-bold">
-                {editingItem?.id ? 'Bearbeiten' : 'Neu erstellen'}
+                {editingItem?.id ? 'Anpassen' : 'Neu erstellen'}
               </h2>
               <button
                 onClick={() => {

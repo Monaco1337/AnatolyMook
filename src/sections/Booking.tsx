@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
-  Calendar, Users, Target, Send, CheckCircle, ArrowRight, ArrowLeft,
+  Calendar, Users, Target, Send, CheckCircle, ChevronsRight, ArrowLeft,
   Sparkles, Zap, TrendingUp, Award, Clock, MapPin, Check, X, Phone, Mail,
   BookOpen, Briefcase, Star, Loader2, ChevronRight, Crown, Diamond, Gem,
   Flame, Sun, Compass, Shield, Globe, Rocket, Trophy, Heart, Brain,
@@ -358,7 +358,7 @@ export default function Booking() {
           >
             <span className="relative z-10 flex items-center gap-3 text-yellow-400">
               Neue Buchung starten
-              <ArrowRight size={18} className="transition-transform duration-500 group-hover:translate-x-1.5" strokeWidth={2.5} />
+              <ChevronsRight size={18} className="transition-transform duration-500 group-hover:translate-x-1.5" strokeWidth={2.5} />
             </span>
           </button>
         </div>
@@ -663,7 +663,7 @@ export default function Booking() {
                                   transform: isHovered ? 'translateX(4px)' : 'translateX(0)'
                                 }}
                               >
-                                <ArrowRight
+                                <ChevronsRight
                                   size={22}
                                   strokeWidth={2.5}
                                   className="transition-all duration-500"
@@ -729,7 +729,7 @@ export default function Booking() {
                             </p>
                           </div>
                         </div>
-                        <ArrowRight className="text-yellow-400 group-hover:translate-x-2 transition-transform duration-500" size={22} strokeWidth={2.5} />
+                        <ChevronsRight className="text-yellow-400 group-hover:translate-x-2 transition-transform duration-500" size={22} strokeWidth={2.5} />
                       </div>
                     </div>
                   </a>
@@ -772,7 +772,7 @@ export default function Booking() {
                             </p>
                           </div>
                         </div>
-                        <ArrowRight className={`${text.tertiary} group-hover:translate-x-2 group-hover:text-yellow-400 transition-all duration-500`} size={22} strokeWidth={2.5} />
+                        <ChevronsRight className={`${text.tertiary} group-hover:translate-x-2 group-hover:text-yellow-400 transition-all duration-500`} size={22} strokeWidth={2.5} />
                       </div>
                     </div>
                   </a>
@@ -1014,7 +1014,7 @@ export default function Booking() {
                     >
                       <span className="flex items-center justify-center gap-3 text-black text-[15px] font-[650]">
                         {t.buttons.continue}
-                        <ArrowRight size={18} className="transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2.5} />
+                        <ChevronsRight size={18} className="transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2.5} />
                       </span>
                     </button>
                   </div>
@@ -1488,7 +1488,7 @@ function ServiceCard({
                 transform: isHovered ? 'translateX(4px)' : 'translateX(0)'
               }}
             >
-              <ArrowRight
+              <ChevronsRight
                 size={20}
                 strokeWidth={2.5}
                 className="transition-all duration-500"

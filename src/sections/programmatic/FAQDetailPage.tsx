@@ -5,7 +5,7 @@ import SEOHead from '../../components/SEOHead';
 import { faqEntries } from '../../seo/faqDatabase';
 import { faqPageGraphNode, breadcrumbListGraphNode } from '../../seo/schemaFactory';
 import InternalLinks from '../../components/InternalLinks';
-import { ChevronRight, HelpCircle, ArrowRight } from 'lucide-react';
+import { ChevronRight, HelpCircle, ChevronsRight } from 'lucide-react';
 
 export default function FAQDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -81,7 +81,7 @@ export default function FAQDetailPage() {
               <div className="flex flex-wrap gap-3">
                 {faq.relatedServices.map(svc => (
                   <Link key={svc} to={`/${svc}`} className="inline-flex items-center gap-1 px-4 py-2 rounded-lg border border-amber-500/30 text-amber-500 hover:bg-amber-500/10 capitalize text-sm transition-all">
-                    {svc} <ArrowRight className="w-3 h-3" />
+                    {svc} <ChevronsRight className="w-3 h-3" />
                   </Link>
                 ))}
               </div>

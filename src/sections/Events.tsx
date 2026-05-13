@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Calendar, ArrowRight, Sparkles, Zap } from 'lucide-react';
+import { Calendar, ChevronsRight, Sparkles, Zap } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 interface HomeEvent {
@@ -186,10 +186,10 @@ export default function Events() {
           </div>
 
           <h1 className="text-[52px] sm:text-[64px] lg:text-[88px] xl:text-[108px] font-[900] mb-6 leading-[0.95] tracking-[-0.045em]">
-            <span className="inline-block bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_4px_32px_rgba(255,255,255,0.15)]">
+            <span className="text-[#F4F4F4]">
               {heading}{' '}
             </span>
-            <span className="inline-block bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-500 bg-clip-text text-transparent animate-pulse drop-shadow-[0_0_80px_rgba(185, 130, 63, 0.3)]">
+            <span className="inline-block text-[#EADDCB]">
               {highlight}
             </span>
           </h1>
@@ -209,7 +209,7 @@ export default function Events() {
               <span className="relative text-black font-bold text-[15px] tracking-[-0.01em]">
                 {linkText}
               </span>
-              <ArrowRight className="relative text-black transition-transform duration-500 group-hover:translate-x-1" size={18} strokeWidth={2.5} />
+              <ChevronsRight className="relative text-black transition-transform duration-500 group-hover:translate-x-1" size={18} strokeWidth={2.5} />
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
             </a>
 
@@ -324,12 +324,12 @@ export default function Events() {
           </div>
 
           <h2 className="text-[44px] sm:text-[56px] lg:text-[72px] font-[900] mb-7 leading-[1.05] tracking-[-0.045em]">
-            <span className="inline-block bg-gradient-to-b from-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_4px_24px_rgba(255,255,255,0.1)]">
+            <span className="text-[#EADDCB]">
               Nicht vor Ort?
             </span>
           </h2>
 
-          <p className="text-[18px] sm:text-[20px] text-white/70 font-[420] mb-12 leading-[1.7] max-w-[760px] mx-auto tracking-[-0.015em]">
+          <p className="text-[18px] sm:text-[20px] text-white/70 font-normal mb-12 leading-[1.7] max-w-[760px] mx-auto tracking-[-0.015em]">
             Alle Events werden aufgezeichnet und als digitale Erlebnisse verfügbar gemacht. Erhalten Sie lebenslangen Zugang zu Content, Workbooks und Bonus-Materialien.
           </p>
 
@@ -340,7 +340,7 @@ export default function Events() {
             <span className="text-white font-bold text-[15px] tracking-[-0.01em]">
               Digitalen Zugang erkunden
             </span>
-            <ArrowRight className="text-white transition-transform duration-500 group-hover:translate-x-1" size={18} strokeWidth={2.5} />
+            <ChevronsRight className="text-white transition-transform duration-500 group-hover:translate-x-1" size={18} strokeWidth={2.5} />
           </button>
         </div>
       </section>

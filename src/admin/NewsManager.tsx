@@ -188,7 +188,7 @@ export default function NewsManager() {
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-zinc-900 rounded-2xl p-8 max-w-4xl w-full my-8">
             <h3 className="text-2xl font-bold text-white mb-6">
-              {editingArticle.id ? 'Artikel bearbeiten' : 'Neuer Artikel'}
+              {editingArticle.id ? 'Artikel anpassen' : 'Neuer Artikel'}
             </h3>
 
             <form onSubmit={handleSave} className="space-y-6">

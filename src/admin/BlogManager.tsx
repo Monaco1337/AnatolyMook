@@ -309,7 +309,7 @@ export default function BlogManager() {
                   </div>
                   <div>
                     <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
-                      {editingPost ? 'Blog-Post bearbeiten' : 'Neuer Blog-Post'}
+                      {editingPost ? 'Blog-Post anpassen' : 'Neuer Blog-Post'}
                     </h2>
                     <p className="text-xs sm:text-sm text-amber-50/80 mt-0.5">
                       Erstellen Sie ansprechende Inhalte für Ihre Leser
@@ -787,7 +787,7 @@ export default function BlogManager() {
                       className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center justify-center gap-1.5 text-xs sm:text-sm font-medium"
                     >
                       <Edit size={14} strokeWidth={2} className="sm:w-4 sm:h-4" />
-                      <span>Bearbeiten</span>
+                      <span>Anpassen</span>
                     </button>
                     <button
                       onClick={() => post.id && handleDelete(post.id, post.title)}

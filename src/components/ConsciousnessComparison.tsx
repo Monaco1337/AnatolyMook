@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Sparkles, ArrowRight, Calendar, Plus, X, Heart, Zap, Target, Diamond, Stars, Activity } from 'lucide-react';
+import { Sparkles, ChevronsRight, Calendar, Plus, X, Heart, Zap, Target, Diamond, Stars, Activity } from 'lucide-react';
 import { useThemeStyles } from '../hooks/useThemeStyles';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -283,7 +283,7 @@ export default function ConsciousnessComparison() {
                       <Sparkles className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-black" strokeWidth={2.5} />
                     </div>
                     <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center group-hover/cta:bg-white/20 transition-all duration-300">
-                      <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-white transform group-hover/cta:translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
+                      <ChevronsRight className="w-5 h-5 sm:w-6 sm:h-6 text-white transform group-hover/cta:translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
                     </div>
                   </div>
 
@@ -318,7 +318,7 @@ export default function ConsciousnessComparison() {
                       <Calendar className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-black" strokeWidth={2.5} />
                     </div>
                     <div className="flex-shrink-0 w-12 h-12 rounded-full bg-black/20 backdrop-blur-xl flex items-center justify-center group-hover/cta:bg-black/30 transition-all duration-300">
-                      <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-black transform group-hover/cta:translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
+                      <ChevronsRight className="w-5 h-5 sm:w-6 sm:h-6 text-black transform group-hover/cta:translate-x-1 transition-transform duration-300" strokeWidth={2.5} />
                     </div>
                   </div>
 

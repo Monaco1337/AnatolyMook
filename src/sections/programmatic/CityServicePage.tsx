@@ -5,7 +5,7 @@ import { europeanCities, generateLocalLandingPage } from '../../utils/localSEO';
 import SEOHead from '../../components/SEOHead';
 import { localBusinessSchema, breadcrumbSchema } from '../../seo/schemaFactory';
 import InternalLinks from '../../components/InternalLinks';
-import { MapPin, ArrowRight, Phone, Mail, Calendar, ChevronRight } from 'lucide-react';
+import { MapPin, ChevronsRight, Phone, Mail, Calendar, ChevronRight } from 'lucide-react';
 
 interface Props {
   service: string;
@@ -138,7 +138,7 @@ export default function CityServicePage({ service }: Props) {
           <div className="flex flex-wrap gap-3">
             {serviceRoutes.map(svc => (
               <Link key={svc} to={`/${svc}/${citySlug}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border transition-all hover:border-amber-500/40 capitalize" style={{ borderColor: colors.border.subtle, color: colors.text.secondary }}>
-                {svc} <ArrowRight className="w-3 h-3" />
+                {svc} <ChevronsRight className="w-3 h-3" />
               </Link>
             ))}
           </div>

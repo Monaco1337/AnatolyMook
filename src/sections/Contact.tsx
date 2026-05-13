@@ -6,7 +6,7 @@ import {
   Send,
   CheckCircle2,
   AlertCircle,
-  ArrowRight,
+  ChevronsRight,
   MessageCircle,
   Building2,
   User,
@@ -401,7 +401,7 @@ export default function Contact() {
               style={{ fontFamily: FONT_HEAD, color: BRONZE }}
             >
               {t.contact.anamnesisCardAction}
-              <ArrowRight size={13} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+              <ChevronsRight size={13} strokeWidth={2} className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
             </span>
           </Link>
         </div>
@@ -707,7 +707,7 @@ export default function Contact() {
                 <>
                   <Send size={17} strokeWidth={2} className="-mt-px" aria-hidden />
                   {t.contact.sendMessage}
-                  <ArrowRight size={16} strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
+                  <ChevronsRight size={16} strokeWidth={2} className="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden />
                 </>
               )}
             </button>
@@ -734,7 +734,7 @@ export default function Contact() {
                 }}
               >
                 {t.buttons.bookNow}
-                <ArrowRight size={14} strokeWidth={2} aria-hidden />
+                <ChevronsRight size={14} strokeWidth={2} aria-hidden />
               </Link>
             </div>
 

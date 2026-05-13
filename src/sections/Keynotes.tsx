@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, Infinity, Circle, Eye, Brain, Heart, Zap, Users, Compass, Sun, Moon, Wind, Waves } from 'lucide-react';
+import { ChevronsRight, Sparkles, Infinity, Circle, Eye, Brain, Heart, Zap, Users, Compass, Sun, Moon, Wind, Waves } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function Keynotes() {
@@ -467,7 +467,7 @@ export default function Keynotes() {
                             <span className="text-white/25 text-[12px] font-[440] tracking-[0.005em]">
                               {t.from}
                             </span>
-                            <ArrowRight size={12} className="text-yellow-400/35 flex-shrink-0" strokeWidth={2} />
+                            <ChevronsRight size={12} className="text-yellow-400/35 flex-shrink-0" strokeWidth={2} />
                             <span className="text-white/55 text-[12px] font-[560] tracking-[0.005em]">
                               {t.to}
                             </span>
@@ -502,8 +502,7 @@ export default function Keynotes() {
                           background: activeMantra === idx
                             ? 'linear-gradient(135deg, rgba(185, 130, 63, 1) 0%, rgba(185, 130, 63, 0.85) 100%)'
                             : 'linear-gradient(135deg, rgba(185, 130, 63, 0.9) 0%, rgba(185, 130, 63, 0.6) 100%)',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
+
                           backgroundClip: 'text'
                         }}
                       >
@@ -630,7 +629,7 @@ export default function Keynotes() {
           <div className="text-center mb-32">
             <Circle size={4} className="mx-auto text-yellow-400/35 fill-current mb-10" />
             <h2 className="text-[32px] font-[680] text-white/95 mb-8 tracking-[-0.035em]">
-              Von → Zu
+                Von {'>>'} Zu
             </h2>
             <p className="text-white/28 text-[13px] font-[440] max-w-[560px] mx-auto leading-[1.85] mb-4">
               Transzendenz: Die Grenzen überschreiten, in einen neuen Bereich hinübergehen
@@ -656,7 +655,7 @@ export default function Keynotes() {
                 <span className="text-white/28 text-[13px] font-[440] tracking-[0.008em] flex-1 text-right">
                   {t.from}
                 </span>
-                <ArrowRight
+                <ChevronsRight
                   size={14}
                   className={`flex-shrink-0 transition-all duration-500 ${
                     activeTransformation === idx ? 'text-yellow-400/55 translate-x-1' : 'text-yellow-400/35'
@@ -706,9 +705,7 @@ export default function Keynotes() {
                   <p
                     className="text-[14px] font-[540] tracking-[0.005em] leading-[1.65] transition-all duration-600"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(185, 130, 63, 0.85) 0%, rgba(185, 130, 63, 0.55) 100%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
+
                       backgroundClip: 'text'
                     }}
                   >
@@ -862,7 +859,7 @@ export default function Keynotes() {
             <button
               className="group relative overflow-hidden rounded-full px-14 py-6 transition-all duration-700 mx-auto"
               style={{
-                background: 'linear-gradient(135deg, rgba(185, 130, 63, 1) 0%, rgba(138, 85, 40, 1) 100%)',
+
                 boxShadow: '0 16px 56px rgba(185, 130, 63, 0.22)'
               }}
               onMouseEnter={(e) => {
@@ -876,7 +873,7 @@ export default function Keynotes() {
             >
               <span className="flex items-center gap-3 text-black text-[13px] font-[640] tracking-[0.03em]">
                 Vortrag anfragen
-                <ArrowRight size={16} className="transition-transform duration-700 group-hover:translate-x-2" strokeWidth={2.5} />
+                <ChevronsRight size={16} className="transition-transform duration-700 group-hover:translate-x-2" strokeWidth={2.5} />
               </span>
             </button>
           </div>

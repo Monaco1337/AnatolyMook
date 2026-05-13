@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ChevronsRight } from 'lucide-react';
 import { Fragment } from 'react';
 
 const METHODE_HERO = {
@@ -6,7 +7,7 @@ const METHODE_HERO = {
   width: 1024,
   height: 682,
   alt:
-    'Seminar- und Arbeitssituation bei gedämpftem Licht: Vortrag mit Flipchart, Zuhörende unscharf im Vordergrund, Spotlight mit warmem Bronze-Ton'
+    'Seminar- und Coaching-Situation bei gedämpftem Licht: Vortrag mit Flipchart, Zuhörende unscharf im Vordergrund, Spotlight mit warmem Bronze-Ton'
 } as const;
 
 const FONT_DISPLAY =
@@ -111,7 +112,7 @@ export default function MethodePage() {
                 }}
               >
                 Anatoly verbindet Wahrnehmung, Selbstführung und präzise Umsetzung zu einer ruhigen, tragfähigen
-                Arbeitsweise.
+                Haltung & Umsetzung.
               </p>
             </div>
 
@@ -198,7 +199,7 @@ export default function MethodePage() {
           </div>
         </section>
 
-        {/* Worin sich die Arbeit unterscheidet */}
+        {/* Worin sich die Begleitung unterscheidet */}
         <section className="mx-auto max-w-[1100px] px-6 py-14 sm:px-8 sm:py-16 md:px-10 lg:px-12">
           <p
             className="m-0 mb-3 uppercase"
@@ -222,7 +223,7 @@ export default function MethodePage() {
               color: IVORY
             }}
           >
-            Worin sich die Arbeit unterscheidet
+            Worin sich die Begleitung unterscheidet
           </h2>
           <HairlineBronze className="my-7 max-w-[10rem]" />
           <ul
@@ -305,14 +306,15 @@ export default function MethodePage() {
             </p>
             <Link
               to="/erstgespraech"
-              className="mt-6 inline-flex text-[rgba(188,164,132,0.68)] underline decoration-[rgba(214,168,94,0.22)] underline-offset-[0.28em] transition-colors hover:text-[rgba(228,212,182,0.88)] hover:decoration-[rgba(214,168,94,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.35)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303]"
+              className="mt-6 inline-flex items-center gap-1.5 text-[rgba(188,164,132,0.68)] underline decoration-[rgba(214,168,94,0.22)] underline-offset-[0.28em] transition-colors hover:text-[rgba(228,212,182,0.88)] hover:decoration-[rgba(214,168,94,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.35)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303]"
               style={{
                 fontFamily: FONT_BODY,
                 fontSize: '0.84375rem',
                 letterSpacing: '0.04em'
               }}
             >
-              Strategisches Gespräch vereinbaren →
+              Strategisches Gespräch vereinbaren
+              <ChevronsRight size={14} strokeWidth={2.25} aria-hidden />
             </Link>
           </div>
         </section>

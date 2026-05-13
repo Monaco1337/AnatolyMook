@@ -547,7 +547,7 @@ export default function ProductsManager() {
                             className="px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-500 hover:bg-blue-600 rounded-[8px] sm:rounded-[10px] text-[10px] sm:text-sm font-semibold transition-all flex items-center gap-1 text-white shadow-sm shadow-blue-500/30 hover:shadow-md hover:shadow-blue-500/40 active:scale-[0.98]"
                           >
                             <Edit2 size={12} className="sm:w-3.5 sm:h-3.5" strokeWidth={2.5} />
-                            <span className="hidden sm:inline">Bearbeiten</span>
+                            <span className="hidden sm:inline">Anpassen</span>
                           </button>
                           <button
                             onClick={() => {
@@ -662,7 +662,7 @@ export default function ProductsManager() {
           <div className="w-full max-w-4xl max-h-[calc(100vh-2rem)] bg-white/95 backdrop-blur-2xl rounded-[24px] border border-gray-200/60 shadow-2xl flex flex-col" style={{ margin: 'auto' }}>
               <div className="flex-shrink-0 p-6 border-b border-gray-200 flex items-center justify-between bg-white/95 backdrop-blur-xl rounded-t-[24px]">
                 <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
-                  {isCreating ? 'Neues Produkt' : 'Produkt bearbeiten'}
+                  {isCreating ? 'Neues Produkt' : 'Produkt anpassen'}
                 </h2>
                 <button
                   onClick={() => {

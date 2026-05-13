@@ -1,6 +1,6 @@
 import { useState, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Minus, CheckCircle2, Brain, ArrowRight, Target } from 'lucide-react';
+import { Plus, Minus, CheckCircle2, Brain, ChevronsRight, Target } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { calculateTypology, type AnamnesisData, type TypologyResult } from '../utils/typologyCalculator';
 
@@ -658,10 +658,15 @@ export default function Anamnesis() {
             >
               <Brain size={15} strokeWidth={1.9} aria-hidden />
               Schreib mir
-              <ArrowRight size={14} strokeWidth={2} aria-hidden />
+              <ChevronsRight size={14} strokeWidth={2} aria-hidden />
             </Link>
-            <Link to="/booking" className="text-[12px] font-light underline-offset-4" style={{ color: BRONZE_MUTED }}>
-              Oder einen Termin wählen →
+            <Link
+              to="/booking"
+              className="inline-flex items-center gap-1.5 text-[12px] font-light underline-offset-4"
+              style={{ color: BRONZE_MUTED }}
+            >
+              Oder einen Termin wählen
+              <ChevronsRight size={13} strokeWidth={2.25} aria-hidden className="opacity-90" />
             </Link>
           </div>
         </div>
@@ -790,7 +795,7 @@ export default function Anamnesis() {
               }}
             >
               Weiter zum Bogen
-              <ArrowRight size={14} strokeWidth={2} aria-hidden />
+              <ChevronsRight size={14} strokeWidth={2} aria-hidden />
             </button>
 
             <p className="m-0 mt-3.5 text-center text-[11px] font-light leading-[1.45]" style={{ color: 'rgba(238,230,216,0.4)' }}>
@@ -828,7 +833,7 @@ export default function Anamnesis() {
           </h1>
 
           <p className="mx-auto m-0 max-w-lg text-[13.35px] font-light leading-[1.53] sm:text-[13.75px]" style={{ color: 'rgba(244,239,230,0.52)' }}>
-            Arbeit die Bereiche in dem Tempo durch, das für dich passt. Ich halte diese Struktur bewusst klar —
+            Geh die Bereiche in dem Tempo durch, das für dich passt. Ich halte diese Struktur bewusst klar —
             ohne Urteil, ohne Druck.
           </p>
 
@@ -1126,7 +1131,7 @@ export default function Anamnesis() {
             ) : (
               <>
                 Auswertung ansehen
-                <ArrowRight size={14} strokeWidth={2} aria-hidden />
+                <ChevronsRight size={14} strokeWidth={2} aria-hidden />
               </>
             )}
           </button>

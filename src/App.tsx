@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { supabase } from './lib/supabase';
 import {
@@ -48,6 +48,33 @@ function LoadingFallback() {
       <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
     </div>
   );
+}
+
+// Premium UX — bei Reload und bei jedem Routenwechsel öffnet die Seite
+// immer am Hero (Top). Hash-Anchors (#abschnitt) werden weiterhin respektiert.
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (hash) {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ block: 'start' });
+        isInitialMount.current = false;
+        return;
+      }
+    }
+
+    if (isInitialMount.current) {
+      window.scrollTo({ top: 0, left: 0 });
+      isInitialMount.current = false;
+    } else {
+      window.scrollTo({ top: 0, left: 0 });
+    }
+  }, [pathname, hash]);
+
+  return null;
 }
 
 const cityServiceRoutes = ['seminare', 'coaching', 'keynotes', 'corporate', 'transformation', 'resources', 'booking'] as const;
@@ -161,7 +188,8 @@ function AppContent() {
   const handleNavigate = (section: string) => {
     const path = section === 'home' ? '/' : `/${section}`;
     navigate(path);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // ScrollToTop oben in <AppContent /> setzt den Scroll bei jedem
+    // Routenwechsel zentral zurück — kein doppelter Smooth/Instant-Konflikt.
   };
 
   const showNavAndFooter =
@@ -254,6 +282,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen smooth-scroll overflow-x-hidden" style={{ backgroundColor: colors.bg.primary }}>
+      <ScrollToTop />
       <SEOHead section={currentSection} path={location.pathname} />
       {showNavAndFooter && (
         <Navigation currentSection={navSection} onNavigate={handleNavigate} cartItemCount={cartItemCount} onCartClick={() => setIsCartOpen(true)} />

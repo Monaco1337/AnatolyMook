@@ -246,14 +246,66 @@ export default function FormatePage() {
       </section>
 
       {/* ──────────────────────────────────────────────
-         INTRO — rein typografisch, kein Container
+         INTRO — Cinematic Wings + goldener Horizont (ab „Nicht jedes Format…")
          ────────────────────────────────────────────── */}
       <section
-        className="relative pb-[clamp(2.25rem,5vw,3.25rem)] pt-[clamp(1.5rem,3.5vw,2.25rem)]"
+        className="relative isolate overflow-hidden min-h-[min(48svh,540px)] pb-[clamp(2.75rem,6vw,4rem)] pt-[clamp(2.25rem,5vw,3.25rem)]"
         aria-label="Einordnung"
       >
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+          <div
+            className="fp-intro-bg-img absolute inset-0"
+            style={{
+              backgroundImage: 'url(/images/portfolio/portfolio-intro-horizon-wings-bg.png)',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.82,
+              filter: 'saturate(0.96) contrast(1.03)'
+            }}
+          />
+          {/* Dunkler zentraler Wash — sichere Lesefläche, goldene Horizontlinie darf subtil durchscheinen */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(62% 75% at 50% 44%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.36) 45%, rgba(0,0,0,0.14) 78%, rgba(0,0,0,0) 100%)'
+            }}
+          />
+          <div className="absolute inset-0" style={{ background: 'rgba(2,2,4,0.14)' }} />
+          {/* Soft top — nahtlos aus Hero-Unterkante */}
+          <div
+            className="absolute inset-x-0 top-0 h-36 sm:h-44"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(2,2,2,0.97) 0%, rgba(2,2,2,0.55) 45%, rgba(2,2,2,0.12) 82%, transparent 100%)'
+            }}
+          />
+          {/* Soft bottom — fließt in dunkle Liste „Auswahl“ */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-36 sm:h-48"
+            style={{
+              background:
+                'linear-gradient(0deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.62) 38%, rgba(2,2,2,0.18) 78%, transparent 100%)'
+            }}
+          />
+          {/* Goldener Bronze-Atem entlang unterem Drittel (Horizont-Stimmung) */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-[42%] max-h-[340px] mix-blend-soft-light opacity-85"
+            style={{
+              background:
+                'radial-gradient(90% 70% at 50% 100%, rgba(214,168,94,0.09) 0%, rgba(80,54,28,0.04) 45%, transparent 72%)'
+            }}
+          />
+        </div>
+        <style>{`
+          .fp-intro-bg-img { background-position: center 42%; }
+          @media (min-width: 768px) {
+            .fp-intro-bg-img { background-position: center 48%; }
+          }
+        `}</style>
+
         <div
-          className="relative mx-auto w-full max-w-[640px] px-6 text-center sm:px-10 md:px-14"
+          className="relative z-[1] mx-auto flex h-full w-full max-w-[640px] flex-col justify-center px-6 text-center sm:px-10 md:px-14"
           data-reveal
         >
           <p
@@ -261,7 +313,9 @@ export default function FormatePage() {
             style={{
               fontFamily: FONT_BODY,
               fontSize: 'clamp(0.92rem, 0.88rem + 0.12vw, 1rem)',
-              color: 'rgba(229,226,219,0.7)'
+              color: 'rgba(245, 240, 232, 0.92)',
+              textShadow:
+                '0 2px 18px rgba(0,0,0,0.65), 0 1px 4px rgba(0,0,0,0.55), 0 0 32px rgba(0,0,0,0.35)'
             }}
           >
             Nicht jedes Format ist für jede Phase gedacht.
@@ -271,8 +325,10 @@ export default function FormatePage() {
             style={{
               fontFamily: FONT_BODY,
               fontSize: 'clamp(0.88rem, 0.85rem + 0.1vw, 0.95rem)',
-              color: 'rgba(229,226,219,0.55)',
-              lineHeight: 1.55
+              color: 'rgba(234, 226, 215, 0.78)',
+              lineHeight: 1.55,
+              textShadow:
+                '0 2px 16px rgba(0,0,0,0.62), 0 1px 3px rgba(0,0,0,0.5), 0 0 24px rgba(0,0,0,0.32)'
             }}
           >
             <p className="m-0">Manche Menschen brauchen Stille.</p>

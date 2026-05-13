@@ -1385,7 +1385,7 @@ export default function Corporate() {
                         <a
                           href="#contact"
                           onClick={(e) => e.stopPropagation()}
-                          className="group/cta inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[11px] transition-[transform,background-color,box-shadow] duration-[700ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(10,10,11,0.9)] flex-shrink-0"
+                          className="inline-flex items-center justify-center px-6 py-3 rounded-[11px] transition-[transform,background-color,box-shadow] duration-[700ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(214,168,94,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(10,10,11,0.9)] flex-shrink-0"
                           style={{
                             fontFamily: FONT_BODY,
                             fontWeight: 500,
@@ -1398,12 +1398,6 @@ export default function Corporate() {
                           }}
                         >
                           <span>{t.corporate.requestOffer}</span>
-                          <ChevronsRight
-                            size={14}
-                            strokeWidth={1.8}
-                            className="transition-transform duration-[600ms] group-hover/cta:translate-x-0.5"
-                            style={{ opacity: 0.8 }}
-                          />
                         </a>
                       </div>
                     </div>

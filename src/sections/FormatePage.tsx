@@ -10,6 +10,12 @@ const FONT_BODY =
 const GRAIN_SVG =
   "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
 
+/** Cinematic Backgrounds — eine zusammenhängende Luxus-Architektur über alle Sections.
+ *  Reihenfolge entspricht der Scroll-Reise: Phase → Angebot → Öffnung. */
+const PORTFOLIO_BG_PHASES = '/images/portfolio/portfolio-phases-bg.png';
+const PORTFOLIO_BG_OFFERS = '/images/portfolio/portfolio-offers-bg.png';
+const PORTFOLIO_BG_CTA = '/images/portfolio/portfolio-cta-bg.png';
+
 type Format = {
   index: string;
   title: string;
@@ -148,7 +154,7 @@ export default function FormatePage() {
       >
         {/* Wings-Background + atmosphärische Layer (analog Homepage-Meisterschaft).
             Dunkles Zentrum trägt die zentrierte Typografie, Flügel rahmen seitlich. */}
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden style={{ backgroundColor: '#020202' }}>
           <div
             className="absolute inset-0"
             style={{
@@ -168,22 +174,22 @@ export default function FormatePage() {
                 'radial-gradient(58% 68% at 50% 50%, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.28) 48%, rgba(0,0,0,0) 80%)'
             }}
           />
-          {/* Matte Tiefen-Lasur — nimmt dem Bild die Direktheit */}
-          <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.18)' }} />
+          {/* Matte Tiefen-Lasur — nimmt dem Bild die Direktheit, einheitlicher Black-Wert */}
+          <div className="absolute inset-0" style={{ background: 'rgba(2,2,3,0.18)' }} />
           {/* Top-Fade — Verschmelzung mit Navbar-Saum, kein harter Cut */}
           <div
-            className="absolute inset-x-0 top-0 h-32 sm:h-44"
+            className="absolute inset-x-0 top-0 h-36 sm:h-48"
             style={{
               background:
-                'linear-gradient(180deg, rgba(2,2,2,0.96) 0%, rgba(2,2,2,0.62) 42%, rgba(2,2,2,0.22) 74%, rgba(2,2,2,0) 100%)'
+                'linear-gradient(180deg, rgba(2,2,2,0.97) 0%, rgba(2,2,2,0.62) 42%, rgba(2,2,2,0.22) 74%, rgba(2,2,2,0) 100%)'
             }}
           />
-          {/* Bottom-Fade — atmosphärischer Übergang in die Intro-Section */}
+          {/* Bottom-Fade — atmosphärischer Übergang in die Intro-Section (Bild 1) */}
           <div
-            className="absolute inset-x-0 bottom-0 h-32 sm:h-44"
+            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
             style={{
               background:
-                'linear-gradient(0deg, rgba(2,2,2,0.96) 0%, rgba(2,2,2,0.62) 42%, rgba(2,2,2,0.22) 76%, rgba(2,2,2,0) 100%)'
+                'linear-gradient(0deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.64) 38%, rgba(2,2,2,0.2) 76%, rgba(2,2,2,0) 100%)'
             }}
           />
           {/* Subtiler Bronze-Atem unten Mitte — pickt das warme Licht des Bildes auf */}
@@ -249,58 +255,75 @@ export default function FormatePage() {
          INTRO — Cinematic Wings + goldener Horizont (ab „Nicht jedes Format…")
          ────────────────────────────────────────────── */}
       <section
-        className="relative isolate overflow-hidden min-h-[min(48svh,540px)] pb-[clamp(2.75rem,6vw,4rem)] pt-[clamp(2.25rem,5vw,3.25rem)]"
+        className="relative isolate overflow-hidden min-h-[min(52svh,580px)] pb-[clamp(3rem,6.5vw,4.5rem)] pt-[clamp(2.5rem,5.5vw,3.5rem)]"
         aria-label="Einordnung"
+        style={{ backgroundColor: '#020202' }}
       >
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden style={{ backgroundColor: '#020202' }}>
           <div
-            className="fp-intro-bg-img absolute inset-0"
+            className="fp-phases-bg-img absolute inset-0 scale-[1.02]"
             style={{
-              backgroundImage: 'url(/images/portfolio/portfolio-intro-horizon-wings-bg.png)',
+              backgroundImage: `url('${PORTFOLIO_BG_PHASES}')`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
-              opacity: 0.82,
-              filter: 'saturate(0.96) contrast(1.03)'
+              opacity: 0.78,
+              filter: 'saturate(0.96) contrast(1.04)'
             }}
           />
-          {/* Dunkler zentraler Wash — sichere Lesefläche, goldene Horizontlinie darf subtil durchscheinen */}
+          {/* Radial-Depth — Lesefläche zentriert, warmes Licht rechts darf atmen */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                'radial-gradient(62% 75% at 50% 44%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.36) 45%, rgba(0,0,0,0.14) 78%, rgba(0,0,0,0) 100%)'
+                'radial-gradient(70% 78% at 46% 46%, rgba(0,0,0,0.66) 0%, rgba(0,0,0,0.38) 42%, rgba(0,0,0,0.14) 76%, rgba(0,0,0,0) 100%)'
             }}
           />
-          <div className="absolute inset-0" style={{ background: 'rgba(2,2,4,0.14)' }} />
-          {/* Soft top — nahtlos aus Hero-Unterkante */}
+          <div className="absolute inset-0" style={{ background: 'rgba(2,2,3,0.18)' }} />
+          {/* Soft top — nahtlos aus Hero-Unterkante (gleiche Black-Curve wie Hero-Bottom) */}
           <div
-            className="absolute inset-x-0 top-0 h-36 sm:h-44"
+            className="absolute inset-x-0 top-0 h-40 sm:h-52"
             style={{
               background:
-                'linear-gradient(180deg, rgba(2,2,2,0.97) 0%, rgba(2,2,2,0.55) 45%, rgba(2,2,2,0.12) 82%, transparent 100%)'
+                'linear-gradient(180deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.6) 38%, rgba(2,2,2,0.18) 76%, transparent 100%)'
             }}
           />
-          {/* Soft bottom — fließt in dunkle Liste „Auswahl“ */}
+          {/* Soft bottom — fließt nahtlos in FORMATE-Section, kein harter Cut */}
           <div
-            className="absolute inset-x-0 bottom-0 h-36 sm:h-48"
+            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
             style={{
               background:
-                'linear-gradient(0deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.62) 38%, rgba(2,2,2,0.18) 78%, transparent 100%)'
+                'linear-gradient(0deg, rgba(2,2,2,0.97) 0%, rgba(2,2,2,0.58) 38%, rgba(2,2,2,0.16) 78%, transparent 100%)'
             }}
           />
-          {/* Goldener Bronze-Atem entlang unterem Drittel (Horizont-Stimmung) */}
+          {/* Bronze-Atem rechts — pickt das warme Licht des Bildes auf, ohne zu dominieren */}
           <div
-            className="absolute inset-x-0 bottom-0 h-[42%] max-h-[340px] mix-blend-soft-light opacity-85"
+            className="absolute inset-0 mix-blend-screen opacity-[0.65]"
             style={{
               background:
-                'radial-gradient(90% 70% at 50% 100%, rgba(214,168,94,0.09) 0%, rgba(80,54,28,0.04) 45%, transparent 72%)'
+                'radial-gradient(38% 60% at 86% 52%, rgba(214,168,94,0.08) 0%, rgba(140,96,52,0.03) 46%, transparent 72%)'
             }}
+          />
+          {/* Champagne-Hauch oben mittig — emotionale Tiefenebene */}
+          <div
+            className="absolute inset-x-0 top-0 h-[55%] mix-blend-soft-light opacity-75"
+            style={{
+              background:
+                'radial-gradient(58% 48% at 50% 24%, rgba(230,193,138,0.045) 0%, transparent 60%)'
+            }}
+          />
+          {/* Innere Vignette — luxuriöse Schattendiffusion */}
+          <div
+            className="absolute inset-0 opacity-[0.45]"
+            style={{ boxShadow: 'inset 0 0 min(78vw, 560px) rgba(0,0,0,0.46)' }}
           />
         </div>
         <style>{`
-          .fp-intro-bg-img { background-position: center 42%; }
-          @media (min-width: 768px) {
-            .fp-intro-bg-img { background-position: center 48%; }
+          .fp-phases-bg-img { background-position: 58% 50%; }
+          @media (max-width: 639px) {
+            .fp-phases-bg-img { background-position: 64% 50%; }
+          }
+          @media (min-width: 1024px) {
+            .fp-phases-bg-img { background-position: 56% 48%; }
           }
         `}</style>
 
@@ -340,13 +363,88 @@ export default function FormatePage() {
       </section>
 
       {/* ──────────────────────────────────────────────
-         FORMATE — Editorial-Reihen (klar klickbar)
+         FORMATE — Editorial-Reihen (Bild 2: Säulen-Architektur)
+         Background mit zwei warm beleuchteten Säulen rahmt die Liste,
+         Mitte bleibt dunkel und ruhig — Typografie liegt im Raum.
          ────────────────────────────────────────────── */}
       <section
-        className="relative pb-[clamp(3rem,7vw,4.5rem)] pt-[clamp(0.75rem,2vw,1.5rem)]"
+        className="relative isolate overflow-hidden pb-[clamp(3rem,7vw,4.5rem)] pt-[clamp(1.25rem,2.5vw,2rem)]"
         aria-label="Sechs Formate"
+        style={{ backgroundColor: '#020202' }}
       >
-        <div className="mx-auto w-full max-w-[920px] px-6 sm:px-10 md:px-14">
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden style={{ backgroundColor: '#020202' }}>
+          {/* Foto-Layer — Säulen-Atmosphäre, sehr ruhig, in den Hintergrund verlagert */}
+          <div
+            className="fp-offers-bg-img absolute inset-0 scale-[1.04]"
+            style={{
+              backgroundImage: `url('${PORTFOLIO_BG_OFFERS}')`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.6,
+              filter: 'saturate(0.95) contrast(1.03)'
+            }}
+          />
+          {/* Zentrale Lesemaske — schützt die Editorial-Reihen */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(78% 88% at 50% 50%, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.5) 38%, rgba(0,0,0,0.2) 74%, rgba(0,0,0,0) 100%)'
+            }}
+          />
+          {/* Matte Lasur — gleiche cinematic Schwarzwerte wie Intro */}
+          <div className="absolute inset-0" style={{ background: 'rgba(2,2,3,0.22)' }} />
+          {/* Soft top — nahtlos aus Intro-Bottom (gleicher Verlauf) */}
+          <div
+            className="absolute inset-x-0 top-0 h-44 sm:h-56"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(2,2,2,0.99) 0%, rgba(2,2,2,0.74) 32%, rgba(2,2,2,0.34) 64%, rgba(2,2,2,0.1) 86%, transparent 100%)'
+            }}
+          />
+          {/* Soft bottom — atmosphärische Brücke zur Verdichtung/CTA */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+            style={{
+              background:
+                'linear-gradient(0deg, rgba(2,2,2,0.98) 0%, rgba(2,2,2,0.6) 38%, rgba(2,2,2,0.18) 78%, transparent 100%)'
+            }}
+          />
+          {/* Bronze-Säulenlicht links + rechts — als atmosphärische Tiefe, nicht als Effekt */}
+          <div
+            className="absolute inset-0 mix-blend-screen opacity-[0.55]"
+            style={{
+              background: `
+                radial-gradient(32% 60% at 4% 56%, rgba(214,168,94,0.075) 0%, rgba(140,96,52,0.025) 48%, transparent 72%),
+                radial-gradient(32% 60% at 96% 56%, rgba(214,168,94,0.07) 0%, rgba(140,96,52,0.02) 48%, transparent 72%)
+              `
+            }}
+          />
+          {/* Champagne-Bogen oben mittig — verbindet visuell mit dem Bogen aus Bild 2 */}
+          <div
+            className="absolute inset-x-0 top-0 h-[40%] mix-blend-soft-light opacity-65"
+            style={{
+              background:
+                'radial-gradient(56% 42% at 50% 18%, rgba(230,193,138,0.05) 0%, transparent 64%)'
+            }}
+          />
+          {/* Innere Vignette — gleiche Schattenkurve wie Intro */}
+          <div
+            className="absolute inset-0 opacity-[0.45]"
+            style={{ boxShadow: 'inset 0 0 min(82vw, 600px) rgba(0,0,0,0.48)' }}
+          />
+        </div>
+        <style>{`
+          .fp-offers-bg-img { background-position: center 50%; }
+          @media (max-width: 639px) {
+            .fp-offers-bg-img { background-position: center 52%; }
+          }
+          @media (min-width: 1024px) {
+            .fp-offers-bg-img { background-position: center 46%; }
+          }
+        `}</style>
+
+        <div className="relative z-[1] mx-auto w-full max-w-[920px] px-6 sm:px-10 md:px-14">
           {/* Kleiner Hinweis als Affordance-Signal */}
           <div
             className="mb-[clamp(0.75rem,1.5vw,1.25rem)] flex items-center justify-between gap-4"
@@ -481,17 +579,36 @@ export default function FormatePage() {
 
       {/* ──────────────────────────────────────────────
          VERDICHTUNG — emotionale Zwischenebene vor CTA
+         (transparenter Stille-Raum: vereint Formate & CTA atmosphärisch)
          ────────────────────────────────────────────── */}
       <section
-        className="relative pb-[clamp(2rem,5vw,3rem)] pt-[clamp(2rem,5vw,3rem)]"
+        className="relative isolate overflow-hidden pb-[clamp(2.25rem,5vw,3.25rem)] pt-[clamp(2.25rem,5vw,3.25rem)]"
         aria-label="Verdichtung"
+        style={{ backgroundColor: '#020202' }}
       >
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 50% 40% at 50% 50%, rgba(214,168,94,0.05) 0%, transparent 60%)'
+              'radial-gradient(ellipse 52% 42% at 50% 50%, rgba(214,168,94,0.045) 0%, transparent 64%)'
+          }}
+        />
+        {/* Cinematic Brücke — vereinheitlicht die Schwarzwerte zwischen Formate-Bottom und CTA-Top */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-24"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(2,2,2,0.6) 0%, rgba(2,2,2,0.2) 60%, transparent 100%)'
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+          style={{
+            background:
+              'linear-gradient(0deg, rgba(2,2,2,0.6) 0%, rgba(2,2,2,0.2) 60%, transparent 100%)'
           }}
         />
         <div
@@ -524,20 +641,92 @@ export default function FormatePage() {
       </section>
 
       {/* ──────────────────────────────────────────────
-         CTA — kompakt, integriert
+         CTA — Cinematic Öffnung (Bild 3)
+         „Ein Gespräch klärt mehr als ein Katalog."
+         Emotionaler Abschluss · Licht durch die Tür · Mitte ruhig für Typo
          ────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden pb-[clamp(4.5rem,10vw,7rem)] pt-[clamp(1rem,2.5vw,1.75rem)]"
+        className="relative isolate overflow-hidden pb-[clamp(5rem,11vw,7.5rem)] pt-[clamp(2.25rem,5vw,3.5rem)]"
         aria-labelledby="fp-cta-heading"
+        style={{ backgroundColor: '#020202' }}
       >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(ellipse 55% 45% at 50% 85%, rgba(214,168,94,0.07) 0%, transparent 60%)'
-          }}
-        />
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden style={{ backgroundColor: '#020202' }}>
+          {/* Foto-Layer — Lichtöffnung im Zentrum, Bild darf hier am stärksten wirken */}
+          <div
+            className="fp-cta-bg-img absolute inset-0 scale-[1.03]"
+            style={{
+              backgroundImage: `url('${PORTFOLIO_BG_CTA}')`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.82,
+              filter: 'saturate(0.99) contrast(1.04)'
+            }}
+          />
+          {/* Zentrale Lese-Lasur — schützt Headline + Button, lässt Lichtöffnung darunter atmen */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(64% 76% at 50% 46%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.34) 42%, rgba(0,0,0,0.12) 76%, rgba(0,0,0,0) 100%)'
+            }}
+          />
+          {/* Gleiche cinematic Lasur wie alle Sections */}
+          <div className="absolute inset-0" style={{ background: 'rgba(2,2,3,0.18)' }} />
+          {/* Soft top — nahtlos aus Verdichtung */}
+          <div
+            className="absolute inset-x-0 top-0 h-44 sm:h-56"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(2,2,2,0.97) 0%, rgba(2,2,2,0.62) 38%, rgba(2,2,2,0.2) 74%, rgba(2,2,2,0) 100%)'
+            }}
+          />
+          {/* Soft bottom — schwerer, getragener Übergang zum Footer (architektonischer Schluss) */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-48 sm:h-64"
+            style={{
+              background:
+                'linear-gradient(0deg, #020202 0%, rgba(2,2,2,0.92) 24%, rgba(2,2,2,0.62) 52%, rgba(2,2,2,0.22) 80%, transparent 100%)'
+            }}
+          />
+          {/* Bronze-Atem der Lichtöffnung — emotionale Wärme, kontrolliert */}
+          <div
+            className="absolute inset-0 mix-blend-screen opacity-[0.7]"
+            style={{
+              background:
+                'radial-gradient(48% 56% at 50% 60%, rgba(214,168,94,0.085) 0%, rgba(160,108,58,0.035) 44%, transparent 72%)'
+            }}
+          />
+          {/* Champagne-Höhepunkt unten Mitte — pickt das durchscheinende Licht aus Bild 3 auf */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-[42%] mix-blend-soft-light opacity-80"
+            style={{
+              background:
+                'radial-gradient(70% 56% at 50% 96%, rgba(230,193,138,0.085) 0%, rgba(90,60,32,0.03) 46%, transparent 74%)'
+            }}
+          />
+          {/* Innere Vignette — gleiche Schattenkurve wie Intro & Formate */}
+          <div
+            className="absolute inset-0 opacity-[0.5]"
+            style={{ boxShadow: 'inset 0 0 min(82vw, 600px) rgba(0,0,0,0.5)' }}
+          />
+          {/* Bronze-Hairline oben — visueller Anker, gleicher Saum wie Hero */}
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.18) 50%, transparent 100%)'
+            }}
+          />
+        </div>
+        <style>{`
+          .fp-cta-bg-img { background-position: center 48%; }
+          @media (max-width: 639px) {
+            .fp-cta-bg-img { background-position: center 44%; }
+          }
+          @media (min-width: 1024px) {
+            .fp-cta-bg-img { background-position: center 50%; }
+          }
+        `}</style>
         <div
           className="relative z-[2] mx-auto w-full max-w-[640px] px-6 text-center sm:px-10 md:px-14"
           data-reveal

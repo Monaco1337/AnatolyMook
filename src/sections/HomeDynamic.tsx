@@ -1477,8 +1477,8 @@ export default function HomeDynamic() {
             style={{
               backgroundColor: '#000000',
               minHeight: '100svh',
-              paddingTop: 'clamp(4rem, 9vw, 7rem)',
-              paddingBottom: 'clamp(4rem, 9vw, 7rem)'
+              paddingTop: 'clamp(3rem, 6vw, 5rem)',
+              paddingBottom: 'clamp(1.5rem, 3.5vw, 2.75rem)'
             }}
           >
             <style>{`
@@ -1821,8 +1821,8 @@ export default function HomeDynamic() {
         style={{
           backgroundColor: '#000000',
           minHeight: '100svh',
-          paddingTop: 'clamp(4rem, 9vw, 7rem)',
-          paddingBottom: 'clamp(4rem, 9vw, 7rem)'
+          paddingTop: 'clamp(1.5rem, 3.5vw, 2.75rem)',
+          paddingBottom: 'clamp(3rem, 6vw, 5rem)'
         }}
         data-section
         data-section-id="respond-to-shape"
@@ -1863,13 +1863,14 @@ export default function HomeDynamic() {
                 'radial-gradient(155% 105% at 50% 50%, rgba(0,0,0,0) 42%, rgba(0,0,0,0.28) 76%, rgba(0,0,0,0.62) 100%)'
             }}
           />
-          {/* Linkes Lesefeld — sanfter Wash, blendet weich ins Bild über. Mobile etwas stärker
-              für Lesbarkeit, Desktop ruhiger damit das Bronze-Portal sichtbar bleibt. */}
+          {/* Lese-Lasur — über das gesamte Bild gleichmäßig, kein sichtbarer Cut.
+              Sanfter Verlauf von dunkler links zu leicht heller rechts; das Bronze-Portal
+              bleibt erkennbar, aber ohne harten Übergang. */}
           <div
-            className="absolute inset-y-0 left-0 w-full lg:w-[58%]"
+            className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(90deg, rgba(4,6,10,0.78) 0%, rgba(6,8,12,0.55) 32%, rgba(8,10,14,0.28) 64%, rgba(10,12,16,0.06) 100%)'
+                'linear-gradient(90deg, rgba(4,6,10,0.72) 0%, rgba(6,8,12,0.50) 28%, rgba(8,10,14,0.32) 54%, rgba(10,12,16,0.20) 78%, rgba(10,12,16,0.10) 100%)'
             }}
           />
           {/* Mobile-only: zusätzlicher dezenter vertikaler Wash, hält Headline ruhig */}
@@ -3028,73 +3029,66 @@ export default function HomeDynamic() {
           }}
         />
 
-        {/* Background-Bild — Dawn-Horizont mit Gräser-Vordergrund.
-            Schärfe und Tiefe des Bildes bleiben erhalten; nur dezente Color-Refine, kein Blur. */}
-        <div className="pointer-events-none absolute inset-0 z-0 bg-black" aria-hidden>
-          <div className="relative mx-auto h-full max-w-[1600px] px-6 sm:px-8 md:px-12 lg:px-16">
-            <div className="absolute inset-y-0 overflow-hidden -left-6 -right-6 sm:-left-8 sm:-right-8 md:-left-12 md:-right-12 lg:-left-16 lg:-right-16 xl:-left-[5.5rem] xl:-right-[5.5rem]">
-              <div
-                className="clarity-bg-img absolute inset-0"
-                style={{
-                  backgroundImage: 'url(/images/manifest/clarity-horizon-grass-bg.png)',
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  opacity: 1,
-                  filter: 'saturate(0.96) contrast(1.04)'
-                }}
-              />
-              {/* Matter Tiefen-Wash — bringt das helle Dawn-Bild in die Lichtwelt der Section,
-                  ohne Detail oder Schärfe zu verlieren. */}
-              <div
-                className="absolute inset-0"
-                style={{ background: 'rgba(0,0,0,0.22)' }}
-              />
-              {/* Radiale Mattvignette — saubere Sektion-Kanten, Mitte bleibt detailtreu */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'radial-gradient(150% 110% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.68) 100%)'
-                }}
-              />
-              {/* Top-Fade — verlängert, damit der Anschluss aus dem dunklen Saum von Kapitel II
-                  wie ein langsamer Atemzug ins Licht wirkt. */}
-              <div
-                className="absolute inset-x-0 top-0 h-44 sm:h-56"
-                style={{
-                  background:
-                    'linear-gradient(180deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.6) 38%, rgba(10,10,10,0.22) 72%, rgba(10,10,10,0) 100%)'
-                }}
-              />
-              {/* Bottom-Fade — dunkle Brücke zur nächsten Section */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
-                style={{
-                  background:
-                    'linear-gradient(0deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.22) 76%, rgba(10,10,10,0) 100%)'
-                }}
-              />
-              {/* Warmer Bronze-Atem unten links — verbindet den Sonnen-Horizont visuell
-                  mit dem unteren Sektionsrand, ohne harten Cut. */}
-              <div
-                className="absolute left-0 bottom-0 w-[70%] h-28 sm:h-36 mix-blend-screen"
-                style={{
-                  background:
-                    'radial-gradient(70% 100% at 20% 100%, rgba(214,168,94,0.08) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
-                }}
-              />
-            </div>
-          </div>
+        {/* Background-Bild — Dawn-Horizont mit Gräser-Vordergrund · full-bleed edge-to-edge.
+            Kein max-w-Wrapper mehr — verhindert schwarze Ränder bei breiten Viewports. */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+          <div
+            className="clarity-bg-img absolute inset-0"
+            style={{
+              backgroundImage: 'url(/images/manifest/clarity-horizon-grass-bg.png)',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              opacity: 1,
+              filter: 'saturate(0.96) contrast(1.04)'
+            }}
+          />
+          {/* Matter Tiefen-Wash — bringt das helle Dawn-Bild in die Lichtwelt der Section */}
+          <div
+            className="absolute inset-0"
+            style={{ background: 'rgba(0,0,0,0.22)' }}
+          />
+          {/* Radiale Mattvignette — saubere Sektion-Kanten, Mitte bleibt detailtreu */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(150% 110% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.68) 100%)'
+            }}
+          />
+          {/* Top-Fade — weicher Atemzug aus Kapitel II ins Licht */}
+          <div
+            className="absolute inset-x-0 top-0 h-44 sm:h-56"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.6) 38%, rgba(10,10,10,0.22) 72%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          {/* Bottom-Fade — dunkle Brücke zur nächsten Section */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+            style={{
+              background:
+                'linear-gradient(0deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.22) 76%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          {/* Warmer Bronze-Atem unten links — verbindet Sonnen-Horizont mit Sektion-Saum */}
+          <div
+            className="absolute left-0 bottom-0 w-[70%] h-28 sm:h-36 mix-blend-screen"
+            style={{
+              background:
+                'radial-gradient(70% 100% at 20% 100%, rgba(214,168,94,0.08) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
+            }}
+          />
         </div>
 
-        {/* Lesbarkeits-Scrim hinter dem Header (linksbündig) — etwas weicher kalibriert,
-            damit der Bronze-Horizont mit dem Headline-Akzent „Klarheit“ harmoniert. */}
+        {/* Lesbarkeits-Scrim — über das gesamte Bild gleichmäßig, kein sichtbarer Cut.
+            Sanfter Auslauf nach rechts statt hartem Stop bei 65%. */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 right-0 lg:right-[35%] z-[1]"
+          className="pointer-events-none absolute inset-0 z-[1]"
           aria-hidden
           style={{
             background:
-              'linear-gradient(90deg, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.38) 38%, rgba(8,8,10,0.12) 72%, rgba(8,8,10,0) 100%)'
+              'linear-gradient(90deg, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.40) 30%, rgba(8,8,10,0.20) 58%, rgba(8,8,10,0.08) 82%, rgba(8,8,10,0) 100%)'
           }}
         />
 
@@ -3454,68 +3448,63 @@ export default function HomeDynamic() {
           }}
         />
 
-        {/* Background-Bild — Infinity-Plateau über dem Bronze-Horizont.
-            Scharf, kein Blur; dezente Color-Refine. Matte Tiefen-Lasuren statt Bild-Manipulation. */}
-        <div className="pointer-events-none absolute inset-0 z-0 bg-black" aria-hidden>
-          <div className="relative mx-auto h-full max-w-[1600px] px-6 sm:px-8 md:px-12 lg:px-16">
-            <div className="absolute inset-y-0 overflow-hidden -left-6 -right-6 sm:-left-8 sm:-right-8 md:-left-12 md:-right-12 lg:-left-16 lg:-right-16 xl:-left-[5.5rem] xl:-right-[5.5rem]">
-              <div
-                className="voices-bg-img absolute inset-0"
-                style={{
-                  backgroundImage: 'url(/images/manifest/voices-horizon-pool-bg.png)',
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                  opacity: 1,
-                  filter: 'saturate(0.98) contrast(1.04)'
-                }}
-              />
-              {/* Matter Tiefen-Wash — Bild rückt in dieselbe Lichtwelt wie die Section darüber */}
-              <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.20)' }} />
-              {/* Radiale Mattvignette — saubere Sektion-Kanten, Detail bleibt zentral erhalten */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'radial-gradient(150% 110% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.70) 100%)'
-                }}
-              />
-              {/* Top-Fade — verlängert, weicher Atemzug aus „Wo Klarheit wirkt“ in die Stille */}
-              <div
-                className="absolute inset-x-0 top-0 h-44 sm:h-56"
-                style={{
-                  background:
-                    'linear-gradient(180deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.6) 38%, rgba(10,10,10,0.22) 72%, rgba(10,10,10,0) 100%)'
-                }}
-              />
-              {/* Bottom-Fade — Brücke zur nächsten Section */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
-                style={{
-                  background:
-                    'linear-gradient(0deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.22) 76%, rgba(10,10,10,0) 100%)'
-                }}
-              />
-              {/* Warmer Bronze-Atem mittig — die Sonnen-Reflexion trägt subtil
-                  in den unteren Section-Saum und führt zum nächsten Kapitel. */}
-              <div
-                className="absolute inset-x-0 bottom-0 h-32 sm:h-40 mix-blend-screen"
-                style={{
-                  background:
-                    'radial-gradient(60% 100% at 50% 100%, rgba(214,168,94,0.09) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
-                }}
-              />
-            </div>
-          </div>
+        {/* Background-Bild — Infinity-Plateau über dem Bronze-Horizont · full-bleed edge-to-edge.
+            Kein max-w-Wrapper mehr — verhindert schwarze Ränder bei breiten Viewports. */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+          <div
+            className="voices-bg-img absolute inset-0"
+            style={{
+              backgroundImage: 'url(/images/manifest/voices-horizon-pool-bg.png)',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              opacity: 1,
+              filter: 'saturate(0.98) contrast(1.04)'
+            }}
+          />
+          {/* Matter Tiefen-Wash — Bild rückt in dieselbe Lichtwelt wie die Section darüber */}
+          <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.20)' }} />
+          {/* Radiale Mattvignette — saubere Sektion-Kanten, Detail bleibt zentral erhalten */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(150% 110% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.30) 78%, rgba(0,0,0,0.70) 100%)'
+            }}
+          />
+          {/* Top-Fade — weicher Atemzug aus „Wo Klarheit wirkt" in die Stille */}
+          <div
+            className="absolute inset-x-0 top-0 h-44 sm:h-56"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.6) 38%, rgba(10,10,10,0.22) 72%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          {/* Bottom-Fade — Brücke zur nächsten Section */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-40 sm:h-52"
+            style={{
+              background:
+                'linear-gradient(0deg, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.22) 76%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          {/* Warmer Bronze-Atem mittig — die Sonnen-Reflexion trägt subtil
+              in den unteren Section-Saum und führt zum nächsten Kapitel. */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-32 sm:h-40 mix-blend-screen"
+            style={{
+              background:
+                'radial-gradient(60% 100% at 50% 100%, rgba(214,168,94,0.09) 0%, rgba(185,130,63,0.04) 38%, rgba(0,0,0,0) 70%)'
+            }}
+          />
         </div>
 
-        {/* Lesbarkeits-Scrim links — feiner kalibriert, damit der Bronze-Horizont
-            unter „Begleitung“ in der Headline durchatmen kann. */}
+        {/* Lesbarkeits-Scrim — über das gesamte Bild gleichmäßig, kein sichtbarer Cut */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0 right-0 lg:right-[34%] z-[1]"
+          className="pointer-events-none absolute inset-0 z-[1]"
           aria-hidden
           style={{
             background:
-              'linear-gradient(90deg, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.38) 38%, rgba(8,8,10,0.12) 72%, rgba(8,8,10,0) 100%)'
+              'linear-gradient(90deg, rgba(8,8,10,0.62) 0%, rgba(8,8,10,0.40) 30%, rgba(8,8,10,0.20) 58%, rgba(8,8,10,0.08) 82%, rgba(8,8,10,0) 100%)'
           }}
         />
 
@@ -3755,19 +3744,20 @@ export default function HomeDynamic() {
                 'linear-gradient(180deg, rgba(6, 8, 12, 0.78) 0%, rgba(8, 10, 14, 0.48) min(78%,720px), rgba(12, 12, 15, 0.18) 100%), linear-gradient(90deg, rgba(8, 10, 15, 0.55) 0%, transparent min(94%,940px))'
             }}
           />
-          {/* Desktop: links Editorial-Korridor, rechts Küstenlicht sichtbar */}
+          {/* Desktop: gleichmäßiger Editorial-Korridor — reine %-Stops statt min(%,px),
+              damit kein harter Strich in der Bild-Mitte entsteht. */}
           <div
             className="absolute inset-0 hidden md:block"
             style={{
               background:
-                'linear-gradient(90deg, rgba(7, 9, 14, 0.9) 0%, rgba(10, 12, 18, 0.58) min(48%,640px), rgba(16, 15, 18, 0.2) min(78%,940px), rgba(18, 17, 19, 0.04) min(94%,980px))'
+                'linear-gradient(90deg, rgba(7, 9, 14, 0.82) 0%, rgba(10, 12, 18, 0.54) 30%, rgba(13, 14, 18, 0.30) 58%, rgba(15, 15, 19, 0.12) 82%, rgba(18, 17, 19, 0) 100%)'
             }}
           />
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                'radial-gradient(120% 90% at 12% 32%, rgba(0, 0, 0, 0.52) 0%, transparent min(74%,940px)), radial-gradient(90% 80% at 100% 100%, rgba(0, 0, 0, 0.22) 0%, transparent 58%)'
+                'radial-gradient(120% 90% at 18% 38%, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.16) 55%, transparent 85%), radial-gradient(90% 80% at 100% 100%, rgba(0, 0, 0, 0.20) 0%, transparent 60%)'
             }}
           />
           <div

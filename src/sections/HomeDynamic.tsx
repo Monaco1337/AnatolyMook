@@ -998,7 +998,9 @@ export default function HomeDynamic() {
                     15 Min. Vertraulich
                   </p>
 
-                  <div className="mt-8 max-[639px]:mt-5 w-full sm:max-w-[min(26rem,min(92vw,420px))]">
+                  {/* Sekundäre CTAs — visuell untergeordnet, Container so breit wie Primary CTA.
+                      Größenreferenz: Nav-Button „Termin buchen" (px-4 py-1.5, text-[12.5px]). */}
+                  <div className="mt-8 max-[639px]:mt-5 w-full sm:max-w-[19rem]">
                     <p
                       className="hero-eyebrow-anamnese m-0"
                       style={{
@@ -1025,53 +1027,44 @@ export default function HomeDynamic() {
                     >
                       ruhige erste Orientierung
                     </p>
-                    <div className="flex flex-row flex-wrap gap-2.5 w-full">
+                    <div className="flex flex-row gap-2 w-full">
                       <Link
                         to="/quiz"
-                        className="hero-cta-ghost group inline-flex flex-1 min-w-[7.25rem] items-center justify-center gap-2 rounded-[11px] border border-[rgba(214,168,94,0.22)] px-3.5 py-2.5 no-underline transition-[border-color,background-color,box-shadow,transform] duration-300 outline-none hover:border-[rgba(214,168,94,0.38)] hover:-translate-y-px hover:shadow-[0_14px_40px_-22px_rgba(185,130,63,0.35)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/85 sm:min-w-[8.75rem]"
+                        className="hero-cta-ghost group inline-flex flex-1 items-center justify-center rounded-[10px] border border-[rgba(214,168,94,0.22)] px-4 py-1.5 no-underline transition-[border-color,background-color,box-shadow,transform] duration-300 outline-none hover:border-[rgba(214,168,94,0.38)] hover:-translate-y-px hover:shadow-[0_14px_40px_-22px_rgba(185,130,63,0.35)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/85"
                         style={{
                           fontFamily: FONT_BODY,
-
                           boxShadow:
                             'inset 0 1px 0 rgba(255,248,238,0.04), 0 1px 0 rgba(0,0,0,0.45)'
                         }}
                       >
                         <span
-                          className="text-[0.8125rem] font-medium tracking-tight"
-                          style={{ color: 'rgba(252, 247, 236, 0.94)' }}
+                          className="text-[12.5px] leading-none font-medium"
+                          style={{
+                            letterSpacing: '0.05em',
+                            color: 'rgba(252, 247, 236, 0.94)'
+                          }}
                         >
                           Orientierung
                         </span>
-                        <ChevronsRight
-                          size={15}
-                          strokeWidth={2.35}
-                          className="opacity-85 transition-transform duration-300 group-hover:translate-x-0.5"
-                          aria-hidden
-                        />
                       </Link>
                       <Link
                         to="/anamnesis"
-                        className="hero-cta-ghost group inline-flex flex-1 min-w-[7.25rem] items-center justify-center gap-2 rounded-[11px] border border-[rgba(214,168,94,0.22)] px-3.5 py-2.5 no-underline transition-[border-color,background-color,box-shadow,transform] duration-300 outline-none hover:border-[rgba(214,168,94,0.38)] hover:-translate-y-px hover:shadow-[0_14px_40px_-22px_rgba(185,130,63,0.35)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/85 sm:min-w-[8.75rem]"
+                        className="hero-cta-ghost group inline-flex flex-1 items-center justify-center rounded-[10px] border border-[rgba(214,168,94,0.22)] px-4 py-1.5 no-underline transition-[border-color,background-color,box-shadow,transform] duration-300 outline-none hover:border-[rgba(214,168,94,0.38)] hover:-translate-y-px hover:shadow-[0_14px_40px_-22px_rgba(185,130,63,0.35)] focus-visible:ring-2 focus-visible:ring-[rgba(185,130,63,0.32)] focus-visible:ring-offset-2 focus-visible:ring-offset-black/85"
                         style={{
                           fontFamily: FONT_BODY,
-
                           boxShadow:
                             'inset 0 1px 0 rgba(255,248,238,0.04), 0 1px 0 rgba(0,0,0,0.45)'
                         }}
                       >
                         <span
-                          className="text-[0.8125rem] font-medium tracking-tight"
-                          style={{ color: 'rgba(252, 247, 236, 0.94)' }}
+                          className="text-[12.5px] leading-none font-medium"
+                          style={{
+                            letterSpacing: '0.05em',
+                            color: 'rgba(252, 247, 236, 0.94)'
+                          }}
                         >
                           Anamnese
                         </span>
-                        <ChevronsRight
-                          size={15}
-                          strokeWidth={2.35}
-                          className="opacity-85 transition-transform duration-300 group-hover:translate-x-0.5"
-                          style={{ color: 'rgba(230,193,138,0.88)', stroke: 'rgba(230,193,138,0.88)' }}
-                          aria-hidden
-                        />
                       </Link>
                     </div>
                   </div>

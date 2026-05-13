@@ -669,14 +669,20 @@ export default function HomeDynamic() {
                 transform: none !important;
                 transition: none !important;
               }
-              /* Content-Rahmen: Mobil weiter unten + seitlicher Luft nach innen */
+              /* Mobile: Content-Block sitzt bündig unten-links — Premium Editorial.
+                 Bottom-Anchor löst „klebt oben am Rand und überschneidet Gesicht" auf. */
               .hero-content-shell {
-                bottom: auto !important;
-                top: 0 !important;
-                padding-top: max(8.75rem, calc(env(safe-area-inset-top, 0px) + 6.75rem)) !important;
-                padding-bottom: 1.75rem !important;
+                top: auto !important;
+                bottom: 0 !important;
+                padding-top: 0 !important;
+                padding-bottom: max(clamp(1.75rem, 4.5vh, 3rem), calc(env(safe-area-inset-bottom, 0px) + 1.5rem)) !important;
                 padding-left: max(0px, env(safe-area-inset-left, 0px)) !important;
                 padding-right: max(0px, env(safe-area-inset-right, 0px)) !important;
+              }
+              /* Mobile: redundanten Eyebrow ausblenden (die Ghost-CTAs unten
+                 sagen bereits „Orientierung" / „Anamnese") */
+              .hero-eyebrow-anamnese {
+                display: none !important;
               }
             }
               @media (min-width: 640px) {
@@ -831,7 +837,7 @@ export default function HomeDynamic() {
               >
                 {/* Main heading */}
                 <h1
-                    className="hero-headline mb-4 max-[639px]:mb-5 sm:mb-6 md:mb-7"
+                    className="hero-headline mb-4 max-[639px]:mb-4 sm:mb-6 md:mb-7"
                     style={{
                       fontFamily: FONT_DISPLAY,
                       fontWeight: 300,
@@ -931,7 +937,7 @@ export default function HomeDynamic() {
 
                 {/* Quote */}
                 {hero.quote && (
-                  <div className="mb-6 max-[639px]:mb-6 sm:mb-7 md:mb-9">
+                  <div className="mb-6 max-[639px]:mb-5 sm:mb-7 md:mb-9">
                     <p
                        className="hero-quote italic font-light"
                        style={{
@@ -992,9 +998,9 @@ export default function HomeDynamic() {
                     15 Min. Vertraulich
                   </p>
 
-                  <div className="mt-8 max-[639px]:mt-7 w-full sm:max-w-[min(26rem,min(92vw,420px))]">
+                  <div className="mt-8 max-[639px]:mt-5 w-full sm:max-w-[min(26rem,min(92vw,420px))]">
                     <p
-                      className="m-0"
+                      className="hero-eyebrow-anamnese m-0"
                       style={{
                         fontFamily: FONT_DISPLAY,
                         fontSize: 'clamp(0.703125rem, 0.64rem + 0.22vw, 0.796875rem)',
@@ -1007,7 +1013,7 @@ export default function HomeDynamic() {
                       Orientierung und Anamnese
                     </p>
                     <p
-                      className="hero-subline m-0 mt-2 mb-4 max-[639px]:mb-3.5"
+                      className="hero-subline hero-eyebrow-anamnese m-0 mt-2 mb-4 max-[639px]:mb-3.5"
                       style={{
                         fontFamily: FONT_BODY,
                         fontSize: 'clamp(0.8125rem, 0.76rem + 0.16vw, 0.90625rem)',

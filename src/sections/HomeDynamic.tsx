@@ -733,14 +733,14 @@ export default function HomeDynamic() {
                 width={HERO_PORTRAIT.width}
                 height={HERO_PORTRAIT.height}
                 alt={HERO_PORTRAIT.altDe}
-                className="hero-portrait-img absolute inset-0 h-full w-full object-cover max-[639px]:object-[58%_30%] sm:object-[60%_30%] md:object-[60%_30%] lg:object-[62%_30%] xl:object-[63%_30%] 2xl:object-[64%_30%]"
+                className="hero-portrait-img absolute inset-0 h-full w-full object-cover max-[639px]:object-[42%_56%] sm:object-[46%_46%] md:object-[50%_42%] lg:object-[52%_40%] xl:object-[54%_38%] 2xl:object-[56%_36%]"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
                 style={{
                   transform: `scale(${1.008 + scrollY * 0.00006})`,
                   transition: 'transform 0.1s linear',
-                  transformOrigin: '62% 32%'
+                  transformOrigin: '54% 38%'
                 }}
               />
             </picture>

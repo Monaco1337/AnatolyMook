@@ -8,7 +8,6 @@ import PremiumSlider from '../components/PremiumSlider';
 import NewsSlider from '../components/NewsSlider';
 import NewsDetailModal from '../components/NewsDetailModal';
 import MobileSliderDots from '../components/MobileSliderDots';
-import BrandWordmark from '../components/BrandWordmark';
 import EventDetailModal from '../components/EventDetailModal';
 import { supabase } from '../lib/supabase';
 import { HERO_PORTRAIT } from '../constants/brandAssets';
@@ -730,17 +729,6 @@ export default function HomeDynamic() {
               <div
                 className="hero-content-wrap w-full sm:w-auto max-w-[min(100%,17.75rem)] sm:max-w-[min(26rem,min(92vw,420px))] md:max-w-[min(28rem,min(44vw,440px))] lg:max-w-[min(30rem,min(42vw,460px))] xl:max-w-[min(31rem,min(40vw,480px))] 2xl:max-w-[min(32rem,min(38vw,500px))]"
               >
-                {/* Wortmarke — gleiche Metall-Sprache wie Navbar, Editorial-Lockup */}
-                <div
-                  className="mb-3 max-[639px]:mb-2.5 sm:mb-4 md:mb-5"
-                  style={{ opacity: Math.max(0, 1 - scrollY * 0.001) }}
-                >
-                  <BrandWordmark variant="hero" theme="dark" />
-                  <div
-                    aria-hidden
-                    className="mt-2 h-px w-[min(4.85rem,32%)] bg-gradient-to-r from-[rgba(214,168,94,0.42)] via-[rgba(214,168,94,0.12)] to-transparent sm:mt-2.5 md:mt-3"
-                  />
-                </div>
                 {/* Main heading */}
                 <h1
                     className="hero-headline mb-4 max-[639px]:mb-4 sm:mb-6 md:mb-7"

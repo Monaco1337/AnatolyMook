@@ -11,6 +11,14 @@ const FONT_DISPLAY =
 const FONT_BODY =
   "'Aviral Next LT Pro', 'Avenir Next LT Pro', 'Avenir Next', 'Avenir', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" as const;
 
+/** Film Grain — identische Textur auf allen drei Business-Sections (organische Verbindung). */
+const CORP_GRAIN =
+  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
+
+const CORP_BG_ROOMS = '/images/corporate/business-section-rooms-bg.png';
+const CORP_BG_OFFERS = '/images/corporate/business-section-offers-bg.png';
+const CORP_BG_CTA = '/images/corporate/business-section-cta-bg.png';
+
 const ENTRY_CARDS = [
   {
     id: 'kultur',
@@ -315,6 +323,35 @@ export default function Corporate() {
       className="min-h-screen text-white"
       style={{ backgroundColor: '#0A0A0A', color: TEXT_PRIMARY }}
     >
+      <style>{`
+        .corp-bg-rooms {
+          background-position: center 58%;
+        }
+        @media (min-width: 640px) {
+          .corp-bg-rooms { background-position: center 52%; }
+        }
+        @media (min-width: 1024px) {
+          .corp-bg-rooms { background-position: 48% 54%; }
+        }
+        .corp-bg-offers {
+          background-position: center 50%;
+        }
+        @media (min-width: 640px) {
+          .corp-bg-offers { background-position: center 46%; }
+        }
+        @media (min-width: 1024px) {
+          .corp-bg-offers { background-position: 52% 44%; }
+        }
+        .corp-bg-cta {
+          background-position: center 46%;
+        }
+        @media (max-width: 639px) {
+          .corp-bg-cta { background-position: center 40%; }
+        }
+        @media (min-width: 1024px) {
+          .corp-bg-cta { background-position: center 44%; }
+        }
+      `}</style>
       {/* HERO SECTION — Premium-Architektur-Background, edge-to-edge.
           Bild als integrierter Raum, kein Banner. Mehrere Atmosphäre-Layer
           + Mask-Fade nach unten → organischer Übergang in die Cards-Section. */}
@@ -485,60 +522,67 @@ export default function Corporate() {
         </div>
       </section>
 
-      {/* CARDS + FILTER SECTION — Premium-Atmosphäre-Bild als Hintergrund.
-          Bild deutlich subtiler als im Hero, dunkle Mitte bleibt für Card-Lesbarkeit erhalten.
-          Übergang aus Hero (Bottom-Fade endet in #0A0A0A) ist organisch. */}
+      {/* SECTION „VIER RÄUME“ — Bild 1: architektonisch, ruhig, dunkle Mitte für Typo + Karten */}
       <section
-        className="relative overflow-hidden"
+        className="relative isolate overflow-hidden"
         style={{ backgroundColor: '#0A0A0A' }}
-        aria-label="Vier Räume und Angebotskategorien"
+        aria-labelledby="corporate-four-rooms-heading"
       >
-        {/* Foto-Layer — sehr gedämpft, nur als Tiefen-Atmosphäre */}
         <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
           <div
-            className="absolute inset-0"
+            className="corp-bg-rooms absolute inset-0"
             style={{
-              backgroundImage:
-                "url('/images/corporate/corporate-cards-atmosphere.png')",
+              backgroundImage: `url('${CORP_BG_ROOMS}')`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center 70%',
               backgroundRepeat: 'no-repeat',
-              opacity: 0.55
+              opacity: 0.5,
+              filter: 'saturate(0.96) contrast(1.02)'
             }}
           />
-          {/* Dunkle Mitten-Lasur — Karten bleiben visuell dominant,
-              schwarze Tiefe in der Mitte bewusst erhalten */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                'radial-gradient(95% 70% at 50% 50%, rgba(8,8,9,0.82) 0%, rgba(8,8,9,0.62) 38%, rgba(8,8,9,0.32) 72%, rgba(8,8,9,0.08) 100%)'
+                'radial-gradient(92% 78% at 50% 44%, rgba(6,7,8,0.88) 0%, rgba(8,8,9,0.68) 42%, rgba(10,10,11,0.38) 68%, rgba(10,10,11,0.12) 100%)'
             }}
           />
-          {/* Top-Fade — sauber aus Hero-Bottom (#0A0A0A) blendend */}
+          <div className="absolute inset-0 bg-[rgba(5,5,6,0.24)]" />
+          {/* Vertikaler Lichtkern links — unterstützend, ohne Dominanz */}
           <div
-            className="absolute inset-x-0 top-0 h-32 sm:h-44"
+            className="absolute inset-0 mix-blend-screen opacity-90"
             style={{
               background:
-                'linear-gradient(180deg, #0A0A0A 0%, rgba(10,10,10,0.78) 35%, rgba(10,10,10,0.32) 70%, rgba(10,10,10,0) 100%)'
+                'radial-gradient(22% 65% at 9% 50%, rgba(214,168,94,0.055) 0%, rgba(185,130,63,0.02) 45%, transparent 72%)'
             }}
           />
-          {/* Bottom-Fade — weicher Atemzug in den Offers-Bereich */}
           <div
-            className="absolute inset-x-0 bottom-0 h-32 sm:h-44"
+            className="absolute inset-0 opacity-80 mix-blend-screen"
             style={{
               background:
-                'linear-gradient(0deg, #0A0A0A 0%, rgba(10,10,10,0.78) 35%, rgba(10,10,10,0.32) 70%, rgba(10,10,10,0) 100%)'
+                'radial-gradient(52% 40% at 82% 75%, rgba(214,168,94,0.045) 0%, transparent 62%)'
             }}
           />
-          {/* Bronze-Ambient — folgt der natürlichen Lichtkante im Bild
-              (rechte Hälfte / unteres Drittel), sehr fein */}
           <div
-            className="absolute inset-0 mix-blend-screen"
+            className="absolute inset-x-0 top-0 h-36 sm:h-44 md:h-48"
             style={{
               background:
-                'radial-gradient(60% 38% at 78% 72%, rgba(214,168,94,0.06) 0%, rgba(185,130,63,0.025) 40%, rgba(0,0,0,0) 72%)'
+                'linear-gradient(180deg, #0A0A0A 0%, rgba(10,10,10,0.82) 32%, rgba(10,10,10,0.38) 68%, rgba(10,10,10,0) 100%)'
             }}
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-36 sm:h-44 md:h-48"
+            style={{
+              background:
+                'linear-gradient(0deg, #0A0A0A 0%, rgba(10,10,10,0.82) 32%, rgba(10,10,10,0.36) 68%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.45]"
+            style={{ boxShadow: 'inset 0 0 min(80vw, 560px) rgba(0,0,0,0.5)' }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.038] mix-blend-overlay"
+            style={{ backgroundImage: CORP_GRAIN, backgroundRepeat: 'repeat' }}
           />
         </div>
 
@@ -557,6 +601,7 @@ export default function Corporate() {
                 }}
               />
               <h2
+                id="corporate-four-rooms-heading"
                 className="mb-4"
                 style={{
                   fontFamily: FONT_DISPLAY,
@@ -665,9 +710,71 @@ export default function Corporate() {
             </div>
             <MobileSliderDots count={ENTRY_CARDS.length} active={activeEntryRoomsIndex} hideAt="md" />
           </div>
+        </div>
+      </section>
 
+      {/* PROGRAMME / ANGEBOTE — Bild 2: mehr narrative Spannung, Karten maximal lesbar */}
+      <section
+        className="relative isolate overflow-hidden"
+        style={{ backgroundColor: '#0A0A0A' }}
+        aria-label={t.corporate.title}
+      >
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+          <div
+            className="corp-bg-offers absolute inset-0"
+            style={{
+              backgroundImage: `url('${CORP_BG_OFFERS}')`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              opacity: 0.58,
+              filter: 'saturate(0.97) contrast(1.04)'
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(105% 88% at 50% 44%, rgba(5,6,8,0.86) 0%, rgba(7,8,10,0.58) 38%, rgba(9,9,11,0.28) 70%, rgba(10,10,11,0.06) 100%)'
+            }}
+          />
+          <div className="absolute inset-0 bg-[rgba(4,5,7,0.3)]" />
+          {/* Tiefe seitlich — Flügel/Linien nur als Atmosphäre */}
+          <div
+            className="absolute inset-0 mix-blend-screen opacity-[0.85]"
+            style={{
+              background: `
+                radial-gradient(ellipse 42% 55% at 92% 32%, rgba(214,168,94,0.055) 0%, transparent 58%),
+                radial-gradient(ellipse 35% 50% at 6% 55%, rgba(185,130,63,0.04) 0%, transparent 55%)
+              `
+            }}
+          />
+          <div
+            className="absolute inset-x-0 top-0 h-32 sm:h-40 md:h-44"
+            style={{
+              background:
+                'linear-gradient(180deg, #0A0A0A 0%, rgba(10,10,10,0.78) 38%, rgba(10,10,10,0.28) 72%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-36 sm:h-48 md:h-52"
+            style={{
+              background:
+                'linear-gradient(0deg, #0A0A0A 0%, rgba(10,10,10,0.76) 35%, rgba(10,10,10,0.3) 70%, rgba(10,10,10,0) 100%)'
+            }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.38]"
+            style={{ boxShadow: 'inset 0 0 min(78vw, 540px) rgba(0,0,0,0.55)' }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.036] mix-blend-overlay"
+            style={{ backgroundImage: CORP_GRAIN, backgroundRepeat: 'repeat' }}
+          />
+        </div>
+
+        <div className="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Category Filter — monochrome Editorial Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-6 sm:pt-7 mb-10 border-t border-[rgba(244,239,231,0.05)]">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 pt-10 sm:pt-12 pb-6 sm:pb-7 mb-8 sm:mb-10 border-t border-[rgba(244,239,231,0.06)]">
             {categories.map((category) => {
               const Icon = category.icon;
               const isActive = selectedCategory === category.id;
@@ -700,14 +807,11 @@ export default function Corporate() {
               );
             })}
           </div>
-        </div>
-      </section>
 
-      {/* Offers Grid */}
-      <div
-        id="corporate-offers"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 sm:pt-6 sm:pb-16 scroll-mt-[4.5rem]"
-      >
+          <div
+            id="corporate-offers"
+            className="w-full pb-12 sm:pb-16 pt-2 sm:pt-4 scroll-mt-[4.5rem]"
+          >
         {loading ? (
           <div className="text-center py-24">
             <div
@@ -766,7 +870,7 @@ export default function Corporate() {
                   <div
                     className="relative overflow-hidden rounded-[18px] transition-[border-color,box-shadow] duration-[700ms]"
                     style={{
-                      background: 'linear-gradient(180deg, rgba(13, 12, 11, 0.78) 0%, rgba(10, 10, 11, 0.82) 100%)',
+                      background: 'linear-gradient(180deg, rgba(12, 11, 10, 0.87) 0%, rgba(8, 8, 10, 0.9) 100%)',
                       border: `1px solid ${isExpanded ? 'rgba(214,168,94,0.18)' : SURFACE_HAIRLINE}`,
                       boxShadow:
                         '0 28px 70px -36px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 248, 238, 0.035)'
@@ -1312,61 +1416,66 @@ export default function Corporate() {
           </>
         )}
       </div>
+        </div>
+      </section>
 
-      {/* CTA — full-bleed, kinematisch: kein Card-Chassis, Wings/Horizon-Background + Lesbarkeit */}
+      {/* CTA — Bild 3: stärkster emotionaler Abschluss, Mitte ruhig für Headline + Button */}
       <section
         className="relative isolate overflow-hidden pb-[clamp(5.25rem,12vw,7.75rem)] pt-[clamp(4.75rem,11vw,7.25rem)] text-center"
-        style={{ backgroundColor: '#070605' }}
+        style={{ backgroundColor: '#0A0A0A' }}
         aria-labelledby="corporate-cta-heading"
       >
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-black" aria-hidden>
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" style={{ backgroundColor: '#070605' }} aria-hidden>
           <div
-            className="absolute inset-0 scale-[1.02]"
+            className="corp-bg-cta absolute inset-0 scale-[1.03]"
             style={{
-              backgroundImage: "url('/images/portfolio/portfolio-intro-horizon-wings-bg.png')",
+              backgroundImage: `url('${CORP_BG_CTA}')`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center 42%',
-              opacity: 0.86,
-              filter: 'saturate(0.98) contrast(1.03)'
+              opacity: 0.9,
+              filter: 'saturate(0.99) contrast(1.04)'
             }}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                'radial-gradient(62% 72% at 50% 48%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.36) 45%, rgba(0,0,0,0.12) 72%, rgba(0,0,0,0) 100%)'
+                'radial-gradient(74% 76% at 50% 42%, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.42) 48%, rgba(0,0,0,0.14) 76%, rgba(0,0,0,0) 100%)'
             }}
           />
-          <div className="absolute inset-0 bg-[rgba(4,4,5,0.22)]" />
+          <div className="absolute inset-0 bg-[rgba(3,3,4,0.26)]" />
           <div
-            className="absolute inset-x-0 top-0 h-36 sm:h-44"
+            className="absolute inset-x-0 top-0 h-40 sm:h-48 md:h-52"
             style={{
               background:
-                'linear-gradient(180deg, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.5) 48%, rgba(10,10,10,0) 100%)'
+                'linear-gradient(180deg, #0A0A0A 0%, rgba(10,10,10,0.62) 42%, rgba(10,10,10,0.12) 78%, rgba(10,10,10,0) 100%)'
             }}
           />
           <div
             className="absolute inset-x-0 bottom-0 h-36 sm:h-44"
             style={{
               background:
-                'linear-gradient(0deg, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.52) 45%, rgba(10,10,10,0) 100%)'
+                'linear-gradient(0deg, #0A0A0A 0%, rgba(10,10,10,0.58) 40%, rgba(10,10,10,0.1) 75%, rgba(10,10,10,0) 100%)'
             }}
           />
           <div
-            className="absolute inset-0 opacity-[0.55]"
+            className="absolute inset-0 opacity-[0.48]"
             style={{
-              boxShadow: 'inset 0 0 min(72vw, 520px) rgba(0,0,0,0.52)'
+              boxShadow: 'inset 0 0 min(74vw, 520px) rgba(0,0,0,0.46)'
             }}
           />
           <div
-            className="absolute inset-x-0 bottom-0 h-32 mix-blend-screen sm:h-40"
+            className="absolute inset-x-0 bottom-0 h-36 mix-blend-screen sm:h-40"
             style={{
               background:
-                'radial-gradient(62% 100% at 50% 100%, rgba(214,168,94,0.06) 0%, rgba(120,92,54,0.02) 42%, transparent 72%)'
+                'radial-gradient(58% 100% at 50% 100%, rgba(214,168,94,0.075) 0%, rgba(100,74,42,0.03) 40%, transparent 72%)'
             }}
           />
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(214,168,94,0.16)] to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(214,168,94,0.14)] to-transparent" />
+          <div
+            className="absolute inset-0 opacity-[0.036] mix-blend-overlay"
+            style={{ backgroundImage: CORP_GRAIN, backgroundRepeat: 'repeat' }}
+          />
         </div>
 
         <div className="relative z-[1] mx-auto w-full max-w-xl px-6 sm:px-8 lg:max-w-[34rem] lg:px-10">

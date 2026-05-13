@@ -128,34 +128,113 @@ export default function Footer({ onNavigate }: FooterProps) {
           background: rgba(214,168,94,0.04);
           color: rgba(244,239,230,0.95);
         }
-
+        /* Cinematic Architektur-Background im Footer — responsive Komposition */
+        .ft-arch-bg {
+          background-image: url('/images/footer/footer-architecture-bg.png');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: 50% 78%;
+        }
+        @media (max-width: 639px) {
+          .ft-arch-bg {
+            background-size: 180% auto;
+            background-position: 50% 100%;
+          }
+        }
+        @media (min-width: 1024px) {
+          .ft-arch-bg { background-position: 50% 82%; }
+        }
+        @media (min-width: 1536px) {
+          .ft-arch-bg { background-position: 50% 86%; }
+        }
       `}</style>
 
-      {/* Stein-Hintergrund — vollflächig, ein Layer, ohne sichtbare Blöcke */}
+      {/* Architektur-Foto — Lichtkurve unten Mitte, leise & subtil */}
       <div
-        className="pointer-events-none absolute inset-0 z-0"
+        className="ft-arch-bg pointer-events-none absolute inset-0 z-0"
         aria-hidden
         style={{
-          backgroundImage: 'url(/images/manifest/footer-stone-granite-bg.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat'
+          opacity: 0.72,
+          filter: 'saturate(0.94) contrast(1.04)'
         }}
       />
 
-      {/* Tiefe Vignette ringsum — cineastisch, nahtlos */}
+      {/* Soft Atmospheric Transition — extrem weicher Fade aus der vorigen Section IN den Footer */}
       <div
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-[42%] sm:h-[36%]"
         aria-hidden
         style={{
           background:
-            'radial-gradient(130% 90% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.55) 90%, rgba(0,0,0,0.78) 100%)'
+            'linear-gradient(180deg, #050505 0%, rgba(5,5,5,0.96) 22%, rgba(5,5,5,0.78) 46%, rgba(5,5,5,0.42) 70%, rgba(5,5,5,0.12) 90%, rgba(5,5,5,0) 100%)'
+        }}
+      />
+
+      {/* Dunkler Premium-Schleier — vereinheitlicht Schwarzwert mit gesamter Site */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        aria-hidden
+        style={{ background: 'rgba(3,3,4,0.34)' }}
+      />
+
+      {/* Warmer Bronze-Glow im unteren Zentrum — folgt der natürlichen Lichtkurve im Bild */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[68%] mix-blend-screen"
+        aria-hidden
+        style={{
+          opacity: 0.55,
+          background:
+            'radial-gradient(58% 64% at 50% 92%, rgba(232,180,118,0.16) 0%, rgba(186,128,62,0.08) 38%, rgba(120,72,28,0.03) 62%, rgba(0,0,0,0) 82%)'
+        }}
+      />
+
+      {/* Sekundärer Champagne-Hauch — bringt Tiefe ohne Helligkeit zu erzeugen */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[44%] mix-blend-soft-light"
+        aria-hidden
+        style={{
+          opacity: 0.6,
+          background:
+            'radial-gradient(48% 58% at 50% 100%, rgba(255,224,178,0.08) 0%, transparent 70%)'
+        }}
+      />
+
+      {/* Außen-Vignette — beruhigt die Ränder, lenkt Auge ins Zentrum */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        aria-hidden
+        style={{
+          background:
+            'radial-gradient(130% 92% at 50% 56%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.18) 56%, rgba(0,0,0,0.6) 92%, rgba(0,0,0,0.82) 100%)'
+        }}
+      />
+
+      {/* Cinematic Haze — minimale volumetrische Tiefe */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        aria-hidden
+        style={{
+          opacity: 0.4,
+          background:
+            'radial-gradient(80% 50% at 50% 60%, rgba(40,28,18,0.18) 0%, rgba(0,0,0,0) 70%)'
+        }}
+      />
+
+      {/* Ultra-subtle Grain — über alles, sehr leise */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1]"
+        aria-hidden
+        style={{
+          opacity: 0.045,
+          mixBlendMode: 'overlay',
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          backgroundSize: '160px 160px'
         }}
       />
 
       {/* Sehr feiner, ruhiger Lichtkegel hoch oben hinter dem Logo */}
       <div
-        className="pointer-events-none absolute z-0"
+        className="pointer-events-none absolute z-[1]"
         aria-hidden
         style={{
           top: '-6%',
@@ -164,19 +243,19 @@ export default function Footer({ onNavigate }: FooterProps) {
           height: '520px',
           transform: 'translateX(-50%)',
           background:
-            'radial-gradient(50% 60% at 50% 50%, rgba(214,168,94,0.10) 0%, rgba(166,116,60,0.05) 40%, rgba(0,0,0,0) 78%)',
+            'radial-gradient(50% 60% at 50% 50%, rgba(214,168,94,0.08) 0%, rgba(166,116,60,0.04) 40%, rgba(0,0,0,0) 78%)',
           mixBlendMode: 'screen',
-          opacity: 0.85
+          opacity: 0.7
         }}
       />
 
       {/* Hauchfeine Separator-Linie oben — knapp sichtbar, kein Block */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-px"
+        className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-px"
         aria-hidden
         style={{
           background:
-            'linear-gradient(90deg, transparent 0%, rgba(214,168,94,0.22) 18%, rgba(214,168,94,0.42) 50%, rgba(214,168,94,0.22) 82%, transparent 100%)'
+            'linear-gradient(90deg, transparent 0%, rgba(214,168,94,0.18) 18%, rgba(214,168,94,0.34) 50%, rgba(214,168,94,0.18) 82%, transparent 100%)'
         }}
       />
 

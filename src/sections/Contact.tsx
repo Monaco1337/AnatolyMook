@@ -221,35 +221,93 @@ export default function Contact() {
         @media (prefers-reduced-motion: reduce) {
           .contact-fade { animation: none !important; }
         }
+        /* Cinematic Architektur-Background — responsive bg-position */
+        .contact-arch-bg { background-position: 56% 52%; }
+        @media (max-width: 639px) {
+          .contact-arch-bg { background-position: 62% 56%; }
+        }
+        @media (min-width: 1024px) {
+          .contact-arch-bg { background-position: 50% 50%; }
+        }
       `}</style>
 
-      {/* Stein */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0"
-        aria-hidden
-        style={{
-          backgroundImage: 'url(/images/manifest/footer-stone-granite-bg.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center top',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 z-0"
-        aria-hidden
-        style={{
-          background:
-            'radial-gradient(120% 80% at 50% 28%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.82) 100%)',
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 z-0"
-        aria-hidden
-        style={{
-          background:
-            'radial-gradient(46% 36% at 50% 16%, rgba(214,168,94,0.07) 0%, rgba(0,0,0,0) 65%)',
-        }}
-      />
+      {/* Cinematic Architektur-Atmosphäre — vollständiger Premium-Stack */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden style={{ backgroundColor: '#050505' }}>
+        {/* Foto-Layer — voll abdeckend, leicht beruhigt damit Form dominant bleibt */}
+        <div
+          className="contact-arch-bg absolute inset-0 scale-[1.03]"
+          style={{
+            backgroundImage: "url('/images/contact/contact-architecture-bg.png')",
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            opacity: 0.72,
+            filter: 'saturate(0.95) contrast(1.04)',
+          }}
+        />
+        {/* Radial Lese-Lasur — zentriert, schützt das Formular */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(78% 86% at 50% 50%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.42) 38%, rgba(0,0,0,0.18) 72%, rgba(0,0,0,0) 100%)',
+          }}
+        />
+        {/* Matte cinematic Lasur — gleicher Schwarzwert wie Portfolio/Corporate */}
+        <div className="absolute inset-0" style={{ background: 'rgba(2,2,3,0.2)' }} />
+        {/* Soft top — nahtloser Eintritt unter die Navbar, kein harter Schnitt */}
+        <div
+          className="absolute inset-x-0 top-0 h-44 sm:h-56"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(5,5,5,0.98) 0%, rgba(5,5,5,0.6) 38%, rgba(5,5,5,0.2) 74%, rgba(5,5,5,0) 100%)',
+          }}
+        />
+        {/* Soft bottom — architektonischer Übergang in den Footer */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-48 sm:h-64"
+          style={{
+            background:
+              'linear-gradient(0deg, #050505 0%, rgba(5,5,5,0.92) 24%, rgba(5,5,5,0.6) 52%, rgba(5,5,5,0.22) 80%, transparent 100%)',
+          }}
+        />
+        {/* Bronze-Atem — folgt der natürlichen Lichtkante des Bildes (oben Mitte + rechts) */}
+        <div
+          className="absolute inset-0 mix-blend-screen opacity-[0.6]"
+          style={{
+            background:
+              'radial-gradient(46% 38% at 78% 38%, rgba(214,168,94,0.08) 0%, rgba(160,108,58,0.03) 46%, transparent 72%)',
+          }}
+        />
+        {/* Champagne-Hauch oben — pickt den warmen Spot oben aus Bild auf */}
+        <div
+          className="absolute inset-x-0 top-0 h-[50%] mix-blend-soft-light opacity-70"
+          style={{
+            background:
+              'radial-gradient(60% 50% at 50% 18%, rgba(230,193,138,0.06) 0%, transparent 64%)',
+          }}
+        />
+        {/* Reduktion harter Hotspots — weiches Volumetric-Layer auf rechter Lichtkante */}
+        <div
+          className="absolute inset-0 opacity-[0.55]"
+          style={{
+            background:
+              'radial-gradient(38% 50% at 92% 50%, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.18) 50%, transparent 80%)',
+          }}
+        />
+        {/* Innere Vignette — gleiche Schattenkurve wie Portfolio/Corporate */}
+        <div
+          className="absolute inset-0 opacity-[0.5]"
+          style={{ boxShadow: 'inset 0 0 min(82vw, 620px) rgba(0,0,0,0.5)' }}
+        />
+        {/* Bronze-Hairline oben — feiner architektonischer Saum */}
+        <div
+          className="absolute inset-x-0 top-0 h-px"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(230,193,138,0.18) 50%, transparent 100%)',
+          }}
+        />
+      </div>
 
       <div
         className="relative z-[1] mx-auto w-full max-w-[960px] px-6 sm:px-8 md:px-12 lg:px-14 pt-20 sm:pt-24 md:pt-28 pb-24"
@@ -457,20 +515,40 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Formular */}
+        {/* Formular — integriert in die architektonische Atmosphäre, kein harter Card-Look */}
         <div
           ref={formRef}
           id="contact-form"
-          className="contact-fade mx-auto rounded-[22px] p-6 sm:p-9 md:p-10 scroll-mt-24"
+          className="contact-fade relative mx-auto rounded-[22px] p-6 sm:p-9 md:p-10 scroll-mt-24"
           style={{
             animationDelay: '0.15s',
-            background: 'linear-gradient(180deg, rgba(18,16,14,0.74) 0%, rgba(8,7,6,0.86) 100%)',
-            border: '1px solid rgba(214,168,94,0.14)',
-            boxShadow: '0 24px 70px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
+            background:
+              'linear-gradient(180deg, rgba(14,12,10,0.62) 0%, rgba(8,7,6,0.78) 100%)',
+            border: '1px solid rgba(214,168,94,0.12)',
+            boxShadow:
+              '0 36px 90px -34px rgba(0,0,0,0.85), 0 18px 42px -22px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,248,238,0.045), inset 0 0 0 1px rgba(214,168,94,0.04)',
+            backdropFilter: 'blur(14px) saturate(1.05)',
+            WebkitBackdropFilter: 'blur(14px) saturate(1.05)',
           }}
         >
+          {/* Innerer Bronze-Lichtkern — minimal, fast unsichtbar — bindet Form an Architektur-Licht */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-[22px] opacity-[0.55] overflow-hidden"
+            style={{
+              background:
+                'radial-gradient(58% 38% at 50% 0%, rgba(214,168,94,0.05) 0%, transparent 64%)',
+            }}
+          />
+          {/* Feiner Bronze-Hairline oben am Form-Rand */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-8 top-0 h-px"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(214,168,94,0.32) 50%, transparent 100%)',
+            }}
+          />
           <div className="mb-8 text-center">
             <h2
               className="m-0 mb-2 text-[1.35rem] font-light tracking-[-0.01em] sm:text-[1.55rem]"
